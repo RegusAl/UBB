@@ -1,0 +1,12 @@
+a = [1,2,3]
+b = [4,9]
+
+a = b
+b.append(7)
+print(a)
+
+a = (1,2,3)
+b = (5,8)
+
+a = b
+print(id(a), id(b))

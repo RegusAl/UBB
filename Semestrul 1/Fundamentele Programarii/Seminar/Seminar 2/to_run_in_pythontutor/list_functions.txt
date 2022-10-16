@@ -1,0 +1,18 @@
+def insert_in_list(lst, index, elem):
+    lst.insert(index, elem)
+
+def remove_from_list(lst, elem):
+    lst.remove(elem)
+    
+def sort_list(lst):
+    lst.sort()
+    
+def copy_list(lst):
+    lst_copy = lst.copy()
+    return lst_copy
+
+a = [1,2,3]
+insert_in_list(a, 0, 10)
+remove_from_list(a,3)
+sort_list(a)
+a_copy = copy_list(a)

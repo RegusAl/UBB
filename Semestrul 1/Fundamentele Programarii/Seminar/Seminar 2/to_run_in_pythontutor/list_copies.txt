@@ -1,0 +1,32 @@
+import copy
+
+def copy_list(lst):
+    lst_copy = []
+    for elem in lst:
+        lst_copy.append(elem)
+    return lst_copy
+def copy_list_of_dicts(lst):
+    lst_copy = []
+    for elem in lst:
+        d={}
+        for k,v in elem.items():
+            d[k] = v
+        lst_copy.append(d)
+    return lst_copy
+    
+
+#Run with each type of list  
+#for the list of dicts, also run the l1_c5 line
+#try with list of lists as well
+
+l1 = ['a','b','c']
+#l1 = [(1,2,3),(4,5),(6,8)]
+#l1 = [{'k1':'v1'}, {'k2':'v2'}]
+#4 options: .copy(), [:], copy.deepcopy(), our own function
+
+l1_c1 = l1.copy()
+l1_c2 = l1[:]
+l1_c4 = copy_list(l1)
+l1_c3 = copy.deepcopy(l1)
+#l1_c5 = copy_list_of_dicts(lst)
+

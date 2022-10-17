@@ -1,4 +1,4 @@
-# 8, 16
+# 8, 16, 1
 
 '''
 1. Citirea unei liste de numere intregi
@@ -15,7 +15,8 @@ def print_menu():
     print("1. Citeste de la tastatura o lista de numere intregi.")
     print("2. Gaseste secventa de lungime maxima ce are toate elementele in intervalul [0, 10].")
     print("3. Gaseste secventa de numere, a caror scriere in baza 10 foloseste aceleasi cifre.")
-    print("4. Iesire din aplicatie.")
+    print("4. Gaseste secventa de lungime maxima cu proprietatea: x[i] < x[i+1] < ... < x[i+p]")
+    print("5. Iesire din aplicatie.")
 
 # citirea  listei de numere
 def read_list():
@@ -92,6 +93,24 @@ def base10(list):
         i += 1
     return list[startMax:startMax+lungMax]
 
+def max_sequence(list):
+    i = 1
+    startMax = 0
+    lungMax = 0
+    startCrt = 0
+    lungCrt = 1
+    while i<len(list):
+        if list[i-1]<list[i]:
+            lungCrt +=  1
+        else:
+            if lungCrt > lungMax:
+                startMax = startCrt
+                lungMax = lungCrt
+            startCrt = i
+            lungCrt = 1
+        i += 1
+    return list[startMax:startMax+lungMax]
+
 # MENIUL PRINCIPAL
 def start():
     global_list = []
@@ -110,6 +129,9 @@ def start():
             print(base10(global_list))
         # 4.
         if option == 4:
+            print(max_sequence(global_list))
+        # 5.
+        if option == 5:
             print("Ai iesit din aplicatie!")
             return
 

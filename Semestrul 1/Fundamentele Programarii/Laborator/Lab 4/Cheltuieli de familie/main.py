@@ -38,10 +38,19 @@ def global_list():
             {"zi":  7, "suma": 29.16, "tip": "telefon"},
             {"zi":  12, "suma": 99.78, "tip": "imbracaminte"},
             {"zi":  15, "suma": 100.78, "tip": "mancare"},
-            {"zi":  20, "suma": 13.90, "tip": "altele"}
+            {"zi":  20, "suma": 13.90, "tip": "altele"},
+            {"zi": 21, "suma": 14.789, "tip": "intretinere"},
+            {"zi": 23, "suma": 200.90, "tip": "imbracaminte"},
+            {"zi": 30, "suma": 123.456, "tip": "altele"}
             ]
 
-# teste
+def afiseaza_cheltuieli_ui(lista):
+    print("Lista cu cheltuieli este: \n")
+    for el in lista:
+        print("Ziua:", el["zi"], "Suma:", el["suma"], "Tipul:", el["tip"])
+    print("\n")
+
+# Validari
 
 # testare pentru cazurile cu exceptie la adaugare cheltuiala
 def test_cheltuiala_valida(cheltuiala):
@@ -154,22 +163,26 @@ def cautare_cheltuieli_suma(lista_cheltuieli, suma):
     :param suma: suma data de utilizator (float)
     :return: - Afisare a cheltuielilor
     '''
+    lista_aux = []
     for el in lista_cheltuieli:
         if el["suma"] >= suma:
-            print(el)
+            lista_aux.append(el)
+    return lista_aux
+
 
 def cautare_cheltuieli_zi_suma(lista_cheltuieli, zi, suma):
     '''
-    Cauta si tipareste cheltuielile efectuate inainte de o zi data si mai mici decat o suma
+    Cauta si pune intr-o lista auxiliara elementele ce indeplinesc conditia
     :param lista_cheltuieli: lista de cheltuieli (list)
     :param zi: ziua pana la care se tiparesc cheltuielile (int)
     :param suma: suma pana la care se tiparesc cheltuielile (float)
-    :return: Afiseaza cheltuielile
+    :return: returneaza lista cu cheltuielile ce indeplinesc conditia
     '''
+    lista_aux = []
     for el in lista_cheltuieli:
-        if (zi < el["zi"]) and (suma < el["suma"]):
-            print(el)
-    print("\n")
+        if zi > el["zi"] and suma > el["suma"]:
+            lista_aux.append(el)
+    return lista_aux
 
 def cautare_cheltuieli_tip(lista_cheltuieli, tip):
     '''
@@ -178,9 +191,11 @@ def cautare_cheltuieli_tip(lista_cheltuieli, tip):
     :param tip: tipul de cheltuiala (string)
     :return: Afiseaza cheltuielile de un anumit tip
     '''
+    lista_aux = []
     for el in lista_cheltuieli:
         if el["tip"] == tip:
-            print(el)
+            lista_aux.append(el)
+    return lista_aux
 
 # Rapoarte
 
@@ -198,6 +213,32 @@ def raport_suma_din_tip(lista_cheltuieli, tip):
     return suma
 
 # Filtrare
+
+def filtrare_cheltuiala_tip(lista_cheltuieli, tip):
+    '''
+    Filtreaza lista si face o noua lista fara elementele de tipul specificat de utilizator
+    :param lista_cheltuieli: lista de cheltuieli (list)
+    :param tip: tipul de cheltuiala ce va fi eliminata (string)
+    :return: returneaza o noua lista cu toate cheltuielile inafara de un anumit tip specificat de utilizator
+    '''
+    lista_noua = []
+    for el in lista_cheltuieli:
+        if el["tip"] != tip:
+            lista_noua.append(el)
+    return lista_noua
+
+def filtrare_cheltuieli_suma(lista_cheltuieli, suma):
+    '''
+    Filtreaza si returneaza o lista auxiliara cu lista de cheltuieli mai mare decat suma data
+    :param lista_cheltuieli: lista de cheltuieli (list)
+    :param suma: suma de la care se adauge cheltuiala in lista
+    :return: returneaza o lista auxiliara cu cheltuielile mai mare decat suma data
+    '''
+    lista_aux = []
+    for el in lista_cheltuieli:
+        if el["suma"] > suma:
+            lista_aux.append(el)
+    return lista_aux
 
 # interfata cu utilizatorul
 
@@ -271,19 +312,21 @@ def stergere_cheltuiala_tip_ui(lista_cheltuieli):
 def cautare_cheltuieli_suma_ui(lista_cheltuieli):
     suma = float(input("Alege suma pentru care sa se afiseze cheltuielile mai mari decat suma data:"))
     test_suma_valida(suma)
-    cautare_cheltuieli_suma(lista_cheltuieli, suma)
+    afiseaza_cheltuieli_ui(cautare_cheltuieli_suma(lista_cheltuieli, suma))
+    print("\n")
 
 def cautare_cheltuieli_zi_suma_ui(lista_cheltuieli):
     zi = int(input("Ziua pana la care sa se afiseze cheltuielile:"))
     test_zi_valida(zi)
     suma = float(input("Suma pana la care sa se afiseze cheltuielile:"))
     test_suma_valida(suma)
-    cautare_cheltuieli_zi_suma(lista_cheltuieli, zi, suma)
+    afiseaza_cheltuieli_ui(cautare_cheltuieli_zi_suma(lista_cheltuieli, zi, suma))
+    print("\n")
 
 def cautare_cheltuieli_tip_ui(lista_cheltuieli):
     tip = input("Tipul pentru care vreti sa vedeti cheltuielile:")
     test_tip_valid(tip)
-    cautare_cheltuieli_tip(lista_cheltuieli, tip)
+    afiseaza_cheltuieli_ui(cautare_cheltuieli_tip(lista_cheltuieli, tip))
 
 def raport_suma_din_tip_ui(lista_cheltuieli):
     tip = input("Tipul pentru care vreti sa aflati suma totala:")
@@ -293,17 +336,14 @@ def raport_suma_din_tip_ui(lista_cheltuieli):
 def filtrare_cheltuiala_tip_ui(lista_cheltuieli):
     tipul = input("Tipul de cheltuiala care va fi sters:")
     test_tip_valid(tipul)
-    stergere_cheltuiala_tip(lista_cheltuieli, tipul)
+    afiseaza_cheltuieli_ui((filtrare_cheltuiala_tip(lista_cheltuieli, tipul)))
 
-
-def afiseaza_cheltuieli_ui(lista):
-    print("Lista cu cheltuieli este: \n")
-    print(lista)
+def filtrare_cheltuieli_suma_ui(lista_cheltuieli):
+    suma = float(input("Suma de la care se vor afisa cheltuielile:"))
+    test_suma_valida(suma)
+    afiseaza_cheltuieli_ui((filtrare_cheltuieli_suma(lista_cheltuieli, suma)))
 
 # Start
-
-
-
 def start():
     crt_list = global_list()
     finished = False
@@ -345,6 +385,8 @@ def start():
             new_option = input("Optiunea de filtrare este:")
             if new_option == "1":
                 filtrare_cheltuiala_tip_ui(crt_list)
+            elif new_option == "2":
+                filtrare_cheltuieli_suma_ui(crt_list)
         #Undo
         elif option == "6":
             print("undo")
@@ -359,5 +401,27 @@ def start():
 
 start()
 
+# Teste
 
-# teste
+def test_adaugare_cheltuiala():
+    cheltuiala1 = creeaza_cheltuiala(13, 200.987, "mancare")
+    assert (type(cheltuiala1)==dict)
+    assert (get_zi(cheltuiala1)==13)
+    assert (get_suma(cheltuiala1)==200.987)
+    assert (get_tip(cheltuiala1)=="mancare")
+    lista = []
+    adauga_cheltuiala(lista, cheltuiala1)
+    assert (type(lista) == list)
+
+def test_stergere_cheltuiala():
+    lista = global_list()
+    assert (len(lista)==9)
+    stergere_cheltuiala_zi(lista, 7)
+    assert (len(lista)==8)
+    stergere_cheltuiala_tip(lista, "mancare")
+    assert (len(lista)==6)
+    stergere_cheltuiala_interval(lista, 1, 31)
+    assert (len(lista)==0)
+
+test_adaugare_cheltuiala()
+test_stergere_cheltuiala()

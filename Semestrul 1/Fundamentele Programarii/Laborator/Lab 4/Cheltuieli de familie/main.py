@@ -61,7 +61,7 @@ def test_cheltuiala_valida(cheltuiala):
     assert (get_zi(cheltuiala)>0 and get_zi(cheltuiala)<=31)
     assert (get_tip(cheltuiala) in tip)
 
-## testare pentru cazurile cu exceptie la stergere cheltuiala
+## testare pentru cazurile cu exceptie la zi
 def test_zi_valida(zi):
     assert (zi > 0 and zi <= 31)
     assert (type(zi)==int)
@@ -109,6 +109,25 @@ def adauga_cheltuiala(lista_cheltuieli, cheltuieli):
     :return: - (lista de cheltuieli se modifica prin adaugarea unei cheltuieli)
     '''
     lista_cheltuieli.append(cheltuieli)
+
+def actualizare_cheltuiala(lista_cheltuieli, zi, suma, tip, cheltuiala):
+   '''
+   Actualizeaza o cheltuiala pe baza zilei, a sumei si a tipului
+   :param lista_cheltuieli: lista de cheltuieli (list)
+   :param zi: ziua pe care vrea utilizatorul sa o schimbe (int)
+   :param suma: suma pe care vrea utilizatorul sa o schimbe (float)
+   :param tip: tipul de cheltuiala pe care vrea utilizatorul sa o schimbe (string)
+   :return: o noua cheltuiala actualizata
+   '''
+   cheltuiala_noua = {}
+   for el in lista_cheltuieli:
+       if el == cheltuiala:
+           lista_cheltuieli.remove(cheltuiala)
+           cheltuiala_noua = creeaza_cheltuiala(zi, suma, tip)
+           break
+   return cheltuiala_noua
+
+
 
 # Stergere
 
@@ -168,7 +187,6 @@ def cautare_cheltuieli_suma(lista_cheltuieli, suma):
         if el["suma"] >= suma:
             lista_aux.append(el)
     return lista_aux
-
 
 def cautare_cheltuieli_zi_suma(lista_cheltuieli, zi, suma):
     '''
@@ -269,6 +287,26 @@ def adauga_cheltuieli_ui(lista_cheltuieli):
     test_cheltuiala_valida(cheltuiala)
     adauga_cheltuiala(lista_cheltuieli, cheltuiala)
 
+def actualizare_cheltuiala_ui(lista_cheltuieli):
+    print("Alegeti ce cheltuiala vreti sa actualizati")
+    ziua = int(input("Ziua:"))
+    suma = float(input("Suma:"))
+    tip = input(("Tipul cheltuielii:"))
+    print("Inserati schimbarile cheltuielii")
+    ziua_noua = int(input("Ziua:"))
+    suma_noua = float(input("Suma:"))
+    tip_noua = input(("Tipul cheltuielii:"))
+    cheltuiala = creeaza_cheltuiala(ziua, suma, tip)
+    test_cheltuiala_valida(cheltuiala)
+    test_zi_valida(ziua_noua)
+    test_suma_valida(suma_noua)
+    test_tip_valid(tip_noua)
+    cheltuiala_noua = actualizare_cheltuiala(lista_cheltuieli, ziua_noua, suma_noua, tip_noua, cheltuiala)
+    if cheltuiala_noua == {}:
+        print("Nu puteti actualiza o cheltuiala daca aceasta nu exista!\n")
+    else:
+        adauga_cheltuiala(lista_cheltuieli, cheltuiala_noua)
+
 ### Stergere -UI
 
 def stergere_cheltuiala_zi_ui(lista_cheltuieli):
@@ -333,9 +371,16 @@ def filtrare_cheltuieli_suma_ui(lista_cheltuieli):
 def optiune_invalida():
     print("Optiune invalida! Te rugam sa incerci din nou.\n")
 
-def print_adaugare_cheltuiala():
+def print_adaugare_cheltuiala(list):
     print("1. Adauga o noua cheltuiala (ziua, suma, tipul)")
     print("2. Actualizeaza cheltuiala (ziua, suma, tipul)")
+    new_option = input("Optiunea de adaugare este:")
+    if new_option == "1":
+        adauga_cheltuieli_ui(list)
+    elif new_option == "2":
+        actualizare_cheltuiala_ui(list)
+    else:
+        optiune_invalida()
 
 def print_stergere(list):
     print("1. Șterge toate cheltuielile pentru ziua dată")
@@ -396,7 +441,7 @@ def start():
         option = input("Optiunea dumneavoastra este:")
         # Adauga cheltuiala
         if option == "1":
-            adauga_cheltuieli_ui(crt_list)
+            print_adaugare_cheltuiala(crt_list)
         # Stergere cheltuiala
         elif option == "2":
             print_stergere(crt_list)

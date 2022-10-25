@@ -36,8 +36,8 @@
     36 00000028 29C1                            sub ecx, eax    ; ECX = ECX - EAX = (a + b + c) - (a + a)
     37                                          
     38                                          ; d- ECX
-    39 0000002A A1[07000000]                    mov eax, [d]        ; EAX = d (56789101)
-    40 0000002F 8B15[0B000000]                  mov edx, [d+4]    ; EDX = [d + 4] (11213141)
+    39 0000002A A1[07000000]                    mov eax, [d]        ; EAX = d (11213141)
+    40 0000002F 8B15[0B000000]                  mov edx, [d+4]    ; EDX = [d + 4] (56789101)
     41                                          
     42 00000035 29C8                            sub eax, ecx        ; EAX = EAX - ECX
     43 00000037 83DA00                          sbb edx, 0              ; EDX - 0 - CarryFlag

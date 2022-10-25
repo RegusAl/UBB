@@ -37,21 +37,20 @@
     37 0000003B 6629CB                          sub bx, cx                      ; BX = BX - CX
     38                                          
     39                                      
-    40 0000003E 6689D9                          mov cx, bx
+    40 0000003E 6689D9                          mov cx, bx                     ; CX = BX
     41                                          
-    42 00000041 89D3                            mov ebx, edx
-    43 00000043 66BA0000                        mov dx, 0
+    42 00000041 89D3                            mov ebx, edx                ; EBX = EDX
+    43 00000043 66BA0000                        mov dx, 0                       ; DX = 0
     44                                          
-    45 00000047 6652                            push dx
+    45 00000047 6652                            push dx         
     46 00000049 6651                            push cx
-    47 0000004B 59                              pop ecx
+    47 0000004B 59                              pop ecx                          ; ECX = DX:CX
     48                                          
-    49 0000004C 29C8                            sub eax, ecx
-    50 0000004E 89DA                            mov edx, ebx
-    51 00000050 83DA00                          sbb edx, 0
+    49 0000004C 29C8                            sub eax, ecx                 ; EAX = EAX - ECX
+    50 0000004E 89DA                            mov edx, ebx                ; EDX = EBX
+    51 00000050 83DA00                          sbb edx, 0                 
     52                                          
-    53                                          
+    53                                          ; EDX:EAX
     54                                          
-    55                                              
-    56 00000053 6A00                            push dword 0
-    57 00000055 FF15[00000000]                  call [exit]
+    55 00000053 6A00                            push dword 0
+    56 00000055 FF15[00000000]                  call [exit]

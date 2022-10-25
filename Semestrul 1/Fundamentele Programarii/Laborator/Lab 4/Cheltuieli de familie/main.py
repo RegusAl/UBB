@@ -376,7 +376,6 @@ def print_filtrare(list):
     elif new_option == "2":
         filtrare_cheltuieli_suma_ui(list)
 
-
 # Start
 def start():
     crt_list = global_list()

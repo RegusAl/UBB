@@ -257,32 +257,9 @@ def print_menu():
     print("8. Exit")
     print("\n")
 
-def print_adaugare_cheltuiala():
-    print("1. Adauga o noua cheltuiala (ziua, suma, tipul)")
-    print("2. Actualizeaza cheltuiala (ziua, suma, tipul)")
-
-def print_stergere():
-    print("1. Șterge toate cheltuielile pentru ziua dată")
-    print("2. Șterge cheltuielile pentru un interval de timp (se dă ziua de început și sfârșit)")
-    print("3. Șterge toate cheltuielile de un anumit tip")
-
-def print_cautari():
-    print("1. Tipărește toate cheltuielile mai mari decât o sumă dată")
-    print("2. Tipărește toate cheltuielile efectuate înainte de o zi dată și mai mici decât o sumă")
-    print("3. Tipărește toate cheltuielile de un anumit tip")
-
-def print_rapoarte():
-    print("1. Tipărește suma totală pentru un anumit tip de cheltuială")
-    print("2. Găsește ziua în care suma cheltuită e maximă")
-    print("3. Tipărește toate cheltuielile ce au o anumită sumă")
-    print("4. Tipărește cheltuielile sortate după tip")
-
-def print_filtrare():
-    print("1. Elimină toate cheltuielile de un anumit tip")
-    print("2. Elimină toate cheltuielile mai mici decât o sumă dată")
-
 ## Functii UI
 
+### Adauga cheltuiala - UI
 def adauga_cheltuieli_ui(lista_cheltuieli):
     ziua = int(input("Ziua:"))
     suma = float(input("Suma:"))
@@ -291,6 +268,8 @@ def adauga_cheltuieli_ui(lista_cheltuieli):
     cheltuiala = creeaza_cheltuiala(ziua, suma, tip)
     test_cheltuiala_valida(cheltuiala)
     adauga_cheltuiala(lista_cheltuieli, cheltuiala)
+
+### Stergere -UI
 
 def stergere_cheltuiala_zi_ui(lista_cheltuieli):
     ziua = int(input("Ziua in care se sterg toate cheltuielile:"))
@@ -308,6 +287,8 @@ def stergere_cheltuiala_tip_ui(lista_cheltuieli):
     tipul = input("Tipul de cheltuiala care va fi sters:")
     test_tip_valid(tipul)
     stergere_cheltuiala_tip(lista_cheltuieli, tipul)
+
+### Cautare - UI
 
 def cautare_cheltuieli_suma_ui(lista_cheltuieli):
     suma = float(input("Alege suma pentru care sa se afiseze cheltuielile mai mari decat suma data:"))
@@ -328,10 +309,14 @@ def cautare_cheltuieli_tip_ui(lista_cheltuieli):
     test_tip_valid(tip)
     afiseaza_cheltuieli_ui(cautare_cheltuieli_tip(lista_cheltuieli, tip))
 
+### Raport - UI
+
 def raport_suma_din_tip_ui(lista_cheltuieli):
     tip = input("Tipul pentru care vreti sa aflati suma totala:")
     test_tip_valid(tip)
     print("Suma totala este", raport_suma_din_tip(lista_cheltuieli, tip))
+
+### Filtrare - UI
 
 def filtrare_cheltuiala_tip_ui(lista_cheltuieli):
     tipul = input("Tipul de cheltuiala care va fi sters:")
@@ -342,6 +327,55 @@ def filtrare_cheltuieli_suma_ui(lista_cheltuieli):
     suma = float(input("Suma de la care se vor afisa cheltuielile:"))
     test_suma_valida(suma)
     afiseaza_cheltuieli_ui((filtrare_cheltuieli_suma(lista_cheltuieli, suma)))
+
+## Functii de printere a mini-meniului
+
+def print_adaugare_cheltuiala():
+    print("1. Adauga o noua cheltuiala (ziua, suma, tipul)")
+    print("2. Actualizeaza cheltuiala (ziua, suma, tipul)")
+
+def print_stergere(list):
+    print("1. Șterge toate cheltuielile pentru ziua dată")
+    print("2. Șterge cheltuielile pentru un interval de timp (se dă ziua de început și sfârșit)")
+    print("3. Șterge toate cheltuielile de un anumit tip")
+    new_option = input("Optiunea de stergere este:")
+    if new_option == "1":
+        stergere_cheltuiala_zi_ui(list)
+    elif new_option == "2":
+        stergere_cheltuiala_interval_ui(list)
+    elif new_option == "3":
+        stergere_cheltuiala_tip_ui(list)
+
+def print_cautari(list):
+    print("1. Tipărește toate cheltuielile mai mari decât o sumă dată")
+    print("2. Tipărește toate cheltuielile efectuate înainte de o zi dată și mai mici decât o sumă")
+    print("3. Tipărește toate cheltuielile de un anumit tip")
+    new_option = input("Optiunea de cautare este:")
+    if new_option == "1":
+        cautare_cheltuieli_suma_ui(list)
+    elif new_option == "2":
+        cautare_cheltuieli_zi_suma_ui(list)
+    elif new_option == "3":
+        cautare_cheltuieli_tip_ui(list)
+
+def print_rapoarte(list):
+    print("1. Tipărește suma totală pentru un anumit tip de cheltuială")
+    print("2. Găsește ziua în care suma cheltuită e maximă")
+    print("3. Tipărește toate cheltuielile ce au o anumită sumă")
+    print("4. Tipărește cheltuielile sortate după tip")
+    new_option = input("Optiunea de raport:")
+    if new_option == "1":
+        raport_suma_din_tip_ui(list)
+
+def print_filtrare(list):
+    print("1. Elimină toate cheltuielile de un anumit tip")
+    print("2. Elimină toate cheltuielile mai mici decât o sumă dată")
+    new_option = input("Optiunea de filtrare este:")
+    if new_option == "1":
+        filtrare_cheltuiala_tip_ui(list)
+    elif new_option == "2":
+        filtrare_cheltuieli_suma_ui(list)
+
 
 # Start
 def start():
@@ -355,38 +389,16 @@ def start():
             adauga_cheltuieli_ui(crt_list)
         # Stergere cheltuiala
         elif option == "2":
-            print_stergere()
-            new_option = input("Optiunea de stergere este:")
-            if new_option == "1":
-                stergere_cheltuiala_zi_ui(crt_list)
-            elif new_option == "2":
-                stergere_cheltuiala_interval_ui(crt_list)
-            elif new_option == "3":
-                stergere_cheltuiala_tip_ui(crt_list)
+            print_stergere(crt_list)
         # Cautari
         elif option == "3":
-            print_cautari()
-            new_option = input("Optiunea de cautare este:")
-            if new_option == "1":
-                cautare_cheltuieli_suma_ui(crt_list)
-            elif new_option == "2":
-                cautare_cheltuieli_zi_suma_ui(crt_list)
-            elif new_option == "3":
-                cautare_cheltuieli_tip_ui(crt_list)
+            print_cautari(crt_list)
         # Rapoarte
         elif option == "4":
-            print_rapoarte()
-            new_option = input("Optiunea de raport:")
-            if new_option == "1":
-                raport_suma_din_tip_ui(crt_list)
+            print_rapoarte(crt_list)
         # Filtrare
         elif option == "5":
-            print_filtrare()
-            new_option = input("Optiunea de filtrare este:")
-            if new_option == "1":
-                filtrare_cheltuiala_tip_ui(crt_list)
-            elif new_option == "2":
-                filtrare_cheltuieli_suma_ui(crt_list)
+            print_filtrare(crt_list)
         #Undo
         elif option == "6":
             print("undo")

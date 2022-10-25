@@ -52,7 +52,7 @@ def afiseaza_cheltuieli_ui(lista):
 
 # Validari
 
-# testare pentru cazurile cu exceptie la adaugare cheltuiala
+## testare pentru cazurile cu exceptie la adaugare cheltuiala
 def test_cheltuiala_valida(cheltuiala):
     tip = ["mancare", "intretinere", "imbracaminte", "telefon", "altele"]
     assert (type(cheltuiala) == dict)
@@ -61,17 +61,17 @@ def test_cheltuiala_valida(cheltuiala):
     assert (get_zi(cheltuiala)>0 and get_zi(cheltuiala)<=31)
     assert (get_tip(cheltuiala) in tip)
 
-# testare pentru cazurile cu exceptie la stergere cheltuiala
+## testare pentru cazurile cu exceptie la stergere cheltuiala
 def test_zi_valida(zi):
     assert (zi > 0 and zi <= 31)
     assert (type(zi)==int)
 
-# testare pentru cazurile de exceptie la suma
+## testare pentru cazurile de exceptie la suma
 def test_suma_valida(suma):
     assert (suma > 0)
     assert (type(suma)==float)
 
-# testare pentru cazurile cu exceptie la tipul de cheltuiala
+## testare pentru cazurile cu exceptie la tipul de cheltuiala
 def test_tip_valid(tip):
     tipuri_cheltuieli = ["mancare", "intretinere", "imbracaminte", "telefon", "altele"]
     assert(tip in tipuri_cheltuieli)
@@ -330,6 +330,9 @@ def filtrare_cheltuieli_suma_ui(lista_cheltuieli):
 
 ## Functii de printere a mini-meniului
 
+def optiune_invalida():
+    print("Optiune invalida! Te rugam sa incerci din nou.\n")
+
 def print_adaugare_cheltuiala():
     print("1. Adauga o noua cheltuiala (ziua, suma, tipul)")
     print("2. Actualizeaza cheltuiala (ziua, suma, tipul)")
@@ -345,6 +348,8 @@ def print_stergere(list):
         stergere_cheltuiala_interval_ui(list)
     elif new_option == "3":
         stergere_cheltuiala_tip_ui(list)
+    else:
+        optiune_invalida()
 
 def print_cautari(list):
     print("1. Tipărește toate cheltuielile mai mari decât o sumă dată")
@@ -357,6 +362,8 @@ def print_cautari(list):
         cautare_cheltuieli_zi_suma_ui(list)
     elif new_option == "3":
         cautare_cheltuieli_tip_ui(list)
+    else:
+        optiune_invalida()
 
 def print_rapoarte(list):
     print("1. Tipărește suma totală pentru un anumit tip de cheltuială")
@@ -366,6 +373,8 @@ def print_rapoarte(list):
     new_option = input("Optiunea de raport:")
     if new_option == "1":
         raport_suma_din_tip_ui(list)
+    else:
+        optiune_invalida()
 
 def print_filtrare(list):
     print("1. Elimină toate cheltuielile de un anumit tip")
@@ -375,6 +384,8 @@ def print_filtrare(list):
         filtrare_cheltuiala_tip_ui(list)
     elif new_option == "2":
         filtrare_cheltuieli_suma_ui(list)
+    else:
+        optiune_invalida()
 
 # Start
 def start():
@@ -398,7 +409,7 @@ def start():
         # Filtrare
         elif option == "5":
             print_filtrare(crt_list)
-        #Undo
+        # Undo
         elif option == "6":
             print("undo")
         # Afisare lista
@@ -408,7 +419,7 @@ def start():
         elif option == "8":
             finished = True
         else:
-            print("Optiunea nu este valida!")
+            optiune_invalida()
 
 start()
 

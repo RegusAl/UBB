@@ -1,0 +1,76 @@
+     1                                  ; interpretare fara semn
+     2                                  bits 32
+     3                                  
+     4                                  global start
+     5                                  
+     6                                  extern exit
+     7                                  import exit msvcrt.dll
+     8                                  
+     9                                  ; a-doubleword; b,c-byte; x-qword
+    10                                  segment data use32 class=data
+    11 00000000 56341432                    a dd 32143456h
+    12 00000004 99                          b db 99h ; 0ffh
+    13 00000005 10                          c db 10h 
+    14 00000006 4540163511674512            x dq 1245671135164045h
+    15                                  
+    16                                  ; (a+b)/(2-b*b+b/c)-x
+    17                                  segment code use32 class=code
+    18                                      start:
+    19                                          
+    20                                          ; a + b
+    21 00000000 66A1[00000000]                  mov ax, word [a]        
+    22 00000006 668B15[02000000]                mov dx, word[a+2]       ; dx:ax = a
+    23 0000000D 8A1D[04000000]                  mov bl, [b]
+    24 00000013 B700                            mov bh, 0                       ; bx = b
+    25 00000015 6601D8                          add ax, bx
+    26 00000018 6683D200                        adc dx, 0                       ; dx:ax = a + b
+    27                                          
+    28                                          ; b * b
+    29 0000001C 6650                            push ax
+    30                                          ;mov cx, ax                    ; cx = ax
+    31 0000001E A0[04000000]                    mov al, [b]
+    32 00000023 8A1D[04000000]                  mov bl, [b]
+    33 00000029 F6E3                            mul bl                            ; ax = bl * al
+    34                                          
+    35                                          ; 2 - (b * b)
+    36 0000002B 66BB0200                        mov bx, 2
+    37 0000002F 6629C3                          sub bx, ax                  ; bx = 2 - ax
+    38                                          
+    39                                          ; mutam dx si cx in stiva pentru a avea registri
+    40                                          ;push dx
+    41                                          ;push cx
+    42                                          
+    43                                          ; b / c
+    44 00000032 A0[04000000]                    mov al, [b]
+    45 00000037 B400                            mov ah, 0       ; ax = [b]
+    46 00000039 8A0D[05000000]                  mov cl, [c]      ; cl = [c]
+    47 0000003F F6F1                            div cl              ; ah = ax % cl, al = ax / cl
+    48                                          
+    49                                          ; (2 - (b * b) + b / c)
+    50 00000041 B500                            mov ch, 0       ; cx = b / c
+    51 00000043 6601CB                          add bx, cx      ; bx = bx + cx
+    52                                          
+    53                                         ; (a + b) / (2 - b * b + b / c)  
+    54                                         ; dx:ax = a + b
+    55 00000046 6658                            pop ax           
+    56                                          
+    57 00000048 66F7F3                          div bx     ; dx = dx:ax % bx, ax = dx:ax / bx
+    58                                          
+    59 0000004B 66BA0000                        mov dx, 0
+    60 0000004F 6652                            push dx
+    61 00000051 6650                            push ax         ;dx:ax = ax
+    62                                          
+    63 00000053 58                              pop eax
+    64 00000054 BA00000000                      mov edx, 0    ; edx:eax = ax
+    65                                          
+    66 00000059 8B1D[06000000]                  mov ebx, dword [x]
+    67 0000005F 8B0D[0A000000]                  mov ecx, dword [x+4]
+    68                                          
+    69 00000065 29D8                            sub eax, ebx
+    70 00000067 19CA                            sbb edx, ecx
+    71                                           
+    72                                          ; rezultatul este in edx:eax
+    73                                          
+    74                                          
+    75 00000069 6A00                            push dword 0
+    76 0000006B FF15[00000000]                  call [exit]

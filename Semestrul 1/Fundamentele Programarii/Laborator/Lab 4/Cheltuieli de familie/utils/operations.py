@@ -1,5 +1,7 @@
-# Adauga cheltuiala
 #from domain.cheltuiala import creeaza_cheltuiala
+from utils.get_and_set import get_zi, get_tip, get_suma
+
+# Adauga cheltuiala
 
 def creeaza_cheltuiala(zi, suma, tip):
     '''
@@ -9,7 +11,7 @@ def creeaza_cheltuiala(zi, suma, tip):
     :param tip: string
     :return: cheltuiala
     '''
-    return {"zi": zi, "suma": suma, "tip": tip}
+    return [zi, suma, tip]
 
 def adauga_cheltuiala(lista_cheltuieli, cheltuieli):
     '''
@@ -52,7 +54,7 @@ def stergere_cheltuiala_zi(lista_cheltuieli, ziua):
     '''
     i = 0
     while i < len(lista_cheltuieli):
-        if lista_cheltuieli[i]['zi'] == ziua:
+        if get_zi(lista_cheltuieli[i]) == ziua:
             del lista_cheltuieli[i]
         i += 1
 
@@ -66,7 +68,7 @@ def stergere_cheltuiala_interval(lista_cheltuieli, zi_inceput, zi_sfarsit):
     '''
     i = 0
     while i < len(lista_cheltuieli):
-        if lista_cheltuieli[i]['zi'] >= zi_inceput and lista_cheltuieli[i]['zi'] <= zi_sfarsit:
+        if get_zi(lista_cheltuieli[i]) >= zi_inceput and get_zi(lista_cheltuieli[i]) <= zi_sfarsit:
             del lista_cheltuieli[i]
         else:
             i += 1
@@ -80,7 +82,7 @@ def stergere_cheltuiala_tip(lista_cheltuieli, tipul):
     '''
     i = 0
     while i < len(lista_cheltuieli):
-        if lista_cheltuieli[i]['tip'] == tipul:
+        if get_tip(lista_cheltuieli[i]) == tipul:
             del lista_cheltuieli[i]
         else:
             i += 1
@@ -96,7 +98,7 @@ def cautare_cheltuieli_suma(lista_cheltuieli, suma):
     '''
     lista_aux = []
     for el in lista_cheltuieli:
-        if el["suma"] >= suma:
+        if get_suma(el) >= suma:
             lista_aux.append(el)
     return lista_aux
 
@@ -110,7 +112,7 @@ def cautare_cheltuieli_zi_suma(lista_cheltuieli, zi, suma):
     '''
     lista_aux = []
     for el in lista_cheltuieli:
-        if zi > el["zi"] and suma > el["suma"]:
+        if zi > get_zi(el) and suma > get_suma(el):
             lista_aux.append(el)
     return lista_aux
 
@@ -123,7 +125,7 @@ def cautare_cheltuieli_tip(lista_cheltuieli, tip):
     '''
     lista_aux = []
     for el in lista_cheltuieli:
-        if el["tip"] == tip:
+        if get_tip(el) == tip:
             lista_aux.append(el)
     return lista_aux
 
@@ -138,9 +140,35 @@ def raport_suma_din_tip(lista_cheltuieli, tip):
     '''
     suma = 0
     for el in lista_cheltuieli:
-        if el["tip"] == tip:
-            suma += el["suma"]
+        if get_tip(el) == tip:
+            suma += get_suma(el)
     return suma
+
+def raport_suma_max(lista_cheltuieli):
+    '''
+    Returneaza ziua in care suma cheltuita este maxima
+    :param lista_cheltuieli: lista de cheltuieli (list)
+    :return: ziua in care suma cheltuita este maxima
+    '''
+    lista_aux = [0]*31
+    for el in lista_cheltuieli:
+        lista_aux[get_zi(el)] += get_suma(el)
+    return get_zi(max(lista_cheltuieli))
+
+
+
+def raport_anumita_suma(lista_cheltuieli, suma):
+    '''
+    Tipareste o lista noua cu cheltuielile ce au o anumita suma
+    :param lista_cheltuieli: lista de cheltuieli (list)
+    :param suma: suma (float)
+    :return: o lista cu cheltuieli ce au suma data de utilizator
+    '''
+    lista_noua = []
+    for el in lista_cheltuieli:
+        if get_suma(el) == suma:
+            lista_noua.append(el)
+    return lista_noua
 
 # Filtrare
 
@@ -153,7 +181,7 @@ def filtrare_cheltuiala_tip(lista_cheltuieli, tip):
     '''
     lista_noua = []
     for el in lista_cheltuieli:
-        if el["tip"] != tip:
+        if get_tip(el) != tip:
             lista_noua.append(el)
     return lista_noua
 
@@ -166,6 +194,6 @@ def filtrare_cheltuieli_suma(lista_cheltuieli, suma):
     '''
     lista_aux = []
     for el in lista_cheltuieli:
-        if el["suma"] > suma:
+        if get_suma(el) > suma:
             lista_aux.append(el)
     return lista_aux

@@ -1,36 +1,36 @@
+from utils.get_and_set import get_suma, get_zi, get_tip
 from utils.operations import adauga_cheltuiala, stergere_cheltuiala_zi, stergere_cheltuiala_tip, \
     stergere_cheltuiala_interval, creeaza_cheltuiala
 
 # Lista cu cheltuieli
 def global_list():
-    return [{"zi":  1, "suma": 25, "tip": "mancare"},
-            {"zi":  4, "suma": 45, "tip": "intretinere"},
-            {"zi":  7, "suma": 29.16, "tip": "telefon"},
-            {"zi":  12, "suma": 99.78, "tip": "imbracaminte"},
-            {"zi":  15, "suma": 100.78, "tip": "mancare"},
-            {"zi":  20, "suma": 13.90, "tip": "altele"},
-            {"zi": 21, "suma": 14.789, "tip": "intretinere"},
-            {"zi": 23, "suma": 200.90, "tip": "imbracaminte"},
-            {"zi": 30, "suma": 123.456, "tip": "altele"}
-            ]
 
-# functii
+    # lista de dictionare:
+    # return [{"zi":  1, "suma": 25, "tip": "mancare"},
+    #         {"zi":  4, "suma": 45, "tip": "intretinere"},
+    #         {"zi":  7, "suma": 29.16, "tip": "telefon"},
+    #         {"zi":  12, "suma": 99.78, "tip": "imbracaminte"},
+    #         {"zi":  15, "suma": 100.78, "tip": "mancare"},
+    #         {"zi":  20, "suma": 13.90, "tip": "altele"},
+    #         {"zi": 21, "suma": 14.789, "tip": "intretinere"},
+    #         {"zi": 23, "suma": 200.90, "tip": "imbracaminte"},
+    #         {"zi": 30, "suma": 123.456, "tip": "altele"}
+    #         ]
 
-def get_zi(cheltuiala):
-    return cheltuiala['zi']
-
-def get_suma(cheltuiala):
-    return cheltuiala['suma']
-
-def get_tip(cheltuiala):
-    return cheltuiala['tip']
+    # lista de liste
+    return [
+        [1, 24.6, "mancare"],
+        [3, 34.78, "altele"],
+        [6, 54, "intretinere"],
+        [30, 9806, "imbracaminte"]
+    ]
 
 # Validari
 
 ## testare pentru cazurile cu exceptie la adaugare cheltuiala
 def test_cheltuiala_valida(cheltuiala):
     tip = ["mancare", "intretinere", "imbracaminte", "telefon", "altele"]
-    assert (type(cheltuiala) == dict)
+    assert (type(cheltuiala) == list)
     assert (type(get_suma(cheltuiala)) == float)
     assert (type(get_zi(cheltuiala)) == int)
     assert (get_zi(cheltuiala)>0 and get_zi(cheltuiala)<=31)
@@ -55,7 +55,7 @@ def test_tip_valid(tip):
 
 def test_adaugare_cheltuiala():
     cheltuiala1 = creeaza_cheltuiala(13, 200.987, "mancare")
-    assert (type(cheltuiala1)==dict)
+    assert (type(cheltuiala1)==list)
     assert (get_zi(cheltuiala1)==13)
     assert (get_suma(cheltuiala1)==200.987)
     assert (get_tip(cheltuiala1)=="mancare")
@@ -73,5 +73,5 @@ def test_stergere_cheltuiala():
     stergere_cheltuiala_interval(lista, 1, 31)
     assert (len(lista)==0)
 
-test_adaugare_cheltuiala()
-test_stergere_cheltuiala()
+#test_adaugare_cheltuiala()
+#test_stergere_cheltuiala()

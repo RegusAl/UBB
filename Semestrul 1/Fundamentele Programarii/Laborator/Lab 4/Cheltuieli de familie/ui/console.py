@@ -2,7 +2,8 @@ from domain.cheltuiala import test_cheltuiala_valida, creeaza_cheltuiala, test_z
     test_tip_valid, global_list
 from utils.operations import adauga_cheltuiala, actualizare_cheltuiala, stergere_cheltuiala_zi, \
     stergere_cheltuiala_interval, stergere_cheltuiala_tip, cautare_cheltuieli_suma, cautare_cheltuieli_zi_suma, \
-    cautare_cheltuieli_tip, raport_suma_din_tip, filtrare_cheltuiala_tip, filtrare_cheltuieli_suma
+    cautare_cheltuieli_tip, raport_suma_din_tip, filtrare_cheltuiala_tip, filtrare_cheltuieli_suma, raport_anumita_suma, \
+    raport_suma_max
 
 
 # Meniul principal
@@ -24,7 +25,7 @@ def print_menu():
 def afiseaza_cheltuieli_ui(lista):
     print("Lista cu cheltuieli este: \n")
     for el in lista:
-        print("Ziua:", el["zi"], "Suma:", el["suma"], "Tipul:", el["tip"])
+        print("Ziua:", el[0], "Suma:", el[1], "Tipul:", el[2])
     print("\n")
 
 ### Adauga cheltuiala - UI
@@ -104,6 +105,15 @@ def raport_suma_din_tip_ui(lista_cheltuieli):
     test_tip_valid(tip)
     print("Suma totala este", raport_suma_din_tip(lista_cheltuieli, tip))
 
+def raport_suma_max_ui(lista_cheltuieli):
+    print("Ziua in care suma cheltuita este maxima este: ", raport_suma_max(lista_cheltuieli))
+
+def raport_anumita_suma_ui(lista_cheltuieli):
+    suma = float(input("Suma pentru care vreti sa vedeti cheltuielile:"))
+    test_suma_valida(suma)
+    print("Cheltuielile sunt: ",)
+    afiseaza_cheltuieli_ui(raport_anumita_suma(lista_cheltuieli, suma))
+
 ### Filtrare - UI
 
 def filtrare_cheltuiala_tip_ui(lista_cheltuieli):
@@ -168,6 +178,10 @@ def print_rapoarte(list):
     new_option = input("Optiunea de raport:")
     if new_option == "1":
         raport_suma_din_tip_ui(list)
+    elif new_option == "2":
+        raport_suma_max_ui(list)
+    elif new_option == "3":
+        raport_anumita_suma_ui(list)
     else:
         optiune_invalida()
 

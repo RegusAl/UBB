@@ -13,7 +13,7 @@ segment data use32 class=data
     c db 15 
     x dq 80
 
-; (a+b)/(2-b*b+b/c)-x
+; 11. (a+b)/(2-b*b+b/c)-x
 segment code use32 class=code
     start:  
         

@@ -13,7 +13,7 @@
     13 00000005 0F                          c db 15 
     14 00000006 5000000000000000            x dq 80
     15                                  
-    16                                  ; (a+b)/(2-b*b+b/c)-x
+    16                                  ; 11. (a+b)/(2-b*b+b/c)-x
     17                                  segment code use32 class=code
     18                                      start:  
     19                                          
@@ -50,10 +50,8 @@
     50 0000003A 98                              cwde     ; ax --> eax
     51 0000003B 99                              cdq        ; eax --> edx:eax
     52                                          
-    53 0000003C 2B05[06000000]                  sub eax, dword [x]
-    54 00000042 1B15[0A000000]                  sbb edx, dword [x + 4]
+    53 0000003C 2B05[06000000]                  sub eax, dword [x]         
+    54 00000042 1B15[0A000000]                  sbb edx, dword [x + 4]     ; edx:eax = (a+b) / (2-b*b+b/c) - x
     55                                           
-    56                                      
-    57                                      
-    58 00000048 6A00                            push dword 0
-    59 0000004A FF15[00000000]                  call [exit]
+    56 00000048 6A00                            push dword 0
+    57 0000004A FF15[00000000]                  call [exit]

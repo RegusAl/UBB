@@ -9,11 +9,11 @@ import exit msvcrt.dll
 ; a-doubleword; b,c-byte; x-qword
 segment data use32 class=data
     a dd 32143456h
-    b db 99h ; 0ffh
+    b db 99h
     c db 10h 
     x dq 1245671135164045h
 
-; (a+b)/(2-b*b+b/c)-x
+; 11. (a+b)/(2-b*b+b/c)-x
 segment code use32 class=code
     start:
         

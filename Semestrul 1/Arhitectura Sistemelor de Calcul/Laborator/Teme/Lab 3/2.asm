@@ -12,7 +12,7 @@ segment data use32 class=data
     c dd 146789A2h
     d dq 5678910111213141h
 
-; d-(a+b+c)-(a+a) 
+; 11. d-(a+b+c)-(a+a) 
 segment code use32 class=code
     start:
         

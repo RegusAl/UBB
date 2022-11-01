@@ -9,11 +9,11 @@
      9                                  ; a-doubleword; b,c-byte; x-qword
     10                                  segment data use32 class=data
     11 00000000 56341432                    a dd 32143456h
-    12 00000004 99                          b db 99h ; 0ffh
+    12 00000004 FF                          b db 0ffh ;99h ;0ffh
     13 00000005 10                          c db 10h 
     14 00000006 4540163511674512            x dq 1245671135164045h
     15                                  
-    16                                  ; (a+b)/(2-b*b+b/c)-x
+    16                                  ; 11. (a+b)/(2-b*b+b/c)-x
     17                                  segment code use32 class=code
     18                                      start:
     19                                          
@@ -64,10 +64,10 @@
     64 00000054 BA00000000                      mov edx, 0    ; edx:eax = ax
     65                                          
     66 00000059 8B1D[06000000]                  mov ebx, dword [x]
-    67 0000005F 8B0D[0A000000]                  mov ecx, dword [x+4]
+    67 0000005F 8B0D[0A000000]                  mov ecx, dword [x+4]      ; ecx:ebx = x
     68                                          
-    69 00000065 29D8                            sub eax, ebx
-    70 00000067 19CA                            sbb edx, ecx
+    69 00000065 29D8                            sub eax, ebx        ; eax = eax - ebx
+    70 00000067 19CA                            sbb edx, ecx        ; edx = edx - ecx - CF
     71                                           
     72                                          ; rezultatul este in edx:eax
     73                                          

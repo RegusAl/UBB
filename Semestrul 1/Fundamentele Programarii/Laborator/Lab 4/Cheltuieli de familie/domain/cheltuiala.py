@@ -19,10 +19,15 @@ def global_list():
 
     # lista de liste
     return [
-        [1, 24.6, "mancare"],
-        [3, 34.78, "altele"],
-        [6, 54, "intretinere"],
-        [30, 9806, "imbracaminte"]
+    [1, 25,"mancare"],
+    [4, 45, "intretinere"],
+    [7, 29.16, "telefon"],
+    [12, 99.78, "imbracaminte"],
+    [15, 100.78, "mancare"],
+    [20,  13.90, "altele"],
+    [21, 14.789, "intretinere"],
+    [23, 200.90, "imbracaminte"],
+    [30, 123.456, "altele"]
     ]
 
 # Validari

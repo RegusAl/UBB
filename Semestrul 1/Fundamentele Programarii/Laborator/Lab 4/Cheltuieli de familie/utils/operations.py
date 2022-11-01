@@ -41,8 +41,6 @@ def actualizare_cheltuiala(lista_cheltuieli, zi, suma, tip, cheltuiala):
            break
    return cheltuiala_noua
 
-
-
 # Stergere
 
 def stergere_cheltuiala_zi(lista_cheltuieli, ziua):
@@ -155,8 +153,6 @@ def raport_suma_max(lista_cheltuieli):
         lista_aux[get_zi(el)] += get_suma(el)
     return get_zi(max(lista_cheltuieli))
 
-
-
 def raport_anumita_suma(lista_cheltuieli, suma):
     '''
     Tipareste o lista noua cu cheltuielile ce au o anumita suma
@@ -169,6 +165,14 @@ def raport_anumita_suma(lista_cheltuieli, suma):
         if get_suma(el) == suma:
             lista_noua.append(el)
     return lista_noua
+
+def raport_cheltuieli_sortate_tip(lista_cheltuieli):
+    '''
+    :param lista_cheltuieli: lista de cheltuieli (list)
+    :return: lista noua cu cheltuielile sortate dupa tip
+    '''
+    lista_cheltuieli.sort(key=get_tip)
+    return lista_cheltuieli
 
 # Filtrare
 

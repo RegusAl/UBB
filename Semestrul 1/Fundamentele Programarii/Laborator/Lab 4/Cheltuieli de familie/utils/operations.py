@@ -1,4 +1,4 @@
-#from domain.cheltuiala import creeaza_cheltuiala
+# from domain.cheltuiala import creeaza_cheltuiala
 from utils.get_and_set import get_zi, get_tip, get_suma
 
 # Adauga cheltuiala
@@ -13,6 +13,7 @@ def creeaza_cheltuiala(zi, suma, tip):
     '''
     return [zi, suma, tip]
 
+
 def adauga_cheltuiala(lista_cheltuieli, cheltuieli):
     '''
     Adauga o cheltuiala la lista data
@@ -24,8 +25,9 @@ def adauga_cheltuiala(lista_cheltuieli, cheltuieli):
     '''
     lista_cheltuieli.append(cheltuieli)
 
+
 def actualizare_cheltuiala(lista_cheltuieli, zi, suma, tip, cheltuiala):
-   '''
+    '''
    Actualizeaza o cheltuiala pe baza zilei, a sumei si a tipului
    :param lista_cheltuieli: lista de cheltuieli (list)
    :param zi: ziua pe care vrea utilizatorul sa o schimbe (int)
@@ -33,13 +35,14 @@ def actualizare_cheltuiala(lista_cheltuieli, zi, suma, tip, cheltuiala):
    :param tip: tipul de cheltuiala pe care vrea utilizatorul sa o schimbe (string)
    :return: o noua cheltuiala actualizata
    '''
-   cheltuiala_noua = {}
-   for el in lista_cheltuieli:
-       if el == cheltuiala:
-           lista_cheltuieli.remove(cheltuiala)
-           cheltuiala_noua = creeaza_cheltuiala(zi, suma, tip)
-           break
-   return cheltuiala_noua
+    cheltuiala_noua = {}
+    for el in lista_cheltuieli:
+        if el == cheltuiala:
+            lista_cheltuieli.remove(cheltuiala)
+            cheltuiala_noua = creeaza_cheltuiala(zi, suma, tip)
+            break
+    return cheltuiala_noua
+
 
 # Stergere
 
@@ -56,6 +59,7 @@ def stergere_cheltuiala_zi(lista_cheltuieli, ziua):
             del lista_cheltuieli[i]
         i += 1
 
+
 def stergere_cheltuiala_interval(lista_cheltuieli, zi_inceput, zi_sfarsit):
     '''
     Sterge cheltuielile din intervalul de zile dat
@@ -71,6 +75,7 @@ def stergere_cheltuiala_interval(lista_cheltuieli, zi_inceput, zi_sfarsit):
         else:
             i += 1
 
+
 def stergere_cheltuiala_tip(lista_cheltuieli, tipul):
     '''
     Sterge din lista cu cheltuieli, cheltuielile de un anumit tip dat de utilizator
@@ -84,6 +89,7 @@ def stergere_cheltuiala_tip(lista_cheltuieli, tipul):
             del lista_cheltuieli[i]
         else:
             i += 1
+
 
 # Cautari
 
@@ -100,6 +106,7 @@ def cautare_cheltuieli_suma(lista_cheltuieli, suma):
             lista_aux.append(el)
     return lista_aux
 
+
 def cautare_cheltuieli_zi_suma(lista_cheltuieli, zi, suma):
     '''
     Cauta si pune intr-o lista auxiliara elementele ce indeplinesc conditia
@@ -114,6 +121,7 @@ def cautare_cheltuieli_zi_suma(lista_cheltuieli, zi, suma):
             lista_aux.append(el)
     return lista_aux
 
+
 def cautare_cheltuieli_tip(lista_cheltuieli, tip):
     '''
     Tipareste toate cheltuielile de un anumit tip
@@ -126,6 +134,7 @@ def cautare_cheltuieli_tip(lista_cheltuieli, tip):
         if get_tip(el) == tip:
             lista_aux.append(el)
     return lista_aux
+
 
 # Rapoarte
 
@@ -142,16 +151,18 @@ def raport_suma_din_tip(lista_cheltuieli, tip):
             suma += get_suma(el)
     return suma
 
+
 def raport_suma_max(lista_cheltuieli):
     '''
     Returneaza ziua in care suma cheltuita este maxima
     :param lista_cheltuieli: lista de cheltuieli (list)
     :return: ziua in care suma cheltuita este maxima
     '''
-    lista_aux = [0]*31
+    lista_aux = [0] * 31
     for el in lista_cheltuieli:
         lista_aux[get_zi(el)] += get_suma(el)
     return get_zi(max(lista_cheltuieli))
+
 
 def raport_anumita_suma(lista_cheltuieli, suma):
     '''
@@ -166,6 +177,7 @@ def raport_anumita_suma(lista_cheltuieli, suma):
             lista_noua.append(el)
     return lista_noua
 
+
 def raport_cheltuieli_sortate_tip(lista_cheltuieli):
     '''
     :param lista_cheltuieli: lista de cheltuieli (list)
@@ -173,6 +185,7 @@ def raport_cheltuieli_sortate_tip(lista_cheltuieli):
     '''
     lista_cheltuieli.sort(key=get_tip)
     return lista_cheltuieli
+
 
 # Filtrare
 
@@ -189,6 +202,7 @@ def filtrare_cheltuiala_tip(lista_cheltuieli, tip):
             lista_noua.append(el)
     return lista_noua
 
+
 def filtrare_cheltuieli_suma(lista_cheltuieli, suma):
     '''
     Filtreaza si returneaza o lista auxiliara cu lista de cheltuieli mai mare decat suma data
@@ -201,3 +215,5 @@ def filtrare_cheltuieli_suma(lista_cheltuieli, suma):
         if get_suma(el) > suma:
             lista_aux.append(el)
     return lista_aux
+
+

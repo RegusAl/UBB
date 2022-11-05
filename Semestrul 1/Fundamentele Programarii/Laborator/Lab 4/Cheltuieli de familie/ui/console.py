@@ -5,6 +5,7 @@ from utils.operations import adauga_cheltuiala, actualizare_cheltuiala, stergere
     cautare_cheltuieli_tip, raport_suma_din_tip, filtrare_cheltuiala_tip, filtrare_cheltuieli_suma, raport_anumita_suma, \
     raport_suma_max, raport_cheltuieli_sortate_tip
 
+
 # Meniul principal
 def print_menu():
     print("MENIU")
@@ -203,15 +204,19 @@ def print_filtrare(list):
 
 def start():
     crt_list = global_list()
+    lista_undo = []
+    #lista_undo = global_list()
     finished = False
     while not finished:
         print_menu()
         option = input("Optiunea dumneavoastra este:")
         # Adauga cheltuiala
         if option == "1":
+            lista_undo.append(crt_list.copy())
             print_adaugare_cheltuiala(crt_list)
         # Stergere cheltuiala
         elif option == "2":
+            lista_undo.append(crt_list.copy())
             print_stergere(crt_list)
         # Cautari
         elif option == "3":
@@ -224,7 +229,11 @@ def start():
             print_filtrare(crt_list)
         # Undo
         elif option == "6":
-            print("undo")
+            if len(lista_undo)>=1:
+                crt_list = lista_undo[-1].copy()
+                del lista_undo[-1]
+            else:
+                raise ValueError("Nu se poate efectua operatia!!!")
         # Afisare lista
         elif option == "7":
             afiseaza_cheltuieli_ui(crt_list)

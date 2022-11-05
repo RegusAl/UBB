@@ -13,7 +13,8 @@ Aplicatia are interfata de tip consola, si ofera urmatoarele functionalitati:
     - Șterge cheltuielile pentru un interval de timp (se dă ziua de început și
     sfârșit, se șterg toate cheltuielile pentru perioada dată)
     - Șterge toate cheltuielile de un anumit tip
-3. Căutări:
+3. Căutări:7
+
     - Tipărește toate cheltuielile mai mari decât o sumă dată
     - Tipărește toate cheltuielile efectuate înainte de o zi dată și mai mici
     decât o sumă (se dă suma și ziua, se tipăresc toate cheltuielile mai
@@ -22,7 +23,8 @@ Aplicatia are interfata de tip consola, si ofera urmatoarele functionalitati:
 4. Rapoarte:
     - Tipărește suma totală pentru un anumit tip de cheltuială
     - Găsește ziua în care suma cheltuită e maximă
-    - Tipărește toate cheltuielile ce au o anumită sumă
+    - Tipărește toate ch6
+    eltuielile ce au o anumită sumă
     - Tipărește cheltuielile sortate după tip
 5. Filtrare:
     - Elimină toate cheltuielile de un anumit tip

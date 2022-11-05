@@ -30,29 +30,29 @@
     30 00000009 8B15[04000000]                 mov edx, [a+4]               ; edx:eax = a
     31                                         
     32 0000000F 83E269                         and edx, 000000069h
-    33 00000012 80E21C                         and dl, 0001_1100b
-    34 00000015 B102                           mov cl, 2
-    35 00000017 D2CA                           ror dl, cl                           ; dl  = 0000_0010b
+    33 00000012 80E238                         and dl, 0011_1000b
+    34 00000015 B103                           mov cl, 3
+    35 00000017 D2CA                           ror dl, cl                           ; dl  = 0000_0101b
     36 00000019 8815[0D000000]                 mov [n], dl
     37                                        
     38 0000001F 8A0D[0D000000]                 mov cl, [n]
     39 00000025 D3C8                           ror eax, cl                  ; se roteste la dreapta doubleword-ul inferior (eax) a lui a cu n pozitii
     40 00000027 A3[08000000]                   mov [b], eax
     41                                  
-    42 0000002C 6625000F                       and ax, 0000_1111_0000_0000b   ; izolam bitii 9-11 ai lui b
+    42 0000002C 6625000F                       and ax, 0000_1111_0000_0000b   ; izolam bitii 8-11 ai lui b
     43 00000030 B108                           mov cl, 8
     44 00000032 66D3C8                         ror ax, cl
     45 00000035 6609C3                         or bx, ax  
     46                                         
     47 00000038 66A1[0A000000]                 mov ax, [b+2]
     48 0000003E 240F                           and al, 0000_1111b    ; izolam bitii 16-19 ai lui b
-    49 00000040 B400                           mov ah, 0
-    50 00000042 B104                           mov cl, 4
-    51 00000044 D2C0                           rol al, cl          
-    52 00000046 6609C3                         or bx, ax
+    49                                         ;mov ah, 0
+    50 00000040 B104                           mov cl, 4
+    51 00000042 D2C0                           rol al, cl          
+    52 00000044 6609C3                         or bx, ax
     53                                         
-    54 00000049 66891D[0C000000]               mov [c], bx ; punem valoarea din registru in variabila rezultat
+    54 00000047 66891D[0C000000]              mov [c], bx ; punem valoarea din registru in variabila rezultat
     55                                         
-    56 00000050 6A00                         push dword 0
-    57 00000052 FF15[00000000]               call [exit]
+    56 0000004E 6A00                         push dword 0
+    57 00000050 FF15[00000000]               call [exit]
     58                                  

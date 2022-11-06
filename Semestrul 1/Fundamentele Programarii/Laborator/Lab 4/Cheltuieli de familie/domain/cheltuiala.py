@@ -46,6 +46,9 @@ def test_zi_valida(zi):
     assert (zi > 0 and zi <= 31)
     assert (type(zi)==int)
 
+def test_zile(zi1, zi2):
+    assert (zi1<=zi2)
+
 ## testare pentru cazurile de exceptie la suma
 def test_suma_valida(suma):
     assert (suma > 0)
@@ -55,6 +58,9 @@ def test_suma_valida(suma):
 def test_tip_valid(tip):
     tipuri_cheltuieli = ["mancare", "intretinere", "imbracaminte", "telefon", "altele"]
     assert(tip in tipuri_cheltuieli)
+
+def test_undo(lista_undo):
+    assert (len(lista_undo)>=1)
 
 # Teste
 

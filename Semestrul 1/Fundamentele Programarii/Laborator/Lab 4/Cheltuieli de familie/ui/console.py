@@ -1,5 +1,5 @@
 from domain.cheltuiala import test_cheltuiala_valida, creeaza_cheltuiala, test_zi_valida, test_suma_valida, \
-    test_tip_valid, global_list
+    test_tip_valid, global_list, test_zile, test_undo
 from utils.operations import adauga_cheltuiala, actualizare_cheltuiala, stergere_cheltuiala_zi, \
     stergere_cheltuiala_interval, stergere_cheltuiala_tip, cautare_cheltuieli_suma, cautare_cheltuieli_zi_suma, \
     cautare_cheltuieli_tip, raport_suma_din_tip, filtrare_cheltuiala_tip, filtrare_cheltuieli_suma, raport_anumita_suma, \
@@ -30,89 +30,193 @@ def afiseaza_cheltuieli_ui(lista):
 
 ### Adauga cheltuiala - UI
 def adauga_cheltuieli_ui(lista_cheltuieli):
-    ziua = int(input("Ziua:"))
-    suma = float(input("Suma:"))
-    tip = input(("Tipul cheltuielii:"))
-
-    cheltuiala = creeaza_cheltuiala(ziua, suma, tip)
-    test_cheltuiala_valida(cheltuiala)
-    adauga_cheltuiala(lista_cheltuieli, cheltuiala)
+    try:
+        ziua = int(input("Ziua:"))
+        suma = float(input("Suma:"))
+        tip = input("Tipul cheltuielii:")
+        cheltuiala = creeaza_cheltuiala(ziua, suma, tip)
+        test_zi_valida(ziua)
+        test_suma_valida(suma)
+        test_tip_valid(tip)
+        test_cheltuiala_valida(cheltuiala)
+        adauga_cheltuiala(lista_cheltuieli, cheltuiala)
+    except ValueError:
+        print("!!!Cheltuiala nu este valida!!!")
+        return
+    except AssertionError:
+        print("!!!Cheltuiala nu este valida!!!")
+        return
+    except TypeError:
+        print("!!!Cheltuiala nu este valida!!!")
+        return
 
 def actualizare_cheltuiala_ui(lista_cheltuieli):
     print("Alegeti ce cheltuiala vreti sa actualizati")
-    ziua = int(input("Ziua:"))
-    suma = float(input("Suma:"))
-    tip = input(("Tipul cheltuielii:"))
-    print("Inserati schimbarile cheltuielii")
-    ziua_noua = int(input("Ziua:"))
-    suma_noua = float(input("Suma:"))
-    tip_noua = input(("Tipul cheltuielii:"))
-    cheltuiala = creeaza_cheltuiala(ziua, suma, tip)
-    test_cheltuiala_valida(cheltuiala)
-    test_zi_valida(ziua_noua)
-    test_suma_valida(suma_noua)
-    test_tip_valid(tip_noua)
-    cheltuiala_noua = actualizare_cheltuiala(lista_cheltuieli, ziua_noua, suma_noua, tip_noua, cheltuiala)
-    if cheltuiala_noua == {}:
-        print("Nu puteti actualiza o cheltuiala daca aceasta nu exista!\n")
-    else:
-        adauga_cheltuiala(lista_cheltuieli, cheltuiala_noua)
+    try:
+        ziua = int(input("Ziua:"))
+        suma = float(input("Suma:"))
+        tip = input(("Tipul cheltuielii:"))
+        print("Inserati schimbarile cheltuielii")
+        ziua_noua = int(input("Ziua:"))
+        suma_noua = float(input("Suma:"))
+        tip_noua = input(("Tipul cheltuielii:"))
+        cheltuiala = creeaza_cheltuiala(ziua, suma, tip)
+        test_cheltuiala_valida(cheltuiala)
+        test_zi_valida(ziua_noua)
+        test_suma_valida(suma_noua)
+        test_tip_valid(tip_noua)
+        cheltuiala_noua = actualizare_cheltuiala(lista_cheltuieli, ziua_noua, suma_noua, tip_noua, cheltuiala)
+        if cheltuiala_noua == {}:
+            print("Nu puteti actualiza o cheltuiala daca aceasta nu exista!\n")
+        else:
+            adauga_cheltuiala(lista_cheltuieli, cheltuiala_noua)
+    except ValueError:
+        print("!!!Nu se poate actualiza cheltuiala deoarece operatia nu este valida!!!")
+        return
+    except AssertionError:
+        print("!!!Nu se poate actualiza cheltuiala deoarece operatia nu este valida!!!")
+        return
+    except TypeError:
+        print("!!!Nu se poate actualiza cheltuiala deoarece operatia nu este valida!!!")
+        return
 
 ### Stergere -UI
 
 def stergere_cheltuiala_zi_ui(lista_cheltuieli):
-    ziua = int(input("Ziua in care se sterg toate cheltuielile:"))
-    test_zi_valida(ziua)
-    stergere_cheltuiala_zi(lista_cheltuieli, ziua)
+    try:
+        ziua = int(input("Ziua in care se sterg toate cheltuielile:"))
+        test_zi_valida(ziua)
+        stergere_cheltuiala_zi(lista_cheltuieli, ziua)
+    except ValueError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except AssertionError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except TypeError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
 
 def stergere_cheltuiala_interval_ui(lista_cheltuieli):
-    zi_inceput = int(input("Ziua de inceput in care se sterg cheltuielile:"))
-    test_zi_valida(zi_inceput)
-    zi_sfarsit = int(input("Ziua de sfarsit:"))
-    test_zi_valida(zi_sfarsit)
-    stergere_cheltuiala_interval(lista_cheltuieli, zi_inceput, zi_sfarsit)
+    try:
+        zi_inceput = int(input("Ziua de inceput in care se sterg cheltuielile:"))
+        test_zi_valida(zi_inceput)
+        zi_sfarsit = int(input("Ziua de sfarsit:"))
+        test_zi_valida(zi_sfarsit)
+        test_zile(zi_inceput, zi_sfarsit)
+        stergere_cheltuiala_interval(lista_cheltuieli, zi_inceput, zi_sfarsit)
+    except ValueError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except AssertionError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except TypeError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
 
 def stergere_cheltuiala_tip_ui(lista_cheltuieli):
-    tipul = input("Tipul de cheltuiala care va fi sters:")
-    test_tip_valid(tipul)
-    stergere_cheltuiala_tip(lista_cheltuieli, tipul)
+    try:
+        tipul = input("Tipul de cheltuiala care va fi sters:")
+        test_tip_valid(tipul)
+        stergere_cheltuiala_tip(lista_cheltuieli, tipul)
+    except ValueError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except AssertionError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except TypeError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
 
 ### Cautare - UI
 
 def cautare_cheltuieli_suma_ui(lista_cheltuieli):
-    suma = float(input("Alege suma pentru care sa se afiseze cheltuielile mai mari decat suma data:"))
-    test_suma_valida(suma)
-    afiseaza_cheltuieli_ui(cautare_cheltuieli_suma(lista_cheltuieli, suma))
-    print("\n")
+    try:
+        suma = float(input("Alege suma pentru care sa se afiseze cheltuielile mai mari decat suma data:"))
+        test_suma_valida(suma)
+        afiseaza_cheltuieli_ui(cautare_cheltuieli_suma(lista_cheltuieli, suma))
+        print("\n")
+    except ValueError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except AssertionError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except TypeError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+
 
 def cautare_cheltuieli_zi_suma_ui(lista_cheltuieli):
-    zi = int(input("Ziua pana la care sa se afiseze cheltuielile:"))
-    test_zi_valida(zi)
-    suma = float(input("Suma pana la care sa se afiseze cheltuielile:"))
-    test_suma_valida(suma)
-    afiseaza_cheltuieli_ui(cautare_cheltuieli_zi_suma(lista_cheltuieli, zi, suma))
-    print("\n")
+    try:
+        zi = int(input("Ziua pana la care sa se afiseze cheltuielile:"))
+        test_zi_valida(zi)
+        suma = float(input("Suma pana la care sa se afiseze cheltuielile:"))
+        test_suma_valida(suma)
+        afiseaza_cheltuieli_ui(cautare_cheltuieli_zi_suma(lista_cheltuieli, zi, suma))
+        print("\n")
+    except ValueError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except AssertionError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except TypeError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
 
 def cautare_cheltuieli_tip_ui(lista_cheltuieli):
-    tip = input("Tipul pentru care vreti sa vedeti cheltuielile:")
-    test_tip_valid(tip)
-    afiseaza_cheltuieli_ui(cautare_cheltuieli_tip(lista_cheltuieli, tip))
+    try:
+        tip = input("Tipul pentru care vreti sa vedeti cheltuielile:")
+        test_tip_valid(tip)
+        afiseaza_cheltuieli_ui(cautare_cheltuieli_tip(lista_cheltuieli, tip))
+    except ValueError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except AssertionError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except TypeError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
 
 ### Raport - UI
 
 def raport_suma_din_tip_ui(lista_cheltuieli):
-    tip = input("Tipul pentru care vreti sa aflati suma totala:")
-    test_tip_valid(tip)
-    print("Suma totala este", raport_suma_din_tip(lista_cheltuieli, tip))
+    try:
+        tip = input("Tipul pentru care vreti sa aflati suma totala:")
+        test_tip_valid(tip)
+        print("Suma totala este", raport_suma_din_tip(lista_cheltuieli, tip))
+    except ValueError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except AssertionError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except TypeError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
 
 def raport_suma_max_ui(lista_cheltuieli):
     print("Ziua in care suma cheltuita este maxima este: ", raport_suma_max(lista_cheltuieli))
 
 def raport_anumita_suma_ui(lista_cheltuieli):
-    suma = float(input("Suma pentru care vreti sa vedeti cheltuielile:"))
-    test_suma_valida(suma)
-    print("Cheltuielile sunt: ")
-    afiseaza_cheltuieli_ui(raport_anumita_suma(lista_cheltuieli, suma))
+    try:
+        suma = float(input("Suma pentru care vreti sa vedeti cheltuielile:"))
+        test_suma_valida(suma)
+        print("Cheltuielile sunt: ")
+        afiseaza_cheltuieli_ui(raport_anumita_suma(lista_cheltuieli, suma))
+    except ValueError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except AssertionError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except TypeError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
 
 def raport_cheltuieli_sortate_tip_ui(lista_cheltuieli):
     print("Cheltuielile sortate dupa tip:")
@@ -121,14 +225,34 @@ def raport_cheltuieli_sortate_tip_ui(lista_cheltuieli):
 ### Filtrare - UI
 
 def filtrare_cheltuiala_tip_ui(lista_cheltuieli):
-    tipul = input("Tipul de cheltuiala care va fi sters:")
-    test_tip_valid(tipul)
-    afiseaza_cheltuieli_ui((filtrare_cheltuiala_tip(lista_cheltuieli, tipul)))
+    try:
+        tipul = input("Tipul de cheltuiala care va fi sters:")
+        test_tip_valid(tipul)
+        afiseaza_cheltuieli_ui((filtrare_cheltuiala_tip(lista_cheltuieli, tipul)))
+    except ValueError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except AssertionError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except TypeError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
 
 def filtrare_cheltuieli_suma_ui(lista_cheltuieli):
-    suma = float(input("Suma de la care se vor afisa cheltuielile:"))
-    test_suma_valida(suma)
-    afiseaza_cheltuieli_ui((filtrare_cheltuieli_suma(lista_cheltuieli, suma)))
+    try:
+        suma = float(input("Suma de la care se vor afisa cheltuielile:"))
+        test_suma_valida(suma)
+        afiseaza_cheltuieli_ui((filtrare_cheltuieli_suma(lista_cheltuieli, suma)))
+    except ValueError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except AssertionError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
+    except TypeError:
+        print("!!!Operatia nu se poate efectua. Inserati valori valide!!!")
+        return
 
 ## Functii de printere a mini-meniului
 
@@ -229,11 +353,16 @@ def start():
             print_filtrare(crt_list)
         # Undo
         elif option == "6":
-            if len(lista_undo)>=1:
+            try:
+                test_undo(lista_undo)
                 crt_list = lista_undo[-1].copy()
                 del lista_undo[-1]
-            else:
-                raise ValueError("Nu se poate efectua operatia!!!")
+            except ValueError:
+                print("!!!Nu se poate face UNDO!!!")
+            except AssertionError:
+                print("!!!Nu se poate face UNDO!!!")
+            except TypeError:
+                print("!!!Nu se poate face UNDO!!!")
         # Afisare lista
         elif option == "7":
             afiseaza_cheltuieli_ui(crt_list)

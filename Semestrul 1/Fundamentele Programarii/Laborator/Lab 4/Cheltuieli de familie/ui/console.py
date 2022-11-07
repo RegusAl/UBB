@@ -371,3 +371,24 @@ def start():
             finished = True
         else:
             optiune_invalida()
+
+# def new_start():
+#     crt_list = global_list()
+#     finished = False
+#     while not finished:
+#         option = input(">>")
+#         lista = option.split(" ")
+#         if lista[0] == "add":
+#             cheltuiala = creeaza_cheltuiala(int(lista[1]), float(lista[2]), lista[3])
+#             test_cheltuiala_valida(cheltuiala)
+#             adauga_cheltuiala(crt_list, cheltuiala)
+#         elif lista[0] == "delete-day":
+#             stergere_cheltuiala_zi(crt_list, int(lista[1]))
+#         elif lista[0] == "delete-type":
+#             stergere_cheltuiala_tip(crt_list, lista[1])
+#         elif lista[0] == "show":
+#             afiseaza_cheltuieli_ui(crt_list)
+#         elif lista[0] == "exit":
+#             finished = True
+#         else:
+#             optiune_invalida()

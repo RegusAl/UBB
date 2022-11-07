@@ -18,7 +18,7 @@ Aplicatia are interfata de tip consola, si ofera urmatoarele functionalitati:
 4. Rapoarte:
     - Tipărește suma totală pentru un anumit tip de cheltuială
     - Găsește ziua în care suma cheltuită e maximă
-    - Tipărește toate ch6
+    - Tipărește toaate ch6
     eltuielile ce au o anumită sumă
     - Tipărește cheltuielile sortate după tip
 5. Filtrare:
@@ -28,7 +28,9 @@ Aplicatia are interfata de tip consola, si ofera urmatoarele functionalitati:
     - Reface ultima operație (lista de cheltuieli revine ce exista înainte de ultima operație care a modificat lista)
 '''
 
+# from ui.console import new_start
 from ui.console import start
 
 start()
+# new_start()
 

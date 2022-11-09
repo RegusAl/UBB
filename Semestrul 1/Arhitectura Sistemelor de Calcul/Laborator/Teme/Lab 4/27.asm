@@ -7,6 +7,8 @@
 ;   bitii 0-3 ai lui C sunt bitii 8-11 ai lui B
 ;   bitii 4-7 ai lui C sunt bitii 16-19 ai lui B
 
+; Date de test: a = 12348a9f5678af9a
+
 bits 32
 
 global start                
@@ -16,10 +18,13 @@ import exit msvcrt.dll
 
 ; A - quadword, 
 segment data use32 class=data
-    a dq 4247a769b123dca2h
+    a dq 12348a9f5678af9ah 
     b resw 2 ; se rezerva 2 words  = 1 doubleword
     c resb 1 ; se rezerva un octet
     n resb 1
+    
+    ; n = 3
+    ; c = f5
     
 segment code use32 class=code
     start:
@@ -29,7 +34,7 @@ segment code use32 class=code
        mov eax, [a]
        mov edx, [a+4]               ; edx:eax = a
        
-       and edx, 000000069h
+       and edx, 0000009fh
        and dl, 0011_1000b
        mov cl, 3
        ror dl, cl                           ; dl  = 0000_0101b

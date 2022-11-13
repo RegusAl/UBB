@@ -1,5 +1,3 @@
-from termcolor import colored
-
 from domain.entities import Serial
 
 
@@ -23,11 +21,7 @@ class Console:
             print('Lista de seriale este:')
             for show in show_list:
                 # print(show)
-                print(
-                    'Titlu serial: ', colored(show.getTitle(), 'cyan'), ' - An aparitie: ',
-                    colored(str(show.getAnAparitie()),
-                            'cyan'), ' - Nr. episoade: ', colored(str(
-                        show.getEpisoade()), 'cyan'))
+                print('Titlu serial: ', show.getTitle(), ' - An aparitie: ', str(show.getAnAparitie()), ' - Nr. episoade: ', str(show.getEpisoade()))
 
     def __add_show(self):
         """
@@ -38,7 +32,7 @@ class Console:
             an_aparitie = int(input("Anul aparitiei:"))
             eps = int(input("Numar de episoade difuzate:"))
         except ValueError:
-            print(colored('Anul aparitiei si nr. episoade trebuie sa fie un numar.', 'red'))
+            print('Anul aparitiei si nr. episoade trebuie sa fie un numar.', 'red')
             return
 
         try:
@@ -46,7 +40,7 @@ class Console:
             print('Serialul ' + added_show.getTitle() + ' (' + str(
                 added_show.getAnAparitie()) + ') a fost adaugat cu succes.')
         except ValueError as ve:
-            print(colored(str(ve), 'red'))
+            print(str(ve), 'red')
 
     def __delete_shows(self):
         pass
@@ -71,4 +65,4 @@ class Console:
                 print("Total number of show objects created (including tests):",Serial.getNumberOfShowObjects())
                 return
             else:
-                print(colored('Comanda invalida.', 'red'))
+                print('Comanda invalida.', 'red')

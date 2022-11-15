@@ -1,5 +1,3 @@
-
-
 class Film:
 
     def __init__(self, id_film, nume_film, gen_film):

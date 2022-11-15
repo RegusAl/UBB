@@ -1,6 +1,4 @@
 from erori.repo_error import RepoError
-
-
 class RepoFilme:
 
     def __init__(self):

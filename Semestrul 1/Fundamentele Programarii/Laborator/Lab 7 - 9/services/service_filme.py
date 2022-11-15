@@ -1,5 +1,4 @@
 from domeniu.filme import Film
-
 class ServiceFilme:
 
     def __init__(self, validator_filme, repo_filme):

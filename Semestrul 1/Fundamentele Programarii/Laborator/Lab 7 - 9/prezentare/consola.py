@@ -52,10 +52,11 @@ class ui:
         try:
             id_film = int(input("ID-ul filmului pe care vreti sa-l stergeti: "))
             self.__service_filme.sterge_film_dupa_id(id_film)
+            print("Filmul a fost sters cu succes!")
         except RepoError:
             print("ID-ul nu exista!")
         except:
-            print("ID-ul nu este valid!")
+            print("Filmul nu este valid!")
 
     ### Modifica film dupa id
     def __ui_modifica_film_id(self):
@@ -65,7 +66,6 @@ class ui:
         try:
             id_film = int(input("ID-ul filmului pe care vreti sa-l modificati: "))
             self.__service_filme.sterge_film_dupa_id(id_film)
-            #id_film = int(input("ID: "))
             nume_film = input("Nume film: ")
             gen_film = input("Gen: ")
             self.__service_filme.adauga_film(id_film, nume_film, gen_film)
@@ -105,8 +105,37 @@ class ui:
             print(f"{el[0]}: NUME: {el[1]}; CNP: {el[2]}")
         print("------------")
 
-    # MENIURI
+    ### Sterge client dupa ID
+    def __ui_sterge_client_id(self):
+        '''
+        Functia ui ce sterge un client dupa id
+        '''
+        try:
+            id_client = int(input("ID-ul clientului pe care vreti sa-l stergeti: "))
+            self.__service_clienti.sterge_client_dupa_id(id_client)
+            print("Clientul a fost sters cu succes!")
+        except RepoError:
+            print("ID-ul nu exista!")
+        except:
+            print("ID-ul nu este valid!")
 
+    ### Modifica client dupa ID
+    def __ui_modifica_client_id(self):
+        '''
+        Functia ui ce modifica clientul in functie de id-ul dat de utilizator
+        '''
+        try:
+            id_client = int(input("ID-ul clientului pe care vreti sa-l modificati: "))
+            self.__service_clienti.sterge_client_dupa_id(id_client)
+            nume_client = input("Nume client: ")
+            cnp_client = int(input("CNP: "))
+            self.__service_clienti.adauga_client(id_client, nume_client, cnp_client)
+        except RepoError:
+            print("ID-ul nu exista!")
+        except:
+            print("Datele clientului nu sunt valide!")
+
+    # MENIURI
 
     def __meniu_principal(self):
         print("1. Meniul cu Filmele")
@@ -148,9 +177,9 @@ class ui:
             case '2':
                 self.__ui_afisare_client()
             case '3':
-                pass
+                self.__ui_sterge_client_id()
             case '4':
-                pass
+                self.__ui_modifica_client_id()
             case other:
                 print("Optiune invalida!")
                 return

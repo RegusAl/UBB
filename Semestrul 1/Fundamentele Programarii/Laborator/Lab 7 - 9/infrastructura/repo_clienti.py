@@ -17,3 +17,20 @@ class RepoClienti:
 
     def afisare_clienti(self):
         return self.__clienti
+
+    def stergere_client(self, id):
+        '''
+        Sterge clientul in functie de id
+        :param id: int
+        :return: -; Copie in lista de client toti clientii, fara clientul cu id-ul dat de utilizator
+        '''
+        lista_clienti = []
+        ok = False
+        for el in self.__clienti:
+            if el[0] != id:
+                lista_clienti.append(el)
+            if el[0] == id:
+                ok = True
+        if ok == False:
+            raise RepoError("Client inexistent!")
+        self.__clienti = lista_clienti.copy()

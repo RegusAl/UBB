@@ -1,7 +1,7 @@
 from domeniu.clienti import get_id_client, get_nume_client, get_cnp_client
 from domeniu.filme import get_id_film, get_nume_film, get_gen_film
 from erori.repo_error import RepoError
-from erori.validation_error import ValidError
+#from erori.validation_error import ValidError
 
 class ui:
 
@@ -56,7 +56,7 @@ class ui:
             self.__service_filme.sterge_film_dupa_id(id_film)
             print("Filmul a fost sters cu succes!")
         except RepoError:
-            print("ID-ul nu exista!")
+            print("ID-ul filmului nu exista!")
         except:
             print("Filmul nu este valid!")
 
@@ -72,9 +72,9 @@ class ui:
             gen_film = input("Gen: ")
             self.__service_filme.adauga_film(id_film, nume_film, gen_film)
         except RepoError:
-            print("ID-ul nu exista!")
+            print("ID-ul filmului nu exista!")
         except:
-            print("ID-ul nu este valid!")
+            print("ID-ul filmului nu este valid!")
 
     ## UI pentru Clienti
 
@@ -93,7 +93,7 @@ class ui:
         except RepoError:
             print("Client existent!")
         except:
-            print("Date invalide!")
+            print("Datele clientului invalide!")
 
     ### Afiseaza Clienti
     def __ui_afisare_client(self):
@@ -117,9 +117,9 @@ class ui:
             self.__service_clienti.sterge_client_dupa_id(id_client)
             print("Clientul a fost sters cu succes!")
         except RepoError:
-            print("ID-ul nu exista!")
+            print("ID-ul clientului nu exista!")
         except:
-            print("ID-ul nu este valid!")
+            print("ID-ul clientului nu este valid!")
 
     ### Modifica client dupa ID
     def __ui_modifica_client_id(self):
@@ -133,7 +133,7 @@ class ui:
             cnp_client = int(input("CNP: "))
             self.__service_clienti.adauga_client(id_client, nume_client, cnp_client)
         except RepoError:
-            print("ID-ul nu exista!")
+            print("ID-ul clientului nu exista!")
         except:
             print("Datele clientului nu sunt valide!")
 
@@ -185,7 +185,6 @@ class ui:
             case other:
                 print("Optiune invalida!")
                 return
-
 
     # Functia run() ce apeleaza toate meniurile
     def run(self):

@@ -1,3 +1,4 @@
+from domeniu.clienti import get_id_client, get_nume_client, get_cnp_client
 from domeniu.filme import get_id_film, get_nume_film, get_gen_film
 from erori.repo_error import RepoError
 from erori.validation_error import ValidError
@@ -103,7 +104,7 @@ class ui:
         print("------------")
         print("---Clienti:---")
         for el in lista_clienti:
-            print(f"{el[0]}: NUME: {el[1]}; CNP: {el[2]}")
+            print(f"{get_id_client(el)}: NUME: {get_nume_client(el)}; CNP: {get_cnp_client(el)}")
         print("------------")
 
     ### Sterge client dupa ID

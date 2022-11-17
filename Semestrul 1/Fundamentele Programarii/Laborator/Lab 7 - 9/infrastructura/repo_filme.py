@@ -1,7 +1,5 @@
+from domeniu.filme import get_id_film
 from erori.repo_error import RepoError
-from domeniu.filme import Film, get_id_film
-
-
 class RepoFilme:
 
     def __init__(self):

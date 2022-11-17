@@ -1,7 +1,12 @@
 from erori.repo_error import RepoError
+from domeniu.filme import Film, get_id_film
+
+
 class RepoFilme:
 
     def __init__(self):
+
+        # lista de liste
         self.__filme = [
             [7, "Jumanji", "Aventura"],
             [11, "Jurrasic Park", "Actiune"],
@@ -9,6 +14,15 @@ class RepoFilme:
             [13, "Fast and Furious", "Actiune"],
             [15, "Rush Hour", "Comedie"]
         ]
+
+        # lista de dictionare
+        # self.__filme = [
+        #     {'id': 7, 'nume': 'Jumanji', 'gen': 'aventura'},
+        #     {'id': 11, 'nume': 'Jurrasic Park', 'gen': 'Actiune'},
+        #     {'id': 12, 'nume': 'Avatar', 'gen': 'Actiune'},
+        #     {'id': 13, 'nume': 'Fast and Furious', 'gen': 'Actiune'},
+        #     {'id': 15, 'nume': 'Rush Hour', 'gen': 'Comedie'}
+        # ]
 
     def adauga_film(self, film):
         '''
@@ -18,7 +32,7 @@ class RepoFilme:
         :return: -; lista de filme se modifica prin adaugarea filmului dat de utilizator
         '''
         for el in self.__filme:
-            if el[0] == film[0]:
+            if get_id_film(el) == get_id_film(film):
                 raise RepoError("Film existent!")
         self.__filme.append(film)
 
@@ -39,9 +53,9 @@ class RepoFilme:
         lista_filme = []
         ok = False
         for el in self.__filme:
-            if el[0] != id:
+            if get_id_film(el) != id:
                 lista_filme.append(el)
-            if el[0] == id:
+            if get_id_film(el) == id:
                 ok = True
         if ok == False:
             raise RepoError("Film inexistent!")

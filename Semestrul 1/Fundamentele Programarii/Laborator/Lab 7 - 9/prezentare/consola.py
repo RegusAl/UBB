@@ -1,3 +1,4 @@
+from domeniu.filme import get_id_film, get_nume_film, get_gen_film
 from erori.repo_error import RepoError
 from erori.validation_error import ValidError
 
@@ -41,7 +42,7 @@ class ui:
         print("------------")
         print("---Filme:---")
         for el in lista_filme:
-            print(f"{el[0]}: {el[1]}; Genul filmului: {el[2]}")
+            print(f"{get_id_film(el)}: {get_nume_film(el)}; Genul filmului: {get_gen_film(el)}")
         print("------------")
 
     ### Sterge film dupa id

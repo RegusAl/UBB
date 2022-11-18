@@ -189,6 +189,7 @@ class ui:
     # Functia run() ce apeleaza toate meniurile
     def run(self):
         while True:
+            print("----MENIU----")
             self.__meniu_principal()
             comanda = input("Optiunea dumneavoastra: ")
             match comanda:
@@ -203,3 +204,4 @@ class ui:
                     return
                 case other:
                     print("Optiune invalida!")
+            print("-------------")

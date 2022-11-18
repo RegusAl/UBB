@@ -1,0 +1,47 @@
+     1                                  ; Se da un sir de caractere S. Sa se construiasca sirul D care sa contina toate caracterele speciale (!@#$%^&*) din sirul S.
+     2                                  ; Exemplu:
+     3                                  ; S: '+', '4', '2', 'a', '@', '3', '$', '*'
+     4                                  ; D: '@','$','*'
+     5                                  bits 32
+     6                                  global start
+     7                                  
+     8                                  extern exit
+     9                                  import exit msvcrt.dll
+    10                                  
+    11                                  segment data use32 class=data
+    12 00000000 2B3432614033242A            s db  '+', '4', '2', 'a', '@', '3', '$', '*'
+    13                                      len equ ($-s)
+    14 00000008 21402324255E262A            caractere_speciale db '!', '@', '#', '$', '%', '^', '&', '*'
+    15                                      len_speciale equ ($-caractere_speciale)
+    16 00000010 00<rept>                    d times len db 0
+    17                                      
+    18                                  segment code use32 class=code
+    19                                      start:
+    20 00000000 B908000000                      mov ecx, len
+    21 00000005 E32B                            jecxz final
+    22 00000007 BE00000000                      mov esi, 0
+    23 0000000C BF00000000                      mov edi, 0
+    24                                          
+    25                                          repeta:
+    26                                          
+    27 00000011 8A86[00000000]                      mov al, [s+esi]
+    28 00000017 51                                  push ecx
+    29 00000018 B908000000                          mov ecx, len_speciale
+    30                                              
+    31                                              repeta_caractere:
+    32 0000001D 3A81[08000000]                          cmp al, [caractere_speciale+ecx]
+    33 00000023 7507                                    jne not_equal
+    34 00000025 8887[10000000]                          mov [d+edi], al
+    35 0000002B 47                                      inc(edi)
+    36                                                  not_equal:
+    37                                                  
+    38 0000002C E2EF                                loop repeta_caractere
+    39                                  
+    40 0000002E 46                                  inc(esi)
+    41 0000002F 59                                  pop ecx
+    42                                              
+    43 00000030 E2DF                            loop repeta
+    44                                      
+    45                                          final:
+    46 00000032 6A00                        push dword 0
+    47 00000034 FF15[00000000]              call [exit]

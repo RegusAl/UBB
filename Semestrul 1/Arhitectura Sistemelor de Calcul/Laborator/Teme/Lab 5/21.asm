@@ -41,7 +41,7 @@ segment code use32 class=code
         repetaA:
             mov al, [a+esi]
             inc esi
-            test al, 0F2h ; testam daca SingFlag este 1 sau 0
+            test al, 0F2h ; testam daca SignFlag este 1 sau 0
             jns pozitiv    ; jump la eticheta pozitiv daca SF este 0
                 mov [r+len_b+edi], al
                 inc edi

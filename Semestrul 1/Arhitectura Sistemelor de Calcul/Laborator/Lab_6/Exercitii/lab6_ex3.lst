@@ -1,0 +1,26 @@
+     1                                  bits 32
+     2                                  global start
+     3                                  
+     4                                  extern exit
+     5                                  import exit msvcrt.dll
+     6                                  
+     7                                  segment data use32 class=data
+     8 00000000 1213151822252730            s db 12h, 13h, 15h, 18h, 22h, 25h, 27h, 30h
+     9                                      len equ ($-s)
+    10 00000008 00<rept>                    s1 times len db 0
+    11 00000010 00<rept>                    s2 times len db 0
+    12                                      
+    13                                  ; Se da un sir de numere intregi s.
+    14                                  ; Se cere sa se determine sirurile de numere intregi:
+    15                                  ; s1 - care contine doar numerele intregi pare din sirul s
+    16                                  ; s2 - care contine doar numerele intregi impare din sirul s
+    17                                  segment code use32 class=code
+    18                                      start:
+    19 00000000 B908000000                      mov ecx, len
+    20 00000005 E300                            jecxz final
+    21                                          
+    22                                          
+    23                                          final:
+    24                                          ; exit(0)
+    25 00000007 6A00                            push dword 0        ; push the parameter for exit onto the stack
+    26 00000009 FF15[00000000]                  call [exit]         ; call exit to terminate the program

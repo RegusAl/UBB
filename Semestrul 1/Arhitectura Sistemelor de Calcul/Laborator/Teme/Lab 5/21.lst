@@ -41,7 +41,7 @@
     41                                          repetaA:
     42 0000002C 8A86[00000000]                      mov al, [a+esi]
     43 00000032 46                                  inc esi
-    44 00000033 A8F2                                test al, 0F2h ; testam daca SingFlag este 1 sau 0
+    44 00000033 A8F2                                test al, 0F2h ; testam daca SignFlag este 1 sau 0
     45 00000035 7907                                jns pozitiv    ; jump la eticheta pozitiv daca SF este 0
     46 00000037 8887[13000000]                          mov [r+len_b+edi], al
     47 0000003D 47                                      inc edi

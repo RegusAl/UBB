@@ -16,8 +16,22 @@ segment data use32 class=data
 ; s2 - care contine doar numerele intregi impare din sirul s
 segment code use32 class=code
     start:
+        mov ecx, len
+        jecxz final
+        cld
+        mov esi, s
+        mov edi, s1
+        repeta:
+        lodsb               ; AL = DS:ESI
+        shr al, 1
+        adc bx
+        scasb
+        j
+                
+        loop repeta
         
-        
+        loop repeta
+        final:
         ; exit(0)
         push dword 0        ; push the parameter for exit onto the stack
         call [exit]         ; call exit to terminate the program

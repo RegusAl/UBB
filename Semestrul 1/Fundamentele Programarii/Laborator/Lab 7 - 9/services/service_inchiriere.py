@@ -9,6 +9,11 @@ class ServiceInchiriere:
         self.__service_clienti = service_clienti
         self.__service_filme = service_filme
 
+    def inchiriere(self, id_client, id_film):
+        film = self.__service_filme.cauta_film_dupa_id(id_film)
+        client = self.__service_clienti.cauta_client_dupa_id(id_client)
+        return client, film
+
     def adaugare_inchiriere(self, id_client, id_film):
         film = self.__service_filme.cauta_film_dupa_id(id_film)
         client = self.__service_clienti.cauta_client_dupa_id(id_client)
@@ -17,3 +22,6 @@ class ServiceInchiriere:
 
     def afisare_inchiriere(self):
         return self.__repo_inchiriere.afisare()
+
+    def returnare(self, id_client, id_film):
+        self.__repo_inchiriere.returnare(id_client, id_film)

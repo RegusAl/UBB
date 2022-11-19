@@ -20,3 +20,11 @@ class RepoInchiriere:
             if el[index] != id:
                 lista_inchirieri.append(el)
         self.__inchirieri = lista_inchirieri.copy()
+
+    def returnare(self, id_client, id_film):
+        lista_inchirieri = []
+        for el in self.__inchirieri:
+            if el[0] != id_client or el[1] != id_film:
+                lista_inchirieri.append(el)
+        self.__inchirieri = lista_inchirieri.copy()
+

@@ -187,6 +187,18 @@ class ui:
             print(f"{get_id_client(client)}: {get_nume_client(client)} a inchiriat {get_nume_film(film)}")
         print("---------------------------")
 
+    ### RETURNARE
+    def __ui_returnare(self):
+        try:
+            id_client = int(input("ID-ul clientului ce vrea sa returneze: "))
+            id_film = int(input("ID-ul filmului pe care clientul vrea sa-l returneze: "))
+            inchiriere = self.__service_inchiriere.inchiriere(id_client, id_film)
+            self.__service_inchiriere.returnare(id_client, id_film)
+            print(f"{get_id_client(inchiriere[0])}: {get_nume_client(inchiriere[0])} a inchiriat {get_nume_film(inchiriere[1])}")
+        except RepoError:
+            print("ID-ul filmului/clientului nu exista!")
+        except:
+            print("ID-ul nu este valid!")
 
 
     # MENIURI
@@ -220,7 +232,6 @@ class ui:
         print("1. Adauga inchiriere")
         print("2. Afisare inchirieri")
         print("3. Returnare")
-        print("4. Modifica inchiriere")
         print("-------------------------------")
 
     def __ui_filme(self):
@@ -265,9 +276,7 @@ class ui:
             case '2':
                 self.__ui_afisare_inchiriere()
             case '3':
-                pass
-            case '4':
-                pass
+                self.__ui_returnare()
             case other:
                 print("Optiune invalida!")
                 return

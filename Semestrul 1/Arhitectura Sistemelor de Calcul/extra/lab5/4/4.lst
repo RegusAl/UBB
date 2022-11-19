@@ -1,0 +1,43 @@
+     1                                  ; Se dau doua siruri de octeti S1 si S2 de aceeasi lungime. Sa se construiasca sirul D astfel: fiecare element de pe pozitiile pare din D este suma elementelor de pe pozitiile corespunzatoare din S1 si S2, iar fieca
+     2                                  ;   Exemplu:
+     3                                  ;   S1: 1, 2, 3, 4
+     4                                  ;   S2: 5, 6, 7, 8
+     5                                  ;   D: 6, -4, 10, -4
+     6                                  bits 32
+     7                                  global start
+     8                                  
+     9                                  extern exit
+    10                                  import exit msvcrt.dll
+    11                                  
+    12                                  segment data use32 class=data
+    13 00000000 01020304                    s1 db 1, 2, 3, 4
+    14                                      len equ $-s1
+    15 00000004 05060708                    s2 db 5, 6, 7, 8
+    16 00000008 00<rept>                    d times len db 0
+    17                                  
+    18                                  segment code use32 class=code
+    19                                      start:
+    20 00000000 B904000000                      mov ecx, len
+    21 00000005 E32A                            jecxz final
+    22 00000007 BE00000000                      mov esi, 0
+    23                                          
+    24                                          repeta:
+    25 0000000C 8A86[00000000]                      mov al, [s1+esi]
+    26 00000012 F7C601000000                        test esi, 00000001h   ; vedem daca bitul cel mai nesemnificativ este 1 sau 0
+    27                                              
+    28 00000018 7508                                jnz impar                        ; "jump if not zero" - sare la eticheta impar daca esi este impar
+    29 0000001A 0286[04000000]                          add al, [s2+esi]           
+    30 00000020 EB06                                    jmp final_adunare          ; sare la eticheta final_adunare 
+    31                                              
+    32                                              impar:
+    33 00000022 2A86[04000000]                          sub al, [s2+esi]              
+    34                                              
+    35                                              final_adunare:
+    36 00000028 8886[08000000]                      mov [d+esi], al
+    37 0000002E 46                                  inc(esi)                            ; incrementam ESI
+    38                                                      
+    39 0000002F E2DB                            loop repeta
+    40                                      
+    41                                      final:
+    42 00000031 6A00                        push dword 0
+    43 00000033 FF15[00000000]              call [exit]

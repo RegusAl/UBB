@@ -1,4 +1,6 @@
-from domeniu.clienti import Client
+from domeniu.clienti import Client, get_id_client
+from erori.repo_error import RepoError
+
 class ServiceClienti:
 
     def __init__(self, validator_clienti, repo_clienti):
@@ -37,3 +39,12 @@ class ServiceClienti:
         :return: -
         '''
         self.__repo_clienti.stergere_client(id_client)
+
+    def cauta_client_dupa_id(self, id_client):
+        lista = self.__repo_clienti.afisare_clienti()
+        for el in lista:
+            if get_id_client(el) == id_client:
+                    return el
+        raise RepoError("Client inexistent")
+
+

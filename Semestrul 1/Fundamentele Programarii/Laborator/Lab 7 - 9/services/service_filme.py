@@ -1,7 +1,6 @@
 from domeniu.filme import Film, get_id_film
 from erori.repo_error import RepoError
 
-
 class ServiceFilme:
 
     def __init__(self, validator_filme, repo_filme):
@@ -21,7 +20,6 @@ class ServiceFilme:
         :raises: Error daca filmul are date invalide
         '''
         film = Film(id_film, nume_film, gen_film).creare_film()
-        # print(film)
         self.__validator_filme.valideaza(film)
         self.__repo_filme.adauga_film(film)
 

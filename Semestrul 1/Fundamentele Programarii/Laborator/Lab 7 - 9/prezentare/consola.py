@@ -151,6 +151,20 @@ class ui:
         except:
             print("Datele clientului nu sunt valide!")
 
+    ### Cauta client dupa id
+    def __ui_cauta_client_id(self):
+        '''
+        Functia ui ce cauta un client dupa id
+        '''
+        try:
+            id_client = int(input("ID-ul clientului pe care il cautati: "))
+            el = self.__service_clienti.cauta_client_dupa_id(id_client)
+            print(f"{get_id_client(el)}: {get_nume_client(el)}; Genul filmului: {get_cnp_client(el)}")
+        except RepoError:
+             print("Clientul cu acest ID nu exista!")
+        except:
+            print("ID-ul clientului nu este valid!")
+
     # MENIURI
 
     def __meniu_principal(self):
@@ -173,6 +187,7 @@ class ui:
         print("2. Afisare Clienti")
         print("3. Stergere Client dupa ID")
         print("4. Modifica Client dupa ID")
+        print("5. Cautare Client dupa ID")
         print("-----------------")
 
     def __ui_filme(self):
@@ -203,6 +218,8 @@ class ui:
                 self.__ui_sterge_client_id()
             case '4':
                 self.__ui_modifica_client_id()
+            case '5':
+                self.__ui_cauta_client_id()
             case other:
                 print("Optiune invalida!")
                 return

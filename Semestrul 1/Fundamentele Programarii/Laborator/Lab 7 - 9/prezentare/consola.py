@@ -76,6 +76,20 @@ class ui:
         except:
             print("ID-ul filmului nu este valid!")
 
+    ### Cauta film dupa id
+    def __ui_cauta_film_id(self):
+        '''
+        Functia ui ce cauta un film dupa id
+        '''
+        try:
+            id_film = int(input("ID-ul filmului pe care il cautati: "))
+            el = self.__service_filme.cauta_film_dupa_id(id_film)
+            print(f"{get_id_film(el)}: {get_nume_film(el)}; Genul filmului: {get_gen_film(el)}")
+        except RepoError:
+            print("Filmul cu acest ID nu exista!")
+        except:
+            print("ID-ul filmului nu este valid!")
+
     ## UI pentru Clienti
 
     ### Adauga Clienti
@@ -145,16 +159,21 @@ class ui:
         print("0. Exit")
 
     def __meniu_film(self):
+        print("-----FILM-----")
         print("1. Adauga Film")
         print("2. Afisare Filme")
         print("3. Sterge Film dupa ID")
         print("4. Modifica Film dupa ID")
+        print("5. Cautare Film dupa ID")
+        print("--------------")
 
     def __meniu_clienti(self):
+        print("-----CLIENTI-----")
         print("1. Adauga Client")
         print("2. Afisare Clienti")
         print("3. Stergere Client dupa ID")
         print("4. Modifica Client dupa ID")
+        print("-----------------")
 
     def __ui_filme(self):
         optiune = input("Optiunea dumneavoastra: ")
@@ -167,6 +186,8 @@ class ui:
                 self.__ui_sterge_film_id()
             case '4':
                 self.__ui_modifica_film_id()
+            case '5':
+                self.__ui_cauta_film_id()
             case other:
                 print("Optiune invalida!")
                 return

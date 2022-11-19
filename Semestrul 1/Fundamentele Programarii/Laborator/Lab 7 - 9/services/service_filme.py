@@ -1,4 +1,7 @@
-from domeniu.filme import Film
+from domeniu.filme import Film, get_id_film
+from erori.repo_error import RepoError
+
+
 class ServiceFilme:
 
     def __init__(self, validator_filme, repo_filme):
@@ -38,3 +41,12 @@ class ServiceFilme:
         :return: -
         '''
         self.__repo_filme.stergere_film(id_film)
+
+    def cauta_film_dupa_id(self, id_film):
+        lista = self.__repo_filme.afisare_filme()
+        for el in lista:
+            if get_id_film(el) == id_film:
+                return el
+        raise RepoError("Film inexistent")
+
+

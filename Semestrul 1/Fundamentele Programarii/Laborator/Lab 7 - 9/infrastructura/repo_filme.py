@@ -22,6 +22,7 @@ class RepoFilme:
         #     {'id': 15, 'nume': 'Rush Hour', 'gen': 'Comedie'}
         # ]
 
+    ## Adauga
     def adauga_film(self, film):
         '''
         Adauga un film in lista de filme
@@ -34,6 +35,7 @@ class RepoFilme:
                 raise RepoError("Film existent!")
         self.__filme.append(film)
 
+    ## Afiseaza
     def afisare_filme(self):
         '''
         Returneaza lista de filme
@@ -42,6 +44,7 @@ class RepoFilme:
         '''
         return self.__filme
 
+    ## Sterge
     def stergere_film(self, id):
         '''
         Sterge filmul in functie de id

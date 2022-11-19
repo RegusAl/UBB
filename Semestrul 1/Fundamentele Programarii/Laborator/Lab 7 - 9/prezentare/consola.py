@@ -165,11 +165,36 @@ class ui:
         except:
             print("ID-ul clientului nu este valid!")
 
+    ### INCHIRIERE
+    def __ui_inchiriere(self):
+        try:
+            id_client = int(input("ID-ul clientului ce vrea sa inchirieze: "))
+            id_film = int(input("ID-ul filmului pe care clientul vrea sa-l inchirieze: "))
+            inchiriere = self.__service_inchiriere.adaugare_inchiriere(id_client, id_film)
+            print(f"{get_id_client(inchiriere[0])}: {get_nume_client(inchiriere[0])} a inchiriat {get_nume_film(inchiriere[1])}")
+        except RepoError:
+            print("ID-ul filmului/clientului nu exista!")
+        except:
+            print("ID-ul nu este valid!")
+
+    #### Afisare inchiriere
+    def __ui_afisare_inchiriere(self):
+        print("----Lista de Inchirieri----")
+        lista_inchirieri = self.__service_inchiriere.afisare_inchiriere()
+        for el in lista_inchirieri:
+            client = self.__service_clienti.cauta_client_dupa_id(el[0])
+            film = self.__service_filme.cauta_film_dupa_id(el[1])
+            print(f"{get_id_client(client)}: {get_nume_client(client)} a inchiriat {get_nume_film(film)}")
+        print("---------------------------")
+
+
+
     # MENIURI
 
     def __meniu_principal(self):
         print("1. Meniul cu Filmele")
         print("2. Meniul cu Clientii")
+        print("3. Meniul cu inchirieri")
         print("0. Exit")
 
     def __meniu_film(self):
@@ -189,6 +214,14 @@ class ui:
         print("4. Modifica Client dupa ID")
         print("5. Cautare Client dupa ID")
         print("-----------------")
+
+    def __meniu_inchirieri(self):
+        print("----INCHIRIERI si RETURNARI----")
+        print("1. Adauga inchiriere")
+        print("2. Afisare inchirieri")
+        print("3. Returnare")
+        print("4. Modifica inchiriere")
+        print("-------------------------------")
 
     def __ui_filme(self):
         optiune = input("Optiunea dumneavoastra: ")
@@ -224,6 +257,22 @@ class ui:
                 print("Optiune invalida!")
                 return
 
+    def __ui_inchirieri(self):
+        optiune = input("Optiunea dumneavoastra: ")
+        match optiune:
+            case '1':
+                self.__ui_inchiriere()
+            case '2':
+                self.__ui_afisare_inchiriere()
+            case '3':
+                pass
+            case '4':
+                pass
+            case other:
+                print("Optiune invalida!")
+                return
+
+
     # Functia run() ce apeleaza toate meniurile
     def run(self):
         while True:
@@ -237,6 +286,9 @@ class ui:
                 case '2':
                     self.__meniu_clienti()
                     self.__ui_client()
+                case '3':
+                    self.__meniu_inchirieri()
+                    self.__ui_inchirieri()
                 case '0':
                     print("!Ati iesit din program!")
                     return

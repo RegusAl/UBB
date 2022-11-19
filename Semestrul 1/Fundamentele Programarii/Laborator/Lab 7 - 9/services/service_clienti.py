@@ -3,9 +3,10 @@ from erori.repo_error import RepoError
 
 class ServiceClienti:
 
-    def __init__(self, validator_clienti, repo_clienti):
+    def __init__(self, validator_clienti, repo_clienti, repo_inchiriere):
         self.__validator_clienti = validator_clienti
         self.__repo_clienti = repo_clienti
+        self.__repo_inchiriere = repo_inchiriere
 
     def adauga_client(self, id_client, nume_client, cnp_client):
         '''
@@ -39,6 +40,9 @@ class ServiceClienti:
         :return: -
         '''
         self.__repo_clienti.stergere_client(id_client)
+        index_client = 0
+        self.__repo_inchiriere.stergere_dupa_id(id_client, index_client)
+
 
     def cauta_client_dupa_id(self, id_client):
         lista = self.__repo_clienti.afisare_clienti()

@@ -3,9 +3,10 @@ from erori.repo_error import RepoError
 
 class ServiceFilme:
 
-    def __init__(self, validator_filme, repo_filme):
+    def __init__(self, validator_filme, repo_filme, repo_inchiriere):
         self.__validator_filme = validator_filme
         self.__repo_filme = repo_filme
+        self.__repo_inchiriere = repo_inchiriere
 
     def adauga_film(self, id_film, nume_film, gen_film):
         '''
@@ -39,6 +40,8 @@ class ServiceFilme:
         :return: -
         '''
         self.__repo_filme.stergere_film(id_film)
+        index_film = 1
+        self.__repo_inchiriere.stergere_dupa_id(id_film, index_film)
 
     def cauta_film_dupa_id(self, id_film):
         lista = self.__repo_filme.afisare_filme()

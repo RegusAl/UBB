@@ -17,9 +17,9 @@ repo_filme = RepoFilme()
 repo_clienti = RepoClienti()
 repo_inchiriere = RepoInchiriere()
 
-service_filme = ServiceFilme(validator_filme, repo_filme)
-service_clienti = ServiceClienti(validator_clienti, repo_clienti)
-service_inchiriere = ServiceInchiriere(validator_inchiriere, repo_inchiriere)
+service_filme = ServiceFilme(validator_filme, repo_filme, repo_inchiriere)
+service_clienti = ServiceClienti(validator_clienti, repo_clienti, repo_inchiriere)
+service_inchiriere = ServiceInchiriere(validator_clienti, validator_filme, repo_clienti, repo_filme, repo_inchiriere, service_clienti, service_filme)
 
 consola = ui(service_filme, service_clienti, service_inchiriere)
 consola.run()

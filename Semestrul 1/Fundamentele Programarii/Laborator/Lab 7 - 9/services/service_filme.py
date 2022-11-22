@@ -47,15 +47,22 @@ class ServiceFilme:
         self.__repo_inchiriere.stergere_film_dupa_id(id_film)
 
     def cauta_film_dupa_id(self, id_film):
+        '''
+        Cauta un film in functie de id-ul transmis prin parametru
+        :param id_film: int
+        :return: filmul cu id-ul cautat
+        '''
         lista = self.__repo_filme.afisare_filme()
         for el in lista:
             if el.get_id_film() == id_film:
                 return el
-        raise RepoError("Film inexistent")
+        raise RepoError("Film inexistent!")
 
     def filme_random(self, nr):
-        # nume_filme = ['Hulk', 'Iron-Man', 'Spider-Man']
-        # gen_filme = ['Actiune', 'Drama', 'Comedie']
+        '''
+        Functia adauga un numar random de filme
+        :param nr: random
+        '''
         for index in range(nr):
             try:
                 film = Film(random.randint(1, 100), random_string(10), random_string(5))

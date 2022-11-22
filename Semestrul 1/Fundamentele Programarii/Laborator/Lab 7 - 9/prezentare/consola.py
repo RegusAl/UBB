@@ -180,8 +180,8 @@ class ui:
             id_client = int(input("ID-ul clientului ce vrea sa inchirieze: "))
             id_film = int(input("ID-ul filmului pe care clientul vrea sa-l inchirieze: "))
             self.__service_inchiriere.inchiriere(id_client, id_film)
-        except RepoError:
-            print("ID-ul filmului/clientului nu exista!")
+        except RepoError as ve:
+            print(ve)
         except:
             print("ID-ul nu este valid!")
 
@@ -203,8 +203,8 @@ class ui:
             inchiriere = self.__service_inchiriere.inchiriere(id_client, id_film)
             self.__service_inchiriere.returnare(id_client, id_film)
             # print(f"{get_id_client(inchiriere[0])}: {get_nume_client(inchiriere[0])} a inchiriat {get_nume_film(inchiriere[1])}")
-        except RepoError:
-            print("ID-ul filmului/clientului nu exista!")
+        except RepoError as ve:
+            print(ve)
         except:
             print("ID-ul nu este valid!")
 

@@ -30,7 +30,6 @@ class RepoFilme:
         '''
         Returneaza lista de filme
         :return: lista de filme
-        :rtype: lista
         '''
         return self.__filme
 

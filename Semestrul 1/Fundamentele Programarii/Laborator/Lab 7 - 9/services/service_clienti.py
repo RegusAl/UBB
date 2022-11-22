@@ -47,13 +47,24 @@ class ServiceClienti:
 
 
     def cauta_client_dupa_id(self, id_client):
+        '''
+        Cauta clientul dupa id-ul primit prin parametru
+        :param id_client: id-ul clientului
+        :type int
+        :return: returneaza clientul
+        :rtype RepoError
+        '''
         lista = self.__repo_clienti.afisare_clienti()
         for el in lista:
             if el.get_id_client() == id_client:
                     return el
-        raise RepoError("Client inexistent")
+        raise RepoError("Client inexistent!")
 
     def clienti_random(self, nr):
+        '''
+        Functia adauga un numar random de clienti
+        :param nr: random
+        '''
         for index in range(nr):
             try:
                 client = Client(random.randint(1, 100), random_string(5)+' '+random_string(10), random.randint(1000000000000, 9999999999999))

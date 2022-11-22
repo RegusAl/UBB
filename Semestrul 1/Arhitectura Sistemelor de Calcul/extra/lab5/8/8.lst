@@ -1,0 +1,37 @@
+     1                                  ; Se da un sir de caractere S. Sa se construiasca sirul D care sa contina toate literele mari din sirul S.
+     2                                  ;   Exemplu:
+     3                                  ;   S: 'a', 'A', 'b', 'B', '2', '%', 'x', 'M'
+     4                                  ;   D: 'A', 'B', 'M'
+     5                                  bits 32
+     6                                  global start
+     7                                  
+     8                                  extern exit 
+     9                                  import exit msvcrt.dll
+    10                                  
+    11                                  segment data use32 class=data
+    12 00000000 614162423225784D            s db 'a', 'A', 'b', 'B', '2', '%', 'x', 'M'
+    13                                      len equ $-s
+    14 00000008 00<rept>                    d times len db 0
+    15                                      
+    16                                  segment code use32 class=code
+    17                                      start:
+    18 00000000 B908000000                      mov ecx, len                    ; ECX = numarul elementelor sirului s
+    19 00000005 E322                            jecxz final
+    20 00000007 BE00000000                      mov esi, 0                        ; ESI = 0
+    21 0000000C BF00000000                      mov edi, 0                        ; EDI = 0
+    22                                          repeta:
+    23 00000011 8A86[00000000]                      mov al, [s+esi]
+    24 00000017 3C41                                cmp al, 'A'                     ; comparam al cu 'A'
+    25 00000019 720B                                jb alt_caracter               ; 'jump if below' la eticheta alt_caracter
+    26 0000001B 3C5A                                    cmp al, 'Z'                 ; comparam al cu 'Z'
+    27 0000001D 7707                                    ja alt_caracter           ; 'jump if above' la eticheta alt_caracter
+    28 0000001F 8887[08000000]                              mov [d+edi], al
+    29 00000025 47                                          inc(edi)                   
+    30                                          alt_caracter:
+    31 00000026 46                              inc(esi)
+    32 00000027 E2E8                            loop repeta
+    33                                          
+    34                                      final:
+    35                                      
+    36 00000029 6A00                        push dword 0
+    37 0000002B FF15[00000000]              call [exit]

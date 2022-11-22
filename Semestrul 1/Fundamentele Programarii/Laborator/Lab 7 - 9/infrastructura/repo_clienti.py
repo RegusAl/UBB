@@ -1,4 +1,4 @@
-from domeniu.clienti import get_id_client
+from domeniu.clienti import Client
 from erori.repo_error import RepoError
 class RepoClienti:
 
@@ -6,19 +6,11 @@ class RepoClienti:
 
         # lista de liste
         self.__clienti = [
-            [1, "Mihai Ion", 5030724668945],
-            [2, "Alexandru Popescu", 6023115705789],
-            [3, "Mihaela Sandu", 3201343245673],
-            [4, "Mihai Eminescu", 1234115678901]
+            Client(1, "Mihai Ion", 5030724668945),
+            Client(2, "Alexandru Popescu", 6023115705789),
+            Client(3, "Mihaela Sandu", 3201343245673),
+            Client(4, "Mihai Eminescu", 1234115678901)
         ]
-
-        # lista de dictionare
-        # self.__clienti = [
-        #     {'id': 1, 'nume': "Mihai Ion", 'cnp': 5030724668945},
-        #     {'id': 2, 'nume': "Alexandru Popescu", 'cnp': 6023115705789},
-        #     {'id': 3, 'nume': "Mihaela Sandu", 'cnp': 3201343245673},
-        #     {'id': 4, 'nume': "Mihai Eminescu", 'cnp': 1234115678901}
-        # ]
 
     def adauga_client(self, client):
         '''
@@ -28,7 +20,7 @@ class RepoClienti:
         :return: -; lista de clienti se modifica prin adaugarea clientului dat de utilizator
         '''
         for el in self.__clienti:
-            if get_id_client(el) == get_id_client(client):
+            if el.get_id_client() == client.get_id_client():
                 raise RepoError("Client existent!")
         self.__clienti.append(client)
 
@@ -49,9 +41,9 @@ class RepoClienti:
         lista_clienti = []
         ok = False
         for el in self.__clienti:
-            if get_id_client(el) != id:
+            if el.get_id_client() != id:
                 lista_clienti.append(el)
-            if get_id_client(el) == id:
+            if el.get_id_client() == id:
                 ok = True
         if ok == False:
             raise RepoError("Client inexistent!")

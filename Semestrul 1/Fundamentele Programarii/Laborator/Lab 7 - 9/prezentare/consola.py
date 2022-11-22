@@ -1,7 +1,6 @@
-from domeniu.clienti import get_id_client, get_nume_client, get_cnp_client
-from domeniu.filme import get_id_film, get_nume_film, get_gen_film
+# from domeniu.filme import get_id_film, get_nume_film, get_gen_film
 from erori.repo_error import RepoError
-#from erori.validation_error import ValidError
+import random
 
 class ui:
 
@@ -27,23 +26,22 @@ class ui:
             id_film = int(input("ID: "))
             nume_film = input("Nume film: ")
             gen_film = input("Gen: ")
-            self.__service_filme.adauga_film(id_film, nume_film, gen_film)
-            print("Film adaugat cu succes!")
+            film_adaugat = self.__service_filme.adauga_film(id_film, nume_film, gen_film)
+            print(f"Filmul {film_adaugat.get_nume_film()} adaugat cu succes!")
         except RepoError:
             print("Film existent!")
         except:
             print("Datele filmului nu sunt valide!")
 
     ### Afisare Filme
-    def __ui_afisare_filme(self):
+    def __ui_afisare_filme(self, lista):
         '''
         Functia ui ce afiseaza filmele
         '''
-        lista_filme = self.__service_filme.afisare_filme()
         print("------------")
         print("---Filme:---")
-        for el in lista_filme:
-            print(f"{get_id_film(el)}: {get_nume_film(el)}; Genul filmului: {get_gen_film(el)}")
+        for el in lista:
+            print(f"{el.get_id_film()}: {el.get_nume_film()}; Genul filmului: {el.get_gen_film()}")
         print("------------")
 
     ### Sterge film dupa id
@@ -84,11 +82,16 @@ class ui:
         try:
             id_film = int(input("ID-ul filmului pe care il cautati: "))
             el = self.__service_filme.cauta_film_dupa_id(id_film)
-            print(f"{get_id_film(el)}: {get_nume_film(el)}; Genul filmului: {get_gen_film(el)}")
+            print(f"{el.get_id_film()}: {el.get_nume_film()}; Genul filmului: {el.get_gen_film()}")
         except RepoError:
             print("Filmul cu acest ID nu exista!")
         except:
             print("ID-ul filmului nu este valid!")
+
+    def __ui_film_random(self):
+        number = random.randint(1, 10)
+        self.__service_filme.filme_random(number)
+        print(f"S-au generat {number} filme random!")
 
     ## UI pentru Clienti
 
@@ -118,7 +121,7 @@ class ui:
         print("------------")
         print("---Clienti:---")
         for el in lista_clienti:
-            print(f"{get_id_client(el)}: NUME: {get_nume_client(el)}; CNP: {get_cnp_client(el)}")
+            print(f"{el.get_id_client()}: NUME: {el.get_nume_client()}; CNP: {el.get_cnp_client()}")
         print("------------")
 
     ### Sterge client dupa ID
@@ -159,19 +162,24 @@ class ui:
         try:
             id_client = int(input("ID-ul clientului pe care il cautati: "))
             el = self.__service_clienti.cauta_client_dupa_id(id_client)
-            print(f"{get_id_client(el)}: {get_nume_client(el)}; Genul filmului: {get_cnp_client(el)}")
+            print(f"{el.get_id_client()}: {el.get_nume_client()}; Genul filmului: {el.get_cnp_client()}")
         except RepoError:
              print("Clientul cu acest ID nu exista!")
         except:
             print("ID-ul clientului nu este valid!")
+
+    def __ui__client_random(self):
+        number = random.randint(1, 10)
+        self.__service_clienti.clienti_random(number)
+        print(f"S-au generat {number} clienti random!")
+
 
     ### INCHIRIERE
     def __ui_inchiriere(self):
         try:
             id_client = int(input("ID-ul clientului ce vrea sa inchirieze: "))
             id_film = int(input("ID-ul filmului pe care clientul vrea sa-l inchirieze: "))
-            inchiriere = self.__service_inchiriere.adaugare_inchiriere(id_client, id_film)
-            print(f"{get_id_client(inchiriere[0])}: {get_nume_client(inchiriere[0])} a inchiriat {get_nume_film(inchiriere[1])}")
+            self.__service_inchiriere.inchiriere(id_client, id_film)
         except RepoError:
             print("ID-ul filmului/clientului nu exista!")
         except:
@@ -182,9 +190,9 @@ class ui:
         print("----Lista de Inchirieri----")
         lista_inchirieri = self.__service_inchiriere.afisare_inchiriere()
         for el in lista_inchirieri:
-            client = self.__service_clienti.cauta_client_dupa_id(el[0])
-            film = self.__service_filme.cauta_film_dupa_id(el[1])
-            print(f"{get_id_client(client)}: {get_nume_client(client)} a inchiriat {get_nume_film(film)}")
+            client = self.__service_clienti.cauta_client_dupa_id(el.get_client())
+            film = self.__service_filme.cauta_film_dupa_id(el.get_film())
+            print(f"{client.get_id_client()}: {client.get_nume_client()} a inchiriat {film.get_nume_film()}")
         print("---------------------------")
 
     ### RETURNARE
@@ -194,7 +202,7 @@ class ui:
             id_film = int(input("ID-ul filmului pe care clientul vrea sa-l returneze: "))
             inchiriere = self.__service_inchiriere.inchiriere(id_client, id_film)
             self.__service_inchiriere.returnare(id_client, id_film)
-            print(f"{get_id_client(inchiriere[0])}: {get_nume_client(inchiriere[0])} a inchiriat {get_nume_film(inchiriere[1])}")
+            # print(f"{get_id_client(inchiriere[0])}: {get_nume_client(inchiriere[0])} a inchiriat {get_nume_film(inchiriere[1])}")
         except RepoError:
             print("ID-ul filmului/clientului nu exista!")
         except:
@@ -216,6 +224,7 @@ class ui:
         print("3. Sterge Film dupa ID")
         print("4. Modifica Film dupa ID")
         print("5. Cautare Film dupa ID")
+        print("6. Genereaza filme random")
         print("--------------")
 
     def __meniu_clienti(self):
@@ -225,6 +234,7 @@ class ui:
         print("3. Stergere Client dupa ID")
         print("4. Modifica Client dupa ID")
         print("5. Cautare Client dupa ID")
+        print("6. Genereaza clienti random")
         print("-----------------")
 
     def __meniu_inchirieri(self):
@@ -240,13 +250,15 @@ class ui:
             case '1':
                 self.__ui_adauga_film()
             case '2':
-                self.__ui_afisare_filme()
+                self.__ui_afisare_filme(self.__service_filme.afisare_filme())
             case '3':
                 self.__ui_sterge_film_id()
             case '4':
                 self.__ui_modifica_film_id()
             case '5':
                 self.__ui_cauta_film_id()
+            case '6':
+                self.__ui_film_random()
             case other:
                 print("Optiune invalida!")
                 return
@@ -264,6 +276,8 @@ class ui:
                 self.__ui_modifica_client_id()
             case '5':
                 self.__ui_cauta_client_id()
+            case '6':
+                self.__ui__client_random()
             case other:
                 print("Optiune invalida!")
                 return

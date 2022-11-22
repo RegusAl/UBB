@@ -1,5 +1,5 @@
 from erori.validation_error import ValidError
-from domeniu.clienti import get_id_client, get_nume_client, get_cnp_client
+from domeniu.clienti import Client
 class ValidatorClienti:
 
     def __init__(self):
@@ -7,11 +7,11 @@ class ValidatorClienti:
 
     def valideaza(self, client):
         erori = ""
-        if get_id_client(client) < 0 or get_id_client(client)=="":
+        if client.get_id_client() < 0 or client.get_id_client()=="":
             erori += "id invalid!\n"
-        if get_nume_client(client) == "":
+        if client.get_nume_client() == "":
             erori += "nume invalid!\n"
-        if get_cnp_client(client) < 0 or get_cnp_client(client)=="":
+        if client.get_cnp_client() < 0 or client.get_cnp_client()=="" or len(str(client.get_cnp_client()))!=13:
             erori += "cnp invalid!\n"
         if len(erori) > 0:
             raise ValidError(erori)

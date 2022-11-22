@@ -1,5 +1,8 @@
-from domeniu.clienti import Client, get_id_client
+import random
+from domeniu.clienti import Client
 from erori.repo_error import RepoError
+from services.random_utils import random_string
+
 
 class ServiceClienti:
 
@@ -20,7 +23,7 @@ class ServiceClienti:
         :return: - ; apelam functii din Repo si Validator
         :raises: Error daca clientul are date invalide
         '''
-        client = Client(id_client, nume_client, cnp_client).creare_client()
+        client = Client(id_client, nume_client, cnp_client)
         self.__validator_clienti.valideaza(client)
         self.__repo_clienti.adauga_client(client)
 
@@ -40,15 +43,24 @@ class ServiceClienti:
         :return: -
         '''
         self.__repo_clienti.stergere_client(id_client)
-        index_client = 0
-        self.__repo_inchiriere.stergere_dupa_id(id_client, index_client)
+        self.__repo_inchiriere.stergere_dupa_id(id_client)
 
 
     def cauta_client_dupa_id(self, id_client):
         lista = self.__repo_clienti.afisare_clienti()
         for el in lista:
-            if get_id_client(el) == id_client:
+            if el.get_id_client() == id_client:
                     return el
         raise RepoError("Client inexistent")
+
+    def clienti_random(self, nr):
+        for index in range(nr):
+            try:
+                client = Client(random.randint(1, 100), random_string(5)+' '+random_string(10), random.randint(1000000000000, 9999999999999))
+                self.__validator_clienti.valideaza(client)
+                self.__repo_clienti.adauga_client(client)
+            except RepoError:
+                continue
+
 
 

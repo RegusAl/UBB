@@ -1,5 +1,5 @@
 from erori.validation_error import ValidError
-from domeniu.filme import get_id_film, get_nume_film, get_gen_film
+# from domeniu.filme import get_id_film, get_nume_film, get_gen_film
 
 class ValidatorFilme:
 
@@ -8,11 +8,11 @@ class ValidatorFilme:
 
     def valideaza(self, film):
         erori = ""
-        if get_id_film(film)<0 or get_id_film(film)=="":
+        if film.get_id_film()<0 or film.get_id_film()=="":
             erori += "id invalid!\n"
-        if get_nume_film(film)=="":
+        if film.get_nume_film()=="":
             erori += "nume invalid\n"
-        if get_gen_film(film)=="":
+        if film.get_gen_film()=="":
             erori += "gen invalid\n"
         if len(erori)>0:
             raise ValidError(erori)

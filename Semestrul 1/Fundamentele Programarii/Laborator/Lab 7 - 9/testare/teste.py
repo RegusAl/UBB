@@ -1,5 +1,5 @@
-from domeniu.clienti import Client, get_id_client, get_nume_client, get_cnp_client
-from domeniu.filme import Film, get_id_film, get_gen_film, get_nume_film
+from domeniu.clienti import Client
+from domeniu.filme import Film
 
 ## Teste filme
 class TesteFilme:
@@ -10,12 +10,12 @@ class TesteFilme:
 
     def test_adaugare(self):
         lista = []
-        film = Film(1, "Jumanji", "Aventura").creare_film()
+        film = Film(1, "Jumanji", "Aventura")
         lista.append(film)
         assert (lista[0] == film)
-        assert (get_id_film(film) == 1)
-        assert (get_nume_film(film) == "Jumanji")
-        assert (get_gen_film(film) == "Aventura")
+        assert (film.get_id_film() == 1)
+        assert (film.get_nume_film() == "Jumanji")
+        assert (film.get_gen_film() == "Aventura")
 
 ## Teste Clienti
 class TesteClienti:
@@ -26,9 +26,9 @@ class TesteClienti:
 
     def test_adaugare(self):
         lista = []
-        client = Client(89, "Mihai Alexandru", 50307894626).creare_client()
+        client = Client(89, "Mihai Alexandru", 50307894626)
         lista.append(client)
         assert (lista[0] == client)
-        assert (get_id_client(client) == 89)
-        assert (get_nume_client(client) == "Mihai Alexandru")
-        assert (get_cnp_client(client) == 50307894626)
+        assert (client.get_id_client() == 89)
+        assert (client.get_nume_client() == "Mihai Alexandru")
+        assert (client.get_cnp_client() == 50307894626)

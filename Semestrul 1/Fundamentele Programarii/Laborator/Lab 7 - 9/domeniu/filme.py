@@ -5,11 +5,6 @@ class Film:
         self.__nume_film = nume_film
         self.__gen_film = gen_film
 
-    def creare_film(self):
-        # film = {'id': self.__id_film, 'nume': self.__nume_film, 'gen': self.__gen_film}
-        film = [self.__id_film, self.__nume_film, self.__gen_film]
-        return film
-
     def set_nume(self, nume_film):
         self.__nume_film = nume_film
 
@@ -19,14 +14,11 @@ class Film:
     def __eq__(self, other):
         return self.__id_film == other.__id_film
 
-    # def film_creat(self):
-    #     return [self.__id_film, self.__nume_film, self.__gen_film]
+    def get_id_film(self):
+        return self.__id_film
 
-def get_id_film(film):
-        return film[0]
+    def get_nume_film(self):
+        return self.__nume_film
 
-def get_nume_film(film):
-        return film[1]
-
-def get_gen_film(film):
-        return film[2]
+    def get_gen_film(self):
+        return self.__gen_film

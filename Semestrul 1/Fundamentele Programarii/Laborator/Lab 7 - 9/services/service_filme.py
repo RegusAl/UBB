@@ -1,5 +1,8 @@
-from domeniu.filme import Film, get_id_film
+import random
+from domeniu.filme import Film
 from erori.repo_error import RepoError
+from services.random_utils import random_string
+
 
 class ServiceFilme:
 
@@ -20,9 +23,10 @@ class ServiceFilme:
         :return: - ; apelam functii din Repo si Validator
         :raises: Error daca filmul are date invalide
         '''
-        film = Film(id_film, nume_film, gen_film).creare_film()
+        film = Film(id_film, nume_film, gen_film)
         self.__validator_filme.valideaza(film)
         self.__repo_filme.adauga_film(film)
+        return film
 
     def afisare_filme(self):
         '''
@@ -40,14 +44,23 @@ class ServiceFilme:
         :return: -
         '''
         self.__repo_filme.stergere_film(id_film)
-        index_film = 1
-        self.__repo_inchiriere.stergere_dupa_id(id_film, index_film)
+        self.__repo_inchiriere.stergere_film_dupa_id(id_film)
 
     def cauta_film_dupa_id(self, id_film):
         lista = self.__repo_filme.afisare_filme()
         for el in lista:
-            if get_id_film(el) == id_film:
+            if el.get_id_film() == id_film:
                 return el
         raise RepoError("Film inexistent")
 
+    def filme_random(self, nr):
+        # nume_filme = ['Hulk', 'Iron-Man', 'Spider-Man']
+        # gen_filme = ['Actiune', 'Drama', 'Comedie']
+        for index in range(nr):
+            try:
+                film = Film(random.randint(1, 100), random_string(10), random_string(5))
+                self.__validator_filme.valideaza(film)
+                self.__repo_filme.adauga_film(film)
+            except RepoError:
+                continue
 

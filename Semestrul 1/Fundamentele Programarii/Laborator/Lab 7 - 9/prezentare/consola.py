@@ -200,9 +200,7 @@ class ui:
         try:
             id_client = int(input("ID-ul clientului ce vrea sa returneze: "))
             id_film = int(input("ID-ul filmului pe care clientul vrea sa-l returneze: "))
-            inchiriere = self.__service_inchiriere.inchiriere(id_client, id_film)
             self.__service_inchiriere.returnare(id_client, id_film)
-            # print(f"{get_id_client(inchiriere[0])}: {get_nume_client(inchiriere[0])} a inchiriat {get_nume_film(inchiriere[1])}")
         except RepoError as ve:
             print(ve)
         except:

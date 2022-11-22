@@ -13,7 +13,7 @@ class RepoInchiriere:
         '''
         Adauga o inchiriere in inchirieri
         :param inchiriere: inchirierea
-        :type Inchiriere
+        :type: Inchiriere
         :return: -
         '''
         for el in self.__inchirieri:

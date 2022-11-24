@@ -9,7 +9,12 @@ class RepoFilme:
             Film(1, 'Jumanji', 'Aventura'),
             Film(2, 'Fast and Furious', 'Actiune'),
             Film(3, 'Up', 'Comedie'),
-            Film(4, 'Rush Hour', 'Comedie')
+            Film(4, 'Rush Hour', 'Comedie'),
+            Film(5, 'Jurassic Park', 'Actiune'),
+            Film(6, 'Top Gun', 'Aventura'),
+            Film(7, 'Avatar', 'SF'),
+            Film(8, 'Black Adam', 'Actiune'),
+            Film(9, 'Gladiator', 'Istoric')
         ]
 
     ## Adauga

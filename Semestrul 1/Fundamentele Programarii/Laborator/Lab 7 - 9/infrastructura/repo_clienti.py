@@ -9,7 +9,11 @@ class RepoClienti:
             Client(1, "Mihai Ion", 5030724668945),
             Client(2, "Alexandru Popescu", 6023115705789),
             Client(3, "Mihaela Sandu", 3201343245673),
-            Client(4, "Mihai Eminescu", 1234115678901)
+            Client(4, "Mihai Eminescu", 1234115678901),
+            Client(5, "Ion Creanga", 5067812345234),
+            Client(6, "Andreea Georgeta", 1232145676543),
+            Client(7, "George Popa", 5786123453345),
+            Client(8, "Emilut Pilaf", 78547235879123)
         ]
 
     def adauga_client(self, client):

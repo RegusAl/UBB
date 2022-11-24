@@ -11,8 +11,8 @@ class Client:
     def set_gen(self, gen_film):
         self.__gen_film = gen_film
 
-    def __eq__(self, other):
-        return self.__id_client == other.__id_client
+    # def __eq__(self, other):
+    #     return self.__id_client == other.__id_client
 
     def get_id_client(self):
         return self.__id_client

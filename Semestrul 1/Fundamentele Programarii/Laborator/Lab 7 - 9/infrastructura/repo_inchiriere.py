@@ -6,7 +6,15 @@ class RepoInchiriere:
     def __init__(self):
         self.__inchirieri = [
             Inchiriere(1, 2),
-            Inchiriere(3, 2)
+            Inchiriere(3, 2),
+            Inchiriere(3, 1),
+            Inchiriere(4, 4),
+            Inchiriere(2, 3),
+            Inchiriere(1, 6),
+            Inchiriere(2, 5),
+            Inchiriere(2, 2),
+            Inchiriere(8, 1),
+            Inchiriere(8, 7)
         ]
 
     def adauga_inchiriere(self, inchiriere):

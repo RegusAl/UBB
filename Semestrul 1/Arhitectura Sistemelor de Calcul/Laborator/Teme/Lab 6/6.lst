@@ -40,24 +40,25 @@
     39          ******************       warning: label alone on a line without a colon might be in error [-w+orphan-labels]
     40 00000021 66D1E8                                  shr ax, 1            ; shift-right pe pentru a ne da carry-flag
     41 00000024 6683D300                                adc bx, 0           ; adaugam carryflag-ul in BX
-    42 00000028 E2F7                                loop numara   
-    43                                              
-    44 0000002A 6683FA00                            cmp dx, 0               ; comparam DX cu 0 
-    45 0000002E 790D                                jns pozitiv                ; daca valoarea din DX este pozitiva facem jump la eticheta "pozitiv"
-    46                                              
-    47 00000030 668B15[0C000000]                    mov dx, [saispe]    ; facem o scadere din 16 pentru a afla numarul de zerouri
-    48 00000037 6629DA                              sub dx, bx
-    49 0000003A 6689D3                              mov bx, dx
-    50                                              
-    51                                              pozitiv:
-    52                                              
-    53 0000003D 6689D8                              mov ax, bx
-    54 00000040 AA                                  stosb                   ; ES : EDI = AX
-    55 00000041 59                                  pop ecx      
-    56                                          
-    57 00000042 E2CE                            loop repeta
-    58                                          
-    59                                          final:
-    60                                          
-    61 00000044 6A00                            push dword 0
-    62 00000046 FF15[00000000]                  call [exit]
+    42                                                  
+    43 00000028 E2F7                                loop numara   
+    44                                              
+    45 0000002A 6683FA00                            cmp dx, 0               ; comparam DX cu 0 
+    46 0000002E 790D                                jns pozitiv                ; daca valoarea din DX este pozitiva facem jump la eticheta "pozitiv"
+    47                                              
+    48 00000030 668B15[0C000000]                    mov dx, [saispe]    ; facem o scadere din 16 pentru a afla numarul de zerouri
+    49 00000037 6629DA                              sub dx, bx
+    50 0000003A 6689D3                              mov bx, dx
+    51                                              
+    52                                              pozitiv:
+    53                                              
+    54 0000003D 6689D8                              mov ax, bx
+    55 00000040 AA                                  stosb                   ; ES : EDI = AX
+    56 00000041 59                                  pop ecx      
+    57                                          
+    58 00000042 E2CE                            loop repeta
+    59                                          
+    60                                          final:
+    61                                          
+    62 00000044 6A00                            push dword 0
+    63 00000046 FF15[00000000]                  call [exit]

@@ -50,7 +50,7 @@ class ServiceClienti:
         '''
         Cauta clientul dupa id-ul primit prin parametru
         :param id_client: id-ul clientului
-        :type int
+        :type: int
         :return: returneaza clientul
         :rtype RepoError
         '''
@@ -72,6 +72,3 @@ class ServiceClienti:
                 self.__repo_clienti.adauga_client(client)
             except RepoError:
                 continue
-
-
-

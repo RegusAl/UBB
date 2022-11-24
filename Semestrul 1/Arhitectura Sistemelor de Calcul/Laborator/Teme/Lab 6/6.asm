@@ -39,6 +39,7 @@ segment code use32 class=code
             numara
                 shr ax, 1            ; shift-right pe pentru a ne da carry-flag
                 adc bx, 0           ; adaugam carryflag-ul in BX
+                
             loop numara   
             
             cmp dx, 0               ; comparam DX cu 0 

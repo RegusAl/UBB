@@ -206,6 +206,28 @@ class ui:
         except:
             print("ID-ul nu este valid!")
 
+    ## RAPOARTE
+
+    def __ui_sortare_nume(self):
+        lista = self.__service_inchiriere.sortare_nume()
+        for el in lista:
+            print(el)
+
+    def __ui_sortare_numar(self):
+        lista = self.__service_inchiriere.sortare_numar()
+        for el in lista:
+            print(f"{el[1]} a inchiriat {el[0]} filme")
+
+    def __ui_filme_inchiriate(self):
+        lista = self.__service_inchiriere.filme_inchiriate()
+        for el in lista:
+            print(f"{el[1]} a fost inchiriat de {el[0]} ori")
+
+    def __ui_filme_inchiriate_30(self):
+        lista = self.__service_inchiriere.filme_inchiriate_30()
+        print("Cei 30% din clienti cu cele mai multe filme inchiriate sunt:")
+        for el in lista:
+            print(f"{el[1]} a inchiriat {el[0]} filme")
 
     # MENIURI
 
@@ -213,6 +235,7 @@ class ui:
         print("1. Meniul cu Filmele")
         print("2. Meniul cu Clientii")
         print("3. Meniul cu inchirieri")
+        print("4. Rapoarte")
         print("0. Exit")
 
     def __meniu_film(self):
@@ -241,6 +264,13 @@ class ui:
         print("2. Afisare inchirieri")
         print("3. Returnare")
         print("-------------------------------")
+
+    def __meniu_rapoarte(self):
+        print("----RAPOARTE----")
+        print("1. Clienti cu filme inchiriate ordonati dupa nume")
+        print("2. Clienti cu filme inchiriate ordonati dupa numarul de filme inchiriate")
+        print("3. Cele mai inchiriate filme")
+        print("4. Primi 30% clienti cu cele mai multe filme")
 
     def __ui_filme(self):
         optiune = input("Optiunea dumneavoastra: ")
@@ -293,6 +323,20 @@ class ui:
                 print("Optiune invalida!")
                 return
 
+    def __ui_rapoarte(self):
+        optiune = input("Optiunea dumneavoastra: ")
+        match optiune:
+            case '1':
+                self.__ui_sortare_nume()
+            case '2':
+                self.__ui_sortare_numar()
+            case '3':
+                self.__ui_filme_inchiriate()
+            case '4':
+                self.__ui_filme_inchiriate_30()
+            case other:
+                print("Optiune invalida!")
+                return
 
     # Functia run() ce apeleaza toate meniurile
     def run(self):
@@ -310,7 +354,10 @@ class ui:
                 case '3':
                     self.__meniu_inchirieri()
                     self.__ui_inchirieri()
-                case '0':
+                case '4':
+                    self.__meniu_rapoarte()
+                    self.__ui_rapoarte()
+                case '5':
                     print("!Ati iesit din program!")
                     return
                 case other:

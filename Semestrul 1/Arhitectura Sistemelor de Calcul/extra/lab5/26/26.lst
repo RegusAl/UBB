@@ -1,0 +1,56 @@
+     1                                  ; Se da un sir de octeti S. Sa se determine maximul elementelor de pe pozitiile pare si minimul elementelor de pe pozitiile impare din S.
+     2                                  ;   Exemplu:
+     3                                  ;   S: 1, 4, 2, 3, 8, 4, 9, 5
+     4                                  ;   max_poz_pare: 9
+     5                                  ;   min_poz_impare: 3
+     6                                  bits 32
+     7                                  global start
+     8                                  
+     9                                  extern exit
+    10                                  import exit msvcrt.dll
+    11                                  
+    12                                  segment data use32 class=data
+    13 00000000 0104020308040905            s db 1, 4, 2, 3, 8, 4, 9, 5
+    14                                      len equ $-s
+    15 00000008 <res 00000001>              max_poz_pare resb 1
+    16 00000009 <res 00000001>              min_poz_impare resb 1
+    17                                  
+    18                                  segment code use32 class=code
+    19                                      start:
+    20 00000000 B908000000                      mov ecx, len
+    21 00000005 E348                            jecxz final
+    22 00000007 BE00000000                      mov esi, 0
+    23                                          repeta:
+    24                                          
+    25 0000000C 8A86[00000000]                      mov al, [s+esi]
+    26 00000012 83FE00                              cmp esi, 0
+    27 00000015 7424                                je initializare
+    28 00000017 F7C601000000                        test esi, 1h
+    29                                              
+    30 0000001D 740D                                je poz_pare
+    31 0000001F 3A05[09000000]                      cmp al, [min_poz_impare]
+    32 00000025 7D12                                jge peste
+    33 00000027 A2[09000000]                        mov [min_poz_impare], al
+    34                                              
+    35                                              poz_pare:
+    36 0000002C 3A05[08000000]                      cmp al, [max_poz_pare]
+    37 00000032 7E05                                jle peste
+    38 00000034 A2[08000000]                        mov [max_poz_pare], al
+    39                                  
+    40                                              peste:
+    41 00000039 EB11                                    jmp sari
+    42                                              
+    43                                              initializare:
+    44 0000003B A2[08000000]                            mov [max_poz_pare], al
+    45 00000040 46                                      inc(esi)
+    46 00000041 8A86[00000000]                          mov al, [s+esi] 
+    47 00000047 A2[09000000]                            mov [min_poz_impare], al
+    48                                              
+    49                                              sari:
+    50 0000004C 46                                  inc(esi)
+    51 0000004D E2BD                            loop repeta
+    52                                          
+    53                                          
+    54                                      final:    
+    55 0000004F 6A00                        push dword 0
+    56 00000051 FF15[00000000]              call [exit]

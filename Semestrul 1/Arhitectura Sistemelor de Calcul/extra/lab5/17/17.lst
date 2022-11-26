@@ -1,0 +1,42 @@
+     1                                  ; Se dau 2 siruri de octeti S1 si S2 de aceeasi lungime. Sa se construiasca sirul D astfel incat fiecare element din D sa reprezinte maximul dintre elementele de pe pozitiile corespunzatoare din S1 si S2.
+     2                                  ;   Exemplu:
+     3                                  ;   S1: 1, 3, 6, 2, 3, 7
+     4                                  ;   S2: 6, 3, 8, 1, 2, 5
+     5                                  ;   D: 6, 3, 8, 2, 3, 7
+     6                                  bits 32
+     7                                  global start
+     8                                  
+     9                                  extern exit
+    10                                  import exit msvcrt.dll
+    11                                  
+    12                                  segment data use32 class=data
+    13 00000000 010306020307FC              s1 db 1, 3, 6, 2, 3, 7, -4
+    14 00000007 06030801020501              s2 db 6, 3, 8, 1, 2, 5, 1
+    15                                      len equ $-s2
+    16 0000000E 00<rept>                    d times len db 0
+    17                                  
+    18                                  segment code use32 class=code
+    19                                      start:
+    20 00000000 B907000000                      mov ecx, len
+    21 00000005 E32D                            jecxz final
+    22 00000007 BE00000000                      mov esi, 0
+    23 0000000C BF00000000                      mov edi, 0
+    24                                          repeta:
+    25 00000011 8A86[00000000]                      mov al, [s1+esi]
+    26 00000017 8A9E[07000000]                      mov bl, [s2+esi]
+    27 0000001D 38D8                                cmp al, bl
+    28 0000001F 7C09                                jl mai_mic
+    29 00000021 8887[0E000000]                      mov [d+edi], al
+    30 00000027 47                                  inc(edi)
+    31 00000028 EB07                                jmp peste
+    32                                              mai_mic:
+    33 0000002A 889F[0E000000]                      mov [d+edi], bl
+    34 00000030 47                                  inc(edi)
+    35                                              peste:
+    36 00000031 46                                  inc(esi)
+    37 00000032 E2DD                            loop repeta
+    38                                          
+    39                                      final:
+    40 00000034 6A00                        push dword 0
+    41 00000036 FF15[00000000]              call [exit]
+    42                                      

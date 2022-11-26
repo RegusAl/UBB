@@ -1,0 +1,38 @@
+     1                                  ; Se dau 2 siruri de octeti S1 si S2 de aceeasi lungime. Sa se construiasca sirul D astfel incat fiecare element din D sa reprezinte minumul dintre elementele de pe pozitiile corespunzatoare din S1 si S2.
+     2                                  ;   Exemplu:
+     3                                  ;   S1: 1, 3, 6, 2, 3, 7
+     4                                  ;    S2: 6, 3, 8, 1, 2, 5
+     5                                  ;   D: 1, 3, 6, 1, 2, 5
+     6                                  bits 32
+     7                                  global start
+     8                                  
+     9                                  extern exit
+    10                                  import exit msvcrt.dll
+    11                                  
+    12                                  segment data use32 class=data
+    13 00000000 010306020307                s1 db 1, 3, 6, 2, 3, 7
+    14 00000006 060308010205                s2 db 6, 3, 8, 1, 2, 5
+    15                                      len equ $-s2
+    16 0000000C 00<rept>                    d times len db 0
+    17                                      
+    18                                  segment code use32 class=code
+    19                                      start:
+    20 00000000 B906000000                      mov ecx, len
+    21 00000005 E326                            jecxz final
+    22 00000007 BE00000000                      mov esi, 0
+    23                                          repeta:
+    24 0000000C 8A86[00000000]                      mov al, [s1+esi]
+    25 00000012 8A9E[06000000]                      mov bl, [s2+esi]
+    26 00000018 38D8                                cmp al, bl
+    27 0000001A 7C08                                jl al_mai_mic
+    28 0000001C 889E[0C000000]                      mov [d+esi], bl
+    29 00000022 EB06                                jmp peste
+    30                                              al_mai_mic:
+    31 00000024 8886[0C000000]                      mov[d+esi], al
+    32                                          peste:
+    33 0000002A 46                              inc(esi)
+    34 0000002B E2DF                            loop repeta
+    35                                      
+    36                                      final:
+    37 0000002D 6A00                        push dword 0
+    38 0000002F FF15[00000000]              call [exit]

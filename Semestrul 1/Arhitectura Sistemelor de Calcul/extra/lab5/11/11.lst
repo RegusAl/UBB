@@ -1,0 +1,74 @@
+     1                                  ; Se da un sir de octeti S. Sa se obtina sirul D1 ce contine toate numerele pare din S si sirul D2 ce contine toate numerele impare din S.
+     2                                  ;    Exemplu:
+     3                                  ;   S: 1, 5, 3, 8, 2, 9
+     4                                  ;   D1: 8, 2
+     5                                  ;   D2: 1, 5, 3, 9
+     6                                  bits 32
+     7                                  global start
+     8                                  
+     9                                  extern exit
+    10                                  import exit msvcrt.dll
+    11                                  
+    12                                  segment data use32 class=data
+    13 00000000 010503080209                s db 1, 5, 3, 8, 2, 9
+    14                                      len equ $-s
+    15 00000006 00<rept>                    d1 times len db 0
+    16 0000000C 00<rept>                    d2 times len db 0
+    17                                      
+    18                                  segment code use32 class=code
+    19                                      start:
+    20 00000000 B906000000                      mov ecx, len
+    21 00000005 E33D                            jecxz final
+    22 00000007 BA00000000                      mov edx, 0
+    23 0000000C BE00000000                      mov esi, 0
+    24 00000011 BF00000000                      mov edi, 0
+    25                                          ; repeta:
+    26                                              ; mov al, [s+edx]
+    27                                              ; test al, 1h
+    28                                              
+    29                                              ; jne impare
+    30                                              ; je pare
+    31                                              
+    32                                              ; pare:
+    33                                                  ; mov [d1+edi], al
+    34                                                  ; inc(edi)
+    35                                                  ; jmp peste
+    36                                                  
+    37                                              ; impare:
+    38                                                  ; mov [d2+esi], al
+    39                                                  ; inc(esi)
+    40                                                  
+    41                                             ; peste:     
+    42                                             ; inc(edx)
+    43                                          ; loop repeta
+    44                                   
+    45                                      ; final:    
+    46                                      
+    47                                      Repeta :
+    48 00000016 66B80000                            mov ax, 0
+    49 0000001A 8A82[00000000]                      mov al, [s+edx] ; extindere al
+    50 00000020 B302                                mov bl, 2
+    51 00000022 F6F3                                div bl ; ah=ax%bl = ax%2 - memorare rest impartire la 2
+    52 00000024 8A82[00000000]                      mov al, [s+edx]
+    53 0000002A 80EC00                              sub ah, 0
+    54 0000002D 7502                                jnz impar ; nr impar daca zf=0 <=> rezultatul ultimei operatii (ah-0) != 0
+    55 0000002F 7409                                jz par ; nr par daca zf=1 <=> rezultatul ultimei operatii (ah-0) == 0
+    56                                              
+    57                                              impar :
+    58 00000031 8886[0C000000]                          mov [d2+esi], al ; muta nr in d2
+    59 00000037 46                                      inc esi ; incrementeaza contorul esi
+    60 00000038 EB07                                    jmp peste ; se asigura ca nu va executa 'par'
+    61                                                  
+    62                                              par :
+    63 0000003A 8887[06000000]                          mov[d1+edi], al ; muta nr in d1
+    64 00000040 47                                      inc edi ; incrementeaza contorul edi
+    65                                                  
+    66                                              peste :
+    67 00000041 42                                  inc edx ; incrementeaza contorul esp
+    68                                                  
+    69 00000042 E2D2                            loop Repeta
+    70                                          
+    71                                          final :
+    72                                      
+    73 00000044 6A00                        push dword 0
+    74 00000046 FF15[00000000]              call [exit]

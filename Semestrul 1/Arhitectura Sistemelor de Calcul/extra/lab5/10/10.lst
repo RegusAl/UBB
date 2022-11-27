@@ -1,0 +1,47 @@
+     1                                  ; Se dau doua siruri de caractere S1 si S2. Sa se construiasca sirul D prin concatenarea elementelor sirului S2 in ordine inversa cu elementele de pe pozitiile pare din sirul S1.
+     2                                  ;   Exemplu:
+     3                                  ;    S1: '+', '2', '2', 'b', '8', '6', 'X', '8'
+     4                                  ;    S2: 'a', '4', '5'
+     5                                  ;    D: '5', '4', 'a', '2','b', '6', '8'
+     6                                  bits 32
+     7                                  global start
+     8                                  
+     9                                  extern exit
+    10                                  import exit msvcrt.dll
+    11                                  
+    12                                  segment data use32 class=data
+    13 00000000 7832326238365838            s1 db 'x', '2', '2', 'b', '8', '6', 'X', '8'
+    14                                      len_s1 equ $-s1
+    15 00000008 613435                      s2 db 'a', '4', '5'
+    16                                      len_s2 equ $-s2
+    17 0000000B 00<rept>                    d times len_s1+len_s2 db 0
+    18                                  
+    19                                  segment code use32 class=code
+    20                                      start:
+    21 00000000 B903000000                      mov ecx, len_s2
+    22 00000005 E33C                            jecxz final
+    23 00000007 BE02000000                      mov esi, len_s2-1
+    24 0000000C BF00000000                      mov edi, 0
+    25                                          repeta:
+    26 00000011 8A86[08000000]                      mov al, [s2+esi]
+    27 00000017 8887[0B000000]                      mov [d+edi], al
+    28 0000001D 4E                                  dec(esi)
+    29 0000001E 47                                  inc(edi)
+    30 0000001F E2F0                            loop repeta
+    31                                          
+    32 00000021 B908000000                      mov ecx, len_s1
+    33 00000026 BE00000000                      mov esi, 0
+    34                                          repeta_:
+    35 0000002B 8A86[00000000]                      mov al, [s1+esi]
+    36 00000031 F7C601000000                        test esi, 1
+    37 00000037 7407                                je poz_para
+    38 00000039 8887[0B000000]                      mov [d+edi], al
+    39 0000003F 47                                  inc(edi)
+    40                                              poz_para:
+    41 00000040 46                                  inc(esi)
+    42 00000041 E2E8                            loop repeta_
+    43                                         
+    44                                      final:
+    45                                      
+    46 00000043 6A00                        push dword 0
+    47 00000045 FF15[00000000]              call [exit]

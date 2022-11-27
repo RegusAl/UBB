@@ -1,0 +1,55 @@
+     1                                  ; Se dau 2 siruri de octeti A si B. Sa se construiasca sirul R care sa contina doar elementele pare si negative din cele 2 siruri.
+     2                                  ;   Exemplu:
+     3                                  ;   A: 2, 1, 3, -3, -4, 2, -6
+     4                                  ;   B: 4, 5, -5, 7, -6, -2, 1
+     5                                  ;   R: -4, -6, -6, -2
+     6                                  bits 32
+     7                                  global start
+     8                                  
+     9                                  extern exit
+    10                                  import exit msvcrt.dll
+    11                                  
+    12                                  segment data use32 class=data
+    13 00000000 020103FDFC02FA              a db 2, 1, 3, -3, -4, 2, -6
+    14                                      len_a equ $-a
+    15 00000007 0405FB07FAFE01              b db 4, 5, -5, 7, -6, -2, 1
+    16                                      len_b equ $-b
+    17 0000000E 00<rept>                    r times len_a+len_b db 0
+    18                                      
+    19                                  segment code use32 class=code
+    20                                      start:
+    21 00000000 BF00000000                      mov edi, 0
+    22                                          ;sirul a
+    23 00000005 B907000000                      mov ecx, len_a
+    24 0000000A BE00000000                      mov esi, 0
+    25                                          repeta_a:
+    26 0000000F 8A86[00000000]                      mov al, [a+esi]
+    27 00000015 3C00                                cmp al, 0
+    28 00000017 7D0B                                jge pozitiv_a
+    29 00000019 A801                                test al, 1h
+    30 0000001B 7507                                jne impar_a
+    31 0000001D 8887[0E000000]                      mov [r+edi], al
+    32 00000023 47                                  inc(edi)
+    33                                              pozitiv_a:
+    34                                              impar_a:
+    35 00000024 46                                  inc(esi)
+    36 00000025 E2E8                            loop repeta_a
+    37                                          
+    38                                           ;sirul b
+    39 00000027 B907000000                      mov ecx, len_b
+    40 0000002C BE00000000                      mov esi, 0
+    41                                          repeta_b:
+    42 00000031 8A86[07000000]                      mov al, [b+esi]
+    43 00000037 3C00                                cmp al, 0
+    44 00000039 7D0B                                jge pozitiv_b
+    45 0000003B A801                                test al, 1h
+    46 0000003D 7507                                jne impar_b
+    47 0000003F 8887[0E000000]                      mov [r+edi], al
+    48 00000045 47                                  inc(edi)
+    49                                              pozitiv_b:
+    50                                              impar_b:
+    51 00000046 46                                  inc(esi)
+    52 00000047 E2E8                            loop repeta_b
+    53                                      
+    54 00000049 6A00                        push dword 0
+    55 0000004B FF15[00000000]              call [exit]

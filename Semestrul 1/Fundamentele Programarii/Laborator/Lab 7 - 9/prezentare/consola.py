@@ -162,7 +162,7 @@ class ui:
         try:
             id_client = int(input("ID-ul clientului pe care il cautati: "))
             el = self.__service_clienti.cauta_client_dupa_id(id_client)
-            print(f"{el.get_id_client()}: {el.get_nume_client()}; Genul filmului: {el.get_cnp_client()}")
+            print(f"{el.get_id_client()}: {el.get_nume_client()}; CNP: {el.get_cnp_client()}")
         except RepoError:
              print("Clientul cu acest ID nu exista!")
         except:
@@ -180,6 +180,9 @@ class ui:
             id_client = int(input("ID-ul clientului ce vrea sa inchirieze: "))
             id_film = int(input("ID-ul filmului pe care clientul vrea sa-l inchirieze: "))
             self.__service_inchiriere.inchiriere(id_client, id_film)
+            film = self.__service_filme.cauta_film_dupa_id(id_film)
+            client = self.__service_clienti.cauta_client_dupa_id(id_client)
+            print(f"{client.get_nume_client()} a inchiriat {film.get_nume_film()}")
         except RepoError as ve:
             print(ve)
         except:
@@ -201,6 +204,9 @@ class ui:
             id_client = int(input("ID-ul clientului ce vrea sa returneze: "))
             id_film = int(input("ID-ul filmului pe care clientul vrea sa-l returneze: "))
             self.__service_inchiriere.returnare(id_client, id_film)
+            client = self.__service_clienti.cauta_client_dupa_id(id_client)
+            film = self.__service_filme.cauta_film_dupa_id(id_film)
+            print(f"{client.get_nume_client()} a returnat {film.get_nume_film()}")
         except RepoError as ve:
             print(ve)
         except:

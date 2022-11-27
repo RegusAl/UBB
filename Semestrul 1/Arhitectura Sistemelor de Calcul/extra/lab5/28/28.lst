@@ -1,0 +1,50 @@
+     1                                   ; Se dau doua siruri de caractere S1 si S2. Sa se construiasca sirul D prin concatenarea elementelor de pe pozitiile multiplu de 3 din sirul S1 cu elementele sirului S2 in ordine inversa.
+     2                                  ;   Exemplu:
+     3                                  ;   S1: '+', '4', '2', 'a', '8', '4', 'X', '5'
+     4                                  ;   S2: 'a', '4', '5'
+     5                                  ;   D: '+', 'a', 'X', '5', '4', 'a'
+     6                                  bits 32
+     7                                  global start
+     8                                  
+     9                                  extern exit
+    10                                  import exit msvcrt.dll
+    11                                  
+    12                                  segment data use32 class=data
+    13 00000000 2B34326138345835            s1 db  '+', '4', '2', 'a', '8', '4', 'X', '5'
+    14                                      len_s1 equ $-s1
+    15 00000008 613435                      s2 db  'a', '4', '5'
+    16                                      len_s2 equ $-s2
+    17 0000000B 00<rept>                    d times len_s1+len_s2 db 0
+    18 00000016 0300                        trei dw 3
+    19                                      
+    20                                  segment code use32 class=code 
+    21                                      start:
+    22 00000000 BF00000000                  mov edi, 0
+    23                                      ; sirul s1
+    24 00000005 B908000000                  mov ecx, len_s1
+    25 0000000A E31C                        jecxz peste
+    26 0000000C BE00000000                  mov esi, 0
+    27                                      
+    28                                      repeta_s1:
+    29 00000011 8A9E[00000000]                  mov bl, [s1+esi]
+    30 00000017 889F[0B000000]                  mov [d+edi], bl
+    31 0000001D 47                              inc(edi)
+    32 0000001E 83C603                          add esi, 3
+    33 00000021 83FE08                          cmp esi, len_s1
+    34 00000024 7702                            ja sirul_s2       
+    35 00000026 E2E9                        loop repeta_s1
+    36                                      
+    37                                      peste:
+    38                                      sirul_s2:
+    39                                      ; sirul s2
+    40 00000028 B903000000                  mov ecx, len_s2
+    41 0000002D E30F                        jecxz final
+    42                                      repeta_s2:
+    43 0000002F 8A99[07000000]                  mov bl, [s2+ecx-1]
+    44 00000035 889F[0B000000]                  mov [d+edi], bl
+    45 0000003B 47                              inc(edi)
+    46 0000003C E2F1                        loop repeta_s2
+    47                                      
+    48                                      final:
+    49 0000003E 6A00                        push dword 0
+    50 00000040 FF15[00000000]              call [exit]

@@ -1,0 +1,32 @@
+     1                                  ; Se dau 2 siruri de octeti S1 si S2 de aceeasi lungime. Sa se construiasca sirul D astfel incat fiecare element din D sa reprezinte suma dintre elementele de pe pozitiile corespunzatoare din S1 si S2.
+     2                                  ;   Exemplu:
+     3                                  ;   S1: 1, 3, 6, 2, 3, 2
+     4                                  ;   S2: 6, 3, 8, 1, 2, 5
+     5                                  ;   D: 7, 6, 14, 3, 5, 7
+     6                                  bits 32
+     7                                  global start
+     8                                  
+     9                                  extern exit
+    10                                  import exit msvcrt.dll
+    11                                  
+    12                                  segment data use32 class=data
+    13 00000000 010306020302                s1 db 1, 3, 6, 2, 3, 2
+    14 00000006 060308010205                s2 db 6, 3, 8, 1, 2, 5
+    15                                      len equ $-s2
+    16 0000000C 00<rept>                    d times len db 0
+    17                                  
+    18                                  segment code use32 class=code
+    19                                      start:
+    20 00000000 B906000000                      mov ecx, len
+    21 00000005 E31A                            jecxz final
+    22 00000007 BE00000000                      mov esi, 0
+    23                                          repeta:
+    24 0000000C 8A86[00000000]                      mov al, [s1+esi]
+    25 00000012 0286[06000000]                      add al, [s2+esi]
+    26 00000018 8886[0C000000]                      mov [d+esi], al
+    27 0000001E 46                                  inc(esi)
+    28 0000001F E2EB                            loop repeta
+    29                                          
+    30                                      final:
+    31 00000021 6A00                        push dword 0
+    32 00000023 FF15[00000000]              call [exit]

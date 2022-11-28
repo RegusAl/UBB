@@ -38,12 +38,15 @@ class ServiceInchiriere:
         for el in self.__repo_inchiriere.afisare():
             nr_film = 0
             client_id = self.__service_clienti.cauta_client_dupa_id(el.get_client()).get_nume_client()
+            lista_filme = []
             for element in self.__repo_inchiriere.afisare():
                 id = self.__service_clienti.cauta_client_dupa_id(element.get_client()).get_nume_client()
                 if client_id == id:
                     nr_film += 1
-            if [nr_film, client_id] not in lista_clienti:
-                lista_clienti.append([nr_film, client_id])
+                    film = self.__service_filme.cauta_film_dupa_id(element.get_film()).get_nume_film()
+                    lista_filme.append(film)
+            if [nr_film, client_id, lista_filme] not in lista_clienti:
+                lista_clienti.append([nr_film, client_id, lista_filme])
         lista_clienti.sort(reverse=True)
         return lista_clienti
 
@@ -72,3 +75,33 @@ class ServiceInchiriere:
             i += 1
             index -= 1
         return lista30
+
+    def sortare_gen(self):
+        lista_clienti = []
+        for el in self.__repo_inchiriere.afisare():
+            nr_film = 0
+            client_id = self.__service_clienti.cauta_client_dupa_id(el.get_client()).get_nume_client()
+            lista_finala = []
+            lista_gen_filme = []
+            lista_nr_gen_filme = []
+            for element in self.__repo_inchiriere.afisare():
+                id = self.__service_clienti.cauta_client_dupa_id(element.get_client()).get_nume_client()
+                if client_id == id:
+                    nr_film += 1
+                    gen_film = self.__service_filme.cauta_film_dupa_id(element.get_film()).get_gen_film()
+                    lista_gen_filme.append(gen_film)
+            for gen in lista_gen_filme:
+                nr_gen = 0
+                for el in lista_gen_filme:
+                    if gen==el:
+                        nr_gen += 1
+                lista_nr_gen_filme.append(nr_gen)
+            i = 0
+            for i in range(len(lista_gen_filme)):
+                if [lista_gen_filme[i], lista_nr_gen_filme[i]] not in lista_finala:
+                    lista_finala.append([lista_gen_filme[i], lista_nr_gen_filme[i]])
+            if [nr_film, client_id, lista_finala] not in lista_clienti:
+                lista_clienti.append([nr_film, client_id, lista_finala])
+        lista_clienti.sort(reverse=True)
+        return lista_clienti
+

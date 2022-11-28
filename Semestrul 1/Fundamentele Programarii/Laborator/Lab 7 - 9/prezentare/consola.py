@@ -222,7 +222,7 @@ class ui:
     def __ui_sortare_numar(self):
         lista = self.__service_inchiriere.sortare_numar()
         for el in lista:
-            print(f"{el[1]} a inchiriat {el[0]} filme")
+            print(f"{el[1]} a inchiriat {el[0]} filme:", el[2]) #[film for film in el[2]]
 
     def __ui_filme_inchiriate(self):
         lista = self.__service_inchiriere.filme_inchiriate()
@@ -234,6 +234,13 @@ class ui:
         print("Cei 30% din clienti cu cele mai multe filme inchiriate sunt:")
         for el in lista:
             print(f"{el[1]} a inchiriat {el[0]} filme")
+
+    def __ui_sortare_filme_gen(self):
+        lista = self.__service_inchiriere.sortare_gen()
+        for el in lista:
+            print(f"{el[1]} a inchiriat {el[0]} filme:") #[film for film in el[2]]
+            for gen in el[2]:
+                print(f" {gen[1]} de genul {gen[0]}")
 
     # MENIURI
 
@@ -277,6 +284,7 @@ class ui:
         print("2. Clienti cu filme inchiriate ordonati dupa numarul de filme inchiriate")
         print("3. Cele mai inchiriate filme")
         print("4. Primi 30% clienti cu cele mai multe filme")
+        print("5. Clienti cu filme inchiriate si genul filmelor inchiriate")
 
     def __ui_filme(self):
         optiune = input("Optiunea dumneavoastra: ")
@@ -340,6 +348,8 @@ class ui:
                 self.__ui_filme_inchiriate()
             case '4':
                 self.__ui_filme_inchiriate_30()
+            case '5':
+                self. __ui_sortare_filme_gen()
             case other:
                 print("Optiune invalida!")
                 return

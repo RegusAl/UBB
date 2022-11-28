@@ -3,7 +3,6 @@ from domeniu.clienti import Client
 from erori.repo_error import RepoError
 from services.random_utils import random_string
 
-
 class ServiceClienti:
 
     def __init__(self, validator_clienti, repo_clienti, repo_inchiriere):

@@ -3,7 +3,6 @@ from domeniu.filme import Film
 from erori.repo_error import RepoError
 from services.random_utils import random_string
 
-
 class ServiceFilme:
 
     def __init__(self, validator_filme, repo_filme, repo_inchiriere):

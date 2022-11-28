@@ -14,7 +14,8 @@ class RepoInchiriere:
             Inchiriere(2, 5),
             Inchiriere(2, 2),
             Inchiriere(8, 1),
-            Inchiriere(8, 7)
+            Inchiriere(8, 7),
+            Inchiriere(2, 9)
         ]
 
     def adauga_inchiriere(self, inchiriere):

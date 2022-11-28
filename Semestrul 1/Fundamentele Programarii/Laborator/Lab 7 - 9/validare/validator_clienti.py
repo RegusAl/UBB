@@ -1,5 +1,4 @@
 from erori.validation_error import ValidError
-#from domeniu.clienti import Client
 class ValidatorClienti:
 
     def __init__(self):

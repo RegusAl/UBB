@@ -1,0 +1,42 @@
+     1                                  bits 32
+     2                                  global start
+     3                                  
+     4                                  extern exit, printf, scanf, gets
+     5                                  import exit msvcrt.dll
+     6                                  import printf msvcrt.dll
+     7                                  import scanf msvcrt.dll
+     8                                  import gets msvcrt.dll
+     9                                  
+    10                                  segment data use32 class=data
+    11 00000000 00                          sir db "", 0
+    12 00000001 257300                      format db "%s", 0
+    13 00000004 53637269657469206F-         mesaj db "Scrieti o propozitie", 0
+    13 0000000D 2070726F706F7A6974-
+    13 00000016 696500             
+    14                                      
+    15                                  ; Cititi de la tastatura si afisati o propozitie
+    16                                  ; (mai multe siruri de caractere separate prin SPATII si care se termina cu caracterul '.')
+    17                                  segment code use32 class=code--
+    18                                      start:
+    19                                          
+    20 00000000 68[04000000]                    push dword mesaj
+    21 00000005 FF15[00000000]                  call [printf]
+    22 0000000B 83C404                          add esp, 1*4
+    23                                          
+    24 0000000E 68[00000000]                    push dword sir
+    25 00000013 68[01000000]                    push dword format
+    26 00000018 FF15[00000000]                  call [gets]
+    27 0000001E 83C408                          add esp, 2*4
+    28                                          
+    29 00000021 68[00000000]                    push dword sir
+    30 00000026 FF15[00000000]                  call [printf]
+    31 0000002C 83C404                          add esp, 1*4
+    32                                          
+    33                                          
+    34                                          
+    35                                          
+    36                                      
+    37                                      
+    38                                      
+    39 0000002F 6A00                            push dword 0        ; push the parameter for exit onto the stack
+    40 00000031 FF15[00000000]                  call [exit]         ; call exit to terminate the program

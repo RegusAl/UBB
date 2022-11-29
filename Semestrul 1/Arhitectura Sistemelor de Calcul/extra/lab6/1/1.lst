@@ -1,0 +1,79 @@
+     1                                  ; Se da un sir de dublucuvinte continand date impachetate (4 octeti scrisi ca un singur dublucuvant). Sa se obtina un nou sir de dublucuvinte, in care fiecare dublucuvant se va obtine dupa regula: suma octetilor de 
+     2                                   
+     3                                  ;   Exemplu:
+     4                                  ;       Pentru sirul initial: 127F5678h, 0ABCDABCDh, ... 
+     5                                  ;       Se va obtine: 006800F7h,  0FF56FF9Ah 
+     6                                  bits 32
+     7                                  global start
+     8                                  
+     9                                  extern exit
+    10                                  import exit msvcrt.dll
+    11                                  
+    12                                  segment data use32 class=data
+    13 00000000 78567F12CDABCDAB            s dd 127F5678h, 0ABCDABCDh
+    14                                      len equ ($-s)/4
+    15 00000008 00000000<rept>              d times len dd 0
+    16                                  
+    17                                  segment code use32 class=code
+    18                                      start:
+    19 00000000 B902000000                      mov ecx, len
+    20 00000005 E338                            jecxz final
+    21 00000007 BE[00000000]                    mov esi, s
+    22 0000000C BF[08000000]                    mov edi, d
+    23 00000011 FC                              cld
+    24                                          ;repeta:
+    25                                              ; lodsd
+    26                                              ; mov ebx, eax
+    27                                              ; ; luam octetii impari si ii adunam
+    28                                              ; and eax, 1111_1111__0000_0000_1111_1111_0000_0000b
+    29                                              ; shr eax, 8
+    30                                              ; mov dl, al
+    31                                              ; shr eax, 16
+    32                                              ; cbw
+    33                                              ; adc al, dl
+    34                                              ; cbw
+    35                                              ; push ax
+    36                                              ; ; luam octetii pari si ii adunam
+    37                                              ; mov eax, ebx
+    38                                              ; and eax, 0000_0000__1111_1111_0000_0000_1111_1111b
+    39                                              ; mov dl, al
+    40                                              ; shr eax, 16
+    41                                              ; cbw
+    42                                              ; adc al, dl
+    43                                              ; push ax
+    44                                              
+    45                                              ; pop eax
+    46                                              ; stosd
+    47                                              
+    48                                              
+    49                                          repeta:
+    50 00000012 AD                                  lodsd   ;eax:dublucuvant
+    51 00000013 66BB0000                            mov bx,0
+    52 00000017 66BA0000                            mov dx,0
+    53                                              
+    54 0000001B 88C3                                mov bl,al   ;bl:octetul 4
+    55 0000001D 88E2                                mov dl,ah   ;dl:octetul 3
+    56 0000001F B110                                mov cl,16
+    57 00000021 D3E8                                shr eax,cl
+    58 00000023 00C3                                add bl,al    ;bl:octetul 4+ octetul 2
+    59                                              
+    60 00000025 00E2                                add dl,ah    ;dl:octetul 1 + octetul 3
+    61                                              
+    62                                              
+    63 00000027 88D8                                mov al,bl
+    64 00000029 6698                                cbw          ;ax: octetul4 + octetul 2 
+    65 0000002B B108                                mov cl,8
+    66 0000002D 66D3C8                              ror ax,cl    
+    67 00000030 66AB                                stosw        ;il adaugam pe ax in sir2
+    68 00000032 88D0                                mov al,dl    ;ax: octetul 3 + ctetul 1
+    69 00000034 6698                                cbw
+    70 00000036 B108                                mov cl,8        ;il adauga pe ax in sir 2
+    71 00000038 66D3C8                              ror ax,cl
+    72 0000003B 66AB                                stosw
+    73                                              
+    74                                              
+    75 0000003D E2D3                            loop repeta
+    76                                          
+    77                                      final:
+    78 0000003F 6A00                        push dword 0
+    79 00000041 FF15[00000000]              call [exit]

@@ -1,0 +1,37 @@
+     1                                  ; Se da un sir A de cuvinte. Construiti doua siruri de octeti  
+     2                                  ;  - B1: contine ca elemente partea superioara a cuvintelor din A
+     3                                  ;  - B2: contine ca elemente partea inferioara a cuvintelor din A
+     4                                  bits 32
+     5                                  global start
+     6                                  
+     7                                  extern exit
+     8                                  import exit msvcrt.dll
+     9                                  
+    10                                  segment data use32 class=data
+    11 00000000 3412991012991243            A dw 1234h, 1099h, 9912h, 4312h
+    12                                      len equ ($-A)/2
+    13 00000008 00<rept>                    B1 times len db 0
+    14 0000000C 00<rept>                    B2 times len db 0
+    15                                  
+    16                                  segment code use32 class=code
+    17                                      start:
+    18 00000000 B904000000                      mov ecx, len
+    19 00000005 E31C                            jecxz final
+    20 00000007 FC                              cld
+    21 00000008 BE[00000000]                    mov esi, A
+    22 0000000D BF00000000                      mov edi, 0
+    23                                          
+    24                                          repeta:
+    25 00000012 AC                                  lodsb
+    26 00000013 8887[0C000000]                      mov [B2+edi], al
+    27                                              
+    28 00000019 AC                                  lodsb
+    29 0000001A 8887[08000000]                      mov [B1+edi], al
+    30                                              
+    31 00000020 47                                  inc(edi)
+    32                                          
+    33 00000021 E2EF                            loop repeta
+    34                                          
+    35                                      final:
+    36 00000023 6A00                        push dword 0
+    37 00000025 FF15[00000000]              call [exit]

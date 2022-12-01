@@ -1,0 +1,87 @@
+     1                                  ; Sa se citeasca de la tastatura in baza 16 doua numere a si b de tip dword si sa se afiseze suma partilor low si diferenta partilor high. Exemplu:
+     2                                  ; a = 00101A35h, b = 00023219h
+     3                                  ; suma = 4C4Eh
+     4                                  ; diferenta = Eh
+     5                                  bits 32
+     6                                  global start
+     7                                  
+     8                                  extern exit, printf, scanf
+     9                                  import exit msvcrt.dll
+    10                                  import printf msvcrt.dll
+    11                                  import scanf msvcrt.dll
+    12                                  
+    13                                  segment data use32 class=data
+    14 00000000 00000000                    a dd 0
+    15 00000004 61203D2000                  message_a db "a = ", 0
+    16 00000009 00000000                    b dd 0
+    17 0000000D 62203D2000                  message_b db "b = ", 0
+    18 00000012 257800                      format db "%x", 0
+    19 00000015 <res 00000004>              suma resd 1
+    20 00000019 <res 00000004>              diferenta resd 1
+    21 0000001D 53756D612070617274-         format_suma db "Suma partilor low este: %x    ", 0
+    21 00000026 696C6F72206C6F7720-
+    21 0000002F 657374653A20257820-
+    21 00000038 20202000           
+    22 0000003C 4469666572656E7461-         format_diferenta db "Diferenta partilor high este: %x", 0
+    22 00000045 2070617274696C6F72-
+    22 0000004E 206869676820657374-
+    22 00000057 653A20257800       
+    23                                  
+    24                                  segment code use32 class=code
+    25                                      start:
+    26                                      
+    27                                      ; vom apela printf(message_a)
+    28 00000000 68[04000000]                push dword message_a
+    29 00000005 FF15[00000000]              call [printf]
+    30 0000000B 83C404                      add esp, 1*4
+    31                                      
+    32                                      ; vom apela scanf(format, a)
+    33 0000000E 68[00000000]                push dword a
+    34 00000013 68[12000000]                push dword format
+    35 00000018 FF15[00000000]              call [scanf]
+    36 0000001E 83C408                      add esp, 2*4
+    37                                      
+    38                                      ; vom apela printf(message_b)
+    39 00000021 68[0D000000]                push dword message_b
+    40 00000026 FF15[00000000]              call [printf]
+    41 0000002C 83C404                      add esp, 1*4
+    42                                      
+    43                                      ; vom apela scanf(format, b)
+    44 0000002F 68[09000000]                push dword b
+    45 00000034 68[12000000]                push dword format
+    46 00000039 FF15[00000000]              call [scanf]
+    47 0000003F 83C408                      add esp, 2*4
+    48                                      
+    49                                      ; facem adunarea word-ului inferior
+    50 00000042 66A1[00000000]              mov ax, word [a]
+    51 00000048 660305[09000000]            add ax, word [b]
+    52 0000004F 66A3[15000000]              mov [suma], ax
+    53 00000055 66B80000                    mov ax, 0
+    54                                      
+    55 00000059 60                          PUSHAD
+    56                                      
+    57                                      ; afisam suma
+    58 0000005A FF35[15000000]              push dword [suma]
+    59 00000060 68[1D000000]                push dword format_suma
+    60 00000065 FF15[00000000]              call [printf]
+    61 0000006B 83C408                      add esp, 2*4
+    62                                      
+    63 0000006E 61                          POPAD
+    64                                      
+    65                                      ; facem scaderea word-ului superior
+    66 0000006F 66A1[02000000]              mov ax, word [a+2]
+    67 00000075 662B05[0B000000]            sub ax, word [b+2]
+    68 0000007C 66A3[19000000]              mov [diferenta], ax
+    69                                      
+    70 00000082 60                          PUSHAD
+    71                                      
+    72                                      ; afisam diferenta
+    73 00000083 FF35[19000000]              push dword [diferenta]
+    74 00000089 68[3C000000]                push dword format_diferenta
+    75 0000008E FF15[00000000]              call [printf]
+    76 00000094 83C408                      add esp, 2*4
+    77                                          
+    78 00000097 61                          POPAD
+    79                                      
+    80 00000098 6A00                        push dword 0
+    81 0000009A FF15[00000000]              call [exit]

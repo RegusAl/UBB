@@ -32,7 +32,7 @@ class ServiceClienti:
         :return: lista de clienti
         :rtype: lista de obiecte
         '''
-        return self.__repo_clienti.afisare_clienti()
+        return self.__repo_clienti.get_all()
 
     def sterge_client_dupa_id(self, id_client):
         '''
@@ -53,7 +53,7 @@ class ServiceClienti:
         :return: returneaza clientul
         :rtype RepoError
         '''
-        lista = self.__repo_clienti.afisare_clienti()
+        lista = self.__repo_clienti.get_all()
         for el in lista:
             if el.get_id_client() == id_client:
                     return el

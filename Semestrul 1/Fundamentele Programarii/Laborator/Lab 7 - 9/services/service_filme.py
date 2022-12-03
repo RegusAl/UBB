@@ -33,7 +33,7 @@ class ServiceFilme:
         :return: lista de filme
         :rtype: lista de obiecte
         '''
-        return self.__repo_filme.afisare_filme()
+        return self.__repo_filme.get_all()
 
     def sterge_film_dupa_id(self, id_film):
         '''
@@ -51,7 +51,7 @@ class ServiceFilme:
         :param id_film: int
         :return: filmul cu id-ul cautat
         '''
-        lista = self.__repo_filme.afisare_filme()
+        lista = self.__repo_filme.get_all()
         for el in lista:
             if el.get_id_film() == id_film:
                 return el

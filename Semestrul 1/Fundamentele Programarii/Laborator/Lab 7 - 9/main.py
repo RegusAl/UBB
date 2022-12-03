@@ -2,9 +2,9 @@ from testare.teste import TesteFilme, TesteClienti
 from validare.validator_filme import ValidatorFilme
 from validare.validator_clienti import ValidatorClienti
 from validare.validator_inchiriere import ValidatorInchiriere
-from infrastructura.repo_filme import RepoFilme
-from infrastructura.repo_clienti import RepoClienti
-from infrastructura.repo_inchiriere import RepoInchiriere
+from infrastructura.repo_filme import RepoFilmeFile
+from infrastructura.repo_clienti import RepoClientiFile
+from infrastructura.repo_inchiriere import RepoInchiriereFile
 from services.service_filme import ServiceFilme
 from services.service_clienti import ServiceClienti
 from services.service_inchiriere import ServiceInchiriere
@@ -16,9 +16,9 @@ validator_clienti = ValidatorClienti()
 validator_inchiriere = ValidatorInchiriere()
 
 # repository
-repo_filme = RepoFilme()
-repo_clienti = RepoClienti()
-repo_inchiriere = RepoInchiriere()
+repo_filme = RepoFilmeFile('data/filme')
+repo_clienti = RepoClientiFile('data/clienti')
+repo_inchiriere = RepoInchiriereFile('data/inchirieri')
 
 # services
 service_filme = ServiceFilme(validator_filme, repo_filme, repo_inchiriere)

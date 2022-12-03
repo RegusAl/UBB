@@ -1,0 +1,10 @@
+1;Mihai;28
+2;Medeea;42
+3;Mirel;20
+4;Carmen;55
+5;Valeria;61
+6;Dominic;34
+7;Eric;26
+8;Radu;44
+9;Simona;38
+10;Maya;21

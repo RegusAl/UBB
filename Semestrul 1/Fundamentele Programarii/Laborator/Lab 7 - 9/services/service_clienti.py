@@ -41,9 +41,10 @@ class ServiceClienti:
         :type: int
         :return: -
         '''
+        client = self.cauta_client_dupa_id(id_client)
         self.__repo_clienti.stergere_client(id_client)
         self.__repo_inchiriere.stergere_client_dupa_id(id_client)
-
+        return client
 
     def cauta_client_dupa_id(self, id_client):
         '''

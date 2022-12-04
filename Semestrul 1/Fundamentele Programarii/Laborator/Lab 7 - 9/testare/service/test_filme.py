@@ -1,12 +1,10 @@
 import unittest
 
-from domeniu.filme import Film
 from erori.repo_error import RepoError
 from infrastructura.repo_filme import RepoFilme
 from infrastructura.repo_inchiriere import RepoInchiriere
 from services.service_filme import ServiceFilme
 from validare.validator_filme import ValidatorFilme
-
 
 class TestCaseFilmeService(unittest.TestCase):
 

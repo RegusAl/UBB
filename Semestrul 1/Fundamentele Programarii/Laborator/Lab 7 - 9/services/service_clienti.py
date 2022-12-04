@@ -25,6 +25,7 @@ class ServiceClienti:
         client = Client(id_client, nume_client, cnp_client)
         self.__validator_clienti.valideaza(client)
         self.__repo_clienti.adauga_client(client)
+        return client
 
     def afisare_clienti(self):
         '''

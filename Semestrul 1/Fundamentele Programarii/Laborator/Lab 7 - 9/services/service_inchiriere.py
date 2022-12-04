@@ -17,6 +17,7 @@ class ServiceInchiriere:
         self.__validator_clienti.valideaza(client)
         inchiriere = Inchiriere(id_client, id_film)
         self.__repo_inchiriere.adauga_inchiriere(inchiriere)
+        return inchiriere
 
     def afisare_inchiriere(self):
         return self.__repo_inchiriere.afisare()

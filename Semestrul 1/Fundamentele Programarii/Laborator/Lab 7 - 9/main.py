@@ -1,4 +1,3 @@
-from testare.teste import TesteFilme, TesteClienti
 from validare.validator_filme import ValidatorFilme
 from validare.validator_clienti import ValidatorClienti
 from validare.validator_inchiriere import ValidatorInchiriere
@@ -24,10 +23,6 @@ repo_inchiriere = RepoInchiriereFile('data/inchirieri')
 service_filme = ServiceFilme(validator_filme, repo_filme, repo_inchiriere)
 service_clienti = ServiceClienti(validator_clienti, repo_clienti, repo_inchiriere)
 service_inchiriere = ServiceInchiriere(validator_clienti, validator_filme, repo_clienti, repo_filme, repo_inchiriere, service_clienti, service_filme)
-
-# tests
-TesteFilme(validator_filme, service_filme, repo_filme).test_adaugare()
-TesteClienti(validator_clienti, service_clienti, repo_clienti).test_adaugare()
 
 # consola
 consola = ui(service_filme, service_clienti, service_inchiriere)

@@ -42,8 +42,10 @@ class ServiceFilme:
         :type: int
         :return: -
         '''
+        film = self.cauta_film_dupa_id(id_film)
         self.__repo_filme.stergere_film(id_film)
         self.__repo_inchiriere.stergere_film_dupa_id(id_film)
+        return film
 
     def cauta_film_dupa_id(self, id_film):
         '''

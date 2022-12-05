@@ -35,7 +35,7 @@ class TestCaseInchiriereService(unittest.TestCase):
         inchiriere = self.__srv.inchiriere(film.get_id_film(), client.get_id_client())
         lista.append(inchiriere)
         lista = self.__srv.afisare_inchiriere()
-        assert (len(lista) == 1)
+        self.assertTrue (len(lista) == 1)
 
     def test_returnare(self):
         film = self.service_filme.adauga_film(1, "Jumanji", "Aventura")
@@ -44,7 +44,7 @@ class TestCaseInchiriereService(unittest.TestCase):
         inchiriere = self.__srv.inchiriere(film.get_id_film(), client.get_id_client())
         lista.append(inchiriere)
         lista = self.__srv.afisare_inchiriere()
-        assert (len(lista) == 1)
+        self.assertTrue (len(lista) == 1)
         self.__srv.returnare(1, 1)
         lista = self.__srv.afisare_inchiriere()
-        assert (len(lista) == 0)
+        self.assertTrue (len(lista) == 0)

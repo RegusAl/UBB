@@ -5,8 +5,6 @@ class RepoFilme:
 
     def __init__(self):
         self.__filme = []
-
-
         # lista de liste
         # self.__filme = [
         #     Film(1, 'Jumanji', 'Aventura'),
@@ -19,7 +17,6 @@ class RepoFilme:
         #     Film(8, 'Black Adam', 'Actiune'),
         #     Film(9, 'Gladiator', 'Istoric')
         # ]
-
 
     ## Adauga
     def adauga_film(self, film):

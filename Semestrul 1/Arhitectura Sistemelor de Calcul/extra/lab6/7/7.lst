@@ -1,0 +1,41 @@
+     1                                  ; Se da un sir de dublucuvinte. Sa se obtina sirul format din octetii superiori ai cuvitelor superioare din elementele sirului de dublucuvinte care sunt divizibili cu 3.
+     2                                  ;   Exemplu:
+     3                                  ;   Se da sirul de dublucuvinte: s DD 12345678h, 1A2B3C4Dh, FE98DC76h
+     4                                  ;   Sa se obtina sirul: d DB 12h.
+     5                                  bits 32
+     6                                  global start
+     7                                  
+     8                                  extern exit
+     9                                  import exit msvcrt.dll
+    10                                  
+    11                                  segment data use32 class=data
+    12 00000000 785634124D3C2B1A76-         s DD 12345678h, 1A2B3C4Dh, 0FE98DC76h
+    12 00000009 DC98FE             
+    13                                      len equ ($-s)/4
+    14 0000000C 00<rept>                    d times len db 0
+    15 0000000F 03                          trei db 3
+    16                                  
+    17                                  segment code use32 class=code
+    18                                      start:
+    19 00000000 B903000000                      mov ecx, len
+    20 00000005 E321                            jecxz final
+    21 00000007 FC                              cld                 ; DF = 0
+    22 00000008 BE[00000000]                    mov esi, s
+    23 0000000D BF[0C000000]                    mov edi, d
+    24                                          
+    25                                          repeta:
+    26 00000012 AD                                  lodsd           ; EAX = <DS:ESI>
+    27                                              ; luam octetul superior din cuvantul superior
+    28 00000013 C1E818                              shr eax, 24     ; "shift right" cu 24 biti
+    29 00000016 88C3                                mov bl, al      ; BL = AL
+    30 00000018 F635[0F000000]                      div byte [trei] ; AH = AX % 3, AL = AX / 3
+    31 0000001E 80FC00                              cmp ah, 0       ; comparam restul impartirii cu 0
+    32 00000021 7503                                jne peste       ; daca restul nu este 0 sarim la eticheta peste
+    33 00000023 88D8                                mov al, bl      ; AL = BL
+    34 00000025 AA                                  stosb           ; AL = <ES:EDI>
+    35                                          peste:
+    36 00000026 E2EA                            loop repeta
+    37                                                  
+    38                                      final:
+    39 00000028 6A00                        push dword 0
+    40 0000002A FF15[00000000]              call [exit]

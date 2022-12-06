@@ -1,0 +1,42 @@
+     1                                  ; Se da un sir de octeti s. Sa se construiasca sirul de octeti d, care contine pe fiecare pozitie numarul de biti 1 ai octetului de pe pozitia corespunzatoare din s.
+     2                                  ; Exemplu:
+     3                                  ; s: 5, 25, 55, 127
+     4                                  ; in binary: 101, 11001,10111,1111111
+     5                                  ; d: 2, 3, 5, 7
+     6                                  bits 32
+     7                                  global start
+     8                                  
+     9                                  extern exit
+    10                                  import exit msvcrt.dll
+    11                                  
+    12                                  segment data use32 class=data
+    13 00000000 0519377F                    s db 5, 25, 55, 127
+    14                                      len equ ($-s)
+    15 00000004 00<rept>                    d times len db 0
+    16                                      
+    17                                  segment code use32 class=code
+    18                                      start:
+    19 00000000 B904000000                      mov ecx, len
+    20 00000005 E321                            jecxz final
+    21                                          
+    22 00000007 FC                              cld             ; CLD = 0
+    23 00000008 BE[00000000]                    mov esi, s      
+    24 0000000D BF[04000000]                    mov edi, d
+    25                                          
+    26                                          repeta:
+    27 00000012 AC                                 lodsb    ; AL = s[ESI]         ; AL = <DS:ESI>
+    28 00000013 51                                 push ecx      ; protejam ECX
+    29 00000014 B908000000                         mov ecx, 8    ; ECX = 8 pentru a face 8 cicluri
+    30 00000019 B300                               mov bl, 0     ; in BL vom numara numarul de biti 1
+    31                                              numara:
+    32 0000001B D0E8                                    shr al, 1     ; shift right cu 1 bit
+    33 0000001D 80D300                                  adc bl, 0     ; BL = BL + 0 + CF
+    34 00000020 E2F9                                loop numara
+    35 00000022 88D8                                mov al, bl        ; AL = BL
+    36 00000024 AA                                  stosb        ; d[edi] = AL    ; <ES:EDI> = AL
+    37 00000025 59                                 pop ecx       ; scoatem din stiva ECX pentru a continua ciclurile
+    38 00000026 E2EA                            loop repeta
+    39                                          
+    40                                      final:
+    41 00000028 6A00                        push dword 0
+    42 0000002A FF15[00000000]              call [exit]

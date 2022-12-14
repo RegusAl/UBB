@@ -1,6 +1,3 @@
-from service.service import RepoError
-
-
 class Consola:
 
     def __init__(self, service):
@@ -13,7 +10,8 @@ class Consola:
         '''
         elemente = self.__service.get_all()
         for el in elemente:
-            print(f"{el.get_id()}, {el.get_data()}")
+            print(
+                f"id: {el.get_id()}, data: {el.get_data()}, locatia: {el.get_locatia()}, prognoza: {el.get_prognoza()}, {el.get_temp_minima()}/{el.get_temp_maxima()}")
 
     def __ui_afisare_locatii_string(self):
         '''
@@ -34,10 +32,10 @@ class Consola:
     def __ui_grupare_dupa_locatie(self):
         locatii = self.__service.grupare_locatie()
         for el in locatii:
-            print(el["oras"] )
-            print(el["temperatura"])
-            print(el["vreme"])
-
+            print("---")
+            for key, value in el.items():
+                print(key, ": ", value)
+        print("---")
 
     def run(self):
         while True:

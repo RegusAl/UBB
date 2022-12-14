@@ -42,8 +42,9 @@ class Service:
         lista = self.get_all()
         locatii = []
         for loc in lista:
-            if {"oras": loc.get_locatia(), "temperatura": ["min", "max"], "vreme": []} not in locatii:
-                locatii.append({"oras": loc.get_locatia(), "temperatura": ["min", "max"], "vreme": []})
+            if {"oras": loc.get_locatia(), "temperatura": ["min", "max"], "vreme": [], "numar": []} not in locatii:
+                locatii.append({"oras": loc.get_locatia(), "temperatura": ["min", "max"], "vreme": [], "numar": []})
+        numar = [0, 0, 0, 0, 0, 0, 0, 0]
         for loc in locatii:
             for el in lista:
                 if el.get_locatia() == loc["oras"]:
@@ -60,6 +61,12 @@ class Service:
                     # vreme
                     if el.get_prognoza() not in loc["vreme"]:
                         loc["vreme"].append(el.get_prognoza())
+                    # numar prognoze
+                    for i in range(len(loc["vreme"])):
+                        if el.get_prognoza() == loc["vreme"][i] and len(loc["numar"])<=i:
+                            loc["numar"].append(1)
+                        elif el.get_prognoza() == loc["vreme"][i]:
+                            loc["numar"][i] += 1
         return locatii
 
 

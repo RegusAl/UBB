@@ -8,3 +8,6 @@
 57, 2022/10/20, Bucuresti, sunny, 0, 10
 60, 2022/11/21, Bucuresti, sunny, 5, 10
 90, 2022/11/29, Dej, sunny, 7, 20
+99, 2022/03/20, Bucuresti, sunny, 0, 10
+6880, 2022/06/21, Bucuresti, sunny, 5, 10
+345, 2022/01/29, Dej, storm, 7, 20

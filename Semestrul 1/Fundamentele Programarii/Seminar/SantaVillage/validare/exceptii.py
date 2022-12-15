@@ -14,10 +14,9 @@ class ExceptionCautare(ExceptionLocatie):
 
 class ExceptionProdusNegasit(ExceptionCautare):
     def __init__(self):
-        ExceptionCautare.__init__(self, "nu s-a gasit atelier cu acest tip de produs!")
-
+        ExceptionCautare.__init__(self, "Nu s-a gasit atelier cu acest tip de produs!")
 
 class ExceptionPutiniSpiridusi(ExceptionCautare):
-    def __init__(self):
-        ExceptionCautare.__init__(self, "nu s-a gasit atelier cu acest numar minim de spiridusi!")
+    def __init__(self, produs):
+        ExceptionCautare.__init__(self, f"Nu s-a gasit un atelier numarul acesta de spiridusi pentru a face {produs}!")
 

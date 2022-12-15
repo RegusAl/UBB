@@ -17,25 +17,3 @@ class Atelier:
 
     def get_numar_spiridusi(self):
         return self.__numar_spiridusi
-
-class EvaluatorAtelier:
-
-    def __init__(self, atelier, numar_zile):
-        self.__atelier  = atelier
-        self.__numar_zile = numar_zile
-        self.__nr_min = 0
-        self.__nr_max = 0
-
-    def get_atelier(self):
-        return self.__atelier
-
-    def get_nr_min(self):
-        return self.__nr_min
-
-    def get_nr_max(self):
-        return self.__nr_max
-
-
-
-    def set_nr_min(self):
-        pass

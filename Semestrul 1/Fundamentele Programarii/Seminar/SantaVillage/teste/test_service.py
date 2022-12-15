@@ -2,7 +2,7 @@ import unittest
 
 from repository.repo_atelier import RepoAtelier
 from service.service_atelier import ServiceAtelier
-from validare.exceptii import ExceptionProdusNegasit, ExceptionPutiniSpiridusi
+from validare.exceptii import ExceptionProdusNegasit, ExceptionPutiniSpiridusi, ExceptionNumeInvalid
 
 
 class TestService(unittest.TestCase):
@@ -20,3 +20,12 @@ class TestService(unittest.TestCase):
         self.assertRaises(ExceptionProdusNegasit, self.__service.cautare_atelier, "exemplu", 0)
         self.assertRaises(ExceptionPutiniSpiridusi, self.__service.cautare_atelier, "cadouri", 1000)
 
+    def test_organizare_atelier(self):
+        atelier1 = self.__service.organizare_atelier("Santa's bodega", 5)
+        self.assertEqual(atelier1[0], "Santa's bodega")
+        self.assertEqual(atelier1[1], 45)
+        self.assertEqual(atelier1[2], "Cluuuj")
+        self.assertEqual(atelier1[3], 10 * atelier1[1] * 5)
+        self.assertEqual(atelier1[4], 15 * atelier1[1] * 5)
+        # test pentru Exceptii
+        self.assertRaises(ExceptionNumeInvalid, self.__service.organizare_atelier, "nuj", 100)

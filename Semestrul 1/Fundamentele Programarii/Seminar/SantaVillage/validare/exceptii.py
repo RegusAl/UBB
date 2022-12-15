@@ -20,3 +20,6 @@ class ExceptionPutiniSpiridusi(ExceptionCautare):
     def __init__(self, produs):
         ExceptionCautare.__init__(self, f"Nu s-a gasit un atelier numarul acesta de spiridusi pentru a face {produs}!")
 
+class ExceptionNumeInvalid(ExceptionCautare):
+    def __init__(self, nume):
+        ExceptionCautare.__init__(self, "Nu s-a gasit un atelier cu acest nume!")

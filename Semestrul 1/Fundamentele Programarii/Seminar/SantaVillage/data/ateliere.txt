@@ -1,5 +1,5 @@
-Santa's Office, Finlanda, papusi, 456
-Santa's Hub, Olanda, cadouri, 900
-Santa's bodega, Cluuuj, jucarii, 45
-Santa's Toy Factory, New York, jucarii, 345
-Christmas Decoration Factory, Belgia, cadouri, 678
+Santa Claus Main PostOffice, NorthPole, letter, 40
+Santa’s Toy Factory, SantaClausVillage, toy, 205
+Gingerbread Workshop, NorthPole, gingerbread, 19
+Santa’s Office, NorthPole, wishform, 52
+Christmas Decorations Factory, BellStreet, decoration, 156

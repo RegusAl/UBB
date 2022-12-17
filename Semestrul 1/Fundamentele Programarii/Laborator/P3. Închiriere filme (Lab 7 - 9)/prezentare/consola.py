@@ -249,7 +249,7 @@ class ui:
         print("2. Meniul cu Clientii")
         print("3. Meniul cu inchirieri")
         print("4. Rapoarte")
-        print("0. Exit")
+        print("5. Exit")
 
     def __meniu_film(self):
         print("-----FILM-----")
@@ -259,6 +259,7 @@ class ui:
         print("4. Modifica Film dupa ID")
         print("5. Cautare Film dupa ID")
         print("6. Genereaza filme random")
+        print("'exit' Iesiti din meniul FILME")
         print("--------------")
 
     def __meniu_clienti(self):
@@ -269,6 +270,7 @@ class ui:
         print("4. Modifica Client dupa ID")
         print("5. Cautare Client dupa ID")
         print("6. Genereaza clienti random")
+        print("'exit' Iesiti din meniul CLIENTI")
         print("-----------------")
 
     def __meniu_inchirieri(self):
@@ -301,9 +303,12 @@ class ui:
                 self.__ui_cauta_film_id()
             case '6':
                 self.__ui_film_random()
+            case 'exit':
+                print("Ati iesit din meniul FILME")
+                return
             case other:
                 print("Optiune invalida!")
-                return
+                self.__ui_filme()
 
     def __ui_client(self):
         optiune = input("Optiunea dumneavoastra: ")
@@ -320,9 +325,12 @@ class ui:
                 self.__ui_cauta_client_id()
             case '6':
                 self.__ui__client_random()
+            case 'exit':
+                print("Ati iesit din meniul CLIENTI")
+                return
             case other:
                 print("Optiune invalida!")
-                return
+                self.__ui_filme()
 
     def __ui_inchirieri(self):
         optiune = input("Optiunea dumneavoastra: ")
@@ -356,26 +364,30 @@ class ui:
 
     # Functia run() ce apeleaza toate meniurile
     def run(self):
-        while True:
-            print("----MENIU----")
-            self.__meniu_principal()
-            comanda = input("Optiunea dumneavoastra: ")
-            match comanda:
-                case '1':
-                    self.__meniu_film()
-                    self.__ui_filme()
-                case '2':
-                    self.__meniu_clienti()
-                    self.__ui_client()
-                case '3':
-                    self.__meniu_inchirieri()
-                    self.__ui_inchirieri()
-                case '4':
-                    self.__meniu_rapoarte()
-                    self.__ui_rapoarte()
-                case '5':
-                    print("!Ati iesit din program!")
-                    return
-                case other:
-                    print("Optiune invalida!")
-            print("-------------")
+        print("----MENIU----")
+        self.__meniu_principal()
+        comanda = input("Optiunea dumneavoastra: ")
+        match comanda:
+            case '1':
+                self.__meniu_film()
+                self.__ui_filme()
+                self.run()
+            case '2':
+                self.__meniu_clienti()
+                self.__ui_client()
+                self.run()
+            case '3':
+                self.__meniu_inchirieri()
+                self.__ui_inchirieri()
+                self.run()
+            case '4':
+                self.__meniu_rapoarte()
+                self.__ui_rapoarte()
+                self.run()
+            case '5':
+                print("!Ati iesit din program!")
+                return
+            case other:
+                print("Optiune invalida!")
+                self.run()
+        print("-------------")

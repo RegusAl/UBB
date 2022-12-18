@@ -1,0 +1,7 @@
+Ana, Popescu Gica, Comedie, 1234
+Domnul Goe, Mihai Ioan, Comedie, 5321
+Doua Lozuri, Mihai Ioan, Comedie, 4023
+Exemplu, nuj, Satira, 12344243
+Iona, George, Satira, 121212
+O scrisoare Pierduta, Mihai Ioan, Comedie, 7650
+Titanic, Frank, Drama, 8400

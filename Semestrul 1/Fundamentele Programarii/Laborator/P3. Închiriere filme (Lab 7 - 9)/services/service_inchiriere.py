@@ -1,4 +1,7 @@
 from domeniu.inchiriere import Inchiriere
+from utils.sortari import bubble_sort, shell_sort
+
+
 class ServiceInchiriere:
 
     def __init__(self, validator_clienti, validator_filme, repo_clienti, repo_filme, repo_inchiriere, service_clienti, service_filme):
@@ -31,7 +34,8 @@ class ServiceInchiriere:
             client = self.__service_clienti.cauta_client_dupa_id(el.get_client())
             if client.get_nume_client() not in lista_clienti:
                 lista_clienti.append(client.get_nume_client())
-        lista_clienti.sort()
+        #lista_clienti.sort()
+        bubble_sort(lista_clienti)
         return lista_clienti
 
     def sortare_numar(self):
@@ -48,7 +52,8 @@ class ServiceInchiriere:
                     lista_filme.append(film)
             if [nr_film, client_id, lista_filme] not in lista_clienti:
                 lista_clienti.append([nr_film, client_id, lista_filme])
-        lista_clienti.sort(reverse=True)
+        #lista_clienti.sort(reverse=True)
+        bubble_sort(lista_clienti, reverse=True)
         return lista_clienti
 
     def filme_inchiriate(self):
@@ -62,7 +67,8 @@ class ServiceInchiriere:
                     nr_film += 1
             if [nr_film, film_id] not in lista_filme:
                 lista_filme.append([nr_film, film_id])
-        lista_filme.sort(reverse=True)
+        #lista_filme.sort(reverse=True)
+        shell_sort(lista_filme, reverse = True)
         return lista_filme
 
     def filme_inchiriate_30(self):
@@ -103,6 +109,7 @@ class ServiceInchiriere:
                     lista_finala.append([lista_gen_filme[i], lista_nr_gen_filme[i]])
             if [nr_film, client_id, lista_finala] not in lista_clienti:
                 lista_clienti.append([nr_film, client_id, lista_finala])
-        lista_clienti.sort(reverse=True)
+        #lista_clienti.sort(reverse=True)
+        shell_sort(lista_clienti, reverse = True)
         return lista_clienti
 

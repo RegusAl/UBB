@@ -1,0 +1,37 @@
+     1                                  bits 32
+     2                                  global start
+     3                                  
+     4                                  extern exit, printf, gets
+     5                                  import exit msvcrt.dll
+     6                                  import printf msvcrt.dll
+     7                                  import gets msvcrt.dll
+     8                                  
+     9                                  segment data use32 class=data
+    10 00000000 4461746920756E206D-         mesaj db "Dati un mesaj: ", 0
+    10 00000009 6573616A3A2000     
+    11 00000010 257300                      format db "%s", 0
+    12 00000013 00<rept>                    s times 50 db 0
+    13 00000045 4D6573616A756C2065-         afisare db "Mesajul este: %s", 0
+    13 0000004E 7374653A20257300   
+    14                                      
+    15                                  segment code use32 class=code
+    16                                      start:
+    17                                              
+    18                                          ; afisarea mesajului de inceput    
+    19 00000000 68[00000000]                    push dword mesaj
+    20 00000005 FF15[00000000]                  call [printf]
+    21 0000000B 83C404                          add esp, 1*4
+    22                                          
+    23                                          ; citirea stringului
+    24 0000000E 68[13000000]                    push dword s
+    25 00000013 FF15[00000000]                  call [gets]
+    26 00000019 83C404                          add esp, 1*4
+    27                                          
+    28                                          ; afisarea stringului
+    29 0000001C 68[13000000]                    push dword s
+    30 00000021 68[45000000]                    push dword afisare
+    31 00000026 FF15[00000000]                  call [printf]
+    32 0000002C 83C408                          add esp, 2*4
+    33                                          
+    34 0000002F 6A00                        push dword 0 
+    35 00000031 FF15[00000000]              call [exit]

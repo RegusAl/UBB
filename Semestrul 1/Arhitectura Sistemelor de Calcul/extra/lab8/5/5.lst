@@ -1,0 +1,42 @@
+     1                                  ; Se dau doua numere naturale a si b (a, b: word, definite in segmentul de date). Sa se calculeze a/b si sa se afiseze catul si restul impartirii in urmatorul format: "Cat = <cat>, rest = <rest>"
+     2                                  ;   Exemplu: pentru a=23 si b=10 se va afisa: "Cat = 2, rest = 3"
+     3                                  ;   Valorile vor fi afisate in format decimal (baza 10) cu semn.
+     4                                  bits 32
+     5                                  global start
+     6                                  
+     7                                  extern exit, printf, scanf
+     8                                  import exit msvcrt.dll
+     9                                  import printf msvcrt.dll
+    10                                  import scanf msvcrt.dll
+    11                                  
+    12                                  segment data use32 class=data
+    13 00000000 1700                        a dw 23
+    14 00000002 0A00                        b dw 10
+    15 00000004 436174203D2025642C-         format_afisare db "Cat = %d, rest = %d", 0
+    15 0000000D 2072657374203D2025-
+    15 00000016 6400               
+    16                                  
+    17                                  segment code use32 class=code
+    18                                      start:
+    19                                      
+    20                                      ; a / b cu semn
+    21 00000000 66A1[00000000]              mov ax, [a]
+    22 00000006 6699                        cwd
+    23                                      ; dx = restul, ax = catul
+    24 00000008 66F73D[02000000]            idiv word [b]
+    25                                      
+    26                                      ; ax -> ebx, dx -> eax
+    27 0000000F 98                          cwde
+    28 00000010 89C3                        mov ebx, eax
+    29 00000012 6689D0                      mov ax, dx
+    30 00000015 98                          cwde
+    31                                      
+    32                                      ; afisare
+    33 00000016 50                          push eax
+    34 00000017 6A00                        push dword 0
+    35 00000019 68[04000000]                push format_afisare
+    36 0000001E FF15[00000000]              call [printf]
+    37 00000024 83C40C                      add esp, 3*4
+    38                                         
+    39 00000027 6A00                        push dword 0
+    40 00000029 FF15[00000000]              call [exit]

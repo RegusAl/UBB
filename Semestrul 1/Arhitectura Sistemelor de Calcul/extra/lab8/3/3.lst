@@ -1,0 +1,36 @@
+     1                                  ; Se dau doua numere naturale a si b (a, b: dword, definite in segmentul de date). Sa se calculeze suma lor si sa se afiseze in urmatorul format: "<a> + <b> = <result>"
+     2                                  ; Exemplu: "1 + 2 = 3"
+     3                                  ; Valorile vor fi afisate in format decimal (baza 10) cu semn.
+     4                                  bits 32
+     5                                  global start
+     6                                  
+     7                                  extern exit, printf, scanf
+     8                                  import exit msvcrt.dll
+     9                                  import printf msvcrt.dll
+    10                                  import scanf msvcrt.dll
+    11                                  
+    12                                  segment data use32 class=data
+    13 00000000 0D000000                    a dd 13
+    14 00000004 DBFFFFFF                    b dd -37
+    15 00000008 00000000                    rezultat dd 0
+    16 0000000C 2564202B202564203D-         format_afisare db "%d + %d = %d", 0
+    16 00000015 20256400           
+    17                                  
+    18                                  segment code use32 class=code
+    19                                      start:
+    20                                      
+    21                                          ; a + b = rezultat
+    22 00000000 A1[00000000]                    mov eax, [a]
+    23 00000005 0305[04000000]                  add eax, [b]
+    24 0000000B A3[08000000]                    mov [rezultat], eax
+    25                                      
+    26                                          ; afisare
+    27 00000010 FF35[08000000]                  push dword [rezultat]
+    28 00000016 FF35[04000000]                  push dword [b]
+    29 0000001C FF35[00000000]                  push dword [a]
+    30 00000022 68[0C000000]                    push dword format_afisare
+    31 00000027 FF15[00000000]                  call [printf]
+    32 0000002D 83C410                          add esp, 4*4
+    33                                      
+    34 00000030 6A00                        push dword 0
+    35 00000032 FF15[00000000]              call [exit]

@@ -1,0 +1,39 @@
+     1                                  ; Sa se citeasca de la tastatura un numar in baza 10 si sa se afiseze valoarea acelui numar in baza 16.
+     2                                  ; Exemplu: Se citeste: 28: se afiseaza: 1C 
+     3                                  bits 32
+     4                                  global start
+     5                                  
+     6                                  extern exit, scanf, printf
+     7                                  import exit msvcrt.dll
+     8                                  import scanf msvcrt.dll
+     9                                  import printf msvcrt.dll
+    10                                  
+    11                                  segment data use32 class=data
+    12 00000000 00000000                    a dd 0
+    13 00000004 61203D2000                  mesaj_a db "a = ", 0
+    14 00000009 256400                      format db "%d", 0
+    15 0000000C 486578613A20257800          rezultat db "Hexa: %x", 0
+    16                                      
+    17                                  segment code use32 class=code
+    18                                      start:
+    19                                      
+    20                                          ; a = 
+    21 00000000 68[04000000]                    push dword mesaj_a
+    22 00000005 FF15[00000000]                  call [printf]
+    23 0000000B 83C404                          add esp, 1*4
+    24                                          
+    25                                          ; citire numar in decimal
+    26 0000000E 68[00000000]                    push dword a
+    27 00000013 68[09000000]                    push dword format
+    28 00000018 FF15[00000000]                  call [scanf]
+    29 0000001E 83C408                          add esp, 2*4
+    30                                          
+    31                                          ; afisare numar citit in hexa
+    32 00000021 FF35[00000000]                  push dword [a]
+    33 00000027 68[0C000000]                    push dword rezultat
+    34 0000002C FF15[00000000]                  call [printf]
+    35 00000032 83C408                          add esp, 2*4
+    36                                      
+    37                                      
+    38 00000035 6A00                        push dword 0
+    39 00000037 FF15[00000000]              call [exit]

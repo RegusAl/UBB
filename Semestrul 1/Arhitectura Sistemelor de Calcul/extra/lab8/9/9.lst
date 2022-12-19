@@ -1,0 +1,71 @@
+     1                                  ; Sa se citeasca de la tastatura doua numere a si b (in baza 10) si sa se calculeze: (a+b) / (a-b). Catul impartirii se va salva in memorie in variabila "rezultat" (definita in segmentul de date). Valorile se consid
+     2                                  bits 32
+     3                                  global start
+     4                                  
+     5                                  extern exit, printf, scanf
+     6                                  import exit msvcrt.dll
+     7                                  import printf msvcrt.dll
+     8                                  import scanf msvcrt.dll
+     9                                  
+    10                                  segment data use32 class=data
+    11 00000000 00000000                    a dd 0
+    12 00000004 00000000                    b dd 0
+    13 00000008 256400                      format db "%d", 0
+    14 0000000B 61203D2000                  mesaj_a db "a = ", 0
+    15 00000010 62203D2000                  mesaj_b db "b = ", 0
+    16 00000015 52657A756C74617475-         afisare db "Rezultatul este: %d", 0
+    16 0000001E 6C20657374653A2025-
+    16 00000027 6400               
+    17 00000029 00000000                    rezultat dd 0
+    18                                  
+    19                                  segment code use32 class=code
+    20                                      start:
+    21                                      
+    22                                          ; a = 
+    23 00000000 68[0B000000]                    push dword mesaj_a
+    24 00000005 FF15[00000000]                  call [printf]
+    25 0000000B 83C404                          add esp, 1*4
+    26                                          
+    27                                          ; citire a
+    28 0000000E 68[00000000]                    push dword a
+    29 00000013 68[08000000]                    push dword format
+    30 00000018 FF15[00000000]                  call [scanf]
+    31 0000001E 83C408                          add esp, 2*4
+    32                                          
+    33                                          ; b = 
+    34 00000021 68[10000000]                    push dword mesaj_b
+    35 00000026 FF15[00000000]                  call [printf]
+    36 0000002C 83C404                          add esp, 1*4
+    37                                          
+    38                                          ; citire b
+    39 0000002F 68[04000000]                    push dword b
+    40 00000034 68[08000000]                    push dword format
+    41 00000039 FF15[00000000]                  call [scanf]
+    42 0000003F 83C408                          add esp, 2*4
+    43                                          
+    44                                          ; a+b = edx:eax
+    45 00000042 A1[00000000]                    mov eax, [a]
+    46 00000047 0305[04000000]                  add eax, [b]
+    47 0000004D 99                              cdq
+    48                                          
+    49                                          ; a-b = ebx
+    50 0000004E 8B1D[00000000]                  mov ebx, [a]
+    51 00000054 2B1D[04000000]                  sub ebx, [b]
+    52                                          
+    53                                          ; (a+b)/(a-b) -> edx = rest, eax = cat
+    54 0000005A F7FB                            idiv ebx
+    55 0000005C A3[29000000]                    mov [rezultat], eax
+    56                                          
+    57                                          ; afisare
+    58 00000061 FF35[29000000]                  push dword [rezultat]
+    59 00000067 68[15000000]                    push dword afisare
+    60 0000006C FF15[00000000]                  call [printf]
+    61 00000072 83C408                          add esp, 2*4
+    62                                          
+    63                                          
+    64                                          
+    65                                          
+    66                                      
+    67                                      
+    68 00000075 6A00                        push dword 0
+    69 00000077 FF15[00000000]              call [exit]

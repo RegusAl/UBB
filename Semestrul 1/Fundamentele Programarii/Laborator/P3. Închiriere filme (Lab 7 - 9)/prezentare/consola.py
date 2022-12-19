@@ -330,7 +330,7 @@ class ui:
                 return
             case other:
                 print("Optiune invalida!")
-                self.__ui_filme()
+                self.__ui_client()
 
     def __ui_inchirieri(self):
         optiune = input("Optiunea dumneavoastra: ")

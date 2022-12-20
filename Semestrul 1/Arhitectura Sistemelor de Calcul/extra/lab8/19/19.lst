@@ -1,0 +1,73 @@
+     1                                  ; Sa se citeasca de la tastatura un octet si un cuvant. Sa se afiseze pe ecran daca bitii octetului citit se regasesc consecutiv printre bitii cuvantului. Exemplu:
+     2                                  ; a = 10 = 0000 1010b
+     3                                  ; b = 256 = 0000 0001 0000 0000b
+     4                                  ; Pe ecran se va afisa NU.
+     5                                  ; a = 0Ah = 0000 1010b
+     6                                  ; b = 6151h = 0110 0001 0101 0001b
+     7                                  ; Pe ecran se va afisa DA (bitii se regasesc pe pozitiile 5-12).
+     8                                  bits 32
+     9                                  global start
+    10                                  
+    11                                  extern exit, printf, scanf
+    12                                  import exit msvcrt.dll
+    13                                  import printf msvcrt.dll
+    14                                  import scanf msvcrt.dll
+    15                                  
+    16                                  segment data use32 class=data
+    17 00000000 00000000                    a dd 0
+    18 00000004 00000000                    b dd 0
+    19 00000008 61203D2000                  mesaj_a db "a = ", 0
+    20 0000000D 62203D2000                  mesaj_b db "b = ", 0
+    21 00000012 256400                      format_dec db "%d", 0
+    22 00000015 444100                      da db "DA", 0
+    23 00000018 4E5500                      nu db "NU", 0
+    24                                  
+    25                                  segment code use32 class=code
+    26                                      start:
+    27                                      
+    28                                          ; a = 
+    29 00000000 68[08000000]                    push dword mesaj_a
+    30 00000005 FF15[00000000]                  call [printf]
+    31 0000000B 83C404                          add esp, 1*4
+    32                                          
+    33                                          ; citire a
+    34 0000000E 68[00000000]                    push dword a
+    35 00000013 68[12000000]                    push dword format_dec
+    36 00000018 FF15[00000000]                  call [scanf]
+    37 0000001E 83C408                          add esp, 2*4
+    38                                          
+    39                                          ; b = 
+    40 00000021 68[0D000000]                    push dword mesaj_b
+    41 00000026 FF15[00000000]                  call [printf]
+    42 0000002C 83C404                          add esp, 1*4
+    43                                          
+    44                                          ; citire b
+    45 0000002F 68[04000000]                    push dword b
+    46 00000034 68[12000000]                    push dword format_dec
+    47 00000039 FF15[00000000]                  call [scanf]
+    48 0000003F 83C408                          add esp, 2*4
+    49                                          
+    50 00000042 B908000000                      mov ecx, 8
+    51 00000047 66A1[04000000]                  mov ax, [b]
+    52 0000004D 8A1D[00000000]                  mov bl, [a]
+    53                                          
+    54                                          repeta:
+    55 00000053 38D8                                cmp al, bl
+    56 00000055 7415                                je egal
+    57 00000057 66D1E8                              shr ax, 1        
+    58 0000005A E2F7                            loop repeta
+    59                                          
+    60 0000005C 68[18000000]                        push dword nu
+    61 00000061 FF15[00000000]                      call [printf]
+    62 00000067 83C404                              add esp, 1*4
+    63 0000006A EB0E                                jmp peste
+    64                                          
+    65                                          egal:
+    66                                          
+    67 0000006C 68[15000000]                        push dword da
+    68 00000071 FF15[00000000]                      call [printf]
+    69 00000077 83C404                              add esp, 1*4
+    70                                         
+    71                                      peste:
+    72 0000007A 6A00                        push dword 0
+    73 0000007C FF15[00000000]              call [exit]

@@ -1,0 +1,76 @@
+     1                                  ; Sa se citeasca de la tastatura in baza 16 doua numere a si b de tip dword si sa se afiseze suma partilor low si diferenta partilor high. Exemplu:
+     2                                  ; a = 00101A35h, b = 00023219h
+     3                                  ; suma = 4C4Eh
+     4                                  ; diferenta = Eh
+     5                                  bits 32
+     6                                  global start
+     7                                  
+     8                                  extern exit, printf, scanf
+     9                                  import exit msvcrt.dll
+    10                                  import printf msvcrt.dll
+    11                                  import scanf msvcrt.dll
+    12                                  
+    13                                  segment data use32 class=data
+    14 00000000 00000000                    a dd 0
+    15 00000004 00000000                    b dd 0
+    16 00000008 612028626173653136-         mesaj_a db "a (base16) = ", 0
+    16 00000011 29203D2000         
+    17 00000016 622028626173653136-         mesaj_b db "b (base16) = ", 0
+    17 0000001F 29203D2000         
+    18 00000024 257800                      format_hex db "%x", 0
+    19 00000027 53756D61203D202578-         afisare_suma db "Suma = %xh ", 0
+    19 00000030 682000             
+    20 00000033 4469666572656E7461-         afisare_diferenta db "Diferenta = %xh", 0
+    20 0000003C 203D2025786800     
+    21 00000043 00000000                    suma dd 0
+    22 00000047 00000000                    diferenta dd 0
+    23                                  
+    24                                  segment code use32 class=code
+    25                                      start:
+    26                                      
+    27                                          ; a = 
+    28 00000000 68[08000000]                    push dword mesaj_a
+    29 00000005 FF15[00000000]                  call [printf]
+    30 0000000B 83C404                          add esp, 1*4
+    31                                          
+    32                                          ; citim a
+    33 0000000E 68[00000000]                    push dword a
+    34 00000013 68[24000000]                    push dword format_hex
+    35 00000018 FF15[00000000]                  call [scanf]
+    36 0000001E 83C408                          add esp, 2*4
+    37                                          
+    38                                          ; b = 
+    39 00000021 68[16000000]                    push dword mesaj_b
+    40 00000026 FF15[00000000]                  call [printf]
+    41 0000002C 83C404                          add esp, 1*4
+    42                                          
+    43                                          ; citim b
+    44 0000002F 68[04000000]                    push dword b
+    45 00000034 68[24000000]                    push dword format_hex
+    46 00000039 FF15[00000000]                  call [scanf]
+    47 0000003F 83C408                          add esp, 2*4
+    48                                  
+    49 00000042 66A1[00000000]                  mov ax, [a]
+    50 00000048 660305[04000000]                add ax, [b]
+    51 0000004F 66A3[43000000]                  mov [suma], ax
+    52                                          
+    53 00000055 66A1[02000000]                  mov ax, [a+2]
+    54 0000005B 662B05[06000000]                sub ax, [b+2]
+    55 00000062 66A3[47000000]                  mov [diferenta], ax
+    56                                          
+    57                                          ; afisare suma
+    58 00000068 FF35[43000000]                  push dword [suma]
+    59 0000006E 68[27000000]                    push dword afisare_suma
+    60 00000073 FF15[00000000]                  call [printf]
+    61 00000079 83C408                          add esp, 2*4
+    62                                  
+    63                                          ; afisare diferenta
+    64 0000007C FF35[47000000]                  push dword [diferenta]
+    65 00000082 68[33000000]                    push dword afisare_diferenta
+    66 00000087 FF15[00000000]                  call [printf]
+    67 0000008D 83C408                          add esp, 2*4
+    68                                          
+    69                                          
+    70                                      
+    71 00000090 6A00                        push dword 0
+    72 00000092 FF15[00000000]              call [exit]

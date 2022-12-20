@@ -1,0 +1,59 @@
+     1                                  ; Sa se citeasca de la tastatura doua numere a si b (in baza 10). Sa se calculeze si sa se afiseze media lor aritmetica in baza 16. 
+     2                                  bits 32
+     3                                  global start
+     4                                  
+     5                                  extern exit, printf, scanf
+     6                                  import exit msvcrt.dll
+     7                                  import printf msvcrt.dll
+     8                                  import scanf msvcrt.dll
+     9                                  
+    10                                  segment data use32 class=data
+    11 00000000 00000000                    a dd 0
+    12 00000004 00000000                    b dd 0
+    13 00000008 256400                      format_dec db "%d", 0
+    14 0000000B 61203D2000                  mesaj_a db "a = ", 0
+    15 00000010 62203D2000                  mesaj_b db "b = ", 0
+    16 00000015 4D6564696120617269-         afisare db "Media aritmetica este: %xh", 0
+    16 0000001E 746D65746963612065-
+    16 00000027 7374653A2025786800 
+    17                                  
+    18                                  segment code use32 class=code
+    19                                      start:
+    20                                      
+    21                                          ; a = 
+    22 00000000 68[0B000000]                    push dword mesaj_a
+    23 00000005 FF15[00000000]                  call [printf]
+    24 0000000B 83C404                          add esp, 1*4
+    25                                          
+    26                                          ; citire a
+    27 0000000E 68[00000000]                    push dword a
+    28 00000013 68[08000000]                    push dword format_dec
+    29 00000018 FF15[00000000]                  call [scanf]
+    30 0000001E 83C408                          add esp, 2*4
+    31                                          
+    32                                          ; b = 
+    33 00000021 68[10000000]                    push dword mesaj_b
+    34 00000026 FF15[00000000]                  call [printf]
+    35 0000002C 83C404                          add esp, 1*4
+    36                                          
+    37                                          ; citire b
+    38 0000002F 68[04000000]                    push dword b
+    39 00000034 68[08000000]                    push dword format_dec
+    40 00000039 FF15[00000000]                  call [scanf]
+    41 0000003F 83C408                          add esp, 2*4
+    42                                          
+    43                                          ; eax = (a + b) / 2
+    44 00000042 A1[00000000]                    mov eax, [a]
+    45 00000047 0305[04000000]                  add eax, [b]
+    46 0000004D 99                              cdq
+    47 0000004E BB02000000                      mov ebx, 2
+    48 00000053 F7FB                            idiv ebx
+    49                                          
+    50                                          ; afisare (a + b) / 2
+    51 00000055 50                              push eax
+    52 00000056 68[15000000]                    push afisare
+    53 0000005B FF15[00000000]                  call [printf]
+    54 00000061 83C408                          add esp, 2*4
+    55                                          
+    56 00000064 6A00                        push dword 0
+    57 00000066 FF15[00000000]              call [exit]

@@ -1,0 +1,42 @@
+     1                                  ; Sa se citeasca de la tastatura un numar in baza 16 si sa se afiseze valoarea acelui numar in baza 10.
+     2                                  ; Exemplu: Se citeste: 1D; se afiseaza: 29
+     3                                  bits 32
+     4                                  global start
+     5                                  
+     6                                  extern exit, printf, scanf
+     7                                  import exit msvcrt.dll
+     8                                  import printf msvcrt.dll
+     9                                  import scanf msvcrt.dll
+    10                                  
+    11                                  segment data use32 class=data
+    12 00000000 00000000                    numar dd 0
+    13 00000004 6E756D617220696E20-         citire_numar db "numar in hexa = ", 0
+    13 0000000D 68657861203D2000   
+    14 00000015 257800                      format db "%x", 0
+    15 00000018 4E756D6172756C2069-         afisare db "Numarul in decimal este: %d", 0
+    15 00000021 6E20646563696D616C-
+    15 0000002A 20657374653A202564-
+    15 00000033 00                 
+    16                                  
+    17                                  segment code use32 class=code
+    18                                      start:
+    19                                      
+    20                                          ; numar = 
+    21 00000000 68[04000000]                    push dword citire_numar
+    22 00000005 FF15[00000000]                  call [printf]
+    23 0000000B 83C404                          add esp, 1*4
+    24                                          
+    25                                          ; citire numar in hexa
+    26 0000000E 68[00000000]                    push dword numar
+    27 00000013 68[15000000]                    push dword format
+    28 00000018 FF15[00000000]                  call [scanf]
+    29 0000001E 83C408                          add esp, 2*4
+    30                                          
+    31                                          ; afisare numar in decimal
+    32 00000021 FF35[00000000]                  push dword [numar]
+    33 00000027 68[18000000]                    push dword afisare
+    34 0000002C FF15[00000000]                  call [printf]
+    35 00000032 83C408                          add esp, 2*4
+    36                                      
+    37 00000035 6A00                        push dword 0
+    38 00000037 FF15[00000000]              call [exit]

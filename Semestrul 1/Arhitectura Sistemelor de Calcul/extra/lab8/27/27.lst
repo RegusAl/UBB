@@ -1,0 +1,61 @@
+     1                                  ; Se dă un sir de caractere (definit in segmentul de date). Să se citească de la tastatură un caracter, să se determine numărul de apariţii al acelui caracter în şirul dat şi să se afişeze acel caracter 
+     2                                  bits 32
+     3                                  global start
+     4                                  
+     5                                  extern exit, scanf, printf
+     6                                  import exit msvcrt.dll
+     7                                  import scanf msvcrt.dll
+     8                                  import printf msvcrt.dll
+     9                                  
+    10                                  segment data use32 class=data
+    11 00000000 636172616374657275-         mesaj_caracter db "caracterul = ", 0
+    11 00000009 6C203D2000         
+    12 0000000E 616C62657274206520-         sir db "albert e cel mai tare", 0
+    12 00000017 63656C206D61692074-
+    12 00000020 61726500           
+    13                                      len_sir equ $-sir
+    14 00000024 256300                      format_char db "%c", 0
+    15 00000027 257300                      format_str db "%s", 0
+    16 0000002A 436172616374657275-         afisare db "Caracterul '%s' apare de %d ori", 0
+    16 00000033 6C2027257327206170-
+    16 0000003C 617265206465202564-
+    16 00000045 206F726900         
+    17 0000004A 00                          caracter times 1 db 0
+    18                                      
+    19                                      
+    20                                  segment code use32 class=code
+    21                                      start:
+    22                                      
+    23                                          ; c = 
+    24 00000000 68[00000000]                    push dword mesaj_caracter
+    25 00000005 FF15[00000000]                  call [printf]
+    26 0000000B 83C404                          add esp, 1*4
+    27                                          
+    28                                          ; citire caracterul c
+    29 0000000E 68[4A000000]                    push dword caracter
+    30 00000013 68[24000000]                    push dword format_char
+    31 00000018 FF15[00000000]                  call [scanf]
+    32 0000001E 83C408                          add esp, 2*4
+    33                                          
+    34 00000021 B916000000                      mov ecx, len_sir
+    35 00000026 BE00000000                      mov esi, 0
+    36 0000002B A0[4A000000]                    mov al, [caracter]
+    37 00000030 BB00000000                      mov ebx, 0
+    38                                          
+    39                                          repeta:
+    40 00000035 3A86[0E000000]                          cmp al, [sir+esi]
+    41 0000003B 7503                                    jne peste
+    42 0000003D 83C301                                  add ebx, 1
+    43                                                  peste: 
+    44 00000040 46                                      inc esi
+    45 00000041 E2F2                            loop repeta
+    46                                          
+    47                                          ; afisare
+    48 00000043 53                              push ebx
+    49 00000044 68[4A000000]                    push caracter
+    50 00000049 68[2A000000]                    push dword afisare
+    51 0000004E FF15[00000000]                  call [printf]
+    52 00000054 83C40C                          add esp, 3*4
+    53                                       
+    54 00000057 6A00                        push dword 0
+    55 00000059 FF15[00000000]              call [exit]

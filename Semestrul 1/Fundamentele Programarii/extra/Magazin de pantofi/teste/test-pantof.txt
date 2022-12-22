@@ -1,0 +1,6 @@
+1, Valentino Garavani, 37, 4, 1500, False
+2, Adidas, 40, 5, 700, True
+3, Nike, 36, 3, 550, False
+4, Valentino Garavani, 38, 5, 1300, True
+5, Valentino Garavani, 43, 8, 1250, True
+6, Valentino Garavani, 36, 4, 1200, True

@@ -1,0 +1,92 @@
+     1                                  ;  Se da un fisier text. Sa se citeasca continutul fisierului, sa se contorizeze numarul de caractere speciale si sa se afiseze aceasta valoare. Numele fisierului text este definit in segmentul de date. 
+     2                                  bits 32
+     3                                  global start
+     4                                  
+     5                                  extern exit, fopen, fread, fclose, printf
+     6                                  import exit msvcrt.dll
+     7                                  import fopen msvcrt.dll
+     8                                  import fread msvcrt.dll
+     9                                  import fclose msvcrt.dll
+    10                                  import printf msvcrt.dll
+    11                                  
+    12                                  segment data use32 class=data
+    13 00000000 636172616374657265-         nume_fisier db "caractere_speciale.txt", 0
+    13 00000009 5F7370656369616C65-
+    13 00000012 2E74787400         
+    14 00000017 7200                        mod_acces db "r", 0
+    15 00000019 FFFFFFFF                    descriptor_fisier dd -1
+    16                                      len equ 100
+    17 0000001D 00<rept>                    text times len db 0
+    18 00000081 7E6021402324255E26-         caractere_speciale db "~`!@#$%^&*()_+-={[}]\|:;'<,.>/?"
+    18 0000008A 2A28295F2B2D3D7B5B-
+    18 00000093 7D5D5C7C3A3B273C2C-
+    18 0000009C 2E3E2F3F           
+    19 000000A0 54657874756C206172-         afisare_format db "Textul are %d caractere speciale", 0
+    19 000000A9 652025642063617261-
+    19 000000B2 637465726520737065-
+    19 000000BB 6369616C6500       
+    20                                  
+    21                                  segment code use32 class=code
+    22                                      start:
+    23                                          
+    24                                          ; deschidere fisier
+    25 00000000 68[17000000]                    push dword mod_acces
+    26 00000005 68[00000000]                    push dword nume_fisier
+    27 0000000A FF15[00000000]                  call [fopen]
+    28 00000010 83C408                          add esp, 2*4
+    29                                          
+    30                                          ; verificare descriptor_fisier
+    31 00000013 A3[19000000]                    mov [descriptor_fisier], eax
+    32 00000018 83F800                          cmp eax, 0
+    33 0000001B 746B                            je final
+    34                                      
+    35                                          ; citire text din fisiere
+    36 0000001D FF35[19000000]                  push dword [descriptor_fisier]
+    37 00000023 6A64                            push dword len
+    38 00000025 6A01                            push dword 1
+    39 00000027 68[1D000000]                    push dword text
+    40 0000002C FF15[00000000]                  call [fread]
+    41 00000032 83C410                          add esp, 4*4
+    42                                          
+    43                                          ; inchidere fisier
+    44 00000035 FF35[19000000]                  push dword [descriptor_fisier]
+    45 0000003B FF15[00000000]                  call [fclose]
+    46 00000041 83C404                          add esp, 1*4
+    47                                          
+    48                                          ; numarare caractere speciale
+    49 00000044 BE00000000                      mov esi, 0
+    50 00000049 FC                              cld
+    51 0000004A BB00000000                      mov ebx, 0
+    52                                          repeta:
+    53                                          
+    54 0000004F BF00000000                          mov edi, 0
+    55 00000054 B91F000000                          mov ecx, 31
+    56                                              caractere_speciale_loop:
+    57 00000059 8A97[81000000]                          mov dl, [caractere_speciale+edi]
+    58 0000005F 47                                      inc(edi)
+    59 00000060 3A96[1D000000]                          cmp dl, [text+esi]
+    60 00000066 7404                                    je numarare
+    61                                                  
+    62 00000068 E2EF                                loop caractere_speciale_loop
+    63                                              
+    64 0000006A EB03                                jmp peste 
+    65                                              
+    66                                              numarare:
+    67 0000006C 83C301                                  add ebx, 1
+    68                                              
+    69                                              peste:
+    70 0000006F 46                                      inc(esi)
+    71                                          
+    72 00000070 80BE[1D000000]00                cmp byte [text+esi], 0
+    73 00000077 75D6                            jne repeta
+    74                                          
+    75                                          ; afisarea numarului de caractere speciale
+    76 00000079 53                              push ebx
+    77 0000007A 68[A0000000]                    push dword afisare_format
+    78 0000007F FF15[00000000]                  call [printf]
+    79 00000085 83C408                          add esp, 2*4
+    80                                      
+    81                                      final:
+    82                                      
+    83 00000088 6A00                        push dword 0
+    84 0000008A FF15[00000000]              call [exit]

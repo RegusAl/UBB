@@ -1,0 +1,97 @@
+     1                                  ; Se da un fisier text. Sa se citeasca continutul fisierului, sa se contorizeze numarul de consoane si sa se afiseze aceasta valoare. Numele fisierului text este definit in segmentul de date. 
+     2                                  bits 32
+     3                                  global start
+     4                                  
+     5                                  extern exit, fopen, fread, fclose, printf
+     6                                  import exit msvcrt.dll
+     7                                  import fopen msvcrt.dll
+     8                                  import fread msvcrt.dll
+     9                                  import fclose msvcrt.dll
+    10                                  import printf msvcrt.dll
+    11                                  
+    12                                  segment data use32 class=data
+    13 00000000 636F6E736F616E652E-         nume_fisier db "consoane.txt", 0
+    13 00000009 74787400           
+    14 0000000D 7200                        mod_acces db "r", 0
+    15 0000000F FFFFFFFF                    descriptor_fisier dd -1
+    16                                      len equ 100
+    17 00000013 00<rept>                    text times len db 0
+    18 00000077 257300                      format_string db "%s", 0
+    19 0000007A 00000000                    numar_consoane dd 0
+    20 0000007E 6263646667686A6B6C-         consoane db "bcdfghjklmnpqrstvxyzBCDFGHJKLMNPQRSTVXYZ", 0
+    20 00000087 6D6E70717273747678-
+    20 00000090 797A4243444647484A-
+    20 00000099 4B4C4D4E5051525354-
+    20 000000A2 5658595A00         
+    21 000000A7 54657874756C206172-         afisare_format db "Textul are %d consoane", 0
+    21 000000B0 6520256420636F6E73-
+    21 000000B9 6F616E6500         
+    22                                      
+    23                                  segment code use32 class=code
+    24                                      start:
+    25                                          
+    26                                          ; deschidere fisier
+    27 00000000 68[0D000000]                    push dword mod_acces
+    28 00000005 68[00000000]                    push dword nume_fisier
+    29 0000000A FF15[00000000]                  call [fopen]
+    30 00000010 83C408                          add esp, 2*4
+    31                                          
+    32 00000013 A3[0F000000]                    mov [descriptor_fisier], eax
+    33                                          
+    34 00000018 83F800                          cmp eax, 0
+    35 0000001B 7476                            je final
+    36                                          
+    37                                          ; citire text din fisier
+    38 0000001D FF35[0F000000]                  push dword [descriptor_fisier]
+    39 00000023 6A64                            push dword len
+    40 00000025 6A01                            push dword 1
+    41 00000027 68[13000000]                    push dword text
+    42 0000002C FF15[00000000]                  call [fread]
+    43 00000032 83C410                          add esp, 4*4
+    44                                          
+    45                                          ; inchidere fisier
+    46 00000035 FF35[0F000000]                  push dword [descriptor_fisier]
+    47 0000003B FF15[00000000]                  call [fclose]
+    48 00000041 83C404                          add esp, 1*4
+    49                                          
+    50                                          ; numarare vocale
+    51 00000044 BE00000000                      mov esi, 0
+    52 00000049 FC                              cld 
+    53 0000004A BB00000000                      mov ebx, 0
+    54                                          
+    55                                          repeta:
+    56                                          
+    57 0000004F BF00000000                          mov edi, 0
+    58 00000054 B928000000                          mov ecx, 40
+    59                                              
+    60                                              ; loop pentru a vedea daca text[esi] = text[edi]
+    61                                              consoane_loop:
+    62 00000059 8A97[7E000000]                          mov dl, [consoane+edi]
+    63 0000005F 3896[13000000]                          cmp [text+esi], dl
+    64 00000065 7405                                    je consoana
+    65 00000067 47                                      inc(edi)
+    66 00000068 E2EF                                loop consoane_loop
+    67                                              
+    68 0000006A EB03                                jmp peste
+    69                                              
+    70                                              consoana:
+    71 0000006C 83C301                                  add ebx, 1
+    72                                              
+    73                                              peste:
+    74 0000006F 46                                      inc(esi)
+    75                                                  
+    76 00000070 80BE[13000000]00                cmp byte [text+esi], 0
+    77 00000077 75D6                            jne repeta
+    78                                          
+    79 00000079 891D[7A000000]                  mov [numar_consoane], ebx
+    80                                          
+    81                                          ; afisare numar de vocale in consola
+    82 0000007F FF35[7A000000]                  push dword [numar_consoane]
+    83 00000085 68[A7000000]                    push dword afisare_format
+    84 0000008A FF15[00000000]                  call [printf]
+    85 00000090 83C408                          add esp, 2*4
+    86                                          
+    87                                      
+    88                                      final:
+    89 00000093 FF15[00000000]              call [exit]
+    90 00000099 6A00                        push dword 0

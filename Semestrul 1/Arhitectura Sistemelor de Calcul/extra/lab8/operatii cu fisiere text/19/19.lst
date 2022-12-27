@@ -1,0 +1,113 @@
+     1                                  ; Se dau in segmentul de date un nume de fisier si un text (poate contine orice tip de caracter). Sa se calculeze suma cifrelor din text. Sa se creeze un fisier cu numele dat si sa se scrie suma obtinuta in fisier. 
+     2                                  bits 32
+     3                                  global start
+     4                                  
+     5                                  extern exit, fopen, fprintf, fclose, printf
+     6                                  import exit msvcrt.dll
+     7                                  import fopen msvcrt.dll
+     8                                  import fprintf msvcrt.dll
+     9                                  import fclose msvcrt.dll
+    10                                  import printf msvcrt.dll
+    11                                  
+    12                                  segment data use32 class=data
+    13 00000000 6669736965722E7478-         nume_fisier db "fisier.txt", 0
+    13 00000009 7400               
+    14 0000000B 7700                        mod_acces db "w", 0
+    15 0000000D FFFFFFFF                    descriptor_fisier dd -1
+    16 00000011 313233616E61333420-         text db "123ana34 are 498 mere", 0
+    16 0000001A 61726520343938206D-
+    16 00000023 65726500           
+    17                                      len equ $-text
+    18 00000027 00000000                    suma dd 0
+    19 0000002B 53756D612063696672-         format_dec db "Suma cifrelor este: %d", 0
+    19 00000034 656C6F722065737465-
+    19 0000003D 3A20256400         
+    20                                  
+    21                                  segment code use32 class=code
+    22                                      start:
+    23                                      
+    24                                          ; calculare suma cifrelor
+    25 00000000 B916000000                      mov ecx, len
+    26 00000005 BE[11000000]                    mov esi, text
+    27                                          repeta:
+    28 0000000A AC                                  lodsb
+    29                                              
+    30 0000000B 3C31                                cmp al, '1'
+    31 0000000D 7507                                jne nu_1
+    32 0000000F 8305[27000000]01                    add dword [suma], 1
+    33                                              nu_1:
+    34                                              
+    35 00000016 3C32                                cmp al, '2'
+    36 00000018 7507                                jne nu_2
+    37 0000001A 8305[27000000]02                    add dword [suma], 2
+    38                                              nu_2:
+    39                                              
+    40 00000021 3C33                                cmp al, '3'
+    41 00000023 7507                                jne nu_3
+    42 00000025 8305[27000000]03                    add dword [suma], 3
+    43                                              nu_3:
+    44                                              
+    45 0000002C 3C34                                cmp al, '4'
+    46 0000002E 7507                                jne nu_4
+    47 00000030 8305[27000000]04                    add dword [suma], 4
+    48                                              nu_4:
+    49                                              
+    50 00000037 3C35                                cmp al, '5'
+    51 00000039 7507                                jne nu_5
+    52 0000003B 8305[27000000]05                    add dword [suma], 5
+    53                                              nu_5:
+    54                                              
+    55 00000042 3C36                                cmp al, '6'
+    56 00000044 7507                                jne nu_6
+    57 00000046 8305[27000000]06                    add dword [suma], 6
+    58                                              nu_6:
+    59                                              
+    60 0000004D 3C37                                cmp al, '7'
+    61 0000004F 7507                                jne nu_7
+    62 00000051 8305[27000000]07                    add dword [suma], 7
+    63                                              nu_7:
+    64                                              
+    65 00000058 3C38                                cmp al, '8'
+    66 0000005A 7507                                jne nu_8
+    67 0000005C 8305[27000000]08                    add dword [suma], 8
+    68                                              nu_8:
+    69                                              
+    70 00000063 3C39                                cmp al, '9'
+    71 00000065 7507                                jne nu_9
+    72 00000067 8305[27000000]09                    add dword [suma], 9
+    73                                              nu_9:
+    74                                          
+    75 0000006E E29A                            loop repeta
+    76                                          
+    77 00000070 FF35[27000000]                  push dword [suma]
+    78 00000076 68[2B000000]                    push dword format_dec
+    79 0000007B FF15[00000000]                  call [printf]
+    80 00000081 83C408                          add esp, 2*4
+    81                                          
+    82                                          ; deschidere fisier
+    83 00000084 68[0B000000]                    push dword mod_acces
+    84 00000089 68[00000000]                    push dword nume_fisier
+    85 0000008E FF15[00000000]                  call [fopen]
+    86 00000094 83C408                          add esp, 2*4
+    87                                          
+    88                                          ; verificare fisier
+    89 00000097 A3[0D000000]                    mov [descriptor_fisier], eax
+    90 0000009C 83F800                          cmp eax, 0
+    91 0000009F 7429                            je final
+    92                                      
+    93                                          ; scriere in fisier
+    94 000000A1 FF35[27000000]                  push dword [suma]
+    95 000000A7 68[2B000000]                    push dword format_dec
+    96 000000AC FF35[0D000000]                  push dword [descriptor_fisier]
+    97 000000B2 FF15[00000000]                  call [fprintf]
+    98 000000B8 83C40C                          add esp, 3*4
+    99                                          
+   100                                          ; inchidere fisier
+   101 000000BB FF35[0D000000]                  push dword [descriptor_fisier]
+   102 000000C1 FF15[00000000]                  call [fclose]
+   103 000000C7 83C404                          add esp, 1*4
+   104                                          
+   105                                          final:
+   106                                      
+   107 000000CA 6A00                        push dword 0
+   108 000000CC FF15[00000000]              call [exit]

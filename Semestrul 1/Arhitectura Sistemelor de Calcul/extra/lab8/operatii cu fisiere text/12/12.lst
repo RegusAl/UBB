@@ -1,0 +1,71 @@
+     1                                  ; Se da un nume de fisier (definit in segmentul de date). Sa se creeze un fisier cu numele dat, apoi sa se citeasca de la tastatura numere si sa se scrie valorile citite in fisier pana cand se citeste de la tastatur
+     2                                  bits 32
+     3                                  global start
+     4                                  
+     5                                  extern exit, fopen, fprintf, fclose, printf, scanf
+     6                                  import exit msvcrt.dll
+     7                                  import fopen msvcrt.dll
+     8                                  import fprintf msvcrt.dll
+     9                                  import fclose msvcrt.dll
+    10                                  import printf msvcrt.dll
+    11                                  import scanf msvcrt.dll
+    12                                  
+    13                                  segment data use32 class=data
+    14 00000000 6669736965722E7478-         nume_fisier db "fisier.txt", 0
+    14 00000009 7400               
+    15 0000000B 7700                        mod_acces db "w", 0
+    16 0000000D FFFFFFFF                    descriptor_fisier dd -1
+    17 00000011 00000000                    caracter dd 0
+    18 00000015 256400                      format_dec db "%d", 0
+    19 00000018 256300                      format_char db "%c", 0
+    20 0000001B 44617469206E756D65-         mesaj db "Dati numerele: ", 0
+    20 00000024 72656C653A2000     
+    21                                  
+    22                                  segment code use32 class=code 
+    23                                      start:
+    24                                      
+    25                                          ; deschidere fisier
+    26 00000000 68[0B000000]                    push dword mod_acces
+    27 00000005 68[00000000]                    push dword nume_fisier
+    28 0000000A FF15[00000000]                  call [fopen]
+    29 00000010 83C408                          add esp, 2*4
+    30                                          
+    31                                          ; verificare fisier
+    32 00000013 A3[0D000000]                    mov [descriptor_fisier], eax
+    33 00000018 83F800                          cmp eax, 0
+    34 0000001B 744F                            je final
+    35                                          
+    36                                          ; mesaj
+    37 0000001D 68[1B000000]                    push dword mesaj
+    38 00000022 FF15[00000000]                  call [printf]
+    39 00000028 83C404                          add esp, 1*4
+    40                                          
+    41                                          ; citire caractere pe rand pana la caracterul '0'
+    42                                          repeta:
+    43                                              
+    44 0000002B 68[11000000]                        push dword caracter
+    45 00000030 68[18000000]                        push dword format_char
+    46 00000035 FF15[00000000]                      call [scanf]
+    47 0000003B 83C408                              add esp, 2*4
+    48                                              
+    49 0000003E A0[11000000]                        mov al, [caracter]
+    50 00000043 3C30                                cmp al, '0'
+    51 00000045 7416                                je peste
+    52                                              
+    53 00000047 68[11000000]                        push dword caracter
+    54 0000004C FF35[0D000000]                      push dword [descriptor_fisier]
+    55 00000052 FF15[00000000]                      call [fprintf]
+    56 00000058 83C408                              add esp, 2*4
+    57                                          
+    58 0000005B EBCE                            jmp repeta
+    59                                          
+    60                                          peste:
+    61                                          ; inchidere fisier
+    62 0000005D FF35[0D000000]                  push dword [descriptor_fisier]
+    63 00000063 FF15[00000000]                  call [fclose]
+    64 00000069 83C404                          add esp, 1*4
+    65                                          
+    66                                      final:
+    67                                      
+    68 0000006C 6A00                        push dword 0
+    69 0000006E FF15[00000000]              call [exit]

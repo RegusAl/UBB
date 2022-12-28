@@ -1,0 +1,111 @@
+     1                                  bits 32 ; assembling for the 32 bits architecture
+     2                                  
+     3                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     4                                  global start        
+     5                                      extern exit, fopen, fread, fclose, fprintf, printf
+     6                                      import exit msvcrt.dll  
+     7                                      import fopen msvcrt.dll  
+     8                                      import fread msvcrt.dll
+     9                                      import fclose msvcrt.dll
+    10                                      import fprintf msvcrt.dll
+    11                                      import printf msvcrt.dll
+    12                                  ; declare external functions needed by our program
+    13                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+    14                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+    15                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    16                                  
+    17                                  segment data use32 class=data
+    18 00000000 6669736965722E7478-         nume_fisier db "fisier.txt", 0  ; numele fisierului care va fi deschis
+    18 00000009 7400               
+    19 0000000B 612B00                      mod_acces db "a+", 0          ; modul de deschidere a fisierului - 
+    20 0000000E 43656C206D6169206D-         format db 'Cel mai mic numar este: %s', 0
+    20 00000017 6963206E756D617220-
+    20 00000020 657374653A20257300 
+    21 00000029 00<rept>                    numar times 4 db 0
+    22 0000002D 00<rept>                    inumar times 4 db 0
+    23 00000031 FFFFFFFF                    descriptor_fis dd -1
+    24                                      len equ 20
+    25 00000035 00000000<rept>              sir times len dd 0
+    26                                      
+    27                                  
+    28                                  segment code use32 class=code
+    29                                          ;27
+    30                                          ;Se da un fisier text. Fisierul contine numere (in baza 10) separate prin spatii.
+    31                                          ;Sa se citeasca continutul acestui fisier, sa se determine minimul numerelor citite
+    32                                          ;si sa se scrie rezultatul la sfarsitul fisierului
+    33                                      start:
+    34 00000000 68[0B000000]                    push dword mod_acces     
+    35 00000005 68[00000000]                    push dword nume_fisier
+    36 0000000A FF15[00000000]                  call [fopen]
+    37 00000010 83C408                          add esp, 4*2
+    38                                          
+    39 00000013 A3[31000000]                    mov [descriptor_fis], eax
+    40                                          
+    41 00000018 83F800                          cmp eax, 0
+    42 0000001B 746C                            je final
+    43                                          
+    44 0000001D FF35[31000000]                  push dword [descriptor_fis]
+    45 00000023 6A14                            push dword len
+    46 00000025 6A04                            push dword 4
+    47 00000027 68[35000000]                    push dword sir        
+    48 0000002C FF15[00000000]                  call [fread]
+    49 00000032 83C410                          add esp, 4*4
+    50                                          
+    51 00000035 89C1                            mov ecx, eax
+    52 00000037 41                              inc ecx
+    53                                          
+    54 00000038 BE[35000000]                    mov esi, sir
+    55 0000003D BF00000000                      mov edi, 0
+    56 00000042 31DB                            xor ebx, ebx
+    57 00000044 BAFFFFFF7F                      mov edx, 2147483647
+    58                                          lp:
+    59 00000049 FC                                  cld
+    60 0000004A AC                                  lodsb
+    61 0000004B 3C20                                cmp al, ' '
+    62 0000004D 7407                                je verifica
+    63 0000004F C1E308                              shl ebx, 8
+    64 00000052 88C3                                mov bl, al
+    65 00000054 EB0D                                jmp sf
+    66                                              verifica:
+    67 00000056 47                                  inc edi
+    68 00000057 39D3                                    cmp ebx, edx
+    69 00000059 7C04                                    jl schimba
+    70 0000005B 31DB                                    xor ebx, ebx
+    71 0000005D EB04                                    jmp sf
+    72                                              schimba:
+    73 0000005F 89DA                                    mov edx, ebx
+    74 00000061 31DB                                    xor ebx, ebx
+    75                                          sf:
+    76 00000063 39CF                            cmp edi, ecx
+    77 00000065 75E2                            jne lp
+    78 00000067 8915[29000000]                  mov [numar], edx
+    79 0000006D B904000000                      mov ecx, 4
+    80 00000072 BE[29000000]                    mov esi, numar
+    81 00000077 83C603                          add esi, 3
+    82 0000007A BF[2D000000]                    mov edi, inumar
+    83                                          invers:
+    84 0000007F FD                                  std
+    85 00000080 AC                                  lodsb
+    86 00000081 FC                                  cld
+    87 00000082 3C00                                cmp al, 0
+    88 00000084 7401                                je e0
+    89 00000086 AA                                  stosb
+    90                                              e0:
+    91 00000087 E2F6                            loop invers
+    92                                          
+    93                                          
+    94                                          final:
+    95                                          
+    96 00000089 68[2D000000]                    push dword inumar
+    97 0000008E 68[0E000000]                    push dword format
+    98 00000093 FF35[31000000]                  push dword [descriptor_fis]
+    99 00000099 FF15[00000000]                  call [fprintf]
+   100 0000009F 83C40C                          add esp, 4*3
+   101                                          
+   102                                          
+   103 000000A2 FF35[31000000]                  push dword [descriptor_fis]
+   104 000000A8 FF15[00000000]                  call [fclose]
+   105 000000AE 83C404                          add esp, 4
+   106                                          
+   107 000000B1 6A00                            push    dword 0
+   108 000000B3 FF15[00000000]                  call    [exit]

@@ -1,0 +1,62 @@
+     1                                  ; Se da numele unui fisier si un numar pe cuvant scris in memorie. Sa se scrie cifrele hexazecimale ale acestui numar ca text in fisier, fiecare cifra pe o linie separata.  
+     2                                  bits 32
+     3                                  global start
+     4                                  
+     5                                  extern exit, fopen, fprintf, fclose
+     6                                  import exit msvcrt.dll
+     7                                  import fopen msvcrt.dll
+     8                                  import fprintf msvcrt.dll
+     9                                  import fclose msvcrt.dll
+    10                                  
+    11                                  segment data use32 class=data
+    12 00000000 6669736965722E7478-         nume_fisier db "fisier.txt", 0
+    12 00000009 7400               
+    13 0000000B 7700                        mod_acces db "w", 0
+    14 0000000D FFFFFFFF                    descriptor_fisier dd -1
+    15 00000011 2C05                        numar dw 1324
+    16 00000013 00000000                    cifra dd 0
+    17 00000017 257820202020202020-         format_hex db "%x            ", 0
+    17 00000020 202020202000       
+    18 00000026 10                          hexa db 16
+    19                                      
+    20                                  segment code use32 class=code
+    21                                      start:
+    22                                      
+    23                                          ; deschidere fisier 
+    24 00000000 68[0B000000]                    push dword mod_acces
+    25 00000005 68[00000000]                    push dword nume_fisier
+    26 0000000A FF15[00000000]                  call [fopen]
+    27 00000010 83C408                          add esp, 2*4
+    28                                          
+    29                                          ; verificare fisier
+    30 00000013 A3[0D000000]                    mov [descriptor_fisier], eax
+    31 00000018 83F800                          cmp eax, 0
+    32 0000001B 7451                            je final
+    33                                          
+    34                                          repeta:
+    35                                          
+    36 0000001D 66BA0000                            mov dx, 0
+    37 00000021 66A1[11000000]                      mov ax, [numar]
+    38 00000027 66F735[26000000]                    div word [hexa]
+    39 0000002E 668915[13000000]                    mov [cifra], dx
+    40 00000035 66A3[11000000]                      mov [numar], ax
+    41                                              
+    42 0000003B FF35[13000000]                      push dword [cifra]
+    43 00000041 68[17000000]                        push dword format_hex
+    44 00000046 FF35[0D000000]                      push dword [descriptor_fisier]
+    45 0000004C FF15[00000000]                      call [fprintf]
+    46 00000052 83C40C                              add esp, 3*4
+    47                                              
+    48 00000055 66833D[11000000]00              cmp word [numar], 0
+    49 0000005D 75BE                            jne repeta
+    50                                          
+    51                                          peste:
+    52                                          ; inchidere fisier
+    53 0000005F FF35[0D000000]                  push dword [descriptor_fisier]
+    54 00000065 FF15[00000000]                  call [fclose]
+    55 0000006B 83C404                          add esp, 1*4
+    56                                      
+    57                                      final:
+    58                                      
+    59 0000006E 6A00                        push dword 0
+    60 00000070 FF15[00000000]              call [exit]

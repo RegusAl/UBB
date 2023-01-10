@@ -1,14 +1,8 @@
 bits 32
 
-; informam asamblorul ca dorim ca functia sa fie disponibila altor unitati de compilare
 global _dublare
 
-
-; codul scris in asamblare este dispus intr-un segment public, posibil a fi partajat cu alt cod extern
 segment code public code use32
-
-; int dublare(int, int)
-; conventie cdecl
 _dublare:
     ; creare cadru de stiva pentru programul apelat
     push ebp
@@ -26,17 +20,16 @@ _dublare:
     cld
 
     repeta:
-        lodsd ; eax <- v[esi]
+        lodsd               ; eax = v[esi]
         add eax,eax
-        stosd ;v[edi]=v[esi]=2*eax
+        stosd               ; v[edi] = v[esi] = eax + eax
 
     loop repeta
 
-    mov eax,[ebp+8] ;returned value
+    mov eax,[ebp+8]
 
-    ; refacem cadrul de stiva pentru programul apelant
+    ; refacem cadrul de stiva
     mov esp, ebp
     pop ebp
 
     ret
-    ; conventie cdecl - este responsabilitatea programului apelant sa elibereze parametrii transmisi

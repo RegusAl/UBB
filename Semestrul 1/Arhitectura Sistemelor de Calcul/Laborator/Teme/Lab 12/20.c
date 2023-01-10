@@ -7,6 +7,7 @@
 
 void dublare(int v[], int n);
 
+// inversam numerele din v[]
 void inversare(int v[], int n)
 {
     int i, aux;
@@ -16,6 +17,7 @@ void inversare(int v[], int n)
     }
 }
 
+// afisare vector
 void afisare(int v[], int n)
 {
     int i;

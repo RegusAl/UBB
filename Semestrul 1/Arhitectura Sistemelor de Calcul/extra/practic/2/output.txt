@@ -1,0 +1,2 @@
+Suma numere pare: 14, Suma numere impare: b
+Diferenta: 9

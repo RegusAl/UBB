@@ -21,7 +21,7 @@ segment data use32 class=data
     numar_cuvinte dd 0
     format_dec db "Numar de cuvinte: %d.  ", 0
     format_str db "%s", 0
-    format_primul_cuvant db "Primul cuvant %s are %d litere ", 0ah
+    format_primul_cuvant db "Primul cuvant %s are %d litere ", 10, 13, 0
     ok dd 0
     numar_primul_cuvant dd 0
     
@@ -35,7 +35,7 @@ segment code use32 class=code
         add esp, 2*4
         
         ; verificare fisier
-        cmp eax, [descriptor_fisier]
+        cmp eax, 0
         je final
         mov [descriptor_fisier], eax
         

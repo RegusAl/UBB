@@ -1,0 +1,1 @@
+Minim: -8, Maxim: 100. Rezultat: -800

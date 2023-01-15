@@ -1,12 +1,11 @@
-print("ITERATIV")
+print("RECURSIV")
 n = int(input("N = "))
 
 l = []
-for i in range(0, n):
+for i in range (0,n):
     x = int(input("x = "))
     l.append(x)
 
-print(l)
 dim = 2
 suma = l[0]
 
@@ -35,22 +34,17 @@ def output_solution(x,n, suma):
             print('-', end=" ")
         else:
             print('+', end=" ")
-
         print(l[i+1], end=" ")
 
-def backtracking_iter(n):
-    x = [-1]
-    while len(x) > 0:
-        consistent = False
-        while not consistent and x[-1] < 1:
-            x[-1] += 1
-            consistent = is_consistent(x, n, suma)
-        if consistent:
+def backtracking_rec(x, dim, n, suma):
+    x.append(-1)
+    for i in range(0, dim):
+        x[-1] = i
+        if is_consistent(x, n, suma):
             if is_solution(x, n, suma):
                 output_solution(x, n, suma)
             else:
-                x.append(-1)
-        else:
-            x.pop()
+                backtracking_rec(x[:], dim, n, suma)
+    x.pop()
 
-backtracking_iter(n)
+backtracking_rec([], 2, n, suma)

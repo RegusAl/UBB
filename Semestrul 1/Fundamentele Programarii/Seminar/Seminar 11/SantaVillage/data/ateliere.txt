@@ -1,0 +1,5 @@
+Santa Claus Main Post Office; Santa Claus Village, Main Road 5, North Pole; letter; 40
+Santa’s Toy Factory; Santa Claus Village, Toy Boulevard 11, North Pole; toy; 205
+Gingerbread Workshop;Santa Claus Village, Glittering Street, North Pole; gingerbread; 19
+Santa’s Office; Santa Claus Village, Main Road 1, North Pole; wish form; 52
+Christmas Decorations Factory; Santa Claus Village, Bell Street, North Pole; decoration; 156

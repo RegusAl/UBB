@@ -18,7 +18,7 @@ class Service:
 
     def modificare_melodie(self, titlu, artist, gen, durata):
         '''
-        Funcita ce modifica melodia in functie de parametrii dati de utilizator
+        Functia ce modifica melodia in functie de parametrii dati de utilizator
         :param titlu: titlul melodiei ce trebuie modificata
         :param artist: artistul melodiei ce trebuie modificata
         :param gen: genul melodiei ce se modifica
@@ -73,4 +73,4 @@ class Service:
                 string = str(el.get_titlu()) + ', ' + str(el.get_artist()) + ', ' + str(el.get_gen()) + ', ' + str(
                     el.get_durata()) + '\n'
                 f.write(string)
-
+        return lista_melodii_sortate

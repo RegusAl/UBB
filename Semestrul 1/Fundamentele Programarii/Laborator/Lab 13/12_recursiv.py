@@ -1,3 +1,5 @@
+# Se dă o listă de numere întregi a1,...an. Determinaţi toate posibilităţile de a insera
+# operatorul de + şi – între numere astfel încât rezultatul expresiei este pozitiv.
 print("RECURSIV")
 n = int(input("N = "))
 

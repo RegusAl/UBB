@@ -1,3 +1,5 @@
+# Se dă o listă de numere întregi a1,...an. Determinaţi toate posibilităţile de a insera
+# operatorul de + şi – între numere astfel încât rezultatul expresiei este pozitiv.
 print("ITERATIV")
 n = int(input("N = "))
 
@@ -6,7 +8,7 @@ for i in range(0, n):
     x = int(input("x = "))
     l.append(x)
 
-print(l)
+#print(l)
 dim = 2
 suma = l[0]
 

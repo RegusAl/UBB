@@ -26,7 +26,7 @@ def cautare(el, l):
         return 0
     if el < l[0]:
         return 0
-    if el >= l[len(l)-1]:
+    if el > l[len(l)-1]:
         return len(l)
     return cautare_binara_recursiv(el, l, 0, len(l))
 

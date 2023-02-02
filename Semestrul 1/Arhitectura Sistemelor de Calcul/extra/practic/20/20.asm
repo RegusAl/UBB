@@ -17,8 +17,6 @@ segment data use32 class=data
     format_str db "%s", 0
     doi dd 2
     
-
-
 segment code use32 class=code
     start:
     

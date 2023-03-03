@@ -1,0 +1,8 @@
+Scop:
+  - instalare/configurare compilator C/C++
+  - instalare/configurare Eclipse CDT sau  Visual Studio
+  - Creare de proiect c 
+  - Creare/executare program c simplu (Hello World)  
+
+Scrieti un program care citeste n numere de la tastatura si tipareste suma lor.
+

@@ -54,18 +54,24 @@ int main() {
      */
     float x;
     float result = 0;
+    int ok = 1;
 
-    printf("X = ");
-    scanf("%f", &x);
+    while(ok) {
 
+        printf("X = ");
+        scanf("%f", &x);
 
-    int n;
-    printf("n = ");
-    scanf("%d", &n);
+        int n;
+        printf("n = ");
+        scanf("%d", &n);
 
-    count(x, n, &result);
+        result = 0;
+        count(x, n, &result);
+        printf("Sin(%.2f) = %f\n", x, result);
 
-    printf("Sin(%.2f) = %f\n", x, result);
+        printf("Continuati? (1 - Da, 0 - Nu)\n");
+        scanf("%d", &ok);
+    }
 
     return 0;
 }

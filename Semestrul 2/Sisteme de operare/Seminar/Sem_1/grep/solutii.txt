@@ -1,0 +1,72 @@
+
+Solutii (fisier de date: angajati.txt) 
+-----------------------------------------------------------------------------------------------------
+
+1. Afisati toate liniile care contin sirul 'Tudor'.
+
+grep 'Tudor' angajati.txt
+
+2. Afisati toti angajatii care au numele 'Tudor'.
+
+grep '^Tudor' angajati.txt
+
+3. Afisati toate liniile care contin sirul '1942'.
+
+grep '1942' angajati.txt
+
+4. Afisati toti angajatii care au salariul 1942
+
+grep '1942$' angajati.txt
+
+5. Afisati toti angajatii al caror nume de familie incepe cu litera A.
+
+grep ' \<[A][a-z]\+\> ' angajati.txt
+grep '\s\<[A][a-z]\+\>\s' angajati.txt
+grep '\s\b[A][a-z]\+\b\s' angajati.txt
+
+6. Afisati toti angajatii al caror numar de telefon incepe cu 0741.
+
+grep '0741' angajati.txt
+
+7. Afisati toti angajatii nascuti in luna martie.
+
+grep '/3' angajati.txt
+grep '/3/' angajati.txt
+
+8. Afisati toti angajatii care locuiesc in Floresti.
+
+grep 'Floresti' angajati.txt
+
+9. Afisati toti angajatii care nu locuiesc in Floresti.
+
+grep -v 'Floresti' angajati.txt
+
+10. 9. Afisati toti angajatii care nu locuiesc in Floresti sau in Cluj-Napoca.
+
+grep -v 'Floresti' angajati.txt | grep 'Someseni'
+
+11. Afisati toate liniile care contin o majuscula urmata de 4 litere mici, un spatiu si o majuscula.
+
+grep '[A-Z][a-z]\{4\} [A-Z]' angajati.txt
+grep '[A-Z][a-z]\{4\}\s[A-Z]' angajati.txt
+
+12. Afisati toate localitatile de domiciliu care incep cu litera F sau S.
+
+grep '[FS][a-z]\+:' angajati.txt
+
+13. Afisati toate salariile care au 5 cifre.
+
+grep '[0-9]\{5\}$' angajati.txt
+
+14. Afisati doar primul salariu care are 5 cifre.
+
+grep -m 1 '[0-9]\{5\}$' angajati.txt
+
+15. Afisati toate salariile care au 5 cifre si 2 linii inainte/dupa.
+
+grep -B 2 '[0-9]\{5\}$' angajati.txt
+grep -A 2 '[0-9]\{5\}$' angajati.txt
+
+16. Afisati numarul de angajati care locuiesc in Cluj-Napoca.
+
+grep -c 'Cluj-Napoca' angajati.txt

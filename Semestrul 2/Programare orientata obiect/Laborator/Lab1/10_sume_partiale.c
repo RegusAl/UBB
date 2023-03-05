@@ -72,6 +72,5 @@ int main() {
         printf("Continuati? (1 - Da, 0 - Nu)\n");
         scanf("%d", &ok);
     }
-
     return 0;
 }

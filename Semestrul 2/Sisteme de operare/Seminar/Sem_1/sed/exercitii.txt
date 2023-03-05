@@ -3,47 +3,48 @@ Exercitii (fisier de date: angajati.txt)
 -----------------------------------------------------------------------------------------------------
 
 1. Afisati continutul intregului fisier.
-
+	(sed 'p' angajati.txt)
 2. Afisati liniile de la 5 pana la 10.
-
+	(sed -n '5,8p' angajati.txt)
 3. Afisati liniile de la 8 pana la ultima.
-
+	(sed -n '8,$p' angajati.txt)
 4. Afisati liniile care contin sirul 'Tudor'.
-
+	(sed -n '/Tudor/p' angajati.txt)
 5. Afisati liniile care contin cuvantul 'Tudor'.
-
+	(sed -n '/\bTudor\b/p' angajati.txt)
+	(sed -n '/\<Tudor\>/p' angajati.txt )
 6. Stergeti liniile de la 1 pana la 3.
-
+	(sed '1,3d' angajati.txt )
 7. Stergeti liniile care contin cuvantul Popescu.
-
+	(sed '/Popescu/d' angajati.txt)
 8. Stergeti liniile de la Ion la Tudor.
-
+	(sed '/Ion/,/Tudor/d' angajati.txt)
 9. Stergeti ultima linie din fisier.
-
+	(sed '$d' angajati.txt)
 10. Stergeti toate liniile care sunt goale.
-
+	(sed '/^$/d angajati.txt')
 11. Inlocuiti cuvantul Olga cu **Olga**.
-
+	(sed -n 's/Olga/**Olga**/' angajati.txt )
 12. Inlocuiti toate aparitiile numarului 19 cu numarul 18.
-
+	(sed 's/19/18/' angajati.txt )
 13. Creati o copie de rezerva a fisierului de date (angajati.bak).
-
+	(sed -n 'w angajati.bak' angajati.txt)
 14. Adaugati o linie noua dupa a 3-a linie din fisier.
-
+	(sed '3a Linie noua' angajati.txt)
 15. Adaugati o linie noua dupa numele Adrian.
-
+	(sed '/Adrian/a Linie noua' angajati.txt)
 16. Adaugati textul 'TERMINAT' la sfarsitul fisierului.
-
+	(sed '$a TERMINAT' angajati.txt)
 17. Inlocuiti textul de pe linia 2 cu textul 'SALARIAT PENSIONAT'.
-
+	(sed '2c SALARIAT PENSIONAT' angajati.txt)
 18. Inserati la inceputul fisierului textul 'DATE DESPRE PERSONAL'.
-
+	(sed '1i DATE DESPRE PERSONAL' angajati.txt)
 19. Inlocuiti spatiile cu tab-uri si afisati rezultatul cu sed.
-
+	(sed 's/ /\t/' angajati.txt )
 20. Opriti executia programului dupa afisarea celei de a 5-a linii.
-
+	(sed '5 q' angajati.txt)
 21. Inserati dupa a 3-a linie un text citit dintr-un fisier.
-
+	
 22. Inserati pe a 5-a linie data si ora curenta.
 
 23. Scrieti un script care:

@@ -11,10 +11,10 @@ Semestrul 1:
 
 Semestrul 2:
 
-- Programare Orientata Obiect
-- Structuri de date si algoritmi
-- Sisteme de operare
-- Geometrie
-- Sisteme dinamice
-- Algoritmica grafurilor
+- [Programare Orientata Obiect](https://github.com/RegusAl/UBB/tree/main/Semestrul%202/Programare%20orientata%20obiect)
+- [Structuri de date si algoritmi](https://github.com/RegusAl/UBB/tree/main/Semestrul%202/Structuri%20de%20date%20si%20algoritmi)
+- [Sisteme de operare](https://github.com/RegusAl/UBB/tree/main/Semestrul%202/Sisteme%20de%20operare)
+- [Geometrie](https://github.com/RegusAl/UBB/tree/main/Semestrul%202/Geometrie)
+- [Sisteme dinamice](https://github.com/RegusAl/UBB/tree/main/Semestrul%202/Sisteme%20dinamice)
+- [Algoritmica grafurilor](https://github.com/RegusAl/UBB/tree/main/Semestrul%202/Algoritmica%20grafurilor)
 - Metode avansate de rezolvare a problemelor de matematica si informatica

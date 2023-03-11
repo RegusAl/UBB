@@ -8,6 +8,13 @@ typedef struct {
     int cantitate;
 } MateriePrima;
 
+/*
+ * Creeaza o entitate de tipul Materie Prima
+ * param nume: numele entitatii (char)
+ * param producator: producatorul entitatii (char)
+ * param cantitate: cantitatea (int)
+ * return: Materie Prima
+ */
 MateriePrima creeazaMateriePrima(char *nume, char *producator, int cantitate) {
     MateriePrima m;
     strcpy(m.nume, nume);
@@ -17,6 +24,12 @@ MateriePrima creeazaMateriePrima(char *nume, char *producator, int cantitate) {
     return m;
 }
 
+/*
+ * Valideaza o entitate de tipul Materie Prima
+ * param: m (struct)
+ * return: 1 - daca entitatea este valida
+ *         0 - daca entitatea nu este valida
+ */
 int valideazaMateriePrima(MateriePrima m) {
     if(strlen(m.nume) == 0)
         return 0;
@@ -27,6 +40,10 @@ int valideazaMateriePrima(MateriePrima m) {
     return 1;
 }
 
+/*
+ * Sterge elementele entitatii de tipul Materie Prima
+ * param: m (struct)
+ */
 void destroyMateriePrima(MateriePrima *m) {
     m -> nume[0] = '\0';
     m -> producator[0] = '\0';
@@ -40,21 +57,42 @@ typedef struct {
     int length;
 } List;
 
+/*
+ * Creeaza o lista goala
+ * return: lista
+ */
 List createEmpty() {
     List v;
     v.length = 0;
     return v;
 }
 
+/*
+ * Adauga in lista v elementul el
+ * param v: lista
+ * param el: elementul ce se introduce in lista
+ */
 void add(List *v, ElemType el) {
     v->elements[v->length] = el;
     v->length++;
 }
 
+/*
+ * Inlocuieste in lista 'v', elementul de pe pozitia 'poz' cu 'el'
+ * param v: lista
+ * param el: elementul ce se introduce in lista
+ * param poz (int): pozitia din lista in care se introduce elementul 'el'
+ */
 void addCantitate(List *v, ElemType el, int poz) {
     v->elements[poz] = el;
 }
 
+/*
+ * Sterge elementul de pe pozitia 'poz' din lista 'v'
+ * param v: lista din care se sterge
+ * param poz: pozitia elementului ce se sterge (int)
+ * return: elementul ce s-a sters
+ */
 ElemType delete(List *v, int poz) {
     ElemType el = v->elements[poz];
     for(int i = poz; i<v->length-1; i++) {
@@ -64,15 +102,36 @@ ElemType delete(List *v, int poz) {
     return el;
 }
 
+/*
+ * Returneaza elementul de pe pozitia 'poz'
+ * param v: lista
+ * param poz: pozitia elementului ce se returneaza
+ * return: Elementul de pe pozitia 'poz'
+ */
 ElemType get(List *v, int poz) {
     return v->elements[poz];
 }
 
+/*
+ * Returneaza lungimea listei 'v'
+ * param v: lista
+ * return: lungimea listei 'v'
+ */
 int size(List *v) {
     return v->length;
 }
 
 // service
+
+/*
+ * Adauga Materia Prima la lista 'v'
+ * param v: lista
+ * param nume: numele Materiei Prime
+ * param producator: producatorul Materiei Prime
+ * param cantitate: cantitatea de Materie Prima
+ * return: 1 - daca s-a efectuat adaugarea
+ *         0 - daca datele au fost invalide
+ */
 int adaugaMateriePrima(List *v, char *nume, char *producator, int cantitate) {
     MateriePrima m = creeazaMateriePrima(nume, producator, cantitate);
     if(valideazaMateriePrima(m)==0)
@@ -90,6 +149,14 @@ int adaugaMateriePrima(List *v, char *nume, char *producator, int cantitate) {
     return 1;
 }
 
+/*
+ * Sterge materia prima in functie de nume si producator
+ * param v: lista
+ * param nume: Numele Materiei Prime ce se sterge
+ * param producator: Producatorul Materiei Prime ce se sterge
+ * return: 1 - daca s-a sters din stoc
+ *         0 - daca nu s-a sters nimic din stoc
+ */
 int stergeMateriePrima(List *v, char *nume, char *producator) {
     int poz;
     for(int i = 0; i< size(v); i++) {
@@ -103,6 +170,17 @@ int stergeMateriePrima(List *v, char *nume, char *producator) {
     return 0;
 }
 
+/*
+ * Modifica Materia Prima in finctie de nume si producator
+ * param v: lista
+ * param nume: Numele Materiei Prime ce se modifica
+ * param producator: Producatorul Materiei Prime ce se modifica
+ * param nume_nou: Numele Materiei Prime noi
+ * param producator_nou: Producatorul Materiei Prime noi
+ * param cantitate: Cantitatea Materiei Prime noi
+ * return: 1 - daca s-a modificat
+ *         0 - daca nu s-a modificat
+ */
 int modificaMateriePrima(List *v, char *nume, char *producator, char *nume_nou, char *producator_nou, int cantitate) {
     int sters = stergeMateriePrima(v, nume, producator);
     if(sters==0) {
@@ -115,6 +193,13 @@ int modificaMateriePrima(List *v, char *nume, char *producator, char *nume_nou, 
     return 1;
 }
 
+/*
+ * Filtreaza Materia Prima cu prima litera din nume egala cu 'l' si cu cantitatea mai mica decat 'cantitate_max'
+ * param v: lista
+ * param l: litera dupa care se cauta Materia Prima
+ * param cantitate_max: cantitatea maxima a Materiei Prime
+ * return: lista filtrata
+ */
 List filtruMateriePrima(List *v, char l, int cantitate_max) {
     List listaFiltrata = createEmpty();
     for(int i = 0; i< size(v); i++) {
@@ -126,6 +211,11 @@ List filtruMateriePrima(List *v, char l, int cantitate_max) {
     return listaFiltrata;
 }
 
+/*
+ * Sorteaza Materia Prima in functie de nume si de cantitate
+ * param v: lista
+ * return: lista sortata
+ */
 List sortMateriaPrima(List *v) {
     List listaSortata = *v;
     MateriePrima temp;
@@ -144,6 +234,8 @@ List sortMateriaPrima(List *v) {
 }
 
 // ui
+
+// Functia ui de adaugare
 void uiAdd(List *v) {
     char nume[30], producator[30];
     int cantitate;
@@ -160,6 +252,7 @@ void uiAdd(List *v) {
         printf("Materia Prima nu este valida!\n");
 }
 
+// Functia ui de modificare
 void uiModify(List *v) {
     char nume[30], nume_nou[30], producator[30], producator_nou[30];
     int cantitate;
@@ -181,6 +274,7 @@ void uiModify(List *v) {
         printf("Modificarea nu s-a efectuat! Date invalide!\n");
 }
 
+// Functia ui de stergere
 void uiDelete(List *v) {
     char nume[30], producator[30];
     printf("Numele Materiei Prime de sters: ");
@@ -194,6 +288,7 @@ void uiDelete(List *v) {
         printf("Nu exista Materie Prima de acest fel!\n");
 }
 
+// Functia ui de afisare a stocului
 void uiStoc(List *v) {
     if(v->length == 0)
         printf("Nu este nimic in stoc!\n");
@@ -206,6 +301,7 @@ void uiStoc(List *v) {
     }
 }
 
+// Functia ui de filtrare
 void uiFiltru(List *v) {
     char l;
     int cantitate_max;
@@ -217,11 +313,13 @@ void uiFiltru(List *v) {
     uiStoc(&listaFiltrata);
 }
 
+// Functia ui de sortare
 void uiSort(List *v) {
     List listaSortata = sortMateriaPrima(v);
     uiStoc(&listaSortata);
 }
 
+// meniu
 void uiMenu() {
     printf("\t\t--MENIU--\n");
     printf("1. Adaugare Materie Prima (daca exista deja in stoc se actualizeaza cantitatea\n");
@@ -234,6 +332,7 @@ void uiMenu() {
     printf("--\t--\t--\n");
 }
 
+// Functia run
 void run() {
     List listaMateriePrima = createEmpty();
     int ok = 1, option;

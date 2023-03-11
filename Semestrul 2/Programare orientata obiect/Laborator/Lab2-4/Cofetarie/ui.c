@@ -91,7 +91,7 @@ int adaugaMateriePrima(List *v, char *nume, char *producator, int cantitate) {
 }
 
 int stergeMateriePrima(List *v, char *nume, char *producator) {
-    int poz = -1;
+    int poz;
     for(int i = 0; i< size(v); i++) {
         if(strcmp(get(v, i).nume, nume)==0 && strcmp(get(v, i).producator, producator)==0) {
             poz = i;
@@ -124,6 +124,23 @@ List filtruMateriePrima(List *v, char l, int cantitate_max) {
         }
     }
     return listaFiltrata;
+}
+
+List sortMateriaPrima(List *v) {
+    List listaSortata = *v;
+    MateriePrima temp;
+    for(int i = 0; i < size(&listaSortata)-1; i++) {
+        for(int j = i+1; j < size(&listaSortata); j++) {
+            if(strcmp(get(&listaSortata, i).nume, get(&listaSortata, j).nume)>0) {
+                if(get(&listaSortata, i).cantitate > get(&listaSortata, j).cantitate) {
+                    temp = listaSortata.elements[i];
+                    listaSortata.elements[i] = listaSortata.elements[j];
+                    listaSortata.elements[j] = temp;
+                }
+            }
+        }
+    }
+    return listaSortata;
 }
 
 // ui
@@ -189,7 +206,7 @@ void uiStoc(List *v) {
     }
 }
 
-void uiAfisareLitera(List *v) {
+void uiFiltru(List *v) {
     char l;
     int cantitate_max;
     printf("Prima litera: ");
@@ -198,6 +215,11 @@ void uiAfisareLitera(List *v) {
     scanf("%d", &cantitate_max);
     List listaFiltrata = filtruMateriePrima(v, l, cantitate_max);
     uiStoc(&listaFiltrata);
+}
+
+void uiSort(List *v) {
+    List listaSortata = sortMateriaPrima(v);
+    uiStoc(&listaSortata);
 }
 
 void uiMenu() {
@@ -238,8 +260,11 @@ void run() {
                 break;
             case 5:
                 printf("5\n");
-                uiAfisareLitera(&listaMateriePrima);
+                uiFiltru(&listaMateriePrima);
                 break;
+            case 6:
+                printf("6\n");
+                uiSort(&listaMateriePrima);
             case 0:
                 printf("Iesire din program.\n");
                 ok = 0;

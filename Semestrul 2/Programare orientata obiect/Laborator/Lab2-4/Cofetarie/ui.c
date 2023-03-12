@@ -2,6 +2,24 @@
 #include <string.h>
 
 #include "service.h"
+#include "teste.h"
+
+void testAll() {
+    // test domain
+    test_creeazaMateriePrima();
+    test_destroyMateriePrima();
+    test_valideazaMateriePrima();
+    // test repository
+    test_createEmpty();
+    test_add();
+    test_addCantitate();
+    test_delete();
+    test_get();
+    test_size();
+    // test service
+    test_adaugaMateriePrima_stergeMateriePrima();
+    test_modificaMateriePrima();
+}
 
 // Functia ui de adaugare
 void uiAdd(List *v) {
@@ -145,6 +163,7 @@ void run() {
 }
 
 int main() {
+    testAll();
     run();
     return 0;
 }

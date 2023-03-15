@@ -1,11 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 int main(int argc, char** argv) {
     int** m;
     FILE* f;
-    int i, j, rows, cols;
+    int i, j, rows, cols, fd;
 
     f = fopen(argv[1], "r");
     if(f == NULL) {
@@ -23,23 +27,22 @@ int main(int argc, char** argv) {
     }
     fclose(f);
 
-    FILE *fd;
-    fd = fopen(argv[2], "w");
-    if(fd == NULL) {
+    fd = open(argv[2], O_CREAT | O_WRONLY, 00600);
+    if(fd == -1) {
         perror("Could not open destination file");
         return 1;
     }
-    fwrite(&rows, 1 ,sizeof(int), fd);
-    fwrite(&cols, 1, sizeof(int), fd);
+    write(fd, &rows, sizeof(int));
+    write(fd, &cols, sizeof(int));
     for(i=0; i<rows; i++) {
         for(j=0; j<cols; j++) {
-            fwrite(&m[i][j], 1, sizeof(int), fd);
+            write(fd, &m[i][j], sizeof(int));
         }
     }
-    fclose(fd);
-    
+    close(fd);
+
     for(i = 0; i<rows; i++) {
-	free(m[i]);
+	free(m[i]);	
     }
     free(m);
     return 0;

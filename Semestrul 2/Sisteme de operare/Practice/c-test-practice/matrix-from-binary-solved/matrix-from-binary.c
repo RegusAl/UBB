@@ -1,8 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 int main(int argc, char** argv) {
-    int rows, cols, i, j;
+    int fd, rows, cols, i, j;
     int** m;
 
     if(argc <= 1) {
@@ -10,19 +14,18 @@ int main(int argc, char** argv) {
         exit(1);
     }
 
-    FILE *fd;
-    fd = fopen(argv[1], "r");
-    if(fd == NULL) {
+    fd = open(argv[1], O_RDONLY);
+    if(fd == -1) {
         perror("Failed to open input file");
         exit(1);
     }
 
-    if(fread(&rows, 1, sizeof(int), fd) <= 0) {
+    if(read(fd, &rows, sizeof(int)) <= 0) {
         perror("Could not read the number of rows");
         exit(1);
     }
 
-    if(fread(&cols, 1, sizeof(int), fd) <= 0) {
+    if(read(fd, &cols, sizeof(int)) <= 0) {
         perror("Could not read the number of columns");
         exit(1);
     }
@@ -30,17 +33,18 @@ int main(int argc, char** argv) {
     m = (int**)malloc(rows*sizeof(int*));
     for(i=0; i<rows; i++) {
         m[i] = (int*)malloc(cols*sizeof(int));
-        fread(m[i], sizeof(int), cols, fd);
-	for(j=0; j<cols; j++) {
-            printf("%d " , m[i][j]);
+        for(j=0; j<cols; j++) {
+            read(fd, &m[i][j], sizeof(int));
+            printf("%2d ", m[i][j]);
         }
         printf("\n");
     }
-    fclose(fd);
-
+ 
     for(i = 0; i<rows; i++) {
 	free(m[i]);
     }
     free(m);
+
+    close(fd);
     return 0;
 }

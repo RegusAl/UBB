@@ -81,7 +81,7 @@ void uiStoc(List *v) {
     if(v->length == 0)
         printf("Nu este nimic in stoc!\n");
     else {
-        printf("Stoc: \n");
+        printf("STOC: \n");
         for(int i = 0; i<size(v); i++) {
             MateriePrima m = get(v, i);
             printf("Nume: %s | Producator: %s | Cantitate: %d\n", m.nume, m.producator, m.cantitate);
@@ -109,7 +109,7 @@ void uiSort(List *v) {
 
 // meniu
 void uiMenu() {
-    printf("\t\t--MENIU--\n");
+    printf("-- MENIU --\n");
     printf("1. Adaugare Materie Prima (daca exista deja in stoc se actualizeaza cantitatea\n");
     printf("2. Modificare Materie Prima\n");
     printf("3. Stergere Materie Prima\n");
@@ -130,35 +130,42 @@ void run() {
         scanf("%d", &option);
         switch (option) {
             case 1:
-                printf("1\n");
+                printf("-- ADAUGARE MATERIE PRIMA -- \n");
                 uiAdd(&listaMateriePrima);
+                printf("--\t--\t--\n");
                 break;
             case 2:
-                printf("2\n");
+                printf("-- MODIFICARE MATERIE PRIMA --\n");
                 uiModify(&listaMateriePrima);
+                printf("--\t--\t--\n");
                 break;
             case 3:
-                printf("3\n");
+                printf("-- STERGE MATERIE PRIMA -- \n");
                 uiDelete(&listaMateriePrima);
+                printf("--\t--\t--\n");
                 break;
             case 4:
-                printf("4\n");
                 uiStoc(&listaMateriePrima);
+                printf("--\t--\t--\n");
                 break;
             case 5:
-                printf("5\n");
+                printf("-- FILTRARE STOC MATERIE PRIMA --\n");
                 uiFiltru(&listaMateriePrima);
+                printf("--\t--\t--\n");
                 break;
             case 6:
-                printf("6\n");
+                printf("-- SORTARE STOC MATERIE PRIMA --\n");
                 uiSort(&listaMateriePrima);
+                printf("--\t--\t--\n");
                 break;
             case 0:
                 printf("Iesire din program.\n");
+                printf("--\t--\t--\n");
                 ok = 0;
                 break;
             default:
                 printf("Optiunea nu este valida!\n");
+                printf("--\t--\t--\n");
                 break;
         }
     }

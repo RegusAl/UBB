@@ -94,6 +94,7 @@ void test_adaugaMateriePrima_stergeMateriePrima() {
     assert(size(&lista)==1);
     assert(adaugaMateriePrima(&lista, "ex", "prod", -800)==0);
     assert(size(&lista)==1);
+    assert(adaugaMateriePrima(&lista, "ex", "prod", 900)==1);
     assert(stergeMateriePrima(&lista, "ex", "prod")==1);
     assert(stergeMateriePrima(&lista, "ex", "producator")==0);
 }
@@ -104,8 +105,36 @@ void test_modificaMateriePrima() {
     assert(size(&lista)==1);
     assert(modificaMateriePrima(&lista, "ex", "prod", "exemplu", "producator", 999)==1);
     assert(lista.elements[0].cantitate==999);
-    assert(modificaMateriePrima(&lista, "nuj", "prod", "exemplu", "producator", 999)==0);
+    assert(modificaMateriePrima(&lista, "ex", "prod", "", "producator", 999)==0);
+    assert(modificaMateriePrima(&lista, "123", "prod", "ex", "producator", 999)==0);
     assert(lista.length==1);
 }
+
+void test_filtruMateriePrima() {
+    List lista = createEmpty();
+    assert(adaugaMateriePrima(&lista, "ex1", "prod1", 1));
+    assert(adaugaMateriePrima(&lista, "ex2", "prod2", 500));
+    assert(adaugaMateriePrima(&lista, "dada", "prod3", 300));
+    List lista_filtrata = filtruMateriePrima(&lista, 'e', 300);
+    assert(size(&lista_filtrata)==1);
+
+}
+
+void test_sortMateriePrima() {
+    List  lista = createEmpty();
+    assert(adaugaMateriePrima(&lista, "ciocolata", "milka", 345));
+    assert(adaugaMateriePrima(&lista, "corn", "7days", 200));
+    assert(adaugaMateriePrima(&lista, "covrig", "gigi", 456));
+    assert(adaugaMateriePrima(&lista, "cupcakes", "bakery", 34));
+    assert(adaugaMateriePrima(&lista, "aaa", "nuj", 900));
+    assert(adaugaMateriePrima(&lista, "corn", "la casa", 100));
+    List lista_sortata = sortMateriaPrima(&lista);
+    assert(size(&lista_sortata)==6);
+    assert(strcmp(get(&lista_sortata, 0).nume, "aaa")==0);
+    assert(strcmp(get(&lista_sortata, 1).nume, "ciocolata")==0);
+    assert(strcmp(get(&lista_sortata, 2).nume, "corn")==0);
+    assert(get(&lista_sortata, 3).cantitate ==200);
+}
+
 
 

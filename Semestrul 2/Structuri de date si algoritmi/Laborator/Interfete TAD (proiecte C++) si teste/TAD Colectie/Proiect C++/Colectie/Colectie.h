@@ -11,14 +11,6 @@ class Colectie
 
 private:
 	/* aici e reprezentarea */
-    int cp; // capacitate
-    int n; // numarul de elemente
-    TElem *e, f; // elemente
-    void redim();
-
-
-
-
 public:
 		//constructorul implicit
 		Colectie();

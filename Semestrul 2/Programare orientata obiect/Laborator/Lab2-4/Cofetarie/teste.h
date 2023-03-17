@@ -19,3 +19,7 @@ void test_size();
 void test_adaugaMateriePrima_stergeMateriePrima();
 
 void test_modificaMateriePrima();
+
+void test_filtruMateriePrima();
+
+void test_sortMateriePrima();

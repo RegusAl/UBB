@@ -19,6 +19,8 @@ void testAll() {
     // test service
     test_adaugaMateriePrima_stergeMateriePrima();
     test_modificaMateriePrima();
+    test_filtruMateriePrima();
+    test_sortMateriePrima();
 }
 
 // Functia ui de adaugare

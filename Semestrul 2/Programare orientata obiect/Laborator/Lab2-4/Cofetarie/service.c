@@ -15,16 +15,14 @@ int adaugaMateriePrima(List *v, char *nume, char *producator, int cantitate) {
     MateriePrima m = creeazaMateriePrima(nume, producator, cantitate);
     if(valideazaMateriePrima(m)==0)
         return 0;
-    int ok = 0;
     // se modifica cantitatea daca se da o materie prima cu acelasi nume si producator ce este in stoc.
     for(int i = 0; i< size(v); i++) {
         if(strcmp(get(v, i).nume, m.nume)==0 && strcmp(get(v, i).producator, m.producator)==0) {
             addCantitate(v, m, i);
-            ok = 1;
+            return 1;
         }
     }
-    if(ok == 0)
-        add(v, m);
+    add(v, m);
     return 1;
 }
 
@@ -61,13 +59,14 @@ int stergeMateriePrima(List *v, char *nume, char *producator) {
  *         0 - daca nu s-a modificat
  */
 int modificaMateriePrima(List *v, char *nume, char *producator, char *nume_nou, char *producator_nou, int cantitate) {
+    MateriePrima m = creeazaMateriePrima(nume_nou, producator_nou, cantitate);
+    if(valideazaMateriePrima(m)==0)
+        return 0;
     int sters = stergeMateriePrima(v, nume, producator);
     if(sters==0) {
         return 0;
     } else {
-        int adauga = adaugaMateriePrima(v, nume_nou, producator_nou, cantitate);
-        if(adauga==0)
-            return 0;
+        adaugaMateriePrima(v, nume_nou, producator_nou, cantitate);
     }
     return 1;
 }
@@ -101,6 +100,11 @@ List sortMateriaPrima(List *v) {
     for(int i = 0; i < size(&listaSortata)-1; i++) {
         for(int j = i+1; j < size(&listaSortata); j++) {
             if(strcmp(get(&listaSortata, i).nume, get(&listaSortata, j).nume)>0) {
+                temp = listaSortata.elements[i];
+                listaSortata.elements[i] = listaSortata.elements[j];
+                listaSortata.elements[j] = temp;
+            }
+            else if(strcmp(get(&listaSortata, i).nume, get(&listaSortata, j).nume)==0) {
                 if(get(&listaSortata, i).cantitate > get(&listaSortata, j).cantitate) {
                     temp = listaSortata.elements[i];
                     listaSortata.elements[i] = listaSortata.elements[j];

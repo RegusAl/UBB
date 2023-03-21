@@ -1,0 +1,103 @@
+
+Exercitii (fisier de date: angajati.txt)
+-----------------------------------------------------------------------------------------------------
+
+1. Afisati continutul intregului fisier.
+
+sed '' angajati.txt
+sed -n 'p' angajati.txt
+sed -n '//p' angajati.txt	INCORECT
+
+2. Afisati liniile de la 5 pana la 10.
+
+sed -n '5,10p' angajati.txt
+
+3. Afisati liniile de la 8 pana la ultima.
+
+sed -n '8,$p' angajati.txt
+
+4. Afisati liniile care contin sirul 'Tudor'.
+
+sed -n '/Tudor/p' angajati.txt
+
+5. Afisati liniile care contin cuvantul 'Tudor'.
+
+sed -n '/\bTudor\b/p' angajati.txt
+
+6. Stergeti liniile de la 1 pana la 3.
+
+sed '1,3d' angajati.txt
+sed -e '1d' -e '2d' -e '3d' angajati.txt
+sed -f script_1 angajati.txt
+
+7. Stergeti liniile care contin cuvantul Popescu.
+
+sed '/Popescu/d' angajati.txt
+
+8. Stergeti liniile de la Ion la Tudor.
+
+sed '/Ion/,/Victor/d' angajati.txt
+
+9. Stergeti ultima linie din fisier.
+
+sed '$d' angajati.txt
+
+10. Stergeti toate liniile care sunt goale.
+
+sed '/^$/d' angajati.txt
+
+11. Inlocuiti cuvantul Olga cu **Olga**.
+
+sed 's/Olga/**Olga**/' angajati.txt
+sed 's/Olga/**&**/' angajati.txt
+
+12. Inlocuiti toate aparitiile numarului 19 cu numarul 18.
+
+sed 's/19/18/g' angajati.txt
+
+13. Creati o copie de rezerva a fisierului de date (angajati.bak).
+
+sed -n 'w angajati.bak' angajati.txt
+
+14. Adaugati o linie noua dupa a 3-a linie din fisier.
+
+sed '3 a Linie adaugata' angajati.txt
+
+15. Adaugati o linie noua dupa numele Adrian.
+
+sed '/Adrian/a Linie adaugata' angajati.txt
+
+16. Adaugati textul 'TERMINAT' la sfarsitul fisierului.
+
+sed '$ a TERMINAT' angajati.txt
+
+17. Inlocuiti textul de pe linia 2 cu textul 'SALARIAT PENSIONAT'.
+
+sed '2 c SALARIAT PENSIONAT' angajati.txt
+
+18. Inserati la inceputul fisierului textul 'DATE DESPRE PERSONAL'.
+
+sed '1 i \t\t\tDATE DESPRE PERSONAL' angajati.txt
+
+19. Inlocuiti spatiile cu tab-uri si afisati rezultatul cu sed.
+
+sed 's/ /\t/g' angajati.txt > junk.txt
+sed -n 'l' junk.txt
+
+20. Opriti executia programului dupa afisarea celei de a 5-a linii.
+
+sed '5 q' angajati.txt
+
+21. Inserati dupa a 3-a linie un text citit dintr-un fisier.
+
+sed '3 r text.txt' angajati.txt
+
+22. Inserati pe a 5-a linie data si ora curenta.
+
+sed '3 e date' angajati.txt
+
+23. Scrieti un script care:
+	a. Insereaza deasupra primei linii textul 'DATE DESPRE PERSONAL';
+	b. Sterge salariile care se termina cu 49;
+	c. Tipareste continutul fisierului cu numele angajatului pe prima pozitie si prenumele pe a doua pozitie;
+	d. Adauga la sfarsitul fisierului textul 'TERMINAT'.

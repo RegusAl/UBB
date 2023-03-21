@@ -1,0 +1,80 @@
+
+Exercitii (fisier de date: angajati.txt)
+-----------------------------------------------------------------------------------------------------
+
+1. Afisati continutul intregului fisier.
+
+awk '{print}' angajati.txt
+awk '{print $0}' angajati.txt
+
+2. Afisati continutul intregului fisier prefixand fiecare linie cu numarul acesteia.
+
+awk '{print NR, $0}' angajati.txt
+
+3. Afisati continutul intregului fisier prefixand fiecare linie cu numarul campurilor acesteia.
+
+awk '{print NF, $0}' angajati.txt
+
+4. Afisati doar numele, prenumele angajatului si numarul de telefon.
+
+awk '{print $2, $1, $4}' angajati.txt
+
+awk '{print $2, "\t" $1, "\t" $4}' angajati.txt
+
+5. Afisati angajatii al caror nume incepe cu litera T.
+
+awk '/^T/' angajati.txt
+awk '/^T/{print}' angajati.txt
+
+6. Afisati numele si prenumele angajatilor nascuti in luna martie.
+
+awk '/\/03\//{print $2, $1}' angajati.txt
+
+7. Afisati angajatii al caror salariu este 1969.
+
+awk '$5 == 1942 {print}' angajati.txt
+
+8. Afisati angajatii al caror salariu este mic decat 2000.
+
+awk '$5 < 2000 {print}' angajati.txt
+
+9. Afisati liniile care contin mai mult de 42 caractere.
+
+awk 'length($0) > 42 {print NR, $0}' angajati.txt
+
+10. Calculati si afisati numarul total de angajati.
+
+awk 'BEGIN {total = 0} {total++} END {print "Numarul total de angajati: ", total}' angajati.txt
+
+11. Calculati si afisati suma necesara pentru plata salariilor pe o luna.
+
+awk 'BEGIN {suma = 0} {suma += $5} END {print "Suma necesara: ", suma}' angajati.txt 
+
+12. Afisati numarul de argumente furnizate in linia de comanda.
+
+awk 'BEGIN {print "Numarul de argumente: ", ARGC}' unu doi trei patru
+
+13. Afisati argumentele furnizate in linia de comanda.
+
+awk -f script_1 unu doi trei patru
+
+14. Afisati numele fisierului furnizat in linia de comanda
+
+awk 'END {print "Numele fisierului: ", FILENAME}' angajati.txt
+
+15. Scrieti un script care:
+	a. Afiseaza un cap de tabel (Nume Prenume Data nasterii Telefon Salariu);
+	b. Tipareste tabulat fiecare angajat
+	c. Afiseaza la sfarsit numarul total de angajati
+
+----------------------------------------------------------
+Dump awk variables
+
+awk --dump-variables ''
+cat awkvars.out
+
+Profile option
+
+awk --profile 'BEGIN{printf"---|Header|--\n"} {print} 
+END{printf"---|Footer|---\n"}' angajati.txt > /dev/null 
+cat awkprof.out

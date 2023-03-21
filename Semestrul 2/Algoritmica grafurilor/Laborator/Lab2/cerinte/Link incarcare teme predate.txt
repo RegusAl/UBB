@@ -1,0 +1,10 @@
+Dupa prezentarea unei teme la laborator (fie pentru prezenta, fie pentru bonus maxim), fisierul se incarca la urmatorul link.
+
+Va rog cititi cu atentie si procedati in consecinta:
+
+1. Va rog sa va creati un director de forma 
+	21x-y_A_B, unde x reprezeninta nr grupei, y al semigrupei, A numele de familie, iar B prenumele.
+2. In directorul astfel creat, veti crea alte 5 directoare: L1, L2, L3, L4, L5
+3. In fiecare lab veti actualiza ceea ce ati lucrat in directorul corespunzator laboratorlui.
+
+https://ubbcluj-my.sharepoint.com/:f:/g/personal/adriana_coroiu_ubbcluj_ro/EoNZcLHM_2ZCorWou6bGHs0BlYPZoO6XBi639GaGlyd8Dg?e=rXFL1j

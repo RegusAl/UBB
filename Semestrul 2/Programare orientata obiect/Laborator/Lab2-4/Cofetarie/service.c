@@ -1,5 +1,4 @@
 #include "service.h"
-
 #include <string.h>
 
 /*

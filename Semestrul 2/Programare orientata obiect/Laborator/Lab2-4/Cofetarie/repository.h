@@ -13,6 +13,11 @@ typedef struct {
 List createEmpty();
 
 /*
+ * Distruge o lista
+ */
+void destroy(List* v);
+
+/*
  * Adauga in lista v elementul el
  * param v: lista
  * param el: elementul ce se introduce in lista

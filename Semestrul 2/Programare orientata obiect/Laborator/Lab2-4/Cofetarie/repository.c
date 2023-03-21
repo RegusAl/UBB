@@ -11,6 +11,13 @@ List createEmpty() {
 }
 
 /*
+ * Distruge o lista
+ */
+void destroy(List* v) {
+    v->length = 0;
+}
+
+/*
  * Adauga in lista v elementul el
  * param v: lista
  * param el: elementul ce se introduce in lista

@@ -44,6 +44,8 @@ void test_add() {
     assert(lista.length == 0);
     add(&lista, m);
     assert(lista.length == 1);
+    destroy(&lista);
+    assert(lista.length==0);
 }
 
 void test_addCantitate() {
@@ -54,6 +56,8 @@ void test_addCantitate() {
     MateriePrima m = creeazaMateriePrima("ex", "producator", 100);
     addCantitate(&lista, m, 0);
     assert(lista.elements[0].cantitate == 100);
+    destroy(&lista);
+    assert(lista.length==0);
 }
 
 void test_delete() {
@@ -67,6 +71,8 @@ void test_delete() {
     assert(strcmp(lista.elements[0].nume, "doi")==0);
     assert(strcmp(lista.elements[0].producator, "prod")==0);
     assert(lista.elements[0].cantitate==1234);
+    destroy(&lista);
+    assert(lista.length==0);
 }
 
 void test_get() {
@@ -86,6 +92,8 @@ void test_size() {
     add(&lista, creeazaMateriePrima("unu", "prod", 90));
     add(&lista, creeazaMateriePrima("doi", "prod", 1234));
     assert(size(&lista) == 2);
+    destroy(&lista);
+    assert(lista.length==0);
 }
 
 void test_adaugaMateriePrima_stergeMateriePrima() {
@@ -97,6 +105,8 @@ void test_adaugaMateriePrima_stergeMateriePrima() {
     assert(adaugaMateriePrima(&lista, "ex", "prod", 900)==1);
     assert(stergeMateriePrima(&lista, "ex", "prod")==1);
     assert(stergeMateriePrima(&lista, "ex", "producator")==0);
+    destroy(&lista);
+    assert(lista.length==0);
 }
 
 void test_modificaMateriePrima() {
@@ -108,6 +118,8 @@ void test_modificaMateriePrima() {
     assert(modificaMateriePrima(&lista, "ex", "prod", "", "producator", 999)==0);
     assert(modificaMateriePrima(&lista, "123", "prod", "ex", "producator", 999)==0);
     assert(lista.length==1);
+    destroy(&lista);
+    assert(lista.length==0);
 }
 
 void test_filtruMateriePrima() {
@@ -117,6 +129,8 @@ void test_filtruMateriePrima() {
     assert(adaugaMateriePrima(&lista, "dada", "prod3", 300));
     List lista_filtrata = filtruMateriePrima(&lista, 'e', 300);
     assert(size(&lista_filtrata)==1);
+    destroy(&lista);
+    assert(lista.length==0);
 
 }
 
@@ -134,6 +148,8 @@ void test_sortMateriePrima() {
     assert(strcmp(get(&lista_sortata, 1).nume, "ciocolata")==0);
     assert(strcmp(get(&lista_sortata, 2).nume, "corn")==0);
     assert(get(&lista_sortata, 3).cantitate ==200);
+    destroy(&lista);
+    assert(lista.length==0);
 }
 
 

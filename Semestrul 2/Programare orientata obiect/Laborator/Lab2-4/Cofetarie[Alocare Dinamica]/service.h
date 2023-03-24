@@ -43,6 +43,14 @@ int modificaMateriePrima(List *v, char *nume, char *producator, char *nume_nou, 
  */
 List filtruMateriePrima(List *v, char l, int cantitate_max);
 
+typedef int(*FunctieComparare)(MateriePrima* m1, MateriePrima* m2);
+
+//int comparareNume(MateriePrima* m1, MateriePrima* m2);
+//
+//int comparareCantitate(MateriePrima* m1, MateriePrima* m2);
+
+//void sort(List*v, FunctieComparare cmpN, FunctieComparare cmpC);
+
 /*
  * Sorteaza Materia Prima in functie de nume si de cantitate
  * param v: lista

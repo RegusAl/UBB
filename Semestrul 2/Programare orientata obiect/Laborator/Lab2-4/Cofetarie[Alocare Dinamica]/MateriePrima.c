@@ -1,7 +1,7 @@
 #include <string.h>
+#include <stdlib.h>
 
 #include "MateriePrima.h"
-
 
 /*
  * Creeaza o entitate de tipul Materie Prima
@@ -12,7 +12,12 @@
  */
 MateriePrima creeazaMateriePrima(char *nume, char *producator, int cantitate) {
     MateriePrima m;
+    int nrC  = (int) strlen(nume)+1;
+    m.nume = malloc(nrC * sizeof(char));
     strcpy(m.nume, nume);
+
+    nrC = (int) strlen(producator)+1;
+    m.producator = malloc(nrC * sizeof(char));
     strcpy(m.producator, producator);
 
     m.cantitate = cantitate;
@@ -40,7 +45,12 @@ int valideazaMateriePrima(MateriePrima m) {
  * param: m (struct)
  */
 void destroyMateriePrima(MateriePrima *m) {
-    m -> nume[0] = '\0';
-    m -> producator[0] = '\0';
+//    m -> nume[0] = '\0';
+//    m -> producator[0] = '\0';
+    free(m->nume);
+    free(m->producator);
     m ->cantitate = -1;
+    m->nume = NULL;
+    m->producator = NULL;
+
 }

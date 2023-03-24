@@ -16,8 +16,9 @@ void testAll() {
     test_delete();
     test_get();
     test_size();
-    // test service
-    test_adaugaMateriePrima_stergeMateriePrima();
+//    // test service
+    test_adaugaMateriePrima();
+    test_stergeMateriePrima();
     test_modificaMateriePrima();
     test_filtruMateriePrima();
     test_sortMateriePrima();

@@ -1,6 +1,6 @@
 typedef struct {
-    char nume[30];
-    char producator[30];
+    char* nume;
+    char* producator;
     int cantitate;
 } MateriePrima;
 

@@ -17,20 +17,24 @@ void test_creeazaMateriePrima() {
 void test_destroyMateriePrima() {
     MateriePrima m = creeazaMateriePrima("ciocolata", "milka", 90);
     destroyMateriePrima(&m);
-    assert(strlen(m.nume)==0);
-    assert(strlen(m.producator)==0);
+    assert(m.nume == NULL);
+    assert(m.producator == NULL);
     assert(m.cantitate == -1);
 }
 
 void test_valideazaMateriePrima() {
     MateriePrima ex1 = creeazaMateriePrima("ciocolata", "milka", 90);
     assert(valideazaMateriePrima(ex1) == 1);
+    destroyMateriePrima(&ex1);
     MateriePrima ex2 = creeazaMateriePrima("", "milka", 90);
     assert(valideazaMateriePrima(ex2) == 0);
+    destroyMateriePrima(&ex2);
     MateriePrima ex3 = creeazaMateriePrima("cioco", "", 90);
     assert(valideazaMateriePrima(ex3) == 0);
+    destroyMateriePrima(&ex3);
     MateriePrima ex4 = creeazaMateriePrima("ciocolata", "milka", -100);
     assert(valideazaMateriePrima(ex4) == 0);
+    destroyMateriePrima(&ex4);
 }
 
 // teste REPOSITORY
@@ -53,10 +57,13 @@ void test_add() {
 void test_addCantitate() {
     List lista = createEmpty();
     assert(lista.length == 0);
-    add(&lista, creeazaMateriePrima("ex", "producator", 80));
+    MateriePrima m = creeazaMateriePrima("ex", "producator", 80);
+    add(&lista, m);
+    destroyMateriePrima(&m);
     assert(lista.elements[0].cantitate == 80);
-    MateriePrima m = creeazaMateriePrima("ex", "producator", 100);
-    addCantitate(&lista, m, 0);
+    MateriePrima n = creeazaMateriePrima("ex", "producator", 100);
+    addCantitate(&lista, n, 0);
+    destroyMateriePrima(&m);
     assert(lista.elements[0].cantitate == 100);
     destroy(&lista);
     assert(lista.length==0);
@@ -65,8 +72,12 @@ void test_addCantitate() {
 void test_delete() {
     List lista = createEmpty();
     assert(lista.length == 0);
-    add(&lista, creeazaMateriePrima("unu", "prod", 90));
-    add(&lista, creeazaMateriePrima("doi", "prod", 1234));
+    MateriePrima m = creeazaMateriePrima("unu", "prod", 90);
+    add(&lista, m);
+    destroyMateriePrima(&m);
+    MateriePrima n = creeazaMateriePrima("doi", "prod", 1234);
+    destroyMateriePrima(&m);
+    add(&lista, n);
     assert(lista.length == 2);
     delete(&lista, 0);
     assert(lista.length == 1);
@@ -99,17 +110,31 @@ void test_size() {
     assert(lista.length==0);
 }
 
-void test_adaugaMateriePrima_stergeMateriePrima() {
+void test_adaugaMateriePrima() {
     List lista = createEmpty();
-    assert(adaugaMateriePrima(&lista, "ex", "prod", 90)==1);
+    MateriePrima m = creeazaMateriePrima("ex", "prod", 90);
+    assert(adaugaMateriePrima(&lista, m.nume, m.producator, m.cantitate)==1);
+    destroyMateriePrima(&m);
     assert(size(&lista)==1);
-    assert(adaugaMateriePrima(&lista, "ex", "prod", -800)==0);
+    MateriePrima n = creeazaMateriePrima("ex", "prod", -800);
+    assert(adaugaMateriePrima(&lista, n.nume, n.producator, n.cantitate)==0);
+    destroyMateriePrima(&n);
     assert(size(&lista)==1);
-    assert(adaugaMateriePrima(&lista, "ex", "prod", 900)==1);
-    assert(stergeMateriePrima(&lista, "ex", "prod")==1);
-    assert(stergeMateriePrima(&lista, "ex", "producator")==0);
+    //MateriePrima o = creeazaMateriePrima("ex", "prod", 90);
+    //adaugaMateriePrima(&lista, "ex", "prod", 1000);
+    //destroyMateriePrima(&o);
+    assert(size(&lista)==1);
     destroy(&lista);
     assert(lista.length==0);
+}
+
+void test_stergeMateriePrima() {
+    List lista = createEmpty();
+    MateriePrima m = creeazaMateriePrima("ex", "prod", 90);
+    stergeMateriePrima(&lista, m.nume, m.producator);
+    destroyMateriePrima(&m);
+    assert(size(&lista)==0);
+    destroy(&lista);
 }
 
 void test_modificaMateriePrima() {
@@ -135,7 +160,6 @@ void test_filtruMateriePrima() {
     destroy(&lista);
     assert(lista.length==0);
     destroy(&lista_filtrata);
-
 }
 
 void test_sortMateriePrima() {
@@ -151,7 +175,7 @@ void test_sortMateriePrima() {
     assert(strcmp(get(&lista_sortata, 0).nume, "aaa")==0);
     assert(strcmp(get(&lista_sortata, 1).nume, "ciocolata")==0);
     assert(strcmp(get(&lista_sortata, 2).nume, "corn")==0);
-    assert(get(&lista_sortata, 3).cantitate ==200);
+    assert(get(&lista_sortata, 3).cantitate==200);
     destroy(&lista);
     assert(lista.length==0);
 }

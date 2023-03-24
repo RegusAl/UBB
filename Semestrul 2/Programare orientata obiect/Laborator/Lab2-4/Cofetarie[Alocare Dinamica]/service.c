@@ -71,6 +71,7 @@ int modificaMateriePrima(List *v, char *nume, char *producator, char *nume_nou, 
         return 0;
     } else {
         adaugaMateriePrima(v, nume_nou, producator_nou, cantitate);
+        destroyMateriePrima(&m);
     }
     return 1;
 }
@@ -93,23 +94,27 @@ List filtruMateriePrima(List *v, char l, int cantitate_max) {
     return listaFiltrata;
 }
 
-/*
- * Sorteaza Materia Prima in functie de nume si de cantitate
- * param v: lista
- * return: lista sortata
- */
-List sortMateriaPrima(List *v) {
+int comparareNume(MateriePrima* m1, MateriePrima* m2) {
+    return strcmp(m1->nume, m2->nume);
+}
+
+int comparareCantitate(MateriePrima* m1, MateriePrima* m2) {
+    return m1->cantitate > m2->cantitate;
+}
+
+
+void sort(List* v, FunctieComparare comparareNume, FunctieComparare comparareCantitate) {
     List listaSortata = *v;
     MateriePrima temp;
     for(int i = 0; i < size(&listaSortata)-1; i++) {
         for(int j = i+1; j < size(&listaSortata); j++) {
-            if(strcmp(get(&listaSortata, i).nume, get(&listaSortata, j).nume)>0) {
+            if(comparareNume(&listaSortata.elements[i], &listaSortata.elements[j])>0) {
                 temp = listaSortata.elements[i];
                 listaSortata.elements[i] = listaSortata.elements[j];
                 listaSortata.elements[j] = temp;
             }
-            else if(strcmp(get(&listaSortata, i).nume, get(&listaSortata, j).nume)==0) {
-                if(get(&listaSortata, i).cantitate > get(&listaSortata, j).cantitate) {
+            else if(comparareNume(&listaSortata.elements[i], &listaSortata.elements[j])==0) {
+                if(comparareCantitate(&listaSortata.elements[i], &listaSortata.elements[j])) {
                     temp = listaSortata.elements[i];
                     listaSortata.elements[i] = listaSortata.elements[j];
                     listaSortata.elements[j] = temp;
@@ -117,5 +122,17 @@ List sortMateriaPrima(List *v) {
             }
         }
     }
+}
+
+/*
+ * Sorteaza Materia Prima in functie de nume si de cantitate
+ * param v: lista
+ * return: lista sortata
+ */
+List sortMateriaPrima(List *v) {
+    List listaSortata = *v;
+    sort(&listaSortata, comparareNume, comparareCantitate);
     return listaSortata;
 }
+
+

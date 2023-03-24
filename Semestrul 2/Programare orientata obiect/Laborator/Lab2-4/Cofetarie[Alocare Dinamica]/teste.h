@@ -16,7 +16,9 @@ void test_get();
 
 void test_size();
 
-void test_adaugaMateriePrima_stergeMateriePrima();
+void test_adaugaMateriePrima();
+
+void test_stergeMateriePrima();
 
 void test_modificaMateriePrima();
 

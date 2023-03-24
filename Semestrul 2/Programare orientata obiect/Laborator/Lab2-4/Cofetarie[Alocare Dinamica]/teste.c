@@ -119,11 +119,8 @@ void test_adaugaMateriePrima() {
     MateriePrima n = creeazaMateriePrima("ex", "prod", -800);
     assert(adaugaMateriePrima(&lista, n.nume, n.producator, n.cantitate)==0);
     destroyMateriePrima(&n);
+    assert(adaugaMateriePrima(&lista, "ex", "prod", 123)==1);
     assert(size(&lista)==1);
-    MateriePrima m2 = creeazaMateriePrima("ex1", "prod", 90);
-    assert(adaugaMateriePrima(&lista, m2.nume, m2.producator, m2.cantitate)==1);
-    destroyMateriePrima(&m2);
-    assert(size(&lista)==2);
     destroy(&lista);
     assert(lista.length==0);
 }

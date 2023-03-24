@@ -19,8 +19,8 @@ int adaugaMateriePrima(List *v, char *nume, char *producator, int cantitate) {
     // se modifica cantitatea daca se da o materie prima cu acelasi nume si producator ce este in stoc.
     for(int i = 0; i< size(v); i++) {
         if(strcmp(get(v, i).nume, m.nume)==0 && strcmp(get(v, i).producator, m.producator)==0) {
-            addCantitate(v, m, i);
-            //m.cantitate = get(v, i).cantitate;
+            modificaMateriePrima(v, nume, producator, nume, producator, cantitate);
+            destroyMateriePrima(&m);
             return 1;
         }
     }

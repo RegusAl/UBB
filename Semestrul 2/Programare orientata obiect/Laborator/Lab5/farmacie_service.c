@@ -120,6 +120,20 @@ MyList* getAllMedicamentNr(Farmacie* farmacie, int n) {
 	return rez;
 }
 
+MyList* getAllMedicamentStoc(Farmacie* farmacie, int stocMin, int stocMax) {
+    if(stocMin == 0 && stocMax == 0) {
+        return copyList(farmacie->allMedicament, copyMedicament);
+    }
+    MyList* rez = createEmpty(destroyMedicament);
+    for(int i = 0; i < farmacie->allMedicament->lg; i++) {
+        Medicament* m = get(farmacie->allMedicament, i);
+        if(m->stoc >= stocMin && m->stoc <= stocMax) {
+            add(rez, createMedicament(m->cod, m->nume, m->concentratie, m->stoc));
+        }
+    }
+    return rez;
+}
+
 int cmpStoc(Medicament* m1, Medicament* m2) {
 	if (m1->stoc == m2->stoc)
 		return 0;
@@ -268,6 +282,22 @@ void testGetAllNr() {
 	destroyList(rez);
 	destroyFarmacie(&farmacie);
 }
+
+void testGetAllStocuri() {
+    Farmacie farmacie = createFarmacie();
+    addMedicament(&farmacie, "aewoh", "tusin", 1, 3);
+    addMedicament(&farmacie, "cfren", "strepsils", 3, 123);
+    addMedicament(&farmacie, "dfkwn", "tusocalm", 7, 5);
+    assert(size(farmacie.allMedicament) == 3);
+    MyList* rez = getAllMedicamentStoc(&farmacie, 1, 10);
+    assert(size(rez) == 2);
+    destroyList(rez);
+    rez = getAllMedicamentStoc(&farmacie, 0, 0);
+    assert(size(rez) == 3);
+    destroyList(rez);
+    destroyFarmacie(&farmacie);
+}
+
 void testSortStoc() {
 	Farmacie farmacie = createFarmacie();
 	addMedicament(&farmacie, "aewoh", "tusin", 1, 3);

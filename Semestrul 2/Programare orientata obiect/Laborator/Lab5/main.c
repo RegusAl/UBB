@@ -22,6 +22,7 @@ void testAll() {
 	testDelete();
 	testGetAllChar();
 	testGetAllNr();
+    testGetAllStocuri();
 	testSortStoc();
 	testSortStocD();
 	testSortNume();
@@ -88,6 +89,18 @@ void filterMedicamentNr(Farmacie* farmacie) {
 	printAllMedicament(filteredL);
 }
 
+// filtrare dupa stocuri
+void filterMedicamentStoc(Farmacie *farmacie) {
+    int stocMin, stocMax;
+    printf("Introduceti stocul minim: ");
+    scanf("%d", &stocMin);
+    printf("Introduceti stocul maxim: ");
+    scanf("%d", &stocMax);
+    MyList* filteredL = getAllMedicamentStoc(farmacie, stocMin, stocMax);
+    printAllMedicament(filteredL);
+
+}
+
 void Modify(Farmacie* farmacie) {
 	printf("Cod: ");
 	char cod[30];
@@ -146,51 +159,54 @@ void run() {
 	Farmacie farmacie = createFarmacie();
 	int ruleaza = 1;
 	while (ruleaza) {
-		printf(ANSI_COLOR_CYAN "\n1 Adauga medicament\n2 Afiseaza lista cu medicamente\n3 Sterge un medicament dat\n4 Modifica un medicament\n5 Filtreaza dupa o litera\n6 Filtreaza dupa nr stoc\n7 Sorteaza dupa nume\n8 Sorteaza dupa nume desc\n9 Sorteaza dupa cantitate\n10 Sorteaza dupa cantitate desc\n11 Undo\n" ANSI_COLOR_RESET);
+		printf(ANSI_COLOR_CYAN "\n1 Adauga medicament\n2 Afiseaza lista cu medicamente\n3 Sterge un medicament dat\n4 Modifica un medicament\n5 Filtreaza dupa o litera\n6 Filtreaza dupa nr stoc\n7 Sorteaza dupa nume\n8 Sorteaza dupa nume desc\n9 Sorteaza dupa cantitate\n10 Sorteaza dupa cantitate desc\n11 Undo\n12 Filtrare dupa stocuri\n" ANSI_COLOR_RESET);
 		printf(ANSI_COLOR_RED "0 Exit\n" ANSI_COLOR_RESET);
 		printf(ANSI_COLOR_MAGENTA "\nNr. comenzii:" ANSI_COLOR_RESET);
 		int cmd = 0;
 		scanf("%d", &cmd);
 		switch (cmd) {
-		case 1:
-			readMedicament(&farmacie);
-			break;
-		case 2:
-			printAllMedicament(farmacie.allMedicament);
-			break;
-		case 3:
-			deleteStoc(&farmacie);
-			break;
-		case 4:
-			Modify(&farmacie);
-			break;
-		case 5:
-			filterMedicamentChar(&farmacie);
-			break;
-		case 6:
-			filterMedicamentNr(&farmacie);
-			break;
-		case 7:
-			sortByNume(&farmacie);
-			break;
-		case 8:
-			sortByNumeD(&farmacie);
-			break;
-		case 9:
-			sortByStoc(&farmacie);
-			break;
-		case 10:
-			sortByStocD(&farmacie);
-			break;
-		case 11:
-			undoMain(&farmacie);
-			break;
-		case 0:
-			ruleaza = 0;
-			destroyFarmacie(&farmacie);
-			break;
-		default:
-			printf(ANSI_COLOR_RED "Comanda invalida!!!\n" ANSI_COLOR_RESET);
+		    case 1:
+			    readMedicament(&farmacie);
+			    break;
+		    case 2:
+			    printAllMedicament(farmacie.allMedicament);
+			    break;
+		    case 3:
+			    deleteStoc(&farmacie);
+			    break;
+		    case 4:
+			    Modify(&farmacie);
+			    break;
+		    case 5:
+			    filterMedicamentChar(&farmacie);
+			    break;
+		    case 6:
+			    filterMedicamentNr(&farmacie);
+			    break;
+		    case 7:
+			    sortByNume(&farmacie);
+			    break;
+		    case 8:
+			    sortByNumeD(&farmacie);
+                break;
+            case 9:
+			    sortByStoc(&farmacie);
+			    break;
+		    case 10:
+			    sortByStocD(&farmacie);
+			    break;
+		    case 11:
+			    undoMain(&farmacie);
+			    break;
+            case 12:
+                filterMedicamentStoc(&farmacie);
+                break;
+		    case 0:
+			    ruleaza = 0;
+			    destroyFarmacie(&farmacie);
+			    break;
+		    default:
+			    printf(ANSI_COLOR_RED "Comanda invalida!!!\n" ANSI_COLOR_RESET);
 		}
 	}
 }

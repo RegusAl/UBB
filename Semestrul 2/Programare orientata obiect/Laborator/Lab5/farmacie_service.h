@@ -100,6 +100,20 @@ MyList* getAllMedicamentChar(Farmacie* farmacie, char* typeSubstring);
 
 MyList* getAllMedicamentNr(Farmacie* farmacie, int n);
 
+/*
+* Filtreaza lista de medicamente dupa stocurile date.
+*
+* @param farmacie: Farmacie cu toate medicamentele
+* @param stocMin: stocul minim dupa care se filtreaza (int*)
+* @param stocMax: stocul maxim dupa care se filtreaza (int*)
+
+*
+* @return: lista cu medicamentele a caror sotc este >= decat stocul minim si <= decat stocul maxim. (MyList*)
+*/
+
+MyList* getAllMedicamentStoc(Farmacie* farmacie, int stocMin, int stocMax);
+
+
 //int cmpStoc(Medicament* m1, Medicament* m2);
 
 //int cmpStocD(Medicament* m1, Medicament* m2);
@@ -168,6 +182,7 @@ void testModify();
 void testDelete();
 void testGetAllChar();
 void testGetAllNr();
+void testGetAllStocuri();
 void testSortStoc();
 void testSortStocD();
 void testSortNume();

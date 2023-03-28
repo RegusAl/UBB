@@ -1,14 +1,13 @@
  #include "farmacie_service.h"
 #include "customSort.h"
-#include <stdlib.h>
 #include <string.h>
 #include <assert.h>
 
 Farmacie createFarmacie()
 {
 	Farmacie farmacie;
-	farmacie.allMedicament = createEmpty(destroyMedicament);
-	farmacie.undoList = createEmpty(destroyList);
+	farmacie.allMedicament = createEmpty((DestroyFct) destroyMedicament);
+	farmacie.undoList = createEmpty((DestroyFct) destroyList);
 	return farmacie;
 }
 
@@ -25,7 +24,7 @@ int addMedicament(Farmacie* farmacie, char* cod, char* nume, float concentratie,
 		return succ;
 	}
 	int poz = findMedicament(farmacie, cod);
-	MyList* toUndo = copyList(farmacie->allMedicament, copyMedicament);
+	MyList* toUndo = copyList(farmacie->allMedicament, (CopyFct) copyMedicament);
 	if (poz == -1) {
 		add(farmacie->allMedicament, m);
 	}
@@ -55,7 +54,7 @@ int modifyMedicament(Farmacie* farmacie, char* cod, char* nume, float concentrat
 	int poz = findMedicament(farmacie, cod);
 
 	if (poz != -1) {
-		MyList* toUndo = copyList(farmacie->allMedicament, copyMedicament);
+		MyList* toUndo = copyList(farmacie->allMedicament, (CopyFct) copyMedicament);
 		add(farmacie->undoList, toUndo);
 
 		Medicament* m2 = createMedicament(cod, nume, concentratie, stoc);
@@ -71,7 +70,7 @@ int modifyMedicament(Farmacie* farmacie, char* cod, char* nume, float concentrat
 int deleteMedicament(Farmacie* farmacie, char* cod) {
 	int poz = findMedicament(farmacie, cod);
 	if (poz != -1) {
-		MyList* toUndo = copyList(farmacie->allMedicament, copyMedicament);
+		MyList* toUndo = copyList(farmacie->allMedicament, (CopyFct) copyMedicament);
 		add(farmacie->undoList, toUndo);
 
 		Medicament* m = delete(farmacie->allMedicament, poz);
@@ -94,9 +93,9 @@ int undo(Farmacie* farmacie) {
 
 MyList* getAllMedicamentChar(Farmacie* farmacie, char* typeSubstring) {
 	if (typeSubstring == NULL || strlen(typeSubstring) == 0) {
-		return copyList(farmacie->allMedicament, copyMedicament);
+		return copyList(farmacie->allMedicament, (CopyFct) copyMedicament);
 	}
-	MyList* rez = createEmpty(destroyMedicament);
+	MyList* rez = createEmpty((DestroyFct) destroyMedicament);
 	for (int i = 0; i < farmacie->allMedicament->lg; i++) {
 		Medicament* m = get(farmacie->allMedicament, i);
 		if (strstr(m->nume, typeSubstring) != NULL) {
@@ -108,9 +107,9 @@ MyList* getAllMedicamentChar(Farmacie* farmacie, char* typeSubstring) {
 
 MyList* getAllMedicamentNr(Farmacie* farmacie, int n) {
 	if (n <= 0) {
-		return copyList(farmacie->allMedicament, copyMedicament);
+		return copyList(farmacie->allMedicament, (CopyFct) copyMedicament);
 	}
-	MyList* rez = createEmpty(destroyMedicament);
+	MyList* rez = createEmpty((DestroyFct) destroyMedicament);
 	for (int i = 0; i < farmacie->allMedicament->lg; i++) {
 		Medicament* m = get(farmacie->allMedicament, i);
 		if (m->stoc<n) {
@@ -122,9 +121,9 @@ MyList* getAllMedicamentNr(Farmacie* farmacie, int n) {
 
 MyList* getAllMedicamentStoc(Farmacie* farmacie, int stocMin, int stocMax) {
     if(stocMin == 0 && stocMax == 0) {
-        return copyList(farmacie->allMedicament, copyMedicament);
+        return copyList(farmacie->allMedicament, (CopyFct) copyMedicament);
     }
-    MyList* rez = createEmpty(destroyMedicament);
+    MyList* rez = createEmpty((DestroyFct) destroyMedicament);
     for(int i = 0; i < farmacie->allMedicament->lg; i++) {
         Medicament* m = get(farmacie->allMedicament, i);
         if(m->stoc >= stocMin && m->stoc <= stocMax) {
@@ -166,26 +165,26 @@ int cmpNumeD(Medicament* m1, Medicament* m2) {
 }
 
 MyList* sortStoc(Farmacie* farmacie) {
-	MyList* l = copyList(farmacie->allMedicament, copyMedicament);
-	sort(l, cmpStoc);
+	MyList* l = copyList(farmacie->allMedicament, (CopyFct) copyMedicament);
+	sort(l, (CompareFct) cmpStoc);
 	return l;
 }
 
 MyList* sortStocD(Farmacie* farmacie) {
-	MyList* l = copyList(farmacie->allMedicament, copyMedicament);
-	sort(l, cmpStocD);
+	MyList* l = copyList(farmacie->allMedicament, (CopyFct) copyMedicament);
+	sort(l, (CompareFct) cmpStocD);
 	return l;
 }
 
 MyList* sortNume(Farmacie* farmacie) {
-	MyList* l = copyList(farmacie->allMedicament, copyMedicament);
-	sort(l, cmpNume);
+	MyList* l = copyList(farmacie->allMedicament, (CopyFct) copyMedicament);
+	sort(l, (CompareFct) cmpNume);
 	return l;
 }
 
 MyList* sortNumeD(Farmacie* farmacie) {
-	MyList* l = copyList(farmacie->allMedicament, copyMedicament);
-	sort(l, cmpNumeD);
+	MyList* l = copyList(farmacie->allMedicament, (CopyFct) copyMedicament);
+	sort(l, (CompareFct) cmpNumeD);
 	return l;
 }
 

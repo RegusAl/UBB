@@ -69,12 +69,12 @@ MyList* copyList(MyList* l, CopyFct copyFct) {
 }
 
 void testCreateList() {
-	MyList* l = createEmpty(destroyMedicament);
+	MyList* l = createEmpty((DestroyFct) destroyMedicament);
 	assert(size(l) == 0);
 	destroyList(l);
 }
 void testIterateList() {
-	MyList* l = createEmpty(destroyMedicament);
+	MyList* l = createEmpty((DestroyFct) destroyMedicament);
 	add(l, createMedicament("df34", "rfe", 13, 65));
 	add(l, createMedicament("sdhfij4n", "rfvfd", 3, 5));
 	assert(size(l) == 2);
@@ -86,10 +86,10 @@ void testIterateList() {
 	destroyList(l);
 }
 void testCopyList() {
-	MyList* l = createEmpty(destroyMedicament);
+	MyList* l = createEmpty((DestroyFct) destroyMedicament);
 	add(l, createMedicament("a", "b", 1, 2));
 	add(l, createMedicament("c", "d", 3, 4));
-	MyList* l2 = copyList(l, copyMedicament);
+	MyList* l2 = copyList(l, (CopyFct) copyMedicament);
 	assert(size(l2) == 2);
 	Medicament* m = get(l2, 0);
 	assert(strcmp(m->cod, "a") == 0);

@@ -1,7 +1,6 @@
 #pragma once
 #include "medicament.h"
 #include <stdlib.h>
-#define _CRTDBG_MAP_ALLOC
 
 typedef void* ElemType;
 typedef void (*DestroyFct)(ElemType);

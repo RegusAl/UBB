@@ -1,0 +1,40 @@
+1.
+
+cat ./last.fake | grep -e 'economica' | grep -e 'Sun'| awk '{print $1}' | sort | uniq
+
+2.
+
+cat ./last.fake | grep '[0-9] 23:..' | awk '{print $1}' | sort | uniq
+
+3.
+
+sed 's/:/ /g' ./passwd.fake | grep "^m" | awk '{ if ($3 % 7 == 0) {print $5, $6} }'
+
+4. 
+
+grep "^root" ps.fake | awk '{print $6}' | sort | uniq 
+
+5. 
+
+sed 's/:/ /g' passwd.fake | grep "^......88" | awk '{print $5, $6}'
+
+6. 
+
+sed 's/:/ /g' ./passwd.fake | awk '/23[0-9]/{print $5, $6}'
+
+7. 
+
+awk '/^r/{print $1}' ./ps.fake | sort | uniq | sed -E 's/([aeiou])/\1\1/gi' 
+
+8. 
+
+sed 's/[a-z A-Z0-9]//g' ./passwd.fake | sort | uniq 
+
+9.
+
+cat ./passwd.fake | sed -e 's/[a-qs-zA-Z0-9 \w\s://-]//g' | sort | uniq
+
+10.
+
+awk 'BEGIN{sum = 0} {sum += $2} END{print "Average: " sum/NR-1}' ./ps.fake 
+

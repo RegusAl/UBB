@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 
 #include "service.h"
 #include "teste.h"

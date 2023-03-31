@@ -1,3 +1,0 @@
-/home/albert/Documents/UBB/Semestrul 2/Structuri de date si algoritmi/Laborator/Interfete TAD (proiecte C++) si teste/TAD Colectie/cmake-build-debug/CMakeFiles/TAD_Colectie.dir
-/home/albert/Documents/UBB/Semestrul 2/Structuri de date si algoritmi/Laborator/Interfete TAD (proiecte C++) si teste/TAD Colectie/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/albert/Documents/UBB/Semestrul 2/Structuri de date si algoritmi/Laborator/Interfete TAD (proiecte C++) si teste/TAD Colectie/cmake-build-debug/CMakeFiles/rebuild_cache.dir

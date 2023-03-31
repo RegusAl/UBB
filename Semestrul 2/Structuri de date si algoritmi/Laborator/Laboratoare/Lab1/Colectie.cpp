@@ -179,6 +179,26 @@ bool Colectie::vida() const {
 
 /*
  * Best Case = Average Case = Worst Case
+ * Complexitate Timp: O(n) - unde n = nr - daca numarul de aparitii a elementului n ce trebuie sters > nr
+ *                                n = nrAparitii - daca nr > nrAparitii
+ * Complexitate Spatiu: O(1) - deoarece folosim variabile simple
+ */
+int Colectie::eliminaAparitii(int nr, TElem elem) {
+    // daca nr este negativ, arunca exceptie
+    if(nr < 0) {
+        throw std::exception();
+    }
+    int aparitii_eliminate = 0;
+    while(nr && nrAparitii(elem)) {
+        sterge(elem);
+        nr--;
+        aparitii_eliminate++;
+    }
+    return aparitii_eliminate;
+}
+
+/*
+ * Best Case = Average Case = Worst Case
  * Complexitate Timp: O(1)
  * Complexitate Spatiu: O(1)
  */

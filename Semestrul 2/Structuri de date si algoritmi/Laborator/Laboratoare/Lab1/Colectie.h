@@ -8,7 +8,6 @@ struct Pereche {
     int frecventa;
 };
 
-
 typedef bool(*Relatie)(TElem, TElem);
 
 //in implementarea operatiilor se va folosi functia (relatia) rel (de ex, pentru <=)
@@ -22,13 +21,11 @@ class Colectie {
 	friend class IteratorColectie;
 
 private:
-	/* aici e reprezentarea */
 
     int cp; // capacitatea
     int n;  // numarul de elemente
     Pereche* e;
     int cautareBinara(Pereche* pereche, int stanga, int dreapta, TElem element, bool& gasit) const;
-
     void redim();
 
 public:
@@ -54,12 +51,15 @@ public:
 		//verifica daca colectia e vida;
 		bool vida() const;
 
+        // elimină nr apariții ale elementului elem. În cazul în care elementul apare mai puțin de nr ori, toate aparițiile sale vor fi eliminate.
+        // returnează numărul de apariții eliminate ale elementului.
+        // aruncă excepție în cazul în care este nr este negativ.
+        int eliminaAparitii(int nr, TElem elem);
+
 		//returneaza un iterator pe colectie
 		IteratorColectie iterator() const;
 
 		// destructorul colectiei
 		~Colectie();
-
-
 };
 

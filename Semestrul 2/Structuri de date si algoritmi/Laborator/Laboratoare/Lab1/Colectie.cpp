@@ -18,21 +18,21 @@ bool rel(TElem e1, TElem e2) {
  * Average Case: O(log(n)) - theta
  * Complexitate Spatiu: O(1)
  */
-int Colectie::cautareBinara(Pereche *pereche, int s, int d, TElem e, bool& gasit) const{
+int Colectie::cautareBinara(Pereche *pereche, int stanga, int dreapta, TElem element, bool& gasit) const{
     int mijloc = 0;
-    while (s <= d && !gasit) {
-        mijloc = (s + d) / 2;
-        if (e == pereche[mijloc].valoare) {
+    while (stanga <= dreapta && !gasit) {
+        mijloc = (stanga + dreapta) / 2;
+        if (element == pereche[mijloc].valoare) {
             gasit = true;
         }
         else {
-            if (rel(e, pereche[mijloc].valoare))
-                d = mijloc - 1;
+            if (rel(element, pereche[mijloc].valoare))
+                dreapta = mijloc - 1;
             else
-                s = mijloc + 1;
+                stanga = mijloc + 1;
         }
     }
-    if (rel(e, pereche[mijloc].valoare))
+    if (rel(element, pereche[mijloc].valoare))
         return mijloc;
     return mijloc + 1;
 }

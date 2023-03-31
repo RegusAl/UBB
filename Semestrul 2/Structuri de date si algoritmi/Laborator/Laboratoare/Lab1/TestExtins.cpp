@@ -41,7 +41,7 @@ void testIterator(Colectie& col) {
 		assert(col.cauta(e2) == true);
 		assert(col.nrAparitii(e1) > 0);
 		assert(col.nrAparitii(e2) > 0);
-		//assert(rel(e2,e1));
+		assert(rel(e2,e1));
 	}
 }
 

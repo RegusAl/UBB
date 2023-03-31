@@ -27,7 +27,7 @@ private:
     int cp; // capacitatea
     int n;  // numarul de elemente
     Pereche* e;
-    int cautareBinara(Pereche* pereche, int s, int d, TElem e, bool& gasit) const;
+    int cautareBinara(Pereche* pereche, int stanga, int dreapta, TElem element, bool& gasit) const;
 
     void redim();
 
@@ -47,7 +47,6 @@ public:
 
 		//returneaza numar de aparitii ale unui element in colectie
 		int nrAparitii(TElem elem) const;
-
 
 		//intoarce numarul de elemente din colectie;
 		int dim() const;

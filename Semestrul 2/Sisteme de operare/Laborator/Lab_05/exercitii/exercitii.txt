@@ -1,0 +1,32 @@
+﻿
+Exerciţii - Programare shell
+---------------------------------------------------------------------------
+1. Să se scrie un script bash care primeşte ca argument un număr natural N şi generează N fişiere de tip text, astfel:
+- numele fişierelor vor fi de forma: file_X.txt, unde X = {1, 2, ..., N}
+- fiecare fişier generat va conţine doar liniile de la X la X + 5 ale fişierului /etc/passwd.
+
+2. Să se scrie un script bash care primeşte ca argument un nume de director şi afişează primele 3 linii ale fiecărui fişier de tip text din acel director.
+
+3. Să se scrie un script bash care calculează numărul mediu de linii ale fișierelor de tip text dintr-un director dat ca parametru.
+(comenzi: find, file, wc)
+
+4. Să se scrie un script bash care afișează numele fișierelor dintr-un director dat ca parametru care conțin numere de peste 5 cifre.
+
+5. Să se scrie un script bash care afișează primele 5 linii și ultimele 5 linii ale fișierelor de tip text din directorul curent. Dacă un fișier are mai puțin de 10 linii, atunci va fi afişat în întregime.
+(comenzi: head, tail, find, file, wc)
+
+6. Să se scrie un script bash care pentru fiecare parametru din linia de comandă:
+- dacă e fișier, se vor afișa numele, numărul de caractere și de linii din el (în această ordine)
+- dacă e director, numele și câte fișiere conține (inclusiv în subdirectoare).
+(comenzi: test, wc, awk, find)
+
+7. Să se scrie un script bash care are ca argumente triplete formate dintr-un nume de fisier, un cuvant si un numar k. Pentru fiecare astfel de triplet, se vor afişa toate liniile fişierului care contin cuvăntul respectiv exact de k ori.
+(comenzi: shift, awk)
+
+8. Să se scrie un script bash care afişează, pentru fiecare fişier dat ca argument, linia care apare de cele mai multe ori. Afişarea se va face în ordinea descrescătoare a numărului de apariţii.
+(comenzi: sort, uniq, head)
+
+9. Să se scrie un script bash care va afişa toate numele de fişiere dintr-un director dat ca parametru şi din subdirectoarele sale, care au numele mai scurte de 8 caractere. Pentru acestea, dacă sunt fişiere text, li se vor afişa primele 10 linii.
+
+10. Să se scrie un script bash care pentru fiecare fişier cu drepturile 755 dintr-un director (şi subdirectoarele sale) dat ca parametru îi va modifica drepturile de acces în 744. Înainte de a modifica drepturile de acces, script-ul va cere confirmarea din partea utilizatorului (pentru fiecare fişier în parte).
+(comenzi: find, chmod, read)

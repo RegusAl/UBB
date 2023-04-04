@@ -5,7 +5,7 @@
 class Consola {
     AgentieService& service;
     void adaugaUI();
-    void afisareUI();
+    void afisareUI(const std::vector<Oferta>& oferte);
 public:
     Consola(AgentieService& service): service{service} {}
     Consola(const Consola& ot) = delete;

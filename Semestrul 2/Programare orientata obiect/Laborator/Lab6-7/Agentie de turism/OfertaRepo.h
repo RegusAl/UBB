@@ -25,3 +25,12 @@ public:
     const vector<Oferta>& getAll() const noexcept;
 };
 
+class OfertaRepoException {
+    string mesaj;
+public:
+    OfertaRepoException(string mesaj): mesaj{mesaj} {}
+    friend ostream& operator<<(ostream& out, const OfertaRepoException& ex);
+};
+
+ostream& operator<<(ostream& out, const OfertaRepoException& ex);
+

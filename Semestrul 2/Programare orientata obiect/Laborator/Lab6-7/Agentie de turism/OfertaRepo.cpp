@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <assert.h>
 
 using std::ostream;
 using std::stringstream;
@@ -9,16 +10,20 @@ using std::cout;
 using std::string;
 
 bool OfertaRepo::exist(const Oferta &o) const {
+    try {
         cauta(o.getDenumire(), o.getDestinatie());
         return true;
+    }
+    catch (OfertaRepoException&) {
+        return false;
+    }
 }
 
 void OfertaRepo::adauga(const Oferta &o) {
     if(exist(o)) {
-        std::cout<<"Exista deja o oferta  "<<o.getTip();
+        throw OfertaRepoException("Exista deja o oferta de acest fel!\n");
     }
-    else
-        all.push_back(o);
+    all.push_back(o);
 }
 
 const Oferta& OfertaRepo::cauta(string denumire, string destinatie) const {
@@ -27,7 +32,7 @@ const Oferta& OfertaRepo::cauta(string denumire, string destinatie) const {
             return o;
         }
     }
-    cout<<"Nu exista oferta aceasta!";
+    throw OfertaRepoException("Nu exista oferta aceasta!");
 }
 
 const vector<Oferta>& OfertaRepo::getAll() const noexcept {

@@ -37,19 +37,23 @@ void Consola::run() {
         cout<<"1. Adaugare oferta\n2. Afisare oferte\n";
         int optiune;
         cin>>optiune;
-        switch (optiune) {
-            case 1:
-                adaugaUI();
-                break;
-            case 2:
-                afisareUI(service.getAll());
-                break;
-            case '0':
-                cout<<"Iesire din aplicatie...";
-                return;
-            default:
-                cout<<"Comanda invalida!!!\n";
-
+        try{
+            switch (optiune) {
+                case 1:
+                    adaugaUI();
+                    break;
+                case 2:
+                    afisareUI(service.getAll());
+                    break;
+                case 0:
+                    cout << "Iesire din aplicatie...";
+                    return;
+                default:
+                    cout << "Comanda invalida!!!\n";
+            }
+        }
+        catch (const OfertaRepoException& ex) {
+            cout<<ex<<endl;
         }
     }
 }

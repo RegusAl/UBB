@@ -1,6 +1,7 @@
 #pragma once
 #include "Oferta.h"
 
+#include <utility>
 #include <vector>
 #include <string>
 #include <ostream>
@@ -26,9 +27,9 @@ public:
 };
 
 class OfertaRepoException {
-    string mesaj;
+    string msj;
 public:
-    OfertaRepoException(string mesaj): mesaj{mesaj} {}
+    OfertaRepoException(string m): msj{ m } {}
     friend ostream& operator<<(ostream& out, const OfertaRepoException& ex);
 };
 

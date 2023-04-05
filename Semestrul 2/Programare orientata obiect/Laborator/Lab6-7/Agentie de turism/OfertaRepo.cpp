@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <sstream>
-#include <assert.h>
 
 using std::ostream;
 using std::stringstream;
@@ -39,4 +38,7 @@ const vector<Oferta>& OfertaRepo::getAll() const noexcept {
     return all;
 }
 
-
+ostream& operator<<(ostream& out, const OfertaRepoException& ex) {
+    out<<ex.msj;
+    return out;
+}

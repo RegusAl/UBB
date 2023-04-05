@@ -9,10 +9,6 @@ using std::stringstream;
 using std::cout;
 using std::string;
 
-vector <Oferta>::iterator OfertaRepo::getIterator(Oferta* pointer) {
-    return all.begin() + (pointer-all.data());
-}
-
 bool OfertaRepo::exist(const Oferta &o) const {
     try {
         cauta(o.getDenumire(), o.getDestinatie());
@@ -33,7 +29,12 @@ void OfertaRepo::adauga(const Oferta &o) {
 void OfertaRepo::stergere(Oferta &o) {
     if(!exist(o))
         throw OfertaRepoException("Nu se poate sterge o oferta ce nu exista!!\n");
-    all.erase(getIterator(&o));
+    for(unsigned int i = 0; i<all.size(); i++) {
+        if(all[i].getDestinatie() == o.getDestinatie()) {
+            all.erase(all.begin()+i);
+        }
+    }
+    //all.erase();
 }
 
 const Oferta& OfertaRepo::cauta(string denumire, string destinatie) const {

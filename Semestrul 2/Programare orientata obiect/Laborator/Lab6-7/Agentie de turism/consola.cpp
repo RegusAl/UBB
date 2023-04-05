@@ -53,6 +53,7 @@ void Consola::stergereUI() {
     cout<<"Destinatia ofertei pe care vreti sa o stergeti: ";
     cin>>destinatie;
     service.stergereOferta(denumire, destinatie);
+    cout<<"Oferta s-a sters cu succes!"<<endl;
 }
 
 void Consola::run() {

@@ -12,7 +12,6 @@ using std::ostream;
 
 class OfertaRepo {
     vector <Oferta> all;
-    vector <Oferta>::iterator getIterator(Oferta*);
     bool exist(const Oferta& o) const;
 public:
     OfertaRepo() = default;

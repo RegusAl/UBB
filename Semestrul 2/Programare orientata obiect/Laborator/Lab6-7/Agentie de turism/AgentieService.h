@@ -7,6 +7,7 @@
 #include <vector>
 
 using std::vector;
+using std::string;
 
 class AgentieService {
     OfertaRepo& Repo;
@@ -19,6 +20,11 @@ public:
         return Repo.getAll();
     }
 
-    void adaugaOferta(const string& denumire, const string destinatie, const string tip, float pret);
+    void adaugaOferta(const string& denumire, const string& destinatie, const string tip, float pret);
+    void modificaOferta(string denumire, string destinatie, string tip, float pret);
+    void stergereOferta(string denumire, string destinatie);
 
-};
+
+    };
+
+

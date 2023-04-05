@@ -12,7 +12,7 @@ class Oferta {
     float Pret;
 
 public:
-    Oferta(const string denumire, const string destinatie, const string tip, float pret) {
+    Oferta(const string& denumire, const string& destinatie, const string& tip, float pret) {
         Denumire = denumire;
         Destinatie = destinatie;
         Tip = tip;
@@ -39,12 +39,12 @@ public:
     }
 
     // setters
-    void setTip(string tip) {
-        Tip = tip;
-    }
-
-    void setPret(float pret) {
-        Pret = pret;
-    }
+//    void setTip(string tip) {
+//        Tip = tip;
+//    }
+//
+//    void setPret(float pret) {
+//        Pret = pret;
+//    }
 };
 

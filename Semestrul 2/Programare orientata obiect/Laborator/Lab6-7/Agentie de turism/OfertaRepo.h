@@ -36,7 +36,7 @@ public:
 class OfertaRepoException {
     string msj;
 public:
-    OfertaRepoException(string m): msj{ m } {}
+    explicit OfertaRepoException(string m): msj{std::move( std::move(m) )} {}
     friend ostream& operator<<(ostream& out, const OfertaRepoException& ex);
 };
 

@@ -1,5 +1,5 @@
 #include "teste.h"
-#include <assert.h>
+#include <cassert>
 #include <sstream>
 
 using std::ostream;
@@ -30,6 +30,8 @@ void test_cauta() {
     auto o1 = repo.cauta("La mare", "Mamaia");
     assert(o1.getDestinatie()=="Mamaia");
     assert(o1.getDenumire()=="La mare");
+    assert(o1.getTip()=="all-inclusive");
+    assert(o1.getPret()==2345);
     try {
         repo.cauta("nuj", "nuj");
         assert(false);
@@ -47,7 +49,7 @@ void test_stergere() {
     assert(repo.getAll().size()==1);
     Oferta o1 = Oferta("La mare", "Mamaia", "all-inclusive", 2345);
     repo.stergere(o1);
-    assert(repo.getAll().size()==0);
+    assert(repo.getAll().empty());
     Oferta o2 = Oferta("La mare", "Mamaia", "all-inclusive", 2345);
     try {
         repo.stergere(o2);
@@ -60,17 +62,89 @@ void test_stergere() {
     }
 }
 
-//void test_modificare() {
-//    OfertaRepo repo;
-//    repo.adauga(Oferta("La mare", "Mamaia", "all-inclusive", 2345));
-//    assert(repo.getAll().size()==1);
-//    auto o = repo.modificaOferta("La mare", "Mamaia", "3 zile", 1000);
-//    //assert(o.getTip()=="3 zile");
-//}
+// TESTE SERVICE
+void test_getAll() {
+    OfertaRepo repo;
+    AgentieService service{repo};
+    repo.adauga(Oferta("La mare", "Mamaia", "all-inclusive", 2345));
+    assert(repo.getAll().size()==1);
+    repo.adauga(Oferta("Munte", "Sinaia", "all-inclusive", 1280));
+    assert(repo.getAll().size()==2);
+    vector<Oferta> oferte = service.getAll();
+    assert(oferte.size()==2);
+}
 
-void test_all_repository() {
+void test_adaugaOferta() {
+    OfertaRepo repo;
+    AgentieService service{repo};
+    assert(repo.getAll().empty());
+    service.adaugaOferta("La mare", "Mamaia", "all-inclusive", 2345);
+    assert(repo.getAll().size()==1);
+}
+
+void test_modificaOferta() {
+    OfertaRepo repo;
+    AgentieService service{repo};
+    repo.adauga(Oferta("La mare", "Mamaia", "all-inclusive", 2345));
+    assert(repo.getAll().size()==1);
+    service.modificaOferta("La mare", "Mamaia", "3 zile", 1000);
+    auto o = repo.cauta("La mare", "Mamaia");
+    assert(o.getTip()=="3 zile");
+    assert(o.getPret()==1000);
+}
+
+void test_stergeOferta() {
+    OfertaRepo repo;
+    AgentieService service{repo};
+    repo.adauga(Oferta("La mare", "Mamaia", "all-inclusive", 2345));
+    assert(repo.getAll().size()==1);
+//    service.stergereOferta("La munte", "Sinaia");
+//    assert(repo.getAll().size()==1);
+    service.stergereOferta("La mare", "Mamaia");
+    assert(repo.getAll().size()==0);
+}
+
+void test_filtrareDestinatie() {
+    OfertaRepo repo;
+    AgentieService service{repo};
+    repo.adauga(Oferta("La mare", "Mamaia", "all-inclusive", 2345));
+    assert(repo.getAll().size()==1);
+    repo.adauga(Oferta("Plaja", "Mamaia", "-", 400));
+    repo.adauga(Oferta("Munte", "Sinaia", "all-inclusive", 1234));
+    vector<Oferta> listaFiltrata1 = service.filtrareDestinatie("Mamaia");
+    assert(listaFiltrata1.size()==2);
+    assert(listaFiltrata1[0].getPret()==2345);
+    assert(listaFiltrata1[1].getPret()==400);
+    vector<Oferta> listaFiltrata2 = service.filtrareDestinatie("Exemplu");
+    assert(listaFiltrata2.empty());
+}
+
+void test_filtrarePret() {
+    OfertaRepo repo;
+    AgentieService service{repo};
+    repo.adauga(Oferta("La mare", "Mamaia", "all-inclusive", 2345));
+    assert(repo.getAll().size()==1);
+    repo.adauga(Oferta("Plaja", "Mamaia", "-", 400));
+    repo.adauga(Oferta("Munte", "Sinaia", "all-inclusive", 1234));
+    vector<Oferta> listaFiltrata1 = service.filtrarePret(2000);
+    assert(listaFiltrata1.size()==2);
+    assert(listaFiltrata1[0].getPret()==400);
+    assert(listaFiltrata1[1].getPret()==1234);
+    vector<Oferta> listaFiltrata2 = service.filtrarePret(10);
+    assert(typeid(service.filtrarePret(100))== typeid(vector<Oferta>));
+    assert(listaFiltrata2.empty());
+}
+
+void test_all() {
+    // Teste REPOSITORY
     test_adauga();
     test_cauta();
     test_stergere();
-    //test_modificare();
+    // Teste SERVICE
+    test_getAll();
+    test_adaugaOferta();
+    test_modificaOferta();
+    test_stergeOferta();
+    test_filtrareDestinatie();
+    test_filtrarePret();
 }

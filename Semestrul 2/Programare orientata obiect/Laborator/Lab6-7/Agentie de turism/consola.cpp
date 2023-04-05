@@ -9,6 +9,7 @@ using std::cin;
 using std::endl;
 
 void Consola::adaugaUI() {
+    cout<<"ADAUGARE OFERTA"<<endl;
     string denumire, destinatie, tip;
     float pret;
     cout<<"Denumirea: ";
@@ -31,7 +32,7 @@ void Consola::afisareUI(const vector<Oferta>& oferte) {
 }
 
 void Consola::modificaUI() {
-    cout<<"Modificare: "<<endl;
+    cout<<"MODIFICARE OFERTA: "<<endl;
     string denumire, destinatie, tip_nou;
     float pret_nou;
     cout<<"Denumirea ofertei pe care vreti sa o schimbati: ";
@@ -46,7 +47,7 @@ void Consola::modificaUI() {
 }
 
 void Consola::stergereUI() {
-    cout<<"Stergere Oferta"<<endl;
+    cout<<"STERGERE OFERTA"<<endl;
     string denumire, destinatie;
     cout<<"Denumirea ofertei pe care vreti sa o stergeti: ";
     cin>>denumire;
@@ -56,11 +57,28 @@ void Consola::stergereUI() {
     cout<<"Oferta s-a sters cu succes!"<<endl;
 }
 
+void Consola::filtrareDestinatieUI() {
+    cout<<"FILTRARE DUPA DESTINATIE"<<endl;
+    string destinatia;
+    cout<<"Dati destinatia pentru care vreti sa vedeti ofertele: ";
+    cin>>destinatia;
+    afisareUI(service.filtrareDestinatie(destinatia));
+}
+
+void Consola::filtrarePretUI() {
+    cout<<"FILTRARE DUPA PRETUL MAXIM"<<endl;
+    float pret;
+    cout<<"Dati pretul maxim pentru care vreti sa vedeti ofertele: ";
+    cin>>pret;
+    afisareUI(service.filtrarePret(pret));
+}
+
 void Consola::run() {
     while(true) {
-        cout<<"Meniu"<<endl;
-        cout<<"1. Adaugare oferta\n2. Afisare oferte\n3. Modifica tipul si pretul unei oferte\n4. Stergere oferta\n0. Iesire\n";
+        cout<<"---\tMENIU\t---\n---\t---\t---"<<endl;
+        cout<<"1. Adaugare oferta\n2. Afisare oferte\n3. Modifica tipul si pretul unei oferte\n4. Stergere oferta\n5. Filtrare dupa destinatie\n6. Filtrare dupa pretul maxim\n0. Iesire\n---\t---\t---\n";
         int optiune;
+        cout<<"Optiunea: ";
         cin>>optiune;
         try{
             switch (optiune) {
@@ -75,6 +93,12 @@ void Consola::run() {
                     break;
                 case 4:
                     stergereUI();
+                    break;
+                case 5:
+                    filtrareDestinatieUI();
+                    break;
+                case 6:
+                    filtrarePretUI();
                     break;
                 case 0:
                     cout << "Iesire din aplicatie...";

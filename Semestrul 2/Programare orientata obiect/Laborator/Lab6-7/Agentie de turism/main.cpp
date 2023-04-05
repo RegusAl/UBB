@@ -3,9 +3,6 @@
 #include "AgentieService.h"
 #include "teste.h"
 
-void test_all() {
-    test_all_repository();
-}
 
 int main() {
     test_all();

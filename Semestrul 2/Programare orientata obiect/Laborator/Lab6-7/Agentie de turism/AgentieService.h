@@ -5,26 +5,27 @@
 
 #include <string>
 #include <vector>
+#include <functional>
 
 using std::vector;
 using std::string;
+using std::function;
 
 class AgentieService {
     OfertaRepo& Repo;
+    vector<Oferta> filtrare(function<bool(const Oferta&)> fct);
 public:
-    AgentieService(OfertaRepo& repo):Repo{repo}{}
-
+    explicit AgentieService(OfertaRepo& repo):Repo{repo}{}
+    AgentieService() = delete;
     AgentieService(const AgentieService& ot) = delete;
 
-    const vector<Oferta>& getAll() noexcept {
-        return Repo.getAll();
-    }
+    const vector<Oferta> getAll() noexcept;
 
-    void adaugaOferta(const string& denumire, const string& destinatie, const string tip, float pret);
-    void modificaOferta(string denumire, string destinatie, string tip, float pret);
+    void adaugaOferta(const string& denumire, const string& destinatie, const string& tip, float pret);
+    void modificaOferta(const string& denumire, const string& destinatie, const string& tip, float pret);
     void stergereOferta(string denumire, string destinatie);
-
-
-    };
+    vector<Oferta> filtrareDestinatie(string destinatie);
+    vector<Oferta> filtrarePret(float pret);
+};
 
 

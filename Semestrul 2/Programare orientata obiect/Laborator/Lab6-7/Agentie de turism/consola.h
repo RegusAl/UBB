@@ -5,11 +5,13 @@
 class Consola {
     AgentieService& service;
     void adaugaUI();
-    void afisareUI(const std::vector<Oferta>& oferte);
+    static void afisareUI(const std::vector<Oferta>& oferte);
     void modificaUI();
     void stergereUI();
+    void filtrareDestinatieUI();
+    void filtrarePretUI();
 public:
-    Consola(AgentieService& service): service{service} {}
+    explicit Consola(AgentieService& service): service{service} {}
     Consola(const Consola& ot) = delete;
 
     void run();

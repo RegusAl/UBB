@@ -34,7 +34,6 @@ void OfertaRepo::stergere(Oferta &o) {
             all.erase(all.begin()+i);
         }
     }
-    //all.erase();
 }
 
 const Oferta& OfertaRepo::cauta(string denumire, string destinatie) const {

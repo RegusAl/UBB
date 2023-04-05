@@ -42,3 +42,4 @@ ostream& operator<<(ostream& out, const OfertaRepoException& ex) {
     out<<ex.msj;
     return out;
 }
+

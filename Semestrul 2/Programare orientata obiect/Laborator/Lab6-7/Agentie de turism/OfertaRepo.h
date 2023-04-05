@@ -34,4 +34,3 @@ public:
 };
 
 ostream& operator<<(ostream& out, const OfertaRepoException& ex);
-

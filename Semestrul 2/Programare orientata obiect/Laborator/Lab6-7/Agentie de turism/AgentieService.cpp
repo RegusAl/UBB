@@ -2,6 +2,17 @@
 #include <utility>
 #include "AgentieService.h"
 
+
+vector<Oferta> AgentieService::filtrare(function<bool(const Oferta &)> fct) {
+    vector<Oferta> rez;
+    for(const auto& oferta:Repo.getAll()) {
+        if(fct(oferta)) {
+            rez.push_back(oferta);
+        }
+    }
+    return vector<Oferta> (rez);
+}
+
 const vector<Oferta> AgentieService::getAll() noexcept {
     return Repo.getAll();
 }
@@ -23,15 +34,7 @@ void AgentieService::stergereOferta(string denumire, string destinatie) {
     Repo.stergere(o);
 }
 
-vector<Oferta> AgentieService::filtrare(function<bool(const Oferta &)> fct) {
-    vector<Oferta> rez;
-    for(const auto& oferta:Repo.getAll()) {
-        if(fct(oferta)) {
-            rez.push_back(oferta);
-        }
-    }
-    return rez;
-}
+
 
 vector<Oferta> AgentieService::filtrareDestinatie(string destinatie) {
      return filtrare([destinatie](const Oferta& o) {

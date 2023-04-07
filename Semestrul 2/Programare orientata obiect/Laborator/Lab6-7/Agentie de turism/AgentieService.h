@@ -19,7 +19,9 @@ public:
     AgentieService() = delete;
     AgentieService(const AgentieService& ot) = delete;
 
-    vector<Oferta> getAll() noexcept;
+    const vector<Oferta>& getAll() noexcept {
+        return Repo.getAll();
+    }
 
     void adaugaOferta(const string& denumire, const string& destinatie, const string& tip, float pret);
     void modificaOferta(const string& denumire, const string& destinatie, const string& tip, float pret);

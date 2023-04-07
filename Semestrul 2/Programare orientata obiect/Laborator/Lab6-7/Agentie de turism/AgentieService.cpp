@@ -9,11 +9,7 @@ vector<Oferta> AgentieService::filtrare(const function<bool(const Oferta &)>& fc
             rez.push_back(oferta);
         }
     }
-    return vector<Oferta>{rez};
-}
-
-vector<Oferta> AgentieService::getAll() noexcept {
-    return Repo.getAll();
+    return (rez);
 }
 
 void AgentieService::adaugaOferta(const std::string &denumire, const std::string &destinatie, const std::string& tip, float pret) {

@@ -10,6 +10,7 @@ using std::stringstream;
 using std::cout;
 using std::string;
 using std::exception;
+//using std::vector;
 
 bool OfertaRepo::exist(const Oferta &o) const {
     try {

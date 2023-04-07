@@ -15,7 +15,7 @@ class OfertaRepo {
     bool exist(const Oferta& o) const;
 public:
     OfertaRepo() = default;
-    OfertaRepo(const OfertaRepo& of) = delete;
+    OfertaRepo(const OfertaRepo& o) = delete;
 
     // adaugare Oferta
     void adauga(const Oferta& o);

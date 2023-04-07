@@ -13,18 +13,18 @@ using std::function;
 
 class AgentieService {
     OfertaRepo& Repo;
-    vector<Oferta> filtrare(function<bool(const Oferta&)> fct);
+    vector<Oferta> filtrare(const function<bool(const Oferta&)>& fct);
 public:
     explicit AgentieService(OfertaRepo& repo):Repo{repo}{}
     AgentieService() = delete;
     AgentieService(const AgentieService& ot) = delete;
 
-    const vector<Oferta> getAll() noexcept;
+    vector<Oferta> getAll() noexcept;
 
     void adaugaOferta(const string& denumire, const string& destinatie, const string& tip, float pret);
     void modificaOferta(const string& denumire, const string& destinatie, const string& tip, float pret);
-    void stergereOferta(string denumire, string destinatie);
-    vector<Oferta> filtrareDestinatie(string destinatie);
+    void stergereOferta(const string& denumire, const string& destinatie);
+    vector<Oferta> filtrareDestinatie(const string& destinatie);
     vector<Oferta> filtrarePret(float pret);
 };
 

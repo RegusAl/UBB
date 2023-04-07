@@ -3,11 +3,13 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <exception>
 
 using std::ostream;
 using std::stringstream;
 using std::cout;
 using std::string;
+using std::exception;
 
 bool OfertaRepo::exist(const Oferta &o) const {
     try {
@@ -36,7 +38,7 @@ void OfertaRepo::stergere(Oferta &o) {
     }
 }
 
-const Oferta& OfertaRepo::cauta(string denumire, string destinatie) const {
+const Oferta& OfertaRepo::cauta(const string& denumire, const string& destinatie) const {
     for(const auto& o : all) {
         if(o.getDenumire() == denumire && o.getDestinatie() == destinatie) {
             return o;

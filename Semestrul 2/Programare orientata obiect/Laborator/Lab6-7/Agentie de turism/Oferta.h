@@ -19,7 +19,9 @@ public:
         Pret = pret;
     }
 
-    Oferta(const Oferta& o):Denumire{o.Denumire}, Destinatie{o.Destinatie}, Tip{o.Tip}, Pret{o.Pret} {}
+    Oferta(const Oferta& o):Denumire{o.Denumire}, Destinatie{o.Destinatie}, Tip{o.Tip}, Pret{o.Pret} {
+        cout<<"copie efectuata\n";
+    }
 
     // getters
     string getDenumire() const {

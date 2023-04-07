@@ -24,7 +24,7 @@ public:
     void stergere(Oferta& o);
 
     // cautare Oferta
-    const Oferta& cauta(string denumire, string destinatie) const;
+    const Oferta& cauta(const string& denumire, const string& destinatie) const;
 
     // getAll Oferte
     const vector<Oferta>& getAll() const noexcept;

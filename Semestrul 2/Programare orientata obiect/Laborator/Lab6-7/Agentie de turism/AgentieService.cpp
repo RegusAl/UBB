@@ -1,19 +1,18 @@
 #include <string>
-#include <utility>
 #include "AgentieService.h"
 
 
-vector<Oferta> AgentieService::filtrare(function<bool(const Oferta &)> fct) {
+vector<Oferta> AgentieService::filtrare(const function<bool(const Oferta &)>& fct) {
     vector<Oferta> rez;
     for(const auto& oferta:Repo.getAll()) {
         if(fct(oferta)) {
             rez.push_back(oferta);
         }
     }
-    return vector<Oferta> (rez);
+    return vector<Oferta>{rez};
 }
 
-const vector<Oferta> AgentieService::getAll() noexcept {
+vector<Oferta> AgentieService::getAll() noexcept {
     return Repo.getAll();
 }
 
@@ -29,14 +28,12 @@ void AgentieService::modificaOferta(const string& denumire, const string& destin
     Repo.adauga(new_o);
 }
 
-void AgentieService::stergereOferta(string denumire, string destinatie) {
-    Oferta o = Repo.cauta(std::move(denumire), std::move(destinatie));
+void AgentieService::stergereOferta(const string& denumire, const string& destinatie) {
+    Oferta o = Repo.cauta(denumire, destinatie);
     Repo.stergere(o);
 }
 
-
-
-vector<Oferta> AgentieService::filtrareDestinatie(string destinatie) {
+vector<Oferta> AgentieService::filtrareDestinatie(const string& destinatie) {
      return filtrare([destinatie](const Oferta& o) {
          return o.getDestinatie() == destinatie;
      });

@@ -40,6 +40,7 @@ void test_cauta() {
         stringstream os;
         os<<ex;
         assert(os.str().find("exista")>=0);
+        assert(true);
     }
 }
 
@@ -59,6 +60,7 @@ void test_stergere() {
         stringstream os;
         os << ex;
         assert(os.str().find("Nu se poate sterge o oferta ce nu exista")>=0);
+        assert(true);
     }
 }
 
@@ -101,7 +103,7 @@ void test_stergeOferta() {
 //    service.stergereOferta("La munte", "Sinaia");
 //    assert(repo.getAll().size()==1);
     service.stergereOferta("La mare", "Mamaia");
-    assert(repo.getAll().size()==0);
+    assert(repo.getAll().empty());
 }
 
 void test_filtrareDestinatie() {

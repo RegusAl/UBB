@@ -1,0 +1,38 @@
+﻿
+Exerciţii - Programare shell
+---------------------------------------------------------------------------
+1. Să se scrie un script bash care primeşte ca argument un număr natural N şi generează N fişiere de tip text, astfel:
+- numele fişierelor vor fi de forma: file_X.txt, unde X = {1, 2, ..., N}
+- fiecare fişier generat va conţine doar liniile de la X la X + 5 ale fişierului /etc/passwd.
+(comenzi: touch, sed)
+
+2. Să se scrie un script bash care afișează primele 3 linii și ultimele 3 linii ale fiecărui fișier de tip text din dintr-un director dat ca argument în linia de comandă. Dacă un fișier text are mai puțin de 6 linii, atunci conţinutul acestuia va fi afişat în întregime.
+(comenzi: find, file, grep, wc, head, tail)
+
+3. Să se scrie un script bash care calculează numărul mediu de linii ale fișierelor de tip text dintr-un director dat ca argument.
+(comenzi: find, file, grep, wc)
+
+4. Să se scrie un script bash care afișează numele fișierelor dintr-un director dat ca argument care conțin numere cu peste 5 cifre.
+(comenzi: find, grep, sed)
+
+5. Să se scrie un script bash care pentru fiecare argument din linia de comandă:
+- dacă e fișier, va afişa numele, numărul de caractere și de linii (în această ordine)
+- dacă e director, va afişa numele și câte fișiere conține (inclusiv în subdirectoare).
+(comenzi: find, grep, test, wc)
+
+6. Să se scrie un script bash care primește ca argumente oricâte nume de fișiere. Scriptul va citi de la tastatură un cuvânt, va determina și afișa numărul de apariţii ale cuvântului în fiecare fișier furnizat ca argument.
+(comenzi: read, grep)
+
+7. Să se scrie un script bash care primește ca argumente oricâte nume de fișiere. Scriptul va citi de la tastatură două cuvinte și va înlocui TOATE aparițiile primului cuvânt cu cel de-al doilea în fiecare fișier furnizat ca argument.
+(comenzi: read, sed)
+
+8. Să se scrie un script bash care are ca argumente triplete formate dintr-un nume de fisier, un cuvant si un numar k. Pentru fiecare astfel de triplet, se vor afişa toate liniile fişierului care contin cuvăntul respectiv exact de k ori.
+(comenzi: shift, wc, sed, grep)
+
+9. Să se scrie un script bash care afişează, pentru fiecare fişier dat ca argument, linia care apare de cele mai multe ori. Afişarea se va face în ordinea descrescătoare a numărului de apariţii.
+(comenzi: sort, uniq, head)
+
+10. Să se scrie un script bash care va afişa toate numele de fişiere dintr-un director dat ca parametru şi din subdirectoarele sale, care au numele mai scurte de 8 caractere. Pentru acestea, dacă sunt fişiere text, li se vor afişa primele 10 linii.
+
+11. Să se scrie un script bash care pentru fiecare fişier cu drepturile 755 dintr-un director (şi subdirectoarele sale) dat ca parametru îi va modifica drepturile de acces în 744. Înainte de a modifica drepturile de acces, script-ul va cere confirmarea din partea utilizatorului (pentru fiecare fişier în parte).
+(comenzi: find, chmod, read)

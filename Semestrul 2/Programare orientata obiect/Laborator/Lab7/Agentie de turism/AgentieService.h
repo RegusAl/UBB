@@ -2,6 +2,7 @@
 
 #include "Oferta.h"
 #include "OfertaRepo.h"
+#include "Validator.h"
 
 #include <string>
 //#include <vector>
@@ -17,9 +18,10 @@ typedef int(*Sort)(const Oferta&, const Oferta&);
 
 class AgentieService {
     OfertaRepo& Repo;
+    Validator& Valid;
     VectorDinamic<Oferta> filtrare(const function<bool(const Oferta&)>& fct);
 public:
-    explicit AgentieService(OfertaRepo& repo):Repo{repo}{}
+    explicit AgentieService(OfertaRepo& repo, Validator& valid):Repo{repo}, Valid{valid} {}
     AgentieService() = delete;
     AgentieService(const AgentieService& ot) = delete;
 
@@ -30,8 +32,8 @@ public:
     void adaugaOferta(const string& denumire, const string& destinatie, const string& tip, float pret);
     void modificaOferta(const string& denumire, const string& destinatie, const string& tip, float pret);
     void stergereOferta(const string& denumire, const string& destinatie);
-    VectorDinamic<Oferta> filtrareDestinatie(const string& destinatie);
-    VectorDinamic<Oferta> filtrarePret(float pret);
+//    VectorDinamic<Oferta> filtrareDestinatie(const string& destinatie);
+//    VectorDinamic<Oferta> filtrarePret(float pret);
 };
 
 

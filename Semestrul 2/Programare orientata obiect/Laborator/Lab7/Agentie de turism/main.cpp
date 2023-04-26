@@ -1,13 +1,15 @@
 #include "consola.h"
 #include "OfertaRepo.h"
 #include "AgentieService.h"
+#include "Validator.h"
 #include "teste.h"
 
 
 int main() {
-    test_all();
+//    test_all();
     OfertaRepo repo;
-    AgentieService service{repo};
+    Validator valid;
+    AgentieService service{repo, valid};
     Consola ui{service};
     ui.run();
 }

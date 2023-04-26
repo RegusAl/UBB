@@ -13,11 +13,13 @@
 //}
 
 void AgentieService::adaugaOferta(const std::string &denumire, const std::string &destinatie, const std::string& tip, float pret) {
+    Valid.validateOferta(denumire, destinatie, tip, pret);
     Oferta o{denumire, destinatie, tip, pret};
     Repo.adauga(o);
 }
 
 void AgentieService::modificaOferta(const string& denumire, const string& destinatie, const string& tip, float pret)  {
+    Valid.validateOferta(denumire, destinatie, tip, pret);
     Oferta o = Repo.cauta(denumire, destinatie);
     Repo.stergere(o);
     Oferta new_o{denumire, destinatie, tip, pret};
@@ -25,6 +27,7 @@ void AgentieService::modificaOferta(const string& denumire, const string& destin
 }
 
 void AgentieService::stergereOferta(const string& denumire, const string& destinatie) {
+    Valid.validateOferta(denumire, destinatie, "exemplu", 1);
     Oferta o = Repo.cauta(denumire, destinatie);
     Repo.stergere(o);
 }

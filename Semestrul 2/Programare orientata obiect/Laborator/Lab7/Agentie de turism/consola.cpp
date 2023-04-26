@@ -1,8 +1,10 @@
 #include "consola.h"
 #include "Oferta.h"
 #include "VectorDinamic.h"
+#include "Errors.h"
 
 #include <iostream>
+#include <cstring>
 #include <string>
 
 using std::cout;
@@ -12,6 +14,7 @@ using std::endl;
 void Consola::adaugaUI() {
     cout<<"ADAUGARE OFERTA"<<endl;
     string denumire, destinatie, tip;
+    char pr[100];
     float pret;
     cout<<"Denumirea: ";
     cin>>denumire;
@@ -20,9 +23,16 @@ void Consola::adaugaUI() {
     cout<<"Tipul: ";
     cin>>tip;
     cout<<"Pretul: ";
-    cin>>pret;
-    service.adaugaOferta(denumire, destinatie, tip, pret);
-    cout<<"Oferta a fost adaugata cu succes!"<<endl;
+    cin>>pr;
+    pret = atoi(pr);
+    try {
+        service.adaugaOferta(denumire, destinatie, tip, pret);
+        cout<<"Oferta a fost adaugata cu succes!"<<endl;
+
+    }
+    catch(Exception exception) {
+        cout<<exception.getMessage();
+    }
 }
 
 void Consola::afisareUI(VectorDinamic<Oferta>& oferte) {
@@ -35,6 +45,7 @@ void Consola::afisareUI(VectorDinamic<Oferta>& oferte) {
 void Consola::modificaUI() {
     cout<<"MODIFICARE OFERTA: "<<endl;
     string denumire, destinatie, tip_nou;
+    char pr[100];
     float pret_nou;
     cout<<"Denumirea ofertei pe care vreti sa o schimbati: ";
     cin>>denumire;
@@ -43,8 +54,15 @@ void Consola::modificaUI() {
     cout<<"Tipul nou: ";
     cin>>tip_nou;
     cout<<"Pretul nou: ";
-    cin>>pret_nou;
-    service.modificaOferta(denumire, destinatie, tip_nou, pret_nou);
+    cin>>pr;
+    pret_nou = atoi(pr);
+    try {
+        service.modificaOferta(denumire, destinatie, tip_nou, pret_nou);
+
+    }
+    catch(Exception exception) {
+        cout<<exception.getMessage();
+    }
 }
 
 void Consola::stergereUI() {
@@ -54,8 +72,13 @@ void Consola::stergereUI() {
     cin>>denumire;
     cout<<"Destinatia ofertei pe care vreti sa o stergeti: ";
     cin>>destinatie;
-    service.stergereOferta(denumire, destinatie);
-    cout<<"Oferta s-a sters cu succes!"<<endl;
+    try {
+        service.stergereOferta(denumire, destinatie);
+        cout<<"Oferta s-a sters cu succes!"<<endl;
+    }
+    catch(Exception exception) {
+        cout<<exception.getMessage();
+    }
 }
 
 //void Consola::filtrareDestinatieUI() {

@@ -67,7 +67,8 @@ void test_stergere() {
 // TESTE SERVICE
 void test_getAll() {
     OfertaRepo repo;
-    AgentieService service{repo};
+    Validator valid;
+    AgentieService service{repo, valid};
     repo.adauga(Oferta("La mare", "Mamaia", "all-inclusive", 2345));
     assert(repo.getAll().size()==1);
     repo.adauga(Oferta("Munte", "Sinaia", "all-inclusive", 1280));
@@ -78,7 +79,8 @@ void test_getAll() {
 
 void test_adaugaOferta() {
     OfertaRepo repo;
-    AgentieService service{repo};
+    Validator valid;
+    AgentieService service{repo, valid};
 //    assert(repo.getAll().empty());
     service.adaugaOferta("La mare", "Mamaia", "all-inclusive", 2345);
     assert(repo.getAll().size()==1);
@@ -86,7 +88,8 @@ void test_adaugaOferta() {
 
 void test_modificaOferta() {
     OfertaRepo repo;
-    AgentieService service{repo};
+    Validator valid;
+    AgentieService service{repo, valid};
     repo.adauga(Oferta("La mare", "Mamaia", "all-inclusive", 2345));
     assert(repo.getAll().size()==1);
     service.modificaOferta("La mare", "Mamaia", "3 zile", 1000);
@@ -97,7 +100,8 @@ void test_modificaOferta() {
 
 void test_stergeOferta() {
     OfertaRepo repo;
-    AgentieService service{repo};
+    Validator valid;
+    AgentieService service{repo, valid};
     repo.adauga(Oferta("La mare", "Mamaia", "all-inclusive", 2345));
     assert(repo.getAll().size()==1);
 //    service.stergereOferta("La munte", "Sinaia");

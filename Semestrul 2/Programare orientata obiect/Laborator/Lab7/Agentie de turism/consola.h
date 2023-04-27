@@ -6,7 +6,7 @@
 class Consola {
     AgentieService& service;
     void adaugaUI();
-    static void afisareUI(VectorDinamic<Oferta>& oferte);
+    static void afisareUI(VectorDinamic<Oferta> oferte);
     void modificaUI();
     void stergereUI();
     void filtrareDestinatieUI();

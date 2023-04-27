@@ -6,7 +6,7 @@
 
 
 int main() {
-//    test_all();
+    test_all();
     OfertaRepo repo;
     Validator valid;
     AgentieService service{repo, valid};

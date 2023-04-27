@@ -9,12 +9,12 @@ class Oferta {
     string Denumire;
     string Destinatie;
     string Tip;
-    float Pret;
+    int Pret;
 
 public:
     Oferta() = default;
 
-    Oferta(const string& denumire, const string& destinatie, const string& tip, float pret) {
+    Oferta(const string& denumire, const string& destinatie, const string& tip, int pret) {
         Denumire = denumire;
         Destinatie = destinatie;
         Tip = tip;
@@ -22,7 +22,7 @@ public:
     }
 
     Oferta(const Oferta& o):Denumire{o.Denumire}, Destinatie{o.Destinatie}, Tip{o.Tip}, Pret{o.Pret} {
-        cout<<"copie efectuata\n";
+//        cout<<"copie efectuata\n";
     }
 
     // getters

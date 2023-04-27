@@ -28,16 +28,10 @@ void OfertaRepo::adauga(const Oferta &o) {
 }
 
 void OfertaRepo::stergere(Oferta &o) {
-//    if(!exist(o))
-//        throw OfertaRepoException("Nu se poate sterge o oferta ce nu exista!!\n");
     int i = 0;
-    while(i < all.size() && all.get(i).getDenumire() != o.getDenumire() && all.get(i).getDestinatie() == o.getDestinatie()) {
-        i++;
-    }
-    if(i < all.size()) {
+    while(i<all.size() && all.get(i).getDenumire() == o.getDenumire() && all.get(i).getDestinatie() == o.getDestinatie()) {
         all.erase(i);
-    } else {
-        throw OfertaRepoException("Nu se poate sterge o oferta ce nu exista!!\n");
+        break;
     }
 }
 

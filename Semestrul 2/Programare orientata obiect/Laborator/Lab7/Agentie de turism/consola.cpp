@@ -15,7 +15,7 @@ void Consola::adaugaUI() {
     cout<<"ADAUGARE OFERTA"<<endl;
     string denumire, destinatie, tip;
     char pr[100];
-    float pret;
+    int pret;
     cout<<"Denumirea: ";
     cin>>denumire;
     cout<<"Destinatia: ";
@@ -35,10 +35,10 @@ void Consola::adaugaUI() {
     }
 }
 
-void Consola::afisareUI(VectorDinamic<Oferta>& oferte) {
+void Consola::afisareUI(VectorDinamic<Oferta> oferte) {
     cout<<"OFERTE"<<endl;
     for(const auto& oferta : oferte) {
-        cout<<oferta.getDenumire()<<" are loc in "<<oferta.getDestinatie()<<" si este "<<oferta.getTip()<<" si costa "<<oferta.getPret()<<" lei."<<endl;
+        cout<<"DENUMIRE: "<<oferta.getDenumire()<<" | DESTINATIE: "<<oferta.getDestinatie()<<" | TIP: "<<oferta.getTip()<<" | PRET: "<<oferta.getPret()<<" RON |"<<endl;
     }
 }
 
@@ -46,7 +46,7 @@ void Consola::modificaUI() {
     cout<<"MODIFICARE OFERTA: "<<endl;
     string denumire, destinatie, tip_nou;
     char pr[100];
-    float pret_nou;
+    int pret_nou;
     cout<<"Denumirea ofertei pe care vreti sa o schimbati: ";
     cin>>denumire;
     cout<<"Destinatia ofertei pe care vreti sa o schimbati: ";
@@ -81,21 +81,21 @@ void Consola::stergereUI() {
     }
 }
 
-//void Consola::filtrareDestinatieUI() {
-//    cout<<"FILTRARE DUPA DESTINATIE"<<endl;
-//    string destinatia;
-//    cout<<"Dati destinatia pentru care vreti sa vedeti ofertele: ";
-//    cin>>destinatia;
-//    afisareUI(service.filtrareDestinatie(destinatia));
-//}
-//
-//void Consola::filtrarePretUI() {
-//    cout<<"FILTRARE DUPA PRETUL MAXIM"<<endl;
-//    float pret;
-//    cout<<"Dati pretul maxim pentru care vreti sa vedeti ofertele: ";
-//    cin>>pret;
-//    afisareUI(service.filtrarePret(pret));
-//}
+void Consola::filtrareDestinatieUI() {
+    cout<<"FILTRARE DUPA DESTINATIE"<<endl;
+    string destinatia;
+    cout<<"Dati destinatia pentru care vreti sa vedeti ofertele: ";
+    cin>>destinatia;
+    afisareUI(service.filtrareDestinatie(destinatia));
+}
+
+void Consola::filtrarePretUI() {
+    cout<<"FILTRARE DUPA PRETUL MAXIM"<<endl;
+    float pret;
+    cout<<"Dati pretul maxim pentru care vreti sa vedeti ofertele: ";
+    cin>>pret;
+    afisareUI(service.filtrarePret(pret));
+}
 
 void Consola::run() {
     while(true) {
@@ -118,12 +118,12 @@ void Consola::run() {
                 case 4:
                     stergereUI();
                     break;
-//                case 5:
-//                    filtrareDestinatieUI();
-//                    break;
-//                case 6:
-//                    filtrarePretUI();
-//                    break;
+                case 5:
+                    filtrareDestinatieUI();
+                    break;
+                case 6:
+                    filtrarePretUI();
+                    break;
                 case 0:
                     cout << "Iesire din aplicatie...";
                     return;

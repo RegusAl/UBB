@@ -4,7 +4,7 @@
 bool validString(string str) {
 	if (str.size() == 0) return false;
 	for (int i = 0; i < str.size(); i++) {
-		if (!((str.at(i) >= 'a' && str.at(i) <= 'z') || (str.at(i) >= 'A' && str.at(i) <= 'Z'))) return false;
+		if (!((str.at(i) >= 'a' && str.at(i) <= 'z') || (str.at(i) >= 'A' && str.at(i) <= 'Z') || str.at(i) == ' ')) return false;
 	}
 	return true;
 }

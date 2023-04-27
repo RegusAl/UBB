@@ -29,11 +29,11 @@ public:
         return Repo.getAll();
     }
 
-    void adaugaOferta(const string& denumire, const string& destinatie, const string& tip, float pret);
-    void modificaOferta(const string& denumire, const string& destinatie, const string& tip, float pret);
+    void adaugaOferta(const string& denumire, const string& destinatie, const string& tip, int pret);
+    void modificaOferta(const string& denumire, const string& destinatie, const string& tip, int pret);
     void stergereOferta(const string& denumire, const string& destinatie);
-//    VectorDinamic<Oferta> filtrareDestinatie(const string& destinatie);
-//    VectorDinamic<Oferta> filtrarePret(float pret);
+    VectorDinamic<Oferta> filtrareDestinatie(const string& destinatie);
+    VectorDinamic<Oferta> filtrarePret(float pret);
 };
 
 

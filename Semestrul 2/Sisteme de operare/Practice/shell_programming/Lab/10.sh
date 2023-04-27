@@ -1,0 +1,5 @@
+#!/bin/bash
+
+find $1 -type f -name "????????" -printf "%f\n"
+
+exit 0

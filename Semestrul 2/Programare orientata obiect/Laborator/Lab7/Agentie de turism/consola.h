@@ -3,6 +3,7 @@
 #include "VectorDinamic.h"
 #include "Oferta.h"
 
+
 class Consola {
     AgentieService& service;
     void adaugaUI();
@@ -11,6 +12,7 @@ class Consola {
     void stergereUI();
     void filtrareDestinatieUI();
     void filtrarePretUI();
+    void sortare();
 
 public:
     explicit Consola(AgentieService& service): service{service}{}

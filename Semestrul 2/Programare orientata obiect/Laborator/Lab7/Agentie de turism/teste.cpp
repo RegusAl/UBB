@@ -128,8 +128,52 @@ void test_filtrarePret() {
     assert(listaFiltrata1.get(1).getPret()==1234);
     VectorDinamic<Oferta> listaFiltrata2 = service.filtrarePret(10);
     assert(typeid(service.filtrarePret(100))== typeid(VectorDinamic<Oferta>));
-//    assert(listaFiltrata2.empty());
+    assert(listaFiltrata2.size()==0);
 }
+
+int sortByDenumireTest(const Oferta& o1, const Oferta& o2) {
+    return o1.getDenumire().compare(o2.getDenumire());
+}
+
+int sortByDestinatieTest(const Oferta& o1, const Oferta& o2) {
+    return o1.getDestinatie().compare(o2.getDestinatie());
+}
+
+int sortByTipSiPretTest(const Oferta& o1, const Oferta& o2) {
+    if (o1.getTip().compare(o2.getTip()) == 0) {
+        return (o1.getTip().compare(o2.getTip()));}
+    else {
+        return o1.getPret()>o2.getPret();
+    }
+}
+
+void test_sortareOferte() {
+    OfertaRepo repo;
+    Validator valid;
+    AgentieService service{ repo, valid };
+    service.adaugaOferta("a", "b", "csc", 100);
+    service.adaugaOferta("sa", "a", "c", 50);
+    service.adaugaOferta("t", "y", "c", 63);
+    service.adaugaOferta("o", "xc", "m", 100);
+
+    auto list = service.sortareOferte(sortByDenumireTest);
+    auto list2 = service.sortareOferte(sortByDestinatieTest);
+    auto list3 = service.sortareOferte(sortByTipSiPretTest);
+
+    assert(list.size() == 4);
+    assert(list.get(0).getDenumire() == "a");
+    assert(list.get(3).getDenumire() == "t");
+
+    assert(list2.size() == 4);
+    assert(list2.get(1).getDenumire() == "a");
+    assert(list2.get(2).getDenumire() == "o");
+
+    assert(list3.size() == 4);
+    assert(list3.get(0).getDenumire() == "sa");
+    assert(list3.get(1).getDenumire() == "t");
+}
+
+
 
 
 template <typename MyVector>
@@ -200,6 +244,7 @@ void testMoveConstrAssgnment() {
 
 }
 
+
 void test_all() {
     // Teste REPOSITORY
     test_adauga();
@@ -212,6 +257,7 @@ void test_all() {
     test_stergeOferta();
     test_filtrareDestinatie();
     test_filtrarePret();
+    test_sortareOferte();
 
     testCreateCopyAssign<VectorDinamic<Oferta>>();
     testMoveConstrAssgnment<VectorDinamic<Oferta>>();

@@ -34,6 +34,8 @@ public:
     void stergereOferta(const string& denumire, const string& destinatie);
     VectorDinamic<Oferta> filtrareDestinatie(const string& destinatie);
     VectorDinamic<Oferta> filtrarePret(float pret);
+
+    VectorDinamic<Oferta> sortareOferte(Sort functieSortare);
 };
 
 

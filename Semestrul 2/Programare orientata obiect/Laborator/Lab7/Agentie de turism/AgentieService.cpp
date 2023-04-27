@@ -44,3 +44,24 @@ VectorDinamic<Oferta> AgentieService::filtrarePret(float pret) {
     });
 }
 
+VectorDinamic<Oferta> AgentieService::sortareOferte(Sort functieSortare) {
+    VectorDinamic<Oferta> lista_sortata;
+    VectorDinamic<Oferta> lista = Repo.getAll();
+    for(int i = 0; i<lista.size(); i++) {
+        lista_sortata.push_back(Oferta(lista.get(i)));
+    }
+    bool sorted = false;
+    while(!sorted) {
+        sorted = true;
+        for(int i = 0; i<lista_sortata.size()-1; i++) {
+            if(functieSortare(lista_sortata.get(i), lista_sortata.get(i+1))>0) {
+                Oferta aux = lista_sortata.get(i);
+                lista_sortata.get(i) = lista_sortata.get(i+1);
+                lista_sortata.get(i+1) = aux;
+                sorted = false;
+            }
+        }
+    }
+    return lista_sortata;
+}
+

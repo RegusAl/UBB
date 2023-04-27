@@ -13,7 +13,7 @@
 using std::string;
 using std::function;
 
-typedef bool(*Compare)(const Oferta&, const string&);
+//typedef bool(*Compare)(const Oferta&, const string&);
 typedef int(*Sort)(const Oferta&, const Oferta&);
 
 class AgentieService {

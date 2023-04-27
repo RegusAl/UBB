@@ -12,9 +12,9 @@ bool validString(string str) {
 void Validator::validateOferta(string denumire, string destinatie, string tip, int pret) {
 	string errors;
 
-	if (validString(denumire) == false) errors.append("Denumirea este invalida!\n");
-	if (validString(destinatie) == false) errors.append("Destinatia este invalida!\n");
-	if (validString(tip) == false) errors.append("Tipul este invalid!\n");
+	if (!validString(denumire)) errors.append("Denumirea este invalida!\n");
+	if (!validString(destinatie)) errors.append("Destinatia este invalida!\n");
+	if (!validString(tip)) errors.append("Tipul este invalid!\n");
 	if (pret <= 0) errors.append("Pretul este invalid!\n");
 	if (errors.size() != 0) throw Exception(errors);
 }

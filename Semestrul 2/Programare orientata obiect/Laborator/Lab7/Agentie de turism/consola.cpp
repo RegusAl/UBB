@@ -4,7 +4,6 @@
 #include "Errors.h"
 
 #include <iostream>
-#include <cstring>
 #include <string>
 
 using std::cout;

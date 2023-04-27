@@ -140,7 +140,7 @@ int sortByDestinatieTest(const Oferta& o1, const Oferta& o2) {
 }
 
 int sortByTipSiPretTest(const Oferta& o1, const Oferta& o2) {
-    if (o1.getTip().compare(o2.getTip()) == 0) {
+    if (o1.getTip() == o2.getTip()) {
         return (o1.getTip().compare(o2.getTip()));}
     else {
         return o1.getPret()>o2.getPret();
@@ -179,7 +179,7 @@ void test_sortareOferte() {
 template <typename MyVector>
 MyVector testCopyIterate(MyVector v) {
     int totalPrice = 0;
-    for (auto el : v) {
+    for (const auto& el : v) {
         totalPrice += el.getPret();
     }
     Oferta p{ "total","tt", "sdd", totalPrice};

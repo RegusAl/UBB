@@ -33,7 +33,7 @@ public:
     void modificaOferta(const string& denumire, const string& destinatie, const string& tip, int pret);
     void stergereOferta(const string& denumire, const string& destinatie);
     VectorDinamic<Oferta> filtrareDestinatie(const string& destinatie);
-    VectorDinamic<Oferta> filtrarePret(float pret);
+    VectorDinamic<Oferta> filtrarePret(int pret);
 
     VectorDinamic<Oferta> sortareOferte(Sort functieSortare);
 };

@@ -38,7 +38,7 @@ VectorDinamic<Oferta> AgentieService::filtrareDestinatie(const string& destinati
      });
 }
 
-VectorDinamic<Oferta> AgentieService::filtrarePret(float pret) {
+VectorDinamic<Oferta> AgentieService::filtrarePret(int pret) {
     return filtrare([pret](const Oferta& o) {
         return o.getPret() <= pret;
     });

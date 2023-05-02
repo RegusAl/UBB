@@ -4,6 +4,8 @@
 #include <vector>
 
 #include <exception>
+#include <unordered_map>
+
 using namespace std;
 
 // Teta(1)
@@ -434,8 +436,10 @@ IteratorMDO MDO::iterator() const {
 	return IteratorMDO(*this);
 }
 
+
 // Teta(1)
 MDO::~MDO() {
 	//delete[] urm;
 	//delete[] pre;
 }
+

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <stdlib.h>
+#include <cstdlib>
 
 typedef int TCheie;
 typedef int TValoare;

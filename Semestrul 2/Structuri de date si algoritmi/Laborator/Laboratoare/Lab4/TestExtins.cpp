@@ -154,12 +154,12 @@ void testIterator(Relatie r) {
     itD.urmator();
 	while (itD.valid()) {
 		TCheie c = itD.element().first;
-		//cout << c << " " << itD.element().second << endl;
+//		cout << c << " " << itD.element().second << endl;
 		assert(r(cPrec, c));
 		cPrec = c;
 		itD.urmator();
 	}
-	cout << "----------------" << endl;
+//	cout << "----------------" << endl;
 }
 
 void testIterator() {
@@ -171,4 +171,5 @@ void testAllExtins() {
 	testCreeaza();
 	testCauta();
 	testSterge();
+    testIterator();
 }

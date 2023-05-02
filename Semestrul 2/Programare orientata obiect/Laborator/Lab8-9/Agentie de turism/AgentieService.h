@@ -15,7 +15,7 @@ using std::string;
 using std::function;
 
 //typedef bool(*Compare)(const Oferta&, const string&);
-typedef int(*Sort)(const Oferta&, const Oferta&);
+//typedef int(*Sort)(const Oferta&, const Oferta&);
 
 class AgentieService {
     OfertaRepo& Repo;
@@ -23,17 +23,60 @@ class AgentieService {
     vector<Oferta> filtrare(const function<bool(const Oferta&)>& fct);
 public:
     explicit AgentieService(OfertaRepo& repo, Validator& valid):Repo{repo}, Valid{valid} {}
+    //constructor de copiere; punem delete fiindca nu vrem sa se faca nicio copie la Service
     AgentieService() = delete;
     AgentieService(const AgentieService& ot) = delete;
 
+    /*
+     * Returneaza toate ofertele
+     */
     vector<Oferta>& getAll() noexcept {
         return Repo.getAll();
     }
 
+    /*
+     * Adauga o oferta
+     * @param denumire: denumirea ofertei
+     * @param destinatie: destinatia ofertei
+     * @param tip: tipul ofertei
+     * @param pret: pretul ofertei
+     * @throws:
+     *	Exception daca mai exista oferta cu denumirea data
+	 *	Exception daca oferta nu este valida
+     */
     void adaugaOferta(const string& denumire, const string& destinatie, const string& tip, int pret);
+
+    /*
+	 * Modifica o oferta
+	 * @param denumire: denumirea ofertei care se modifica (string)
+	 * @param destinatie: destinatia noua (string)
+	 * @param tip: tipul nou (string)
+	 * @param pret: pretul nou (string)
+	 * @throws:
+	 *	Exception daca nu exista oferta cu denumirea data
+	 *	Exception daca oferta nu este valida
+	 */
     void modificaOferta(const string& denumire, const string& destinatie, const string& tip, int pret);
+
+    /*
+	 * Sterge o oferta cu denumirea si destinatia data
+	 * @param denumire: denumirea dupa care se sterge oferta
+     * @param destinatie: destinatia dupa care se sterge
+	 * @throws:
+	 *	Exception daca denumirea sau destinatia nu este valida
+	 */
     void stergereOferta(const string& denumire, const string& destinatie);
+
+    /*
+     * Filtreaza ofertele in functie de destinatie
+     * @return: lista cu oferte filtrate dupa destinatie
+     */
     vector<Oferta> filtrareDestinatie(const string& destinatie);
+
+    /*
+     * Filtreaza ofertele in functie de pret
+     * @return: lista cu oferte filtrate dupa pret
+     */
     vector<Oferta> filtrarePret(int pret);
 
     /*
@@ -53,8 +96,6 @@ public:
     * @return: lista cu ofertele sortate dupa tip si pret
     */
     vector<Oferta> sortByTipSiPret();
-
-//    vector<Oferta> sortareOferte(Sort functieSortare);
 };
 
 

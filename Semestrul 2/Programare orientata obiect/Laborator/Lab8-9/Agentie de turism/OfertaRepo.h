@@ -17,17 +17,32 @@ public:
     OfertaRepo() = default;
     OfertaRepo(const OfertaRepo& o) = delete;
 
-    // adaugare Oferta
+    /*
+     * Adauga o oferta in lista de oferte
+     * @param o: oferta ce se adauga (Oferta)
+     */
     void adauga(const Oferta& o);
 
-    // stergere Oferta
+    /*
+     * Sterge oferta o transmisa ca parametru
+     * @param o: oferta ce se sterge (Oferta)
+     */
     void stergere(Oferta& o);
 
-    // cautare Oferta
+    /*
+     * Cauta o oferta dupa denumire si destinatie
+     * @param denumire: denumirea dupa care se cauta
+     * @param destinatie: destinatia dupa care se cauta
+     * @throws:
+     *  Exception - daca oferta cautata nu exista
+     * @return: oferta cautata
+     */
     const Oferta& cauta(const string& denumire, const string& destinatie) const;
 
-    // getAll Oferte
-
+    /*
+     * Lista de oferta
+     * @return: lista de oferte
+     */
     vector<Oferta>& getAll() {
         return all;
     }

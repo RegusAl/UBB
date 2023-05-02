@@ -51,19 +51,22 @@ vector<Oferta> AgentieService::filtrarePret(int pret) {
 vector<Oferta> AgentieService::sortByDenumire()
 {
     vector<Oferta> sortedCopy{ Repo.getAll() };
-    sort(sortedCopy.begin(), sortedCopy.end(), cmpDenumire); return sortedCopy;
+    sort(sortedCopy.begin(), sortedCopy.end(), cmpDenumire);
+    return sortedCopy;
 }
 
 vector<Oferta> AgentieService::sortByDestinatie()
 {
     vector<Oferta> sortedCopy{ Repo.getAll() };
-    sort(sortedCopy.begin(), sortedCopy.end(), cmpDestinatie); return sortedCopy;
+    sort(sortedCopy.begin(), sortedCopy.end(), cmpDestinatie);
+    return sortedCopy;
 }
 
 vector<Oferta> AgentieService::sortByTipSiPret()
 {
     vector<Oferta> sortedCopy{ Repo.getAll() };
-    sort(sortedCopy.begin(), sortedCopy.end(), cmpTipPret); return sortedCopy;
+    sort(sortedCopy.begin(), sortedCopy.end(), cmpTipPret);
+    return sortedCopy;
 }
 
 

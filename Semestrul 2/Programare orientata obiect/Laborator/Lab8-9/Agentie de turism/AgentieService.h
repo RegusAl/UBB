@@ -10,6 +10,7 @@
 #include <functional>
 #include <vector>
 #include <memory>
+#include <unordered_map>
 
 using std::vector;
 using std::string;
@@ -99,6 +100,8 @@ public:
     * @return: lista cu ofertele sortate dupa tip si pret
     */
     vector<Oferta> sortByTipSiPret();
+
+    unordered_map<string, int> frecventeDestinatie();
 
     void cosAdauga(string denumire, string destinatie);
 

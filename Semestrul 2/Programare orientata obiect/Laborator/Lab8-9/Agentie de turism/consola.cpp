@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <fstream>
 
 using std::cout;
 using std::cin;
@@ -117,6 +118,14 @@ void Consola::sortare() {
     }
 }
 
+void Consola::raportUI() {
+    cout<<"Raport privind destinatiile"<<endl;
+    auto map = service.frecventeDestinatie();
+    for(const auto& pereche : map) {
+        cout<<pereche.first<<": "<<pereche.second<<" oferte"<<endl;
+    }
+}
+
 void Consola::cosAdaugaUI() {
     string denumire, destinatie;
     cout<<"Denumirea ofertei pe care vreti sa o adaugati in Wishlist: ";
@@ -152,7 +161,6 @@ void Consola::cosStergeUI() {
     cout<<"S-au sters toate ofertele din WISHLIST!"<<endl;
 }
 
-
 // MENIU COS - WISHLIST
 void Consola::MeniuCos() {
     while(true) {
@@ -176,8 +184,7 @@ void Consola::MeniuCos() {
                 case 4:
                     afisareUI(service.getAllCos());
                     break;
-//                case 4:
-//                    cosExportUI();
+//                case 5:
 //                    break;
                 case 6:
                     cout<<"Iesire din WISHLIST";
@@ -195,7 +202,7 @@ void Consola::MeniuCos() {
 void Consola::run() {
     while(true) {
         cout<<"---\tMENIU\t---\n---\t---\t---"<<endl;
-        cout<<"1. Adaugare oferta\n2. Afisare oferte\n3. Modifica tipul si pretul unei oferte\n4. Stergere oferta\n5. Filtrare dupa destinatie\n6. Filtrare dupa pretul maxim\n7. Sortare \n8. MENIU WISHLIST\n0. Iesire\n---\t---\t---\n";
+        cout<<"1. Adaugare oferta\n2. Afisare oferte\n3. Modifica tipul si pretul unei oferte\n4. Stergere oferta\n5. Filtrare dupa destinatie\n6. Filtrare dupa pretul maxim\n7. Sortare \n8. Raport privind destinatiile ofertelor \n9. MENIU WISHLIST\n0. Iesire\n---\t---\t---\n";
         int optiune;
         cout<<"Optiunea: ";
         cin>>optiune;
@@ -223,6 +230,9 @@ void Consola::run() {
                     sortare();
                     break;
                 case 8:
+                    raportUI();
+                    break;
+                case 9:
                     MeniuCos();
                     break;
                 case 0:

@@ -180,6 +180,21 @@ void test_sortareOferte() {
     assert(typeid(service.sortByDestinatie())== typeid(vector<Oferta>));
 }
 
+void test_raport() {
+    OfertaRepo repo;
+    Validator valid;
+    CosOferte cos;
+    AgentieService service{repo, valid, cos};
+    service.adaugaOferta("a", "b", "csc", 100);
+    service.adaugaOferta("sa", "a", "c", 50);
+    service.adaugaOferta("t", "y", "c", 63);
+    service.adaugaOferta("o", "xc", "m", 100);
+    service.adaugaOferta("lolo", "a", "c", 50);
+
+    auto map = service.frecventeDestinatie();
+    assert(map.size()==4);
+}
+
 void test_cos() {
     OfertaRepo repo;
     Validator valid;
@@ -216,6 +231,7 @@ void test_all() {
     test_filtrareDestinatie();
     test_filtrarePret();
     test_sortareOferte();
+    test_raport();
     // - service wishlist
     test_cos();
 }

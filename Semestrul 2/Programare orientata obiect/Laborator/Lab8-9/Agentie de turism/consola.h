@@ -13,11 +13,12 @@ class Consola {
     void filtrareDestinatieUI();
     void filtrarePretUI();
     void sortare();
+    void raportUI();
 
     void cosAdaugaUI();
     void cosAdaugaRandomUI();
     void cosStergeUI();
-    void cosExportUI();
+//    void cosExportUI();
 
     void MeniuCos();
 

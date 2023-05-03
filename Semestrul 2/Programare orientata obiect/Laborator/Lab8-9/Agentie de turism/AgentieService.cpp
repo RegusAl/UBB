@@ -64,6 +64,18 @@ vector<Oferta> AgentieService::sortByTipSiPret()
     return sortedCopy;
 }
 
+unordered_map<string, int> AgentieService::frecventeDestinatie() {
+    unordered_map<string, int> map;
+    vector<Oferta> v = this->getAll();
+    for(int i = 0; i < v.size(); i++) {
+        if(map.find(v.at(i).getDestinatie()) != map.end())
+            map[v.at(i).getDestinatie()]++;
+        else
+            map[v.at(i).getDestinatie()] = 1;
+    }
+    return map;
+}
+
 void AgentieService::cosAdauga(string denumire, string destinatie) {
     const auto & oferta = Repo.cauta(denumire, destinatie);
     cosCurent.adaugaOfertaCos(oferta);

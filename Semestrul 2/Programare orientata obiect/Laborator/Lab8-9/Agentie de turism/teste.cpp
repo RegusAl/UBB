@@ -149,22 +149,6 @@ void test_filtrarePret() {
     assert(listaFiltrata2.size()==0);
 }
 
-//int sortByDenumireTest(const Oferta& o1, const Oferta& o2) {
-//    return o1.getDenumire().compare(o2.getDenumire());
-//}
-//
-//int sortByDestinatieTest(const Oferta& o1, const Oferta& o2) {
-//    return o1.getDestinatie().compare(o2.getDestinatie());
-//}
-//
-//int sortByTipSiPretTest(const Oferta& o1, const Oferta& o2) {
-//    if (o1.getTip() == o2.getTip()) {
-//        return (o1.getTip().compare(o2.getTip()));}
-//    else {
-//        return o1.getPret()>o2.getPret();
-//    }
-//}
-
 void test_sortareOferte() {
     OfertaRepo repo;
     Validator valid;
@@ -196,12 +180,35 @@ void test_sortareOferte() {
     assert(typeid(service.sortByDestinatie())== typeid(vector<Oferta>));
 }
 
+void test_cos() {
+    OfertaRepo repo;
+    Validator valid;
+    CosOferte cos;
+    AgentieService service{repo, valid, cos};
+    service.adaugaOferta("a", "b", "csc", 100);
+    service.adaugaOferta("sa", "a", "c", 50);
+    service.adaugaOferta("t", "y", "c", 63);
+    service.adaugaOferta("o", "xc", "m", 100);
+    service.cosAdauga("a", "b");
+    assert(service.getAllCos().size()==1);
+    try {
+        service.cosAdauga("aaaa", "aaaa");
+    } catch (OfertaRepoException& ex) {
+        assert(true);
+    }
+    assert(service.getAllCos().size()==1);
+    service.cosSterge();
+    service.cosAdaugaRandom(3);
+    assert(service.getAllCos().size()==3);
+}
+
 void test_all() {
     // Teste REPOSITORY
     test_adauga();
     test_cauta();
     test_stergere();
     // Teste SERVICE
+    // - service oferte
     test_getAll();
     test_adaugaOferta();
     test_modificaOferta();
@@ -209,4 +216,6 @@ void test_all() {
     test_filtrareDestinatie();
     test_filtrarePret();
     test_sortareOferte();
+    // - service wishlist
+    test_cos();
 }

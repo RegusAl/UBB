@@ -6,7 +6,9 @@
 
 int main(){
     testAll();
+    cout<<"Test Scurt - passed!"<<endl;
     testAllExtins();
-    std::cout<<"Finished Tests!"<<std::endl;
+    cout<<"Test Extins - passed!"<<endl;
+    std::cout<<""<<std::endl;
     return 0;
 }

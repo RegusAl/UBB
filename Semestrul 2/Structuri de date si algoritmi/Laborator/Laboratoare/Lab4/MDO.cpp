@@ -49,11 +49,11 @@ int lista::aloca()
 }
 
 // Teta(1)
-// Marcheaza un nod dat ca fiind liber
+// Face ca un nod dat sa fie liber
 // Complexitate: Theta(1)
 void lista::dealoca(int i)
 {
-	urm[i] = primLiber;  // actualul primLiber se muta pe poz urmatoare
+	urm[i] = primLiber;  // primLiber se muta pe poz urmatoare
 	pre[primLiber] = i;
 	primLiber = i;		 // actualizam primLiber
 }
@@ -63,8 +63,8 @@ void lista::dealoca(int i)
 // returneaza pozitia din vector unde s-a creat nodul
 int lista::creeazaNod(TElem el)
 {
-	if (primLiber == -1)	// daca nu mai avem noduri libere
-		redim();			// redimensionam vectorii
+	if (primLiber == -1)
+		redim();			// redimensionare vectori
 
 	int i = aloca();		// alocam spatiu pentru noul nod
  
@@ -79,7 +79,7 @@ int lista::creeazaNod(TElem el)
 	return i;				// returnam pozitia unde s-a creat nodul
 }
 
-// Mareste capacitatea de stocare a vectorilor asociati implementarii colectiei
+// Mareste capacitatea de stocare a vectorilor
 // Complexitate: Theta(n)
 void lista::redim()
 {
@@ -155,16 +155,16 @@ int MDO::creeazaNod(TElem el)
 	return i;				// returnam pozitia unde s-a creat nodul
 }
 
-// Mareste capacitatea de stocare a vectorilor asociati implementarii
+// Redimensionam - marim capacitatea vectorilor
 // Complexitate: Theta(n)
 void MDO::redim()
 {
-	int cp_nou = cp * 2;	// dublam capacitatea
+	int cp_nou = cp * 2;	// se dubleaza capacitatea
 	lista* elem_nou = new lista[cp_nou];
 	int* urm_nou = new int[cp_nou];
 	int* pre_nou = new int[cp_nou];
 
-	// copiem toate elementele din vectorii actuali in cei noi
+	// copiem toate elementele
 	for (int i = 0; i < cp; ++i)
 	{
 		elem_nou[i] = elems[i];
@@ -179,14 +179,12 @@ void MDO::redim()
 		urm_nou[i] = i + 1;
 		pre_nou[i] = -1;
 	}
-	urm_nou[cp_nou - 1] = -1;  // ultima pozitie nu are niciun succesor
-
-	this->primLiber = cp;	   // setam primLiber la primul element nou dupa redim
+	urm_nou[cp_nou - 1] = -1;
+	this->primLiber = cp;	   // setam primLiber la primul element
 
 	//delete[] elems;
 	//delete[] urm;
 
-	// actualizam proprietatile colectiei
 	this->elems = elem_nou;
 	this->urm = urm_nou;
 	this->cp = cp_nou;
@@ -205,7 +203,7 @@ MDO::MDO(Relatie r) {
 	urm = new int[cp];
 	pre = new int[cp];
 
-	// completam vectorul de pozitii ca fiind liber
+	// completez vectorii de poz
 	for (int i = 0; i < cp - 1; i++)
 	{
 		urm[i] = i + 1;
@@ -217,10 +215,9 @@ MDO::MDO(Relatie r) {
 	primLiber = 0;
 }
 
-// caz favoranil : Teta(1)
-// caz defavorabil : Teta(n)
-// caz mediu : Teta(n)
-// overall case : O(n)
+// BC : Teta(1)
+// WC : Teta(n)
+// AC : Teta(n)
 void MDO::adauga(TCheie c, TValoare v) {
 
 	if (this->prim == -1) // daca dictionarul e vid
@@ -229,7 +226,6 @@ void MDO::adauga(TCheie c, TValoare v) {
 		element_auxiliar.first = c;
 		element_auxiliar.second = v;
 		int i = this->creeazaNod(element_auxiliar);
-
 		if (prim != -1)
 			pre[prim] = i;
 		urm[i] = prim;
@@ -238,7 +234,6 @@ void MDO::adauga(TCheie c, TValoare v) {
 		this->len = 1;
 		return;
 	}
-
 	int anterior = -1;
 	int current = prim;
 	while (current != -1 && rel(this->elems[current].cheie, c))
@@ -252,12 +247,11 @@ void MDO::adauga(TCheie c, TValoare v) {
 			this->len++;
 			return;
 		}
-
 		anterior = current;
 		current = urm[current];
 	}
 
-	if (current <= -1)
+	if (current <= -1) // daca nu exista inca cheia "c" in dictionar
 	{
 		TElem element_auxiliar;
 		element_auxiliar.first = c;
@@ -269,7 +263,7 @@ void MDO::adauga(TCheie c, TValoare v) {
 		urm[i] = -1;
 		return;
 	}
-	else if (this->elems[current].cheie == c)
+	else if (this->elems[current].cheie == c) // daca exista cheia "c" in dictionar
 	{
 		TElem element_auxiliar;
 		element_auxiliar.first = c;
@@ -278,13 +272,12 @@ void MDO::adauga(TCheie c, TValoare v) {
 		this->len++;
 		return;
 	}
-	else if (!rel(this->elems[current].cheie, c))
+	else if (!rel(this->elems[current].cheie, c)) // daca cheia "c" este mai mare
 	{
 		TElem element_auxiliar;
 		element_auxiliar.first = c;
 		element_auxiliar.second = v;
 		int i = this->creeazaNod(element_auxiliar);
-
 		if(anterior > -1)
 			urm[anterior] = i;
 		pre[i] = anterior;
@@ -298,15 +291,12 @@ void MDO::adauga(TCheie c, TValoare v) {
 }
 
 
-// caz favoranil : Teta(1)
-// caz defavorabil : Teta(n)
-// caz mediu : Teta(n)
-// overall case : O(n)
+// BC : Teta(1)
+// WC : Teta(n)
+// AC : Teta(n)
 vector<TValoare> MDO::cauta(TCheie c) const {
 	//cauta o cheie si returneaza vectorul de valori asociate
-
 	vector<TValoare> v;
-
 	int current = prim;
 	while (current != -1 && rel(this->elems[current].cheie, c))
 	{
@@ -323,23 +313,17 @@ vector<TValoare> MDO::cauta(TCheie c) const {
 		}
 		current = urm[current];
 	}
-
 	return v;
 }
 
-// caz favoranil : Teta(1)
-// caz defavorabil : Teta(n)
-// caz mediu : Teta(n)
-// overall case : O(n)
+// BC : Teta(1)
+// WC : Teta(n)
+// AC : Teta(n)
 bool MDO::sterge(TCheie c, TValoare v) {
-
-	// cautam dupa cheie apoi dupa valoare
-
+	// cautam cheia, apoi valoarea
 	if(prim == -1) // daca e gol
 		return false;
-
 	int current = prim;
-
 	if (c == elems[current].cheie)
 	{
 		int first_elem = this->elems[current].prim;
@@ -349,22 +333,17 @@ bool MDO::sterge(TCheie c, TValoare v) {
 			{
 				if (this->elems[current].pre[first_elem] > -1)
 					this->elems[current].urm[this->elems[current].pre[first_elem]] = this->elems[current].urm[first_elem];
-
 				if (this->elems[current].urm[first_elem] > -1)
 					this->elems[current].pre[this->elems[current].urm[first_elem]] = this->elems[current].pre[first_elem];
-				
 				if (this->elems[current].prim == first_elem)
 					this->elems[current].prim = this->elems[current].urm[first_elem];
-
 				this->elems[current].dealoca(first_elem);
-
 				if (this->elems[current].prim == -1)
 				{
 					if (this->pre[current] > -1)
 						this->urm[this->pre[current]] = this->urm[current];
 					if (this->urm[current] > -1)
 						this->pre[this->urm[current]] = this->pre[current];
-
 					this->prim = this->urm[current];
 					this->dealoca(current);
 				}
@@ -375,7 +354,6 @@ bool MDO::sterge(TCheie c, TValoare v) {
 		}
 		return false;
 	}
-
 	current = urm[current];
 	while (current != -1 && rel(this->elems[current].cheie, c))
 	{
@@ -388,13 +366,10 @@ bool MDO::sterge(TCheie c, TValoare v) {
 				{
 					if (this->elems[current].pre[first_elem] > -1)
 						this->elems[current].urm[this->elems[current].pre[first_elem]] = this->elems[current].urm[first_elem];
-					
 					if (this->elems[current].urm[first_elem] > -1)
 						this->elems[current].pre[this->elems[current].urm[first_elem]] = this->elems[current].pre[first_elem];
-					
 					if (this->elems[current].prim == first_elem)
 						this->elems[current].prim = this->elems[current].urm[first_elem];
-
 					this->elems[current].dealoca(first_elem);
 					if (this->elems[current].prim == -1)
 					{
@@ -402,7 +377,6 @@ bool MDO::sterge(TCheie c, TValoare v) {
 							this->urm[this->pre[current]] = this->urm[current];
 						if (this->urm[current] > -1)
 							this->pre[this->urm[current]] = this->pre[current];
-
 						this->dealoca(current);
 					}
 					this->len--;
@@ -414,7 +388,6 @@ bool MDO::sterge(TCheie c, TValoare v) {
 		}
 		current = urm[current];
 	}
-
 	return false; // daca nu gasim cheia
 }
 
@@ -430,16 +403,51 @@ bool MDO::vid() const {
 	return this->len == 0; // sau prim == -1
 }
 
+// returneaza valoarea care apare cel mai frecvent în dicționar. Dacă mai multe valori apar cel mai frecvent, se returnează una (oricare) dintre ele.
+// Dacă dicționarul este vid, operațiea returnează NULL_TVALOARE
+//
+TValoare MDO::ceaMaiFrecventaValoare() const {
+    int frecventaMaxima = 0;
+    TValoare valoareMaxima = 0;
+    // daca dictionarul este vid
+    if(this->len == 0)
+        return NULL_TVALOARE;
+    // daca dictionarul nu este vid
+    int nod = this->prim;
+    while (nod != -1) {
+        lista pereche = this->elems[nod];
+        // TValoare valoare = this->elems[nod].elems->second;
+        TValoare valoare = pereche.elems->second;
+        int frecventaCurenta = 0;
+        int p = this->prim; // primul element
+        while (p != -1) {
+            // pereche = < cheie : valoare>
+            lista pereche = this->elems[p];
+            // daca valoarea curenta este egala cu valoarea perechii crestem frecventa
+            if (pereche.elems->second == valoare) {
+                frecventaCurenta++;
+            }
+            p = this->urm[p];
+        }
+        // asignam valoarea in valoareMaxima daca frecventa valorii este mai mare decat frecventa maxima
+        if (frecventaCurenta > frecventaMaxima) {
+            frecventaMaxima = frecventaCurenta;
+            valoareMaxima = valoare;
+        }
+        nod = this->urm[nod];
+    }
+    return valoareMaxima;
+}
+
 // Teta(1)
 IteratorMDO MDO::iterator() const {
 	// se returneaza iterator pe dictionar
 	return IteratorMDO(*this);
 }
 
-
 // Teta(1)
 MDO::~MDO() {
-	//delete[] urm;
-	//delete[] pre;
+	delete[] urm;
+	delete[] pre;
 }
 

@@ -15,7 +15,7 @@ public:
 	const MDO& dict;
 	/* aici e reprezentarea  specifica a iteratorului */
 	int i; // iteratorul pe lista de liste
-	int j; // iteratorul pe lista mica
+	int j; // iteratorul pe lista
 public:
 
 		//reseteaza pozitia iteratorului la inceputul containerului

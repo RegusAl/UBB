@@ -1,15 +1,15 @@
 #include "IteratorVal.h"
 
-/// caz favoranil : Teta(1)
-/// caz defavorabil : Teta(n)
-/// caz mediu : Teta(n)
+/// BC : Teta(1)
+/// WC : Teta(n)
+/// AC : Teta(n)
 /// overall case : O(n)
 IteratorValori::IteratorValori(const MDO& d, TCheie k) : dict(d) {
 	this->cheie = k;
 	index_cheie = -1;
 	i = -1;
 
-	// cautam indexul cheii date
+	// caut indexul cheii date
 	int current = d.prim;
 	while (current > -1 && d.rel(d.elems[current].cheie, k))
 	{
@@ -25,7 +25,7 @@ IteratorValori::IteratorValori(const MDO& d, TCheie k) : dict(d) {
 }
 
 // Teta(1)
-// daca nu exita cheia data vrem sa apara o exceptie.
+// daca nu exita cheia data aruncam exceptie.
 void IteratorValori::prim() {
 	if (index_cheie <= -1)
 	{

@@ -5,6 +5,7 @@
 
 typedef int TCheie;
 typedef int TValoare;
+#define NULL_TVALOARE 0
 
 #include <utility>
 typedef std::pair<TCheie, TValoare> TElem;
@@ -43,7 +44,7 @@ public:
 		Relatie rel;
 		int cp;				// capacitate memorare vectori
 		int* urm;			// lista cu pozitiile elementelor urmatoare
-		int* pre;
+		int* pre;           // lista cu pozitiile elementelor precedente
 	    int prim;			// primul element din colectie
 		int primLiber;		// pozitia primului element liber
 		int len;			// numarul elementelor 
@@ -73,6 +74,10 @@ public:
 
 	//verifica daca MultiDictionarul Ordonat e vid 
 	bool vid() const;
+
+    // returneaza valoarea care apare cel mai frecvent în dicționar. Dacă mai multe valori apar cel mai frecvent, se returnează una (oricare) dintre ele.
+    // Dacă dicționarul este vid, operațiea returnează NULL_TVALOARE
+    TValoare ceaMaiFrecventaValoare() const;
 
 	// se returneaza iterator pe MDO
 	// iteratorul va returna perechile in ordine in raport cu relatia de ordine

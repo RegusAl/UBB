@@ -3,6 +3,8 @@
 #include <iostream>
 #include <sstream>
 #include <exception>
+#include <functional>
+#include <algorithm>
 
 using std::ostream;
 using std::stringstream;
@@ -39,12 +41,12 @@ void OfertaRepo::stergere(Oferta &o) {
 }
 
 const Oferta& OfertaRepo::cauta(const string& denumire, const string& destinatie) const {
-    for(const auto& o : all) {
-        if(o.getDenumire() == denumire && o.getDestinatie() == destinatie) {
-            return o;
-        }
-    }
-    throw OfertaRepoException("Nu exista oferta aceasta!");
+    auto f = std::find_if(this->all.begin(), this->all.end(), [=](const Oferta& o) {
+        return (o.getDenumire() == denumire && o.getDestinatie() == destinatie);});
+    if (f != this->all.end())
+        return(*f);
+    else
+        throw OfertaRepoException("Oferta nu exista!\n");
 }
 
 ostream& operator<<(ostream& out, const OfertaRepoException& ex) {

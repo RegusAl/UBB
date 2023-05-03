@@ -57,7 +57,8 @@ void test_stergere() {
 void test_getAll() {
     OfertaRepo repo;
     Validator valid;
-    AgentieService service{repo, valid};
+    CosOferte cos;
+    AgentieService service{repo, valid, cos};
     repo.adauga(Oferta("La mare", "Mamaia", "all-inclusive", 2345));
     assert(repo.getAll().size()==1);
     repo.adauga(Oferta("Munte", "Sinaia", "all-inclusive", 1280));
@@ -69,7 +70,8 @@ void test_getAll() {
 void test_adaugaOferta() {
     OfertaRepo repo;
     Validator valid;
-    AgentieService service{repo, valid};
+    CosOferte cos;
+    AgentieService service{repo, valid, cos};
     assert(service.getAll().size()==0);
     service.adaugaOferta("La Mare", "Mamaia", "allinclusive", 2345);
     assert(service.getAll().size()==1);
@@ -78,7 +80,8 @@ void test_adaugaOferta() {
 void test_modificaOferta() {
     OfertaRepo repo;
     Validator valid;
-    AgentieService service{repo, valid};
+    CosOferte cos;
+    AgentieService service{repo, valid, cos};
     service.adaugaOferta("La mare", "Mamaia", "allinclusive", 2345);
     assert(repo.getAll().size()==1);
     service.modificaOferta("La mare", "Mamaia", "trei zile", 1000);
@@ -90,7 +93,8 @@ void test_modificaOferta() {
 void test_stergeOferta() {
     OfertaRepo repo;
     Validator valid;
-    AgentieService service{repo, valid};
+    CosOferte cos;
+    AgentieService service{repo, valid, cos};
     repo.adauga(Oferta("La mare", "Mamaia", "all inclusive", 2345));
     assert(repo.getAll().size()==1);
     try {
@@ -113,7 +117,8 @@ void test_stergeOferta() {
 void test_filtrareDestinatie() {
     OfertaRepo repo;
     Validator valid;
-    AgentieService service{repo, valid};
+    CosOferte cos;
+    AgentieService service{repo, valid, cos};
     repo.adauga(Oferta("La mare", "Mamaia", "all-inclusive", 2345));
     assert(repo.getAll().size()==1);
     repo.adauga(Oferta("Plaja", "Mamaia", "-", 400));
@@ -129,7 +134,8 @@ void test_filtrareDestinatie() {
 void test_filtrarePret() {
     OfertaRepo repo;
     Validator valid;
-    AgentieService service{repo, valid};
+    CosOferte cos;
+    AgentieService service{repo, valid, cos};
     repo.adauga(Oferta("La mare", "Mamaia", "all-inclusive", 2345));
     assert(repo.getAll().size()==1);
     repo.adauga(Oferta("Plaja", "Mamaia", "-", 400));
@@ -162,7 +168,8 @@ void test_filtrarePret() {
 void test_sortareOferte() {
     OfertaRepo repo;
     Validator valid;
-    AgentieService service{ repo, valid };
+    CosOferte cos;
+    AgentieService service{repo, valid, cos};
     service.adaugaOferta("a", "b", "csc", 100);
     service.adaugaOferta("sa", "a", "c", 50);
     service.adaugaOferta("t", "y", "c", 63);

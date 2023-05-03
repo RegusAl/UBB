@@ -9,7 +9,8 @@ int main() {
     test_all();
     OfertaRepo repo;
     Validator valid;
-    AgentieService service{repo, valid};
+    CosOferte cos;
+    AgentieService service{repo, valid, cos};
     Consola ui{service};
     ui.run();
 }

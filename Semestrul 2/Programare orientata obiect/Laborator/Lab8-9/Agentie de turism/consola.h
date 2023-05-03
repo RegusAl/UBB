@@ -14,6 +14,13 @@ class Consola {
     void filtrarePretUI();
     void sortare();
 
+    void cosAdaugaUI();
+    void cosAdaugaRandomUI();
+    void cosStergeUI();
+    void cosExportUI();
+
+    void MeniuCos();
+
 public:
     explicit Consola(AgentieService& service): service{service}{}
     Consola(const Consola& ot) = delete;

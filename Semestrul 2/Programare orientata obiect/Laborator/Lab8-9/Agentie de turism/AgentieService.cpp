@@ -5,17 +5,6 @@
 
 #include "AgentieService.h"
 
-
-vector<Oferta> AgentieService::filtrare(const function<bool (const Oferta &)>& fct) {
-    vector<Oferta> rez;
-    for(const auto& oferta:Repo.getAll()) {
-        if(fct(oferta)) {
-            rez.push_back(oferta);
-        }
-    }
-    return (rez);
-}
-
 void AgentieService::adaugaOferta(const std::string &denumire, const std::string &destinatie, const std::string& tip, int pret) {
     Valid.validateOferta(denumire, destinatie, tip, pret);
     Oferta o{denumire, destinatie, tip, pret};
@@ -37,15 +26,21 @@ void AgentieService::stergereOferta(const string& denumire, const string& destin
 }
 
 vector<Oferta> AgentieService::filtrareDestinatie(const string& destinatie) {
-     return filtrare([destinatie](const Oferta& o) {
+     const vector<Oferta>& oferte = getAll();
+     vector<Oferta> oferteFiltrate;
+     std::copy_if(oferte.begin(), oferte.end(), back_inserter(oferteFiltrate), [destinatie](const Oferta& o) {
          return o.getDestinatie() == destinatie;
      });
+     return oferteFiltrate;
 }
 
 vector<Oferta> AgentieService::filtrarePret(int pret) {
-    return filtrare([pret](const Oferta& o) {
+    const vector<Oferta>& oferte = getAll();
+    vector<Oferta> oferteFiltrate;
+    std::copy_if(oferte.begin(), oferte.end(), back_inserter(oferteFiltrate), [pret](const Oferta& o) {
         return o.getPret() <= pret;
     });
+    return oferteFiltrate;
 }
 
 vector<Oferta> AgentieService::sortByDenumire()
@@ -67,6 +62,26 @@ vector<Oferta> AgentieService::sortByTipSiPret()
     vector<Oferta> sortedCopy{ Repo.getAll() };
     sort(sortedCopy.begin(), sortedCopy.end(), cmpTipPret);
     return sortedCopy;
+}
+
+void AgentieService::cosAdauga(string denumire, string destinatie) {
+    const auto & oferta = Repo.cauta(denumire, destinatie);
+    cosCurent.adaugaOfertaCos(oferta);
+}
+
+int AgentieService::cosAdaugaRandom(int howMany)
+{
+    cosCurent.adaugaOfertaRandomCos(this->getAll(), howMany);
+    return cosCurent.getAllCos().size();
+}
+
+const vector<Oferta>& AgentieService::getAllCos()
+{
+    return cosCurent.getAllCos();
+}
+
+void AgentieService::cosSterge() {
+    cosCurent.stergeCos();
 }
 
 

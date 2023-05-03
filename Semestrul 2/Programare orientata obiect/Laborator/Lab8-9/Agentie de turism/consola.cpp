@@ -5,10 +5,13 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <cstring>
 
 using std::cout;
 using std::cin;
 using std::endl;
+
+// MENIU PRINCIPAL
 
 void Consola::adaugaUI() {
     cout<<"ADAUGARE OFERTA"<<endl;
@@ -96,23 +99,6 @@ void Consola::filtrarePretUI() {
     afisareUI(service.filtrarePret(pret));
 }
 
-int sortDenumire(const Oferta& o1, const Oferta& o2) {
-    return o1.getDenumire().compare(o2.getDenumire());
-}
-
-int sortDestinatie(const Oferta& o1, const Oferta& o2) {
-    return o1.getDestinatie().compare(o2.getDestinatie());
-}
-
-int sortTipPret(const Oferta& o1, const Oferta& o2) {
-    if (o1.getTip().compare(o2.getTip()) == 0) {
-        return (o1.getTip().compare(o2.getTip()));
-    }
-    else {
-        return o1.getPret() > o2.getPret();
-    }
-}
-
 void Consola::sortare() {
     cout<<"SORTARE"<<endl;
     cout<<"1. Denumire | 2. Destinatie | 3. Tip si Pret"<<endl;
@@ -131,10 +117,85 @@ void Consola::sortare() {
     }
 }
 
+void Consola::cosAdaugaUI() {
+    string denumire, destinatie;
+    cout<<"Denumirea ofertei pe care vreti sa o adaugati in Wishlist: ";
+    cin>>denumire;
+    cout<<"Destinatia ofertei pe care vreti sa o adaugati in Wishlist: ";
+    cin>>destinatie;
+    try {
+        service.cosAdauga(denumire, destinatie);
+        cout<<"Oferta s-a adaugat in Wishlist\n";
+    } catch (Exception ex) {
+        cout<<ex.getMessage()<<endl;
+    }
+}
+
+void Consola::cosAdaugaRandomUI() {
+    int numar;
+    char str[101];
+    cout<<"Cate oferte random vreti in WISHLIST: ";
+    cin>>str;
+    numar = stoi(str);
+    if( !(numar < 0 || strlen(str)>10)) {
+        try {
+            int numar_oferte = service.cosAdaugaRandom(numar);
+            cout<<"S-au adaugat "<<numar_oferte<<" oferte random in WISHLIST"<<endl;
+        } catch (Exception ex) {
+            cout<<ex.getMessage()<<endl;
+        }
+    } else cout<<"Numarul este invalid!"<<endl;
+}
+
+void Consola::cosStergeUI() {
+    service.cosSterge();
+    cout<<"S-au sters toate ofertele din WISHLIST!"<<endl;
+}
+
+
+// MENIU COS - WISHLIST
+void Consola::MeniuCos() {
+    while(true) {
+        cout << "---\t---\tMENIU WISHLIST\t---\t---" << endl;
+        cout
+                << "1. Adaugare oferta in wishlist\n2. Adaugare oferte random in wishlist\n3. Goleste wishlist\n4. Afisare wishlist\n5. Export\n6. Iesire\n---\t---\t---\n";
+        int optiune;
+        cout<<"Optiunea: ";
+        cin>>optiune;
+        try {
+            switch (optiune) {
+                case 1:
+                    cosAdaugaUI();
+                    break;
+                case 2:
+                    cosAdaugaRandomUI();
+                    break;
+                case 3:
+                    cosStergeUI();
+                    break;
+                case 4:
+                    afisareUI(service.getAllCos());
+                    break;
+//                case 4:
+//                    cosExportUI();
+//                    break;
+                case 6:
+                    cout<<"Iesire din WISHLIST";
+                    return;
+                default:
+                    cout<<"Comanda invalida!";
+            }
+        } catch (const OfertaRepoException& ex) {
+            cout<<ex<<endl;
+        }
+    }
+}
+
+
 void Consola::run() {
     while(true) {
         cout<<"---\tMENIU\t---\n---\t---\t---"<<endl;
-        cout<<"1. Adaugare oferta\n2. Afisare oferte\n3. Modifica tipul si pretul unei oferte\n4. Stergere oferta\n5. Filtrare dupa destinatie\n6. Filtrare dupa pretul maxim\n7. Sortare \n0. Iesire\n---\t---\t---\n";
+        cout<<"1. Adaugare oferta\n2. Afisare oferte\n3. Modifica tipul si pretul unei oferte\n4. Stergere oferta\n5. Filtrare dupa destinatie\n6. Filtrare dupa pretul maxim\n7. Sortare \n8. MENIU WISHLIST\n0. Iesire\n---\t---\t---\n";
         int optiune;
         cout<<"Optiunea: ";
         cin>>optiune;
@@ -160,6 +221,9 @@ void Consola::run() {
                     break;
                 case 7:
                     sortare();
+                    break;
+                case 8:
+                    MeniuCos();
                     break;
                 case 0:
                     cout << "Iesire din aplicatie...";

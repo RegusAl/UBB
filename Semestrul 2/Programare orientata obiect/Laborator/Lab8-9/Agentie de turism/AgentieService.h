@@ -3,6 +3,7 @@
 #include "Oferta.h"
 #include "OfertaRepo.h"
 #include "Validator.h"
+#include "CosOferte.h"
 
 #include <string>
 //#include <vector>
@@ -20,9 +21,11 @@ using std::function;
 class AgentieService {
     OfertaRepo& Repo;
     Validator& Valid;
-    vector<Oferta> filtrare(const function<bool(const Oferta&)>& fct);
+
+    CosOferte& cosCurent;
+//    vector<Oferta> filtrare(const function<bool(const Oferta&)>& fct);
 public:
-    explicit AgentieService(OfertaRepo& repo, Validator& valid):Repo{repo}, Valid{valid} {}
+    explicit AgentieService(OfertaRepo& repo, Validator& valid, CosOferte& cos):Repo{repo}, Valid{valid}, cosCurent{cos} {}
     //constructor de copiere; punem delete fiindca nu vrem sa se faca nicio copie la Service
     AgentieService() = delete;
     AgentieService(const AgentieService& ot) = delete;
@@ -96,6 +99,14 @@ public:
     * @return: lista cu ofertele sortate dupa tip si pret
     */
     vector<Oferta> sortByTipSiPret();
+
+    void cosAdauga(string denumire, string destinatie);
+
+    int cosAdaugaRandom(int nr);
+
+    const vector<Oferta>& getAllCos();
+
+    void cosSterge();
 };
 
 

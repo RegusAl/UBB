@@ -6,7 +6,6 @@
 #include <iostream>
 #include <string>
 #include <cstring>
-#include <fstream>
 
 using std::cout;
 using std::cin;
@@ -38,7 +37,7 @@ void Consola::adaugaUI() {
     }
 }
 
-void Consola::afisareUI(vector<Oferta> oferte) {
+void Consola::afisareUI(const vector<Oferta>& oferte) {
     cout<<"OFERTE"<<endl;
     for(const auto& oferta : oferte) {
         cout<<"DENUMIRE: "<<oferta.getDenumire()<<" | DESTINATIE: "<<oferta.getDestinatie()<<" | TIP: "<<oferta.getTip()<<" | PRET: "<<oferta.getPret()<<" RON |"<<endl;

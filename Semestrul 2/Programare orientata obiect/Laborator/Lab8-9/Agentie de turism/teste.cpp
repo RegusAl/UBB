@@ -50,7 +50,7 @@ void test_stergere() {
     assert(repo.getAll().size()==1);
     Oferta o1 = Oferta("La mare", "Mamaia", "all-inclusive", 2345);
     repo.stergere(o1);
-    assert(repo.getAll().size()==0);
+    assert(repo.getAll().empty());
 }
 
 // TESTE SERVICE
@@ -72,7 +72,7 @@ void test_adaugaOferta() {
     Validator valid;
     CosOferte cos;
     AgentieService service{repo, valid, cos};
-    assert(service.getAll().size()==0);
+    assert(service.getAll().empty());
     service.adaugaOferta("La Mare", "Mamaia", "allinclusive", 2345);
     assert(service.getAll().size()==1);
 }
@@ -146,7 +146,7 @@ void test_filtrarePret() {
     assert(listaFiltrata1.at(1).getPret()==1234);
     vector<Oferta> listaFiltrata2 = service.filtrarePret(10);
     assert(typeid(service.filtrarePret(100))== typeid(vector<Oferta>));
-    assert(listaFiltrata2.size()==0);
+    assert(listaFiltrata2.empty());
 }
 
 void test_sortareOferte() {

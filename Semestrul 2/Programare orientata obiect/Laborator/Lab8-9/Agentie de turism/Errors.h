@@ -1,12 +1,14 @@
 #pragma once
 #include <string>
+#include <utility>
+#include <utility>
 
 using namespace std;
 
 class Exception {
 	string msg;
 public:
-	Exception(string m) : msg{ m } {
+	explicit Exception(string m) : msg{std::move( std::move(m) )} {
 	}
 
 	string getMessage() {

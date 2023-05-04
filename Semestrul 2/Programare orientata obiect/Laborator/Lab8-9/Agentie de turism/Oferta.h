@@ -9,7 +9,7 @@ class Oferta {
     string Denumire;
     string Destinatie;
     string Tip;
-    int Pret;
+    int Pret{};
 
 public:
     Oferta() = default;
@@ -22,7 +22,7 @@ public:
     }
 
     Oferta(const Oferta& o):Denumire{o.Denumire}, Destinatie{o.Destinatie}, Tip{o.Tip}, Pret{o.Pret} {
-//        cout<<"copie efectuata\n";
+    //  cout<<"copie efectuata\n";
     }
 
     // getters
@@ -38,7 +38,7 @@ public:
         return Tip;
     }
 
-    float getPret() const {
+    int getPret() const {
         return Pret;
     }
 

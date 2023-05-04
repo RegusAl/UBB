@@ -4,5 +4,5 @@ using namespace std;
 
 class Validator {
 public:
-	void validateOferta(string denumire, string destinatie, string tip, int pret);
+	static void validateOferta(const string& denumire, const string& destinatie, const string& tip, int pret);
 };

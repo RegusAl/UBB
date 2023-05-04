@@ -1,18 +1,17 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <functional>
 
 #include "AgentieService.h"
 
 void AgentieService::adaugaOferta(const std::string &denumire, const std::string &destinatie, const std::string& tip, int pret) {
-    Valid.validateOferta(denumire, destinatie, tip, pret);
+    Validator::validateOferta(denumire, destinatie, tip, pret);
     Oferta o{denumire, destinatie, tip, pret};
     Repo.adauga(o);
 }
 
 void AgentieService::modificaOferta(const string& denumire, const string& destinatie, const string& tip, int pret)  {
-    Valid.validateOferta(denumire, destinatie, tip, pret);
+    Validator::validateOferta(denumire, destinatie, tip, pret);
     Oferta o = Repo.cauta(denumire, destinatie);
     Repo.stergere(o);
     Oferta new_o{denumire, destinatie, tip, pret};
@@ -20,7 +19,7 @@ void AgentieService::modificaOferta(const string& denumire, const string& destin
 }
 
 void AgentieService::stergereOferta(const string& denumire, const string& destinatie) {
-    Valid.validateOferta(denumire, destinatie, "exemplu", 1);
+    Validator::validateOferta(denumire, destinatie, "exemplu", 1);
     Oferta o = Repo.cauta(denumire, destinatie);
     Repo.stergere(o);
 }
@@ -67,16 +66,16 @@ vector<Oferta> AgentieService::sortByTipSiPret()
 unordered_map<string, int> AgentieService::frecventeDestinatie() {
     unordered_map<string, int> map;
     vector<Oferta> v = this->getAll();
-    for(int i = 0; i<v.size(); i++) {
-        if(map.find(v.at(i).getDestinatie()) != map.end())
-            map[v.at(i).getDestinatie()]++;
+    for(const auto & i : v) {
+        if(map.find(i.getDestinatie()) != map.end())
+            map[i.getDestinatie()]++;
         else
-            map[v.at(i).getDestinatie()] = 1;
+            map[i.getDestinatie()] = 1;
     }
     return map;
 }
 
-void AgentieService::cosAdauga(string denumire, string destinatie) {
+void AgentieService::cosAdauga(const string& denumire, const string& destinatie) {
     const auto & oferta = Repo.cauta(denumire, destinatie);
     cosCurent.adaugaOfertaCos(oferta);
 }

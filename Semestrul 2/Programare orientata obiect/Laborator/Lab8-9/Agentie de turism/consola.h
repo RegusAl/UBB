@@ -7,7 +7,7 @@
 class Consola {
     AgentieService& service;
     void adaugaUI();
-    static void afisareUI(vector<Oferta> oferte);
+    static void afisareUI(const vector<Oferta>& oferte);
     void modificaUI();
     void stergereUI();
     void filtrareDestinatieUI();

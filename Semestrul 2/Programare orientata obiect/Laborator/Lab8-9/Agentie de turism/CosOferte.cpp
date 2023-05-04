@@ -1,8 +1,6 @@
 #include "CosOferte.h"
-#include <fstream>
 #include <algorithm>
 #include <random>
-#include <chrono>
 using std::shuffle;
 
 void CosOferte::adaugaOfertaCos(const Oferta &o) {
@@ -11,7 +9,7 @@ void CosOferte::adaugaOfertaCos(const Oferta &o) {
 
 void CosOferte::adaugaOfertaRandomCos(vector<Oferta> oferte, int numar) {
     shuffle(oferte.begin(), oferte.end(), std::default_random_engine(std::random_device{}())); //amesteca vectorul v
-    while (cosOferte.size() < numar && oferte.size() > 0) {
+    while (cosOferte.size() < numar && !oferte.empty()) {
         cosOferte.push_back(oferte.back());
         oferte.pop_back();
     }

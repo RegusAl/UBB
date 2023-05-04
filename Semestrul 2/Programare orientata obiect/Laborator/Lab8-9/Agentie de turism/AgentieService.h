@@ -103,7 +103,7 @@ public:
 
     unordered_map<string, int> frecventeDestinatie();
 
-    void cosAdauga(string denumire, string destinatie);
+    void cosAdauga(const string& denumire, const string& destinatie);
 
     int cosAdaugaRandom(int nr);
 

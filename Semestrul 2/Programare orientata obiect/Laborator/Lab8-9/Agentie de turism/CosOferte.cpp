@@ -1,6 +1,7 @@
 #include "CosOferte.h"
 #include <algorithm>
 #include <random>
+
 using std::shuffle;
 
 void CosOferte::adaugaOfertaCos(const Oferta &o) {
@@ -15,8 +16,7 @@ void CosOferte::adaugaOfertaRandomCos(vector<Oferta> oferte, int numar) {
     }
 }
 
-const vector<Oferta>& CosOferte::getAllCos()
-{
+const vector<Oferta> &CosOferte::getAllCos() {
     return this->cosOferte;
 }
 

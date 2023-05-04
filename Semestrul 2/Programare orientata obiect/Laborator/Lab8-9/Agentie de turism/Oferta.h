@@ -1,4 +1,5 @@
 #pragma once
+
 #include <string>
 #include <iostream>
 
@@ -14,15 +15,15 @@ class Oferta {
 public:
     Oferta() = default;
 
-    Oferta(const string& denumire, const string& destinatie, const string& tip, int pret) {
+    Oferta(const string &denumire, const string &destinatie, const string &tip, int pret) {
         Denumire = denumire;
         Destinatie = destinatie;
         Tip = tip;
         Pret = pret;
     }
 
-    Oferta(const Oferta& o):Denumire{o.Denumire}, Destinatie{o.Destinatie}, Tip{o.Tip}, Pret{o.Pret} {
-    //  cout<<"copie efectuata\n";
+    Oferta(const Oferta &o) : Denumire{o.Denumire}, Destinatie{o.Destinatie}, Tip{o.Tip}, Pret{o.Pret} {
+        //  cout<<"copie efectuata\n";
     }
 
     // getters
@@ -53,8 +54,9 @@ public:
 
 };
 
-bool cmpDenumire(const Oferta& o1, const Oferta& o2);
+bool cmpDenumire(const Oferta &o1, const Oferta &o2);
 
-bool cmpDestinatie(const Oferta& o1, const Oferta& o2);
+bool cmpDestinatie(const Oferta &o1, const Oferta &o2);
 
-bool cmpTipPret(const Oferta& o1, const Oferta& o2);
+bool cmpTipPret(const Oferta &o1, const Oferta &o2);
+

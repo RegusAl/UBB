@@ -22,22 +22,25 @@ using std::function;
 //typedef int(*Sort)(const Oferta&, const Oferta&);
 
 class AgentieService {
-    OfertaRepo& Repo;
-    Validator& Valid;
-
-    CosOferte& cosCurent;
+    OfertaRepo &Repo;
+    Validator &Valid;
+    
+    CosOferte &cosCurent;
     vector<std::unique_ptr<ActiuneUndo>> undoActions;
 //    vector<Oferta> filtrare(const function<bool(const Oferta&)>& fct);
 public:
-    explicit AgentieService(OfertaRepo& repo, Validator& valid, CosOferte& cos):Repo{repo}, Valid{valid}, cosCurent{cos} {}
+    explicit AgentieService(OfertaRepo &repo, Validator &valid, CosOferte &cos) : Repo{repo}, Valid{valid},
+                                                                                  cosCurent{cos} {}
+
     //constructor de copiere; punem delete fiindca nu vrem sa se faca nicio copie la Service
     AgentieService() = delete;
-    AgentieService(const AgentieService& ot) = delete;
+
+    AgentieService(const AgentieService &ot) = delete;
 
     /*
      * Returneaza toate ofertele
      */
-    vector<Oferta>& getAll() noexcept {
+    vector<Oferta> &getAll() noexcept {
         return Repo.getAll();
     }
 
@@ -51,7 +54,7 @@ public:
      *	Exception daca mai exista oferta cu denumirea data
 	 *	Exception daca oferta nu este valida
      */
-    void adaugaOferta(const string& denumire, const string& destinatie, const string& tip, int pret);
+    void adaugaOferta(const string &denumire, const string &destinatie, const string &tip, int pret);
 
     /*
 	 * Modifica o oferta
@@ -63,7 +66,7 @@ public:
 	 *	Exception daca nu exista oferta cu denumirea data
 	 *	Exception daca oferta nu este valida
 	 */
-    void modificaOferta(const string& denumire, const string& destinatie, const string& tip, int pret);
+    void modificaOferta(const string &denumire, const string &destinatie, const string &tip, int pret);
 
     /*
 	 * Sterge o oferta cu denumirea si destinatia data
@@ -72,13 +75,13 @@ public:
 	 * @throws:
 	 *	Exception daca denumirea sau destinatia nu este valida
 	 */
-    void stergereOferta(const string& denumire, const string& destinatie);
+    void stergereOferta(const string &denumire, const string &destinatie);
 
     /*
      * Filtreaza ofertele in functie de destinatie
      * @return: lista cu oferte filtrate dupa destinatie
      */
-    vector<Oferta> filtrareDestinatie(const string& destinatie);
+    vector<Oferta> filtrareDestinatie(const string &destinatie);
 
     /*
      * Filtreaza ofertele in functie de pret
@@ -115,7 +118,7 @@ public:
      * @param denumire: denumirea ofertei
      * @param destinatie: destinatia ofertei
      */
-    void cosAdauga(const string& denumire, const string& destinatie);
+    void cosAdauga(const string &denumire, const string &destinatie);
 
     /*
      * Adauga un numar de oferte random in cos
@@ -127,7 +130,7 @@ public:
     /*
      * Returneaza toate ofertele din cos
      */
-    const vector<Oferta>& getAllCos();
+    const vector<Oferta> &getAllCos();
 
     /*
      * Goleste toate ofertele din cos
@@ -137,7 +140,7 @@ public:
     /*
      * Exporta cosul in fisierul dat ca parametru
      */
-    void cosExport(const string& filename);
+    void cosExport(const string &filename);
 
     void undo();
 };

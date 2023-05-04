@@ -19,8 +19,8 @@ public:
      * Adauga o oferta in cos.
      * @param o: oferta ce trebuie adaugata in cos.
      */
-    void adaugaOfertaCos(const Oferta& o);
-
+    void adaugaOfertaCos(const Oferta &o);
+    
     /*
      * Adauga un numar de oferte in cos.
      * @param oferte: ofertele random ce trebuie adaugate in cos.
@@ -31,7 +31,7 @@ public:
     /*
      * Returneaza un vector cu toate ofertele din cos.
      */
-    const vector<Oferta>& getAllCos();
+    const vector<Oferta> &getAllCos();
 
     /*
      * Sterge toate ofertele din cos.

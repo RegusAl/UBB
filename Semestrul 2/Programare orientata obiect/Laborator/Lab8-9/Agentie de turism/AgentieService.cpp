@@ -9,6 +9,7 @@ void AgentieService::adaugaOferta(const std::string &denumire, const std::string
     Validator::validateOferta(denumire, destinatie, tip, pret);
     Oferta o{denumire, destinatie, tip, pret};
     Repo.adauga(o);
+    undoActions.push_back(std::make_unique<UndoAdauga>(Repo, o));
 }
 
 void AgentieService::modificaOferta(const string& denumire, const string& destinatie, const string& tip, int pret)  {
@@ -17,12 +18,14 @@ void AgentieService::modificaOferta(const string& denumire, const string& destin
     Repo.stergere(o);
     Oferta new_o{denumire, destinatie, tip, pret};
     Repo.adauga(new_o);
+    undoActions.push_back(std::make_unique<UndoModifica>(Repo, o, new_o));
 }
 
 void AgentieService::stergereOferta(const string& denumire, const string& destinatie) {
     Validator::validateOferta(denumire, destinatie, "exemplu", 1);
     Oferta o = Repo.cauta(denumire, destinatie);
     Repo.stergere(o);
+    undoActions.push_back(std::make_unique<UndoSterge>(Repo, o));
 }
 
 vector<Oferta> AgentieService::filtrareDestinatie(const string& destinatie) {
@@ -126,6 +129,13 @@ void AgentieService::cosExport(const string& filename) {
         }
         fout.close();
     }
+}
+
+void AgentieService::undo() {
+    if(undoActions.empty())
+        throw Exception("Nu mai exista operatii pentru a se face UNDO!!!");
+    undoActions.back()->doUndo();
+    undoActions.pop_back();
 }
 
 

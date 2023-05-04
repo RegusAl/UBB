@@ -195,6 +195,34 @@ void test_raport() {
     assert(map.size()==4);
 }
 
+void test_undo() {
+    OfertaRepo repo;
+    Validator valid;
+    CosOferte cos;
+    AgentieService service{repo, valid, cos};
+    try {
+        service.undo();
+    } catch (Exception ex) {
+        assert(true);
+    }
+    service.adaugaOferta("unu", "a", "lala", 6789);
+    service.adaugaOferta("doi", "b", "baab", 1022);
+    service.modificaOferta("unu", "a", "lolo", 456);
+    service.stergereOferta("doi", "b");
+    service.undo();
+    assert(service.getAll().size()==2);
+    auto oferta = repo.cauta("unu", "a");
+    service.undo();
+    service.undo();
+    try {
+        repo.cauta("doi", "b");
+    } catch (OfertaRepoException ex) {
+        assert(true);
+    }
+    service.undo();
+    assert(service.getAll().empty());
+}
+
 void test_cos() {
     OfertaRepo repo;
     Validator valid;
@@ -246,6 +274,7 @@ void test_all() {
     test_filtrarePret();
     test_sortareOferte();
     test_raport();
+    test_undo();
     // - service wishlist
     test_cos();
 

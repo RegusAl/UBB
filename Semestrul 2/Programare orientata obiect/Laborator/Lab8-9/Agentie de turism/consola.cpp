@@ -212,7 +212,7 @@ void Consola::MeniuCos() {
 void Consola::run() {
     while(true) {
         cout<<"---\tMENIU\t---\n---\t---\t---"<<endl;
-        cout<<"1. Adaugare oferta\n2. Afisare oferte\n3. Modifica tipul si pretul unei oferte\n4. Stergere oferta\n5. Filtrare dupa destinatie\n6. Filtrare dupa pretul maxim\n7. Sortare \n8. Raport privind destinatiile ofertelor \n9. MENIU WISHLIST\n0. Iesire\n---\t---\t---\n";
+        cout<<"1. Adaugare oferta\n2. Afisare oferte\n3. Modifica tipul si pretul unei oferte\n4. Stergere oferta\n5. Filtrare dupa destinatie\n6. Filtrare dupa pretul maxim\n7. Sortare \n8. Raport privind destinatiile ofertelor \n9. MENIU WISHLIST\n10. UNDO\n0. Iesire\n---\t---\t---\n";
         int optiune;
         cout<<"Optiunea: ";
         cin>>optiune;
@@ -244,6 +244,14 @@ void Consola::run() {
                     break;
                 case 9:
                     MeniuCos();
+                    break;
+                case 10:
+                    try {
+                        service.undo();
+                        cout<<"S-a reusit efectuarea operatiei de UNDO!"<<endl;
+                    } catch (Exception ex) {
+                        cout<<ex.getMessage()<<endl;
+                    }
                     break;
                 case 0:
                     cout << "Iesire din aplicatie...";

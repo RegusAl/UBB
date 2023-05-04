@@ -5,6 +5,7 @@
 #include "Validator.h"
 #include "CosOferte.h"
 #include "Errors.h"
+#include "Undo.h"
 
 #include <string>
 //#include <vector>
@@ -25,6 +26,7 @@ class AgentieService {
     Validator& Valid;
 
     CosOferte& cosCurent;
+    vector<std::unique_ptr<ActiuneUndo>> undoActions;
 //    vector<Oferta> filtrare(const function<bool(const Oferta&)>& fct);
 public:
     explicit AgentieService(OfertaRepo& repo, Validator& valid, CosOferte& cos):Repo{repo}, Valid{valid}, cosCurent{cos} {}
@@ -136,6 +138,8 @@ public:
      * Exporta cosul in fisierul dat ca parametru
      */
     void cosExport(const string& filename);
+
+    void undo();
 };
 
 

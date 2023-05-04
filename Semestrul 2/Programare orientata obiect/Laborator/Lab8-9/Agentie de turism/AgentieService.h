@@ -135,7 +135,7 @@ public:
     /*
      * Exporta cosul in fisierul dat ca parametru
      */
-    void cosExport(string filename);
+    void cosExport(const string& filename);
 };
 
 

@@ -1,7 +1,6 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <cstring>
 #include <fstream>
 
 #include "AgentieService.h"
@@ -97,7 +96,7 @@ void AgentieService::cosSterge() {
     cosCurent.stergeCos();
 }
 
-void AgentieService::cosExport(string filename) {
+void AgentieService::cosExport(const string& filename) {
     if(filename.find(".csv") == std::string::npos && filename.find(".html") == std::string::npos) {
 //        cout<<"Fisierul nu este valid! Fisierul poate fi doar .CSV sau .HTML"<<endl;
 //        throw OfertaRepoException("Fisierul nu este valid!");

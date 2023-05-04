@@ -6,7 +6,6 @@
 #include <iostream>
 #include <string>
 #include <cstring>
-#include <fstream>
 
 using std::cout;
 using std::cin;

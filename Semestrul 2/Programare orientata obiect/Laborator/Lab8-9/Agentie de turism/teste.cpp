@@ -224,7 +224,8 @@ void test_cos() {
     service.cosExport(fisier_html);
     try {
         service.cosExport(fisier_alt);
-    } catch (Exception) {
+    } catch (Exception exception) {
+        assert(exception.getMessage()=="Fisierul nu este valid!");
         assert(true);
     }
 

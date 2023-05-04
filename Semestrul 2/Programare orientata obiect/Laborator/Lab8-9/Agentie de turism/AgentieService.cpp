@@ -31,7 +31,7 @@ vector<Oferta> AgentieService::filtrareDestinatie(const string& destinatie) {
      std::copy_if(oferte.begin(), oferte.end(), back_inserter(oferteFiltrate), [destinatie](const Oferta& o) {
          return o.getDestinatie() == destinatie;
      });
-     return oferteFiltrate;
+     return (oferteFiltrate);
 }
 
 vector<Oferta> AgentieService::filtrarePret(int pret) {
@@ -40,34 +40,34 @@ vector<Oferta> AgentieService::filtrarePret(int pret) {
     std::copy_if(oferte.begin(), oferte.end(), back_inserter(oferteFiltrate), [pret](const Oferta& o) {
         return o.getPret() <= pret;
     });
-    return oferteFiltrate;
+    return (oferteFiltrate);
 }
 
 vector<Oferta> AgentieService::sortByDenumire()
 {
     vector<Oferta> sortedCopy{ Repo.getAll() };
     sort(sortedCopy.begin(), sortedCopy.end(), cmpDenumire);
-    return sortedCopy;
+    return (sortedCopy);
 }
 
 vector<Oferta> AgentieService::sortByDestinatie()
 {
     vector<Oferta> sortedCopy{ Repo.getAll() };
     sort(sortedCopy.begin(), sortedCopy.end(), cmpDestinatie);
-    return sortedCopy;
+    return (sortedCopy);
 }
 
 vector<Oferta> AgentieService::sortByTipSiPret()
 {
     vector<Oferta> sortedCopy{ Repo.getAll() };
     sort(sortedCopy.begin(), sortedCopy.end(), cmpTipPret);
-    return sortedCopy;
+    return (sortedCopy);
 }
 
 unordered_map<string, int> AgentieService::frecventeDestinatie() {
     unordered_map<string, int> map;
     vector<Oferta> v = this->getAll();
-    for(int i = 0; i < v.size(); i++) {
+    for(int i = 0; i<v.size(); i++) {
         if(map.find(v.at(i).getDestinatie()) != map.end())
             map[v.at(i).getDestinatie()]++;
         else

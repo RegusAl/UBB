@@ -1,6 +1,8 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <cstring>
+#include <fstream>
 
 #include "AgentieService.h"
 
@@ -93,6 +95,38 @@ const vector<Oferta>& AgentieService::getAllCos()
 
 void AgentieService::cosSterge() {
     cosCurent.stergeCos();
+}
+
+void AgentieService::cosExport(string filename) {
+    if(filename.find(".csv") == std::string::npos && filename.find(".html") == std::string::npos) {
+//        cout<<"Fisierul nu este valid! Fisierul poate fi doar .CSV sau .HTML"<<endl;
+//        throw OfertaRepoException("Fisierul nu este valid!");
+        throw Exception("Fisierul nu este valid!");
+    } else {
+        ofstream fout(filename);
+        if(filename.find(".html") != std::string::npos) {
+            fout << "<html>";
+            fout << "<style> table, th, td {border:1px solid black} body{background-color: #E6E6FA;} </style>";
+            fout << "<body>";
+            fout << "<h1> WISHLIST </h1>";
+            fout << "<table><tr><th>Denumire</th> <th>Destinatie</th> <th>Tip</th> <th>tip </th><th>Pret</th></tr>";
+            for (auto& o : getAllCos())
+            {
+                fout << "<tr><td>" << o.getDenumire() << "<td>" << o.getDestinatie() << "</td><td>" << o.getTip()
+                     << "</td><td>" << o.getPret() << "</td></tr>";
+            }
+            fout << "</table></body>";
+            fout << "<html>";
+        }
+        else {
+            for (auto& o : getAllCos())
+            {
+                fout << o.getDenumire() << ";" << o.getDestinatie() << ";" << o.getTip()
+                     << ";" << o.getPret() << endl;
+            }
+        }
+        fout.close();
+    }
 }
 
 

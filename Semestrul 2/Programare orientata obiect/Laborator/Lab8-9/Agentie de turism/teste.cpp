@@ -215,6 +215,19 @@ void test_cos() {
     service.cosSterge();
     service.cosAdaugaRandom(3);
     assert(service.getAllCos().size()==3);
+
+    // test export
+    string fisier_csv = "/home/albert/Documents/UBB/Semestrul 2/Programare orientata obiect/Laborator/Lab8-9/Agentie de turism/test.csv";
+    string fisier_html = "/home/albert/Documents/UBB/Semestrul 2/Programare orientata obiect/Laborator/Lab8-9/Agentie de turism/test.html";
+    string fisier_alt = "/home/albert/Documents/UBB/Semestrul 2/Programare orientata obiect/Laborator/Lab8-9/Agentie de turism/test.txt";
+    service.cosExport(fisier_csv);
+    service.cosExport(fisier_html);
+    try {
+        service.cosExport(fisier_alt);
+    } catch (Exception) {
+        assert(true);
+    }
+
 }
 
 void test_all() {
@@ -234,4 +247,5 @@ void test_all() {
     test_raport();
     // - service wishlist
     test_cos();
+
 }

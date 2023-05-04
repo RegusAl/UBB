@@ -18,7 +18,7 @@ class Consola {
     void cosAdaugaUI();
     void cosAdaugaRandomUI();
     void cosStergeUI();
-//    void cosExportUI();
+    void cosExportUI();
 
     void MeniuCos();
 

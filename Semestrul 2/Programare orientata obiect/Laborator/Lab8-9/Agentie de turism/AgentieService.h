@@ -4,6 +4,7 @@
 #include "OfertaRepo.h"
 #include "Validator.h"
 #include "CosOferte.h"
+#include "Errors.h"
 
 #include <string>
 //#include <vector>
@@ -101,15 +102,40 @@ public:
     */
     vector<Oferta> sortByTipSiPret();
 
+    /*
+     * Calculeaza frecventa ofertelor in functie de destinatie si construieste un dictionar
+     * @return dictionar
+     */
     unordered_map<string, int> frecventeDestinatie();
 
+    /*
+     * Adauga oferta cu denumirea si destinatia cautata in cos
+     * @param denumire: denumirea ofertei
+     * @param destinatie: destinatia ofertei
+     */
     void cosAdauga(const string& denumire, const string& destinatie);
 
+    /*
+     * Adauga un numar de oferte random in cos
+     * @param nr: numarul de oferte random ce se adauga
+     * @return: numarul de oferte random ce au fost adaugate
+     */
     int cosAdaugaRandom(int nr);
 
+    /*
+     * Returneaza toate ofertele din cos
+     */
     const vector<Oferta>& getAllCos();
 
+    /*
+     * Goleste toate ofertele din cos
+     */
     void cosSterge();
+
+    /*
+     * Exporta cosul in fisierul dat ca parametru
+     */
+    void cosExport(string filename);
 };
 
 

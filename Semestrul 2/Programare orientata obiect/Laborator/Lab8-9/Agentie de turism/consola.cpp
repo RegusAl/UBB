@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <fstream>
 
 using std::cout;
 using std::cin;
@@ -160,9 +161,19 @@ void Consola::cosStergeUI() {
     cout<<"S-au sters toate ofertele din WISHLIST!"<<endl;
 }
 
+void Consola::cosExportUI() {
+    string filename;
+    cout<<"Dati numele fisierului in care vreti sa salvati wishlist-ul (.csv sau .html): "<<endl;
+    cin>>filename;
+    string referinta = "/home/albert/Documents/UBB/Semestrul 2/Programare orientata obiect/Laborator/Lab8-9/Agentie de turism/";
+    service.cosExport(referinta.append(filename));
+}
+
 // MENIU COS - WISHLIST
 void Consola::MeniuCos() {
     while(true) {
+        cout<<"WISHLIST"<<endl;
+        cout<<"Exista "<<service.getAllCos().size()<<" oferte in wishlist.\n";
         cout << "---\t---\tMENIU WISHLIST\t---\t---" << endl;
         cout
                 << "1. Adaugare oferta in wishlist\n2. Adaugare oferte random in wishlist\n3. Goleste wishlist\n4. Afisare wishlist\n5. Export\n6. Iesire\n---\t---\t---\n";
@@ -183,8 +194,9 @@ void Consola::MeniuCos() {
                 case 4:
                     afisareUI(service.getAllCos());
                     break;
-//                case 5:
-//                    break;
+                case 5:
+                    cosExportUI();
+                    break;
                 case 6:
                     cout<<"Iesire din WISHLIST";
                     return;

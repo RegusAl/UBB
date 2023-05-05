@@ -7,7 +7,7 @@ class IteratorMDO{
 	friend class MDO;
 private:
 public:
-	//constructorul primeste o referinta catre Container
+	//constructorul primeste o referinta
 	//iteratorul va referi primul element din container
 	IteratorMDO(const MDO& dictionar);
 

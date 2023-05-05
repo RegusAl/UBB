@@ -19,12 +19,15 @@ public:
 
     Repo(const Repo &o) = delete;
 
+    // adauga oferta
     virtual void adauga(const Oferta &o) = 0;
 
+    // sterge oferta
     virtual void stergere(const Oferta &o) = 0;
 
+    // cauta oferta
     virtual const Oferta &cauta(string denumire, string destinatie) = 0;
-
+    
     virtual vector<Oferta> &getAll() = 0;
 
 //    virtual bool exist(const Oferta &o) = 0;

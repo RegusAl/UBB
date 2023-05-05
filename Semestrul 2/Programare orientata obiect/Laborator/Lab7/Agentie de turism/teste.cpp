@@ -61,7 +61,7 @@ void test_getAll() {
     assert(repo.getAll().size()==1);
     repo.adauga(Oferta("Munte", "Sinaia", "all-inclusive", 1280));
     assert(repo.getAll().size()==2);
-    VectorDinamic<Oferta> oferte = service.getAll();
+    auto oferte = service.getAll();
     assert(oferte.size()==2);
 }
 
@@ -72,6 +72,13 @@ void test_adaugaOferta() {
     assert(service.getAll().size()==0);
     service.adaugaOferta("La Mare", "Mamaia", "allinclusive", 2345);
     assert(service.getAll().size()==1);
+    try {
+        service.adaugaOferta("12343", "nuj", "fgfg", 1234);assert(false);
+    }
+    catch (Exception& exception) {
+        assert(exception.getMessage().find("invalid")!=std::string::npos);
+        assert(true);
+    }
 }
 
 void test_modificaOferta() {
@@ -172,9 +179,6 @@ void test_sortareOferte() {
     assert(list3.get(0).getDenumire() == "sa");
     assert(list3.get(1).getDenumire() == "t");
 }
-
-
-
 
 template <typename MyVector>
 MyVector testCopyIterate(MyVector v) {

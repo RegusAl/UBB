@@ -18,7 +18,7 @@ public:
 	VectorDinamic& operator=(VectorDinamic&& obiect);
 	void push_back(const Element& element);
 	Element& get(int pozitie) const noexcept;
-	void set(int pozitie, const Element& element);
+//	void set(int pozitie, const Element& element);
 	int size() const noexcept;
 	void erase(int poz);
 
@@ -113,11 +113,11 @@ template <typename Element>
 Element& VectorDinamic<Element>::get(int pozitie)const noexcept {
 	return elemente[pozitie];
 }
-template <typename Element>
-void VectorDinamic<Element>::set(int pozitie, const Element& element)
-{
-	elemente[pozitie] = element;
-}
+//template <typename Element>
+//void VectorDinamic<Element>::set(int pozitie, const Element& element)
+//{
+//	elemente[pozitie] = element;
+//}
 template <typename Element>
 int VectorDinamic<Element>::size() const noexcept {
 	return dimensiune;
@@ -162,7 +162,7 @@ private:
 public:
 	IteratorVector(const VectorDinamic<Element>& vector) noexcept;
 	IteratorVector(const VectorDinamic<Element>& vector, int pozitie) noexcept;
-	bool valid()const;
+//	bool valid()const;
 	Element& element()const;
 	void urmator();
 	Element& operator*();
@@ -178,10 +178,10 @@ IteratorVector<Element>::IteratorVector(const VectorDinamic<Element>& vector) no
 template <typename Element>
 IteratorVector<Element>::IteratorVector(const VectorDinamic<Element>& vector, int pozitie)  noexcept : vector{ vector }, pozitie{ pozitie }{}
 
-template <typename Element>
-bool IteratorVector<Element>::valid() const {
-	return pozitie < vector.dimensiune;
-}
+//template <typename Element>
+//bool IteratorVector<Element>::valid() const {
+//	return pozitie < vector.dimensiune;
+//}
 
 template <typename Element>
 Element& IteratorVector<Element>::element() const {

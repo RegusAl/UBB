@@ -5,7 +5,7 @@
 bool validString(const string &str) {
     if (str.empty()) return false;
     for (char i: str) {
-        if (!((i >= 'a' && i <= 'z') || (i >= 'A' && i <= 'Z') || i == ' ')) return false;
+        if (!((i >= 'a' && i <= 'z') || (i >= 'A' && i <= 'Z') || i == ' ' || i == '-')) return false;
     }
     return true;
 }

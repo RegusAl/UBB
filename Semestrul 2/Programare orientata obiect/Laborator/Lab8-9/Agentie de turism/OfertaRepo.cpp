@@ -5,6 +5,7 @@
 #include <exception>
 #include <functional>
 #include <algorithm>
+#include <fstream>
 
 using std::ostream;
 using std::stringstream;
@@ -12,7 +13,7 @@ using std::cout;
 using std::string;
 using std::exception;
 
-bool OfertaRepo::exist(const Oferta &o) const {
+bool OfertaRepo::exist(const Oferta &o) {
     try {
         cauta(o.getDenumire(), o.getDestinatie());
         return true;
@@ -29,7 +30,7 @@ void OfertaRepo::adauga(const Oferta &o) {
     all.push_back(o);
 }
 
-void OfertaRepo::stergere(Oferta &o) {
+void OfertaRepo::stergere(const Oferta &o) {
     int i = 0;
     while (i < this->all.size()) {
         if (all.at(i).getDenumire() == o.getDenumire() && all.at(i).getDestinatie() == o.getDestinatie()) {
@@ -40,7 +41,7 @@ void OfertaRepo::stergere(Oferta &o) {
     }
 }
 
-const Oferta &OfertaRepo::cauta(const string &denumire, const string &destinatie) const {
+const Oferta &OfertaRepo::cauta(string denumire, string destinatie) {
     auto f = std::find_if(this->all.begin(), this->all.end(), [=](const Oferta &o) {
         return (o.getDenumire() == denumire && o.getDestinatie() == destinatie);
     });
@@ -48,6 +49,42 @@ const Oferta &OfertaRepo::cauta(const string &denumire, const string &destinatie
         return (*f);
     else
         throw OfertaRepoException("Oferta nu exista!\n");
+}
+
+void OfertaRepoFile::loadFromFile() {
+    std::ifstream in(fileName);
+    if (!in.is_open()) throw OfertaRepoException("Eroare la deschiderea fisierului!!!");
+    while (!in.eof()) {
+        string denumire, destinatie, tip;
+        int pret;
+        if (in.eof()) break;
+        in >> denumire;
+        if (in.eof()) break;
+        in >> destinatie;
+        if (in.eof()) break;
+        in >> tip;
+        if (in.eof()) break;
+        in >> pret;
+        Oferta o{denumire.c_str(), destinatie.c_str(), tip.c_str(), pret};
+        OfertaRepo::adauga(o);
+    }
+    in.close();
+}
+
+void OfertaRepoFile::writeToFile() {
+    std::ofstream out(fileName);
+    if (!out.is_open()) throw OfertaRepoException("Eroare la deschiderea fisierului!!!");
+    for (auto &o: OfertaRepo::getAll()) {
+        out << o.getDenumire();
+        out << std::endl;
+        out << o.getDestinatie();
+        out << std::endl;
+        out << o.getTip();
+        out << std::endl;
+        out << o.getPret();
+        out << std::endl;
+    }
+    out.close();
 }
 
 ostream &operator<<(ostream &out, const OfertaRepoException &ex) {
@@ -62,6 +99,8 @@ ostream &operator<<(ostream &out, const OfertaRepoException &ex) {
 //Oferta* OfertaRepo::end() {
 //    return all.end().base();
 //}
+
+
 
 
 

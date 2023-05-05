@@ -165,7 +165,7 @@ void Consola::cosExportUI() {
     string filename;
     cout << "Dati numele fisierului in care vreti sa salvati wishlist-ul (.csv sau .html): " << endl;
     cin >> filename;
-    string referinta = "/home/albert/Documents/UBB/Semestrul 2/Programare orientata obiect/Laborator/Lab8-9/Agentie de turism/";
+    string referinta = "/home/albert/Documents/UBB/Semestrul 2/Programare orientata obiect/Laborator/Lab8-9/Agentie de turism/wishlist/";
     service.cosExport(referinta.append(filename));
 }
 

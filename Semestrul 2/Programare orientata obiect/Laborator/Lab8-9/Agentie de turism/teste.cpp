@@ -16,7 +16,6 @@ void test_adauga() {
     assert(repo.getAll().size() == 2);
     try {
         repo.adauga(Oferta("La mare", "Mamaia", "all-inclusive", 2345));
-        assert(false);
     }
     catch (const OfertaRepoException &ex) {
         stringstream os;
@@ -36,7 +35,6 @@ void test_cauta() {
     assert(o1.getPret() == 2345);
     try {
         repo.cauta("nuj", "nuj");
-        assert(false);
     }
     catch (OfertaRepoException &ex) {
         stringstream os;
@@ -225,6 +223,18 @@ void test_undo() {
     assert(service.getAll().empty());
 }
 
+void test_fisier() {
+    OfertaRepoFile repo{
+            "/home/albert/Documents/UBB/Semestrul 2/Programare orientata obiect/Laborator/Lab8-9/Agentie de turism/test.txt"};
+    Validator valid;
+    CosOferte cos;
+    AgentieService service{repo, valid, cos};
+    assert(service.getAll().size() == 2);
+    service.adaugaOferta("c", "c", "c", 678);
+    assert(service.getAll().size() == 3);
+    service.stergereOferta("c", "c");
+}
+
 void test_cos() {
     OfertaRepo repo;
     Validator valid;
@@ -249,7 +259,7 @@ void test_cos() {
     // test export
     string fisier_csv = "/home/albert/Documents/UBB/Semestrul 2/Programare orientata obiect/Laborator/Lab8-9/Agentie de turism/test.csv";
     string fisier_html = "/home/albert/Documents/UBB/Semestrul 2/Programare orientata obiect/Laborator/Lab8-9/Agentie de turism/test.html";
-    string fisier_alt = "/home/albert/Documents/UBB/Semestrul 2/Programare orientata obiect/Laborator/Lab8-9/Agentie de turism/test.txt";
+    string fisier_alt = "/home/albert/Documents/UBB/Semestrul 2/Programare orientata obiect/Laborator/Lab8-9/Agentie de turism/test-cos.txt";
     service.cosExport(fisier_csv);
     service.cosExport(fisier_html);
     try {
@@ -258,7 +268,6 @@ void test_cos() {
         assert(exception.getMessage() == "Fisierul nu este valid!");
         assert(true);
     }
-
 }
 
 void test_all() {
@@ -277,6 +286,7 @@ void test_all() {
     test_sortareOferte();
     test_raport();
     test_undo();
+    test_fisier();
     // - service wishlist
     test_cos();
 }

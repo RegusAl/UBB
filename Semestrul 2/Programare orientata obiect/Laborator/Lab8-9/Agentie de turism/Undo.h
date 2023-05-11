@@ -10,9 +10,9 @@ public:
 
 class UndoAdauga : public ActiuneUndo {
     Oferta ofertaAdaugata;
-    OfertaRepo &Repo;
+    RepoAbstract &Repo;
 public:
-    UndoAdauga(OfertaRepo &repo, const Oferta &o) : Repo{repo}, ofertaAdaugata{o} {}
+    UndoAdauga(RepoAbstract &repo, const Oferta &o) : Repo{repo}, ofertaAdaugata{o} {}
 
     void doUndo() override {
         Repo.stergere(ofertaAdaugata);
@@ -22,9 +22,9 @@ public:
 
 class UndoModifica : public ActiuneUndo {
     Oferta ofertaVeche, ofertaNoua;
-    OfertaRepo &Repo;
+    RepoAbstract &Repo;
 public:
-    UndoModifica(OfertaRepo &repo, Oferta &ofertaVeche, Oferta &ofertaNoua) : Repo{repo}, ofertaVeche{ofertaVeche},
+    UndoModifica(RepoAbstract &repo, Oferta &ofertaVeche, Oferta &ofertaNoua) : Repo{repo}, ofertaVeche{ofertaVeche},
                                                                               ofertaNoua{ofertaNoua} {}
 
     void doUndo() override {
@@ -35,9 +35,9 @@ public:
 
 class UndoSterge : public ActiuneUndo {
     Oferta ofertaStearsa;
-    OfertaRepo &Repo;
+    RepoAbstract &Repo;
 public:
-    UndoSterge(OfertaRepo &repo, Oferta &ofertaStearsa) : Repo{repo}, ofertaStearsa{ofertaStearsa} {}
+    UndoSterge(RepoAbstract &repo, Oferta &ofertaStearsa) : Repo{repo}, ofertaStearsa{ofertaStearsa} {}
 
     void doUndo() override {
         Repo.adauga(ofertaStearsa);

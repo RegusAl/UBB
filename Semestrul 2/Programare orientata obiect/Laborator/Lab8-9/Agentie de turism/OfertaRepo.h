@@ -7,17 +7,20 @@
 #include <string>
 #include <ostream>
 #include <fstream>
+#include <unordered_map>
+#include <random>
+
 
 using std::vector;
 using std::string;
 using std::ostream;
 
 // clasa de repo pur abstracta
-class Repo {
+class RepoAbstract {
 public:
-    Repo() = default;
+    RepoAbstract() = default;
 
-    Repo(const Repo &o) = delete;
+    RepoAbstract(const RepoAbstract &o) = delete;
 
     // adauga oferta
     virtual void adauga(const Oferta &o) = 0;
@@ -27,13 +30,13 @@ public:
 
     // cauta oferta
     virtual const Oferta &cauta(string denumire, string destinatie) = 0;
-    
+
     virtual vector<Oferta> &getAll() = 0;
 
 //    virtual bool exist(const Oferta &o) = 0;
 };
 
-class OfertaRepo : public Repo {
+class OfertaRepo : public RepoAbstract {
 private:
     vector<Oferta> all;
 
@@ -101,6 +104,36 @@ public:
         OfertaRepo::stergere(o);
         writeToFile();
     }
+};
+
+class RepoLab : public RepoAbstract {
+private:
+    std::unordered_map<int, Oferta> oferte;
+    double probabilitate;
+
+    void pass() const;
+
+    bool exist(const Oferta &o);
+
+
+public:
+    RepoLab() {
+        std::mt19937 gen(123);
+        std::uniform_real_distribution<double> dis(0.0, 1.0);
+        probabilitate = dis(gen);
+    };
+
+    void setProbabilitate(double p);
+
+    RepoLab(const OfertaRepo &alt) = delete;
+
+    void adauga(const Oferta &o) override;
+
+    void stergere(const Oferta &o) override;
+
+    const Oferta &cauta(string denumire, string destinatie) override;
+
+    vector<Oferta> &getAll() override;
 };
 
 

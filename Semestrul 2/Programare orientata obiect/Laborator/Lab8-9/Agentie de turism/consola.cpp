@@ -33,7 +33,7 @@ void Consola::adaugaUI() {
 
     }
     catch (Exception exception) {
-        cout << exception.getMessage();
+        cout << exception.getMessage()<<endl;
     }
 }
 

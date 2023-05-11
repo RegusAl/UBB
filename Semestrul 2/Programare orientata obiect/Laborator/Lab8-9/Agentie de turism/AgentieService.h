@@ -8,7 +8,6 @@
 #include "Undo.h"
 
 #include <string>
-//#include <vector>
 #include <functional>
 #include <vector>
 #include <memory>
@@ -22,15 +21,16 @@ using std::function;
 //typedef int(*Sort)(const Oferta&, const Oferta&);
 
 class AgentieService {
-    OfertaRepo &Repo;
+    RepoAbstract &Repo;
     Validator &Valid;
     
     CosOferte &cosCurent;
     vector<std::unique_ptr<ActiuneUndo>> undoActions;
 //    vector<Oferta> filtrare(const function<bool(const Oferta&)>& fct);
 public:
-    explicit AgentieService(OfertaRepo &repo, Validator &valid, CosOferte &cos) : Repo{repo}, Valid{valid},
-                                                                                  cosCurent{cos} {}
+
+    AgentieService(class RepoAbstract &repo, Validator &valid, CosOferte &cos) : Repo{repo}, Valid{valid},
+                                                                              cosCurent{cos} {}
 
     //constructor de copiere; punem delete fiindca nu vrem sa se faca nicio copie la Service
     AgentieService() = delete;

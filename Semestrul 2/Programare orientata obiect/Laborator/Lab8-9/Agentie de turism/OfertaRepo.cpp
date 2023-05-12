@@ -65,7 +65,7 @@ void OfertaRepoFile::loadFromFile() {
         in >> tip;
         if (in.eof()) break;
         in >> pret;
-        Oferta o{denumire.c_str(), destinatie.c_str(), tip.c_str(), pret};
+        Oferta o{denumire, destinatie, tip, pret};
         OfertaRepo::adauga(o);
     }
     in.close();

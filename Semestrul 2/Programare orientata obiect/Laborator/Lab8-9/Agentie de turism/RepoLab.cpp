@@ -19,6 +19,7 @@ bool RepoLab::exist(const Oferta &o) {
         }
         return false;
     }
+    return false;
 }
 
 void RepoLab::setProbabilitate(double p) {
@@ -43,7 +44,7 @@ void RepoLab::stergere(const Oferta &o) {
     }
     if (i > oferte.size()) throw Exception("Oferta nu exista!");
     for (int j = i; j < oferte.size() - 1; j++) {
-        oferte[j] = oferte[j + 1];
+        oferte.at(j) = oferte.at(j + 1);
     }
     oferte.erase((int) oferte.size() - 1);
 }

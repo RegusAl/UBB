@@ -8,13 +8,13 @@
 int main() {
     test_all();
     string fileName = "/home/albert/Documents/UBB/Semestrul 2/Programare orientata obiect/Laborator/Lab8-9/Agentie de turism/oferte.txt";
-    // OfertaRepoFile repo{fileName};
-    RepoLab repolab;
-    repolab.setProbabilitate(0.9); // probabilitate [0, 1]
+    OfertaRepoFile repo{fileName};
+//    RepoLab repolab;
+//    repolab.setProbabilitate(0.5); // probabilitate [0, 1]
     // OfertaRepo repo;
     Validator valid;
     CosOferte cos;
-    AgentieService service{repolab, valid, cos};
+    AgentieService service{repo, valid, cos};
     Consola ui{service};
     ui.run();
 }

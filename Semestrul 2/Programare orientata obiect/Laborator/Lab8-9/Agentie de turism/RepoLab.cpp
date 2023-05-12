@@ -2,17 +2,19 @@
 #include "OfertaRepo.h"
 #include "Errors.h"
 
-void RepoLab::pass() const {
+void RepoLab::random() const {
     double random = ((double) rand() / (RAND_MAX));
     if (random > probabilitate) {
+        random *= 100;
+        cout << "Probabilitatea: " << random;
         throw (Exception("Nu se poate executa aceasta functie!!!"));
     }
 }
 
 bool RepoLab::exist(const Oferta &o) {
-    pass();
-    for(int i = 0; i<oferte.size(); i++) {
-        if(oferte[i].getDenumire() == o.getDenumire() && oferte[i].getDestinatie() == o.getDestinatie()) {
+    random();
+    for (auto &of: oferte) {
+        if (of.second.getDenumire() == o.getDenumire() && of.second.getDestinatie() == o.getDestinatie()) {
             return true;
         }
         return false;
@@ -24,7 +26,7 @@ void RepoLab::setProbabilitate(double p) {
 }
 
 void RepoLab::adauga(const Oferta &o) {
-    pass();
+    random();
     if (exist(o)) {
         throw Exception("Oferta exista deja in lista.");
     }
@@ -33,7 +35,7 @@ void RepoLab::adauga(const Oferta &o) {
 }
 
 void RepoLab::stergere(const Oferta &o) {
-    pass();
+    random();
     int i = 0;
     while (i < oferte.size() && oferte.at(i).getDenumire() != o.getDenumire() &&
            oferte.at(i).getDestinatie() != o.getDestinatie()) {
@@ -47,7 +49,7 @@ void RepoLab::stergere(const Oferta &o) {
 }
 
 const Oferta &RepoLab::cauta(std::string denumire, std::string destinatie) {
-    pass();
+    random();
     auto it = find_if(oferte.begin(), oferte.end(), [=](const std::pair<int, Oferta> o) {
         return o.second.getDenumire() == denumire && o.second.getDestinatie() == destinatie;
     });
@@ -56,13 +58,15 @@ const Oferta &RepoLab::cauta(std::string denumire, std::string destinatie) {
     return (*it).second;
 }
 
-vector<Oferta> OF;
+vector<Oferta> OFERTE;
 
 vector<Oferta> &RepoLab::getAll() {
-    pass();
-    OF.clear();
+    random();
+//    if (OFERTE.empty())
+//        throw Exception("Nu exista oferte!");
+    OFERTE.clear();
     for (auto &o: oferte) {
-        OF.push_back(o.second);
+        OFERTE.push_back(o.second);
     }
-    return OF;
+    return OFERTE;
 }

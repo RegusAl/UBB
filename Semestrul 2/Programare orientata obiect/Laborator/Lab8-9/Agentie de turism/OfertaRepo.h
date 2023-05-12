@@ -76,10 +76,6 @@ public:
     vector<Oferta> &getAll() override {
         return all;
     }
-
-
-//    Oferta* begin();
-//    Oferta* end();
 };
 
 class OfertaRepoFile : public OfertaRepo {
@@ -91,7 +87,7 @@ private:
     void writeToFile();
 
 public:
-    OfertaRepoFile(string fileName) : OfertaRepo(), fileName{fileName} {
+    explicit OfertaRepoFile(string fileName) : OfertaRepo(), fileName{fileName} {
         loadFromFile();
     }
 
@@ -111,7 +107,8 @@ private:
     std::unordered_map<int, Oferta> oferte;
     double probabilitate;
 
-    void pass() const;
+    // functia ce returneaza probabilitatea
+    void random() const;
 
     bool exist(const Oferta &o);
 
@@ -122,6 +119,7 @@ public:
         std::uniform_real_distribution<double> dis(0.0, 1.0);
         probabilitate = dis(gen);
     };
+
 
     void setProbabilitate(double p);
 

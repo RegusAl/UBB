@@ -1,11 +1,3 @@
-El-Camino
-Spania
-hiking
-780
-Via-Transilvanica
-Romania
-hiking
-450
 Turnul-Eiffel
 Paris
 vacanta
@@ -14,4 +6,11 @@ Munte
 Fagaras
 hiking
 399
-
+El-Camino
+Spania
+hiking
+780
+nuju
+sdsd
+CityBreak
+3456

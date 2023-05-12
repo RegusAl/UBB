@@ -33,15 +33,19 @@ void Consola::adaugaUI() {
 
     }
     catch (Exception exception) {
-        cout << exception.getMessage()<<endl;
+        cout << exception.getMessage() << endl;
     }
 }
 
 void Consola::afisareUI(const vector<Oferta> &oferte) {
     cout << "OFERTE" << endl;
-    for (const auto &oferta: oferte) {
-        cout << "DENUMIRE: " << oferta.getDenumire() << " | DESTINATIE: " << oferta.getDestinatie() << " | TIP: "
-             << oferta.getTip() << " | PRET: " << oferta.getPret() << " RON |" << endl;
+    try {
+        for (const auto &oferta: oferte) {
+            cout << "DENUMIRE: " << oferta.getDenumire() << " | DESTINATIE: " << oferta.getDestinatie() << " | TIP: "
+                 << oferta.getTip() << " | PRET: " << oferta.getPret() << " RON |" << endl;
+        }
+    } catch (Exception exception) {
+        cout << exception.getMessage() << endl;
     }
 }
 

@@ -23,21 +23,34 @@ void OfertaStoreGUI::initializeGUIComponents()
 	editTip = new QLineEdit;
 	editPret = new QLineEdit;
 
+    // denumire
 	lyForm->addRow(lblDenumire, editDenumire);
-	lyForm->addRow(lblDestinatie, editDestinatie);
-	lyForm->addRow(lblTip, editTip);
+
+	// destinatie
+    lyForm->addRow(lblDestinatie, editDestinatie);
+
+    // tip
+    lyForm->addRow(lblTip, editTip);
+//    QVBoxLayout* lyRadioBoxqq = new QVBoxLayout;
+//    this->groupBoxTip->setLayout(lyRadioBoxqq);
+//    lyRadioBoxqq->addWidget(tipAllInclusive);
+//    lyRadioBoxqq->addWidget(tipCityBreak);
+//    lyRadioBoxqq->addWidget(tipHiking);
+//
+//    lyForm->addWidget(groupBoxTip);
+
+    // pret
 	lyForm->addRow(lblPret, editPret);
 	btnAddOferta = new QPushButton("Adauga oferta");
 	lyForm->addWidget(btnAddOferta);
 	btnModifyOferta = new QPushButton("Modifica oferta");
 	lyForm->addWidget(btnModifyOferta);
+
 	btnDeleteOferta = new QPushButton("Delete oferta");
 	lyForm->addWidget(btnDeleteOferta);
 
 	//adaugam toate componentele legate de adaugare oferta in layout-ul care corespunde partii din stanga a ferestrei
 	lyLeft->addWidget(form);
-
-
 
 	//cream un GroupBox pentru radiobuttons care corespund criteriilor de sortare pe care le avem (dupa denumire, destinatie, tip+pret) + butonul de sortare
 	QVBoxLayout* lyRadioBox = new QVBoxLayout;
@@ -100,7 +113,7 @@ void OfertaStoreGUI::initializeGUIComponents()
 
 	cnt = 0;
 	for (int i = 0; i < srv.getAll().size(); i++)
-		if (srv.getAll().at(i).getTip() == "Croaziere")
+		if (srv.getAll().at(i).getTip() == "Hiking")
 			cnt++;
 	if (cnt == 0)
 		btnHiking->setVisible(false);
@@ -121,7 +134,6 @@ void OfertaStoreGUI::initializeGUIComponents()
 
 	btnUndo = new QPushButton("Undo");
 	lyLeft->addWidget(btnUndo);
-
 
 	//componenta right - contine doar tabelul cu oferte
 	QWidget* right = new QWidget;
@@ -157,6 +169,9 @@ void OfertaStoreGUI::connectSignalsSlots()
 			this->reloadOfertaList(this->srv.getAll());
 			QMessageBox::information(this, "Info", QString::fromStdString("Undo realizat cu succes."));
 		}
+        catch (Exception& ex) {
+            QMessageBox::warning(this, "Warning", QString::fromStdString(ex.getMessage()));
+        }
 		catch (OfertaRepoException& re) {
 			QMessageBox::warning(this, "Warning", "");
 		}

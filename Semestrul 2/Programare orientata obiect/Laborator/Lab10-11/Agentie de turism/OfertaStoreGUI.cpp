@@ -86,52 +86,6 @@ void OfertaStoreGUI::initializeGUIComponents()
 	btnReloadData = new QPushButton("Reload data");
 	lyLeft->addWidget(btnReloadData);
 
-	btnAllInclusive = new QPushButton("AllInclusive");
-	btnCityBreak = new QPushButton("CityBreak");
-	btnHiking = new QPushButton("Hiking");
-	btnMultiCountry = new QPushButton("MultiCountry");
-	btnAltele = new QPushButton("Altele");
-	lyLeft->addWidget(btnAllInclusive);
-	lyLeft->addWidget(btnCityBreak);
-	lyLeft->addWidget(btnHiking);
-	lyLeft->addWidget(btnMultiCountry);
-	lyLeft->addWidget(btnAltele);
-
-	int cnt = 0;
-	for (int i = 0; i < srv.getAll().size(); i++)
-		if (srv.getAll().at(i).getTip() == "AllInclusive")
-			cnt++;
-	if (cnt == 0)
-		btnAllInclusive->setVisible(false);
-
-	cnt = 0;
-	for (int i = 0; i < srv.getAll().size(); i++)
-		if (srv.getAll().at(i).getTip() == "CityBreak")
-			cnt++;
-	if (cnt == 0)
-		btnCityBreak->setVisible(false);
-
-	cnt = 0;
-	for (int i = 0; i < srv.getAll().size(); i++)
-		if (srv.getAll().at(i).getTip() == "Hiking")
-			cnt++;
-	if (cnt == 0)
-		btnHiking->setVisible(false);
-
-	cnt = 0;
-	for (int i = 0; i < srv.getAll().size(); i++)
-		if (srv.getAll().at(i).getTip() == "MultiCountry")
-			cnt++;
-	if (cnt == 0)
-		btnMultiCountry->setVisible(false);
-
-	cnt = 0;
-	for (int i = 0; i < srv.getAll().size(); i++)
-		if (srv.getAll().at(i).getTip() == "Altele")
-			cnt++;
-	if (cnt == 0)
-		btnAltele->setVisible(false);
-
 	btnUndo = new QPushButton("Undo");
 	lyLeft->addWidget(btnUndo);
 
@@ -151,6 +105,52 @@ void OfertaStoreGUI::initializeGUIComponents()
 
 	//optiune pentru a se redimensiona celulele din tabel in functie de continut
 	this->tableOferta->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
+    btnAllInclusive = new QPushButton("AllInclusive");
+    btnCityBreak = new QPushButton("CityBreak");
+    btnHiking = new QPushButton("Hiking");
+    btnMultiCountry = new QPushButton("MultiCountry");
+    btnAltele = new QPushButton("Altele");
+    lyRight->addWidget(btnAllInclusive);
+    lyRight->addWidget(btnCityBreak);
+    lyRight->addWidget(btnHiking);
+    lyRight->addWidget(btnMultiCountry);
+    lyRight->addWidget(btnAltele);
+
+    int cnt = 0;
+    for (int i = 0; i < srv.getAll().size(); i++)
+        if (srv.getAll().at(i).getTip() == "AllInclusive")
+            cnt++;
+    if (cnt == 0)
+        btnAllInclusive->setVisible(false);
+
+    cnt = 0;
+    for (int i = 0; i < srv.getAll().size(); i++)
+        if (srv.getAll().at(i).getTip() == "CityBreak")
+            cnt++;
+    if (cnt == 0)
+        btnCityBreak->setVisible(false);
+
+    cnt = 0;
+    for (int i = 0; i < srv.getAll().size(); i++)
+        if (srv.getAll().at(i).getTip() == "Hiking")
+            cnt++;
+    if (cnt == 0)
+        btnHiking->setVisible(false);
+
+    cnt = 0;
+    for (int i = 0; i < srv.getAll().size(); i++)
+        if (srv.getAll().at(i).getTip() == "MultiCountry")
+            cnt++;
+    if (cnt == 0)
+        btnMultiCountry->setVisible(false);
+
+    cnt = 0;
+    for (int i = 0; i < srv.getAll().size(); i++)
+        if (srv.getAll().at(i).getTip() == "Altele")
+            cnt++;
+    if (cnt == 0)
+        btnAltele->setVisible(false);
 
 	lyRight->addWidget(tableOferta);
 	lyMain->addWidget(left);

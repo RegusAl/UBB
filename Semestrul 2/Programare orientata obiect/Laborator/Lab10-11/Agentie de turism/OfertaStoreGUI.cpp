@@ -31,13 +31,6 @@ void OfertaStoreGUI::initializeGUIComponents()
 
     // tip
     lyForm->addRow(lblTip, editTip);
-//    QVBoxLayout* lyRadioBoxqq = new QVBoxLayout;
-//    this->groupBoxTip->setLayout(lyRadioBoxqq);
-//    lyRadioBoxqq->addWidget(tipAllInclusive);
-//    lyRadioBoxqq->addWidget(tipCityBreak);
-//    lyRadioBoxqq->addWidget(tipHiking);
-//
-//    lyForm->addWidget(groupBoxTip);
 
     // pret
 	lyForm->addRow(lblPret, editPret);
@@ -88,6 +81,17 @@ void OfertaStoreGUI::initializeGUIComponents()
 
 	btnUndo = new QPushButton("Undo");
 	lyLeft->addWidget(btnUndo);
+
+    btnCos = new QPushButton("Wishlist");
+    adaugaCos = new QPushButton("Adauga oferta in wishlist");
+    denumireOfertaCos = new QLineEdit;
+    destinatieOfertaCos = new QLineEdit;
+    adaugaRandomCos = new QPushButton("Adauga oferte random in wishlist");
+    numarRandom = new QLineEdit;
+    golesteCos = new QPushButton("Goleste wishlist");
+    editExport = new QLineEdit;
+    this->listaCos = new QListWidget();
+    exportCos = new QPushButton("Exporta wishlist");
 
 	//componenta right - contine doar tabelul cu oferte
 	QWidget* right = new QWidget;
@@ -153,6 +157,12 @@ void OfertaStoreGUI::initializeGUIComponents()
         btnAltele->setVisible(false);
 
 	lyRight->addWidget(tableOferta);
+
+    this->listaOferte = new QListWidget();
+    lyRight->addWidget(listaOferte);
+
+    lyRight->addWidget(btnCos);
+
 	lyMain->addWidget(left);
 	lyMain->addWidget(right);
 }
@@ -249,13 +259,13 @@ void OfertaStoreGUI::connectSignalsSlots()
 		*/
 		//auto q = this->tableOferta->SelectedClicked();
 		//int index = int(q[1]);
-		
+
 		//QItemSelectionModel* select = tableOferta->selectionModel();
 		//select->hasSelection();
 		///auto q = select->selectedIndexes();
 		//int row = 0, col = 0;
 		//auto SelectedRow = this->tableOferta->selectedItems().at(row)->data(col).toString();
-		
+
 
 		
 		int indexbun;
@@ -271,6 +281,73 @@ void OfertaStoreGUI::connectSignalsSlots()
 		QMessageBox::information(this, "Info", QString::fromStdString("Ati apasat %1").arg(indexbun));
 
 		});
+
+    QObject::connect(btnCos, &QPushButton::clicked, [&]() {
+        QWidget* fereastraCos = new QWidget;
+        QFormLayout* lyCos = new QFormLayout;
+        fereastraCos->setLayout(lyCos);
+        denumireOfertaCos = new QLineEdit;
+        lyCos->addRow("Denumire oferta: ", denumireOfertaCos);
+        destinatieOfertaCos = new QLineEdit;
+        lyCos->addRow("Destinatie oferta: ", destinatieOfertaCos);
+        lyCos->addWidget(adaugaCos);
+        lyCos->addRow(lblRandom, numarRandom);
+        lyCos->addWidget(adaugaRandomCos);
+        lyCos->addWidget(golesteCos);
+        editExport = new QLineEdit;
+        lyCos->addRow(lblExport, editExport);
+        lyCos->addWidget(exportCos);
+        lyCos->addWidget(listaCos);
+        fereastraCos->show();
+    });
+
+    QObject::connect(adaugaCos, & QPushButton::clicked, [&]() {
+       try {
+           string denumire = denumireOfertaCos->text().toStdString();
+           string destinatie = destinatieOfertaCos->text().toStdString();
+           denumireOfertaCos->clear();
+           destinatieOfertaCos->clear();
+           this->srv.cosAdauga(denumire, destinatie);
+//           QMessageBox::information(this, "Info", "Oferta adaugata cu succes!");
+           this->reloadOfertaCosList(this->srv.getAllCos());
+       } catch (OfertaRepoException& repoException) {
+           QMessageBox::warning(this, "Warning", "Oferta nu exista!");
+       }
+    });
+
+    QObject::connect(adaugaRandomCos, & QPushButton::clicked, [&]() {
+        try {
+            int nr = numarRandom->text().toInt();
+            numarRandom->clear();
+            this->srv.cosAdaugaRandom(nr);
+//            QMessageBox::information(this, "Info", "S-au adaugat ofertele random");
+            this->reloadOfertaCosList(this->srv.getAllCos());
+        } catch (OfertaRepoException& repoException) {
+            QMessageBox::warning(this, "Warning", "Nu exista oferte");
+        }
+    });
+
+    QObject::connect(golesteCos, & QPushButton::clicked, [&]() {
+       try {
+           this->srv.cosSterge();
+           this->reloadOfertaCosList(this->srv.getAllCos());
+       } catch (OfertaRepoException &repoException) {
+           QMessageBox::warning(this, "Warning", "");
+       }
+    });
+
+    QObject::connect(exportCos, &QPushButton::clicked, [&]() {
+        try {
+            string fisier = editExport->text().toStdString();
+            editExport->clear();
+            this->srv.cosExport(fisier);
+            listaCos->clear();
+            this->srv.cosSterge();
+            this->reloadOfertaCosList(this->srv.getAllCos());
+        } catch (OfertaRepoException) {
+            QMessageBox::warning(this, "Warning", "");
+        }
+    });
 
 }
 
@@ -308,7 +385,7 @@ void OfertaStoreGUI::reloadOfertaList(vector<Oferta> oferte)
 
 	cnt = 0;
 	for (int i = 0; i < srv.getAll().size(); i++)
-		if (srv.getAll().at(i).getTip() == "Croaziere")
+		if (srv.getAll().at(i).getTip() == "Hiking")
 			cnt++;
 	if (cnt == 0)
 		btnHiking->setVisible(false);
@@ -332,6 +409,17 @@ void OfertaStoreGUI::reloadOfertaList(vector<Oferta> oferte)
 		btnAltele->setVisible(false);
 	else
 		btnAltele->setVisible(true);
+
+}
+
+void OfertaStoreGUI::reloadOfertaCosList(vector<Oferta> oferte) {
+    this->listaCos->clear();
+    for(const auto& elem : oferte) {
+        auto item = new QListWidgetItem(QString::fromStdString(
+                elem.getDenumire() + " " + elem.getDestinatie() + " " + elem.getTip() + " " + std::to_string(elem.getPret())
+                ));
+        this->listaCos->addItem(item);
+    }
 }
 
 void OfertaStoreGUI::guiAddOferta()

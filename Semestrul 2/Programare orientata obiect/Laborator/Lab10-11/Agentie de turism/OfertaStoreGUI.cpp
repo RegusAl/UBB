@@ -9,7 +9,6 @@ void OfertaStoreGUI::initializeGUIComponents()
 	QHBoxLayout* lyMain = new QHBoxLayout;
 	this->setLayout(lyMain);
 
-
 	//left part of the window, pentru care setam layout vertical
 	QWidget* left = new QWidget;
 	QVBoxLayout* lyLeft = new QVBoxLayout;
@@ -98,17 +97,17 @@ void OfertaStoreGUI::initializeGUIComponents()
 	QVBoxLayout* lyRight = new QVBoxLayout;
 	right->setLayout(lyRight);
 
-	int noLines = 10;
-	int noColumns = 4;
-	this->tableOferta = new QTableWidget{ noLines, noColumns };
-
-	//setam header-ul tabelului
-	QStringList tblHeaderList;
-	tblHeaderList << "Denumire" << "Destinatie" << "Tip" << "Pret";
-	this->tableOferta->setHorizontalHeaderLabels(tblHeaderList);
-
-	//optiune pentru a se redimensiona celulele din tabel in functie de continut
-	this->tableOferta->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+//	int noLines = 10;
+//	int noColumns = 4;
+//	this->tableOferta = new QTableWidget{ noLines, noColumns };
+//
+//	//setam header-ul tabelului
+//	QStringList tblHeaderList;
+//	tblHeaderList << "Denumire" << "Destinatie" << "Tip" << "Pret";
+//	this->tableOferta->setHorizontalHeaderLabels(tblHeaderList);
+//
+//	//optiune pentru a se redimensiona celulele din tabel in functie de continut
+//	this->tableOferta->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
     btnAllInclusive = new QPushButton("AllInclusive");
     btnCityBreak = new QPushButton("CityBreak");
@@ -156,10 +155,11 @@ void OfertaStoreGUI::initializeGUIComponents()
     if (cnt == 0)
         btnAltele->setVisible(false);
 
-	lyRight->addWidget(tableOferta);
+//	lyRight->addWidget(tableOferta);
 
-//    this->listaOferte = new QListWidget();
-//    lyRight->addWidget(listaOferte);
+    this->listaOferte = new QListWidget;
+    lyRight->addWidget(listaOferte);
+
 
     lyRight->addWidget(btnCos);
 
@@ -252,35 +252,35 @@ void OfertaStoreGUI::connectSignalsSlots()
 
 
 
-	QObject::connect(this->tableOferta, &QTableWidget::itemSelectionChanged, [&]() {
-		/*
-		QItemSelectionModel *select = table->selectionModel(); select->hasSelection() //check if has selection select->selectedRows() //
-		return selected row(s) select->selectedColumns() // return selected column(s) Check selectedRows method of the QItemSelectionModel Class .
-		*/
-		//auto q = this->tableOferta->SelectedClicked();
-		//int index = int(q[1]);
-
-		//QItemSelectionModel* select = tableOferta->selectionModel();
-		//select->hasSelection();
-		///auto q = select->selectedIndexes();
-		//int row = 0, col = 0;
-		//auto SelectedRow = this->tableOferta->selectedItems().at(row)->data(col).toString();
-
-
-		
-		int indexbun;
-		QModelIndexList selection = this->tableOferta->selectionModel()->selectedRows();
-		for (int i = 0; i < selection.count(); i++)
-		{
-			QModelIndex index = selection.at(i);
-			indexbun = index.row();
-			QMessageBox::information(this, "Info", QString::fromStdString("Ati apasat %1").arg(index.row()));
-		}
-
-		auto elements = this->srv.getAll();
-		QMessageBox::information(this, "Info", QString::fromStdString("Ati apasat %1").arg(indexbun));
-
-		});
+//	QObject::connect(this->tableOferta, &QTableWidget::itemSelectionChanged, [&]() {
+//		/*
+//		QItemSelectionModel *select = table->selectionModel(); select->hasSelection() //check if has selection select->selectedRows() //
+//		return selected row(s) select->selectedColumns() // return selected column(s) Check selectedRows method of the QItemSelectionModel Class .
+//		*/
+//		//auto q = this->tableOferta->SelectedClicked();
+//		//int index = int(q[1]);
+//
+//		//QItemSelectionModel* select = tableOferta->selectionModel();
+//		//select->hasSelection();
+//		///auto q = select->selectedIndexes();
+//		//int row = 0, col = 0;
+//		//auto SelectedRow = this->tableOferta->selectedItems().at(row)->data(col).toString();
+//
+//
+//
+//		int indexbun;
+//		QModelIndexList selection = this->tableOferta->selectionModel()->selectedRows();
+//		for (int i = 0; i < selection.count(); i++)
+//		{
+//			QModelIndex index = selection.at(i);
+//			indexbun = index.row();
+//			QMessageBox::information(this, "Info", QString::fromStdString("Ati apasat %1").arg(index.row()));
+//		}
+//
+//		auto elements = this->srv.getAll();
+//		QMessageBox::information(this, "Info", QString::fromStdString("Ati apasat %1").arg(indexbun));
+//
+//		});
 
     QObject::connect(btnCos, &QPushButton::clicked, [&]() {
         QWidget* fereastraCos = new QWidget;
@@ -353,17 +353,23 @@ void OfertaStoreGUI::connectSignalsSlots()
 
 void OfertaStoreGUI::reloadOfertaList(vector<Oferta> oferte)
 {
-	this->tableOferta->clearContents();
-	this->tableOferta->setRowCount(oferte.size());
+//	this->tableOferta->clearContents();
+//	this->tableOferta->setRowCount(oferte.size());
 
-	int lineNumber = 0;
-	for (auto& oferta : oferte) {
-		this->tableOferta->setItem(lineNumber, 0, new QTableWidgetItem(QString::fromStdString(oferta.getDenumire())));
-		this->tableOferta->setItem(lineNumber, 1, new QTableWidgetItem(QString::fromStdString(oferta.getDestinatie())));
-		this->tableOferta->setItem(lineNumber, 2, new QTableWidgetItem(QString::fromStdString(oferta.getTip())));
-		this->tableOferta->setItem(lineNumber, 3, new QTableWidgetItem(QString::number(oferta.getPret())));
-		lineNumber++;
-	}
+//	int lineNumber = 0;
+//	for (auto& oferta : oferte) {
+//		this->tableOferta->setItem(lineNumber, 0, new QTableWidgetItem(QString::fromStdString(oferta.getDenumire())));
+//		this->tableOferta->setItem(lineNumber, 1, new QTableWidgetItem(QString::fromStdString(oferta.getDestinatie())));
+//		this->tableOferta->setItem(lineNumber, 2, new QTableWidgetItem(QString::fromStdString(oferta.getTip())));
+//		this->tableOferta->setItem(lineNumber, 3, new QTableWidgetItem(QString::number(oferta.getPret())));
+//		lineNumber++;
+//	}
+
+    this->listaOferte->clear();
+    for(auto& oferta : oferte) {
+        string o = oferta.getDenumire() + " | " + oferta.getDestinatie() + " | " + oferta.getTip() + " | " + to_string(oferta.getPret());
+        this->listaOferte->addItem(QString::fromStdString(o));
+    }
 
 	int cnt = 0;
 	for (int i = 0; i < srv.getAll().size(); i++)

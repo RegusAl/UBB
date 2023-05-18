@@ -158,8 +158,8 @@ void OfertaStoreGUI::initializeGUIComponents()
 
 	lyRight->addWidget(tableOferta);
 
-    this->listaOferte = new QListWidget();
-    lyRight->addWidget(listaOferte);
+//    this->listaOferte = new QListWidget();
+//    lyRight->addWidget(listaOferte);
 
     lyRight->addWidget(btnCos);
 

@@ -7,45 +7,14 @@
 
 using namespace std;
 
-/*
-subalg val_max:
-	init v[]=0
-	daca vid() atunci
-	       returneaza -1
-	max<-0
-	pentru i<-0, m, +1 executa
-		daca e[i].valoare!=NIl at
-			[v.e[i].valoare]++
-		daca [v.e[i].valoare] > max at
-			max <- [v.e[i].valoare]
-			val<-e[i].valoare
-	return max
-sf subalg
-			
-
-*/
-//Theta(m)
-//TValoare MDO::val_max()
-//{
-//	int v[400] = { 0 },val;
-//	if (vid()) {
-//		return -1;
-//	}
-//	int max = 0;
-//	for (int i = 0; i < m; i++) {
-//		if(e[i].second!=INIT) v[e[i].second]++;
-//		if (v[e[i].second] > max) { max = v[e[i].second]; val = e[i].second; }
-//	}
-//	return val;
-//}
-
 //functia de dispersie
 int MDO::d(TCheie c) const {
-    if (c < 0) c = -c;
+    if (c < 0)
+        c = -c;
     return c % m;
 }
 
-// complexitate O(m), unde m dimensiunea tabelei de dispersie
+// complexitate O(n), unde n dimensiunea tabelei de dispersie
 MDO::MDO(Relatie r) {
     relatie = r;
     m = MAX;
@@ -168,6 +137,20 @@ int MDO::dim() const {
 
 bool MDO::vid() const {
     return n == 0;
+}
+
+int MDO::adaugaInexistente(MDO &mdo) {
+    int nrPerechiAdaugate = 0;
+    for (int i = 1; i <= mdo.dim(); i++) {
+        if (this->cauta(e[i].first) != mdo.cauta(mdo.e[i].first) ||
+            (this->cauta(e[i].first) != mdo.cauta(mdo.e[i].first) &&
+             this->cauta(e[i].second) != mdo.cauta(mdo.e[i].second))) {
+            adauga(mdo.e[i].first, mdo.e[i].second);
+//            cout << mdo.e[i].second << endl;
+            nrPerechiAdaugate++;
+        }
+    }
+    return nrPerechiAdaugate;
 }
 
 IteratorMDO MDO::iterator() const {

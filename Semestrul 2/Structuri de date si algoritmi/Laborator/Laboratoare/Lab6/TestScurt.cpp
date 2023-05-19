@@ -4,6 +4,7 @@
 #include "IteratorMDO.h"
 
 #include <exception>
+#include <iostream>
 #include <vector>
 
 using namespace std;
@@ -15,17 +16,6 @@ bool relatie1(TCheie cheie1, TCheie cheie2) {
         return false;
     }
 }
-
-//void test_val_max() {
-//    MDO d = MDO(relatie1);
-//    assert(d.val_max() == -1);
-//    d.adauga(1, 0);
-//    d.adauga(5, 15);
-//    d.adauga(3, -4);
-//    d.adauga(6, 20);
-//    d.adauga(1, 15);
-////    assert(d.val_max() == 20);
-//}
 
 void testAll() {
     MDO dictOrd = MDO(relatie1);
@@ -48,7 +38,20 @@ void testAll() {
     assert(dictOrd.sterge(1, 2) == true);
     assert(dictOrd.sterge(1, 3) == true);
     assert(dictOrd.sterge(2, 1) == false);
-    //printf("%d", dictOrd.dim());
     assert(dictOrd.vid());
+
+    MDO mdo1 = MDO(relatie1);
+    MDO mdo2 = MDO(relatie1);
+    mdo1.adauga(3, 5);
+    mdo1.adauga(4, 6);
+    mdo1.adauga(1, 2);
+    mdo2.adauga(5, 7);
+    mdo2.adauga(1, 2);
+    mdo2.adauga(2, 8);
+    mdo2.adauga(3, 56);
+//    cout << "Perechi in mdo2: " << mdo2.dim() << endl;
+    assert(mdo1.adaugaInexistente(mdo2) == 3);
+    assert(mdo1.dim() == 6);
+    cout << "Test functionalitate noua - passed!" << endl;
 }
 

@@ -37,8 +37,6 @@ private:
 public:
     Relatie relatie;
 
-//	int difmaxmin();
-//	int val_max();
     // constructorul implicit al MultiDictionarului Ordonat
     MDO(Relatie r);
 
@@ -57,6 +55,8 @@ public:
 
     //verifica daca MultiDictionarul Ordonat e vid
     bool vid() const;
+
+    int adaugaInexistente(MDO &mdo);
 
     // se returneaza iterator pe MDO
     // iteratorul va returna perechile in ordine in raport cu relatia de ordine

@@ -97,17 +97,17 @@ void OfertaStoreGUI::initializeGUIComponents()
 	QVBoxLayout* lyRight = new QVBoxLayout;
 	right->setLayout(lyRight);
 
-//	int noLines = 10;
-//	int noColumns = 4;
-//	this->tableOferta = new QTableWidget{ noLines, noColumns };
-//
-//	//setam header-ul tabelului
-//	QStringList tblHeaderList;
-//	tblHeaderList << "Denumire" << "Destinatie" << "Tip" << "Pret";
-//	this->tableOferta->setHorizontalHeaderLabels(tblHeaderList);
-//
-//	//optiune pentru a se redimensiona celulele din tabel in functie de continut
-//	this->tableOferta->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+	int noLines = 10;
+	int noColumns = 4;
+	this->tableOferta = new QTableWidget{ noLines, noColumns };
+
+	//setam header-ul tabelului
+	QStringList tblHeaderList;
+	tblHeaderList << "Denumire" << "Destinatie" << "Tip" << "Pret";
+	this->tableOferta->setHorizontalHeaderLabels(tblHeaderList);
+
+	//optiune pentru a se redimensiona celulele din tabel in functie de continut
+	this->tableOferta->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
     btnAllInclusive = new QPushButton("AllInclusive");
     btnCityBreak = new QPushButton("CityBreak");
@@ -155,10 +155,10 @@ void OfertaStoreGUI::initializeGUIComponents()
     if (cnt == 0)
         btnAltele->setVisible(false);
 
-//	lyRight->addWidget(tableOferta);
+	lyRight->addWidget(tableOferta);
 
-    this->listaOferte = new QListWidget;
-    lyRight->addWidget(listaOferte);
+//    this->listaOferte = new QListWidget;
+//    lyRight->addWidget(listaOferte);
 
 
     lyRight->addWidget(btnCos);
@@ -199,11 +199,13 @@ void OfertaStoreGUI::connectSignalsSlots()
 	QObject::connect(btnFilterOferte1, &QPushButton::clicked, [&]() {
 		string filterC = this->editFilterPret->text().toStdString();
 		this->reloadOfertaList(srv.filtrarePret(stoi(filterC)));
+        editFilterPret->clear();
 		});
 
 	QObject::connect(btnFilterOferte2, &QPushButton::clicked, [&]() {
 		string filterC = this->editFilterDestinatie->text().toStdString();
 		this->reloadOfertaList(srv.filtrareDestinatie(filterC));
+        editFilterDestinatie->clear();
 		});
 
 	QObject::connect(btnReloadData, &QPushButton::clicked, [&]() {
@@ -353,23 +355,23 @@ void OfertaStoreGUI::connectSignalsSlots()
 
 void OfertaStoreGUI::reloadOfertaList(vector<Oferta> oferte)
 {
-//	this->tableOferta->clearContents();
-//	this->tableOferta->setRowCount(oferte.size());
+	this->tableOferta->clearContents();
+	this->tableOferta->setRowCount(oferte.size());
 
-//	int lineNumber = 0;
-//	for (auto& oferta : oferte) {
-//		this->tableOferta->setItem(lineNumber, 0, new QTableWidgetItem(QString::fromStdString(oferta.getDenumire())));
-//		this->tableOferta->setItem(lineNumber, 1, new QTableWidgetItem(QString::fromStdString(oferta.getDestinatie())));
-//		this->tableOferta->setItem(lineNumber, 2, new QTableWidgetItem(QString::fromStdString(oferta.getTip())));
-//		this->tableOferta->setItem(lineNumber, 3, new QTableWidgetItem(QString::number(oferta.getPret())));
-//		lineNumber++;
-//	}
+	int lineNumber = 0;
+	for (auto& oferta : oferte) {
+		this->tableOferta->setItem(lineNumber, 0, new QTableWidgetItem(QString::fromStdString(oferta.getDenumire())));
+		this->tableOferta->setItem(lineNumber, 1, new QTableWidgetItem(QString::fromStdString(oferta.getDestinatie())));
+		this->tableOferta->setItem(lineNumber, 2, new QTableWidgetItem(QString::fromStdString(oferta.getTip())));
+		this->tableOferta->setItem(lineNumber, 3, new QTableWidgetItem(QString::number(oferta.getPret())));
+		lineNumber++;
+	}
 
-    this->listaOferte->clear();
-    for(auto& oferta : oferte) {
-        string o = oferta.getDenumire() + " | " + oferta.getDestinatie() + " | " + oferta.getTip() + " | " + to_string(oferta.getPret());
-        this->listaOferte->addItem(QString::fromStdString(o));
-    }
+//    this->listaOferte->clear();
+//    for(auto& oferta : oferte) {
+//        string o = oferta.getDenumire() + " | " + oferta.getDestinatie() + " | " + oferta.getTip() + " | " + to_string(oferta.getPret());
+//        this->listaOferte->addItem(QString::fromStdString(o));
+//    }
 
 	int cnt = 0;
 	for (int i = 0; i < srv.getAll().size(); i++)

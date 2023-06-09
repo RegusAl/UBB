@@ -1,0 +1,5 @@
+1,xyz,papa,6
+2,ddt,Ozn,0
+3,hahahah,novak,7
+6,kpap,hehe,8
+4,lololi,delia,0

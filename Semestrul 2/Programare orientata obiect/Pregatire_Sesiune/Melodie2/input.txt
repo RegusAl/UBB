@@ -1,12 +1,8 @@
 1,Fear of the dark,Iron Maiden,rock
 4,Cartography,Eddie Vedder,folk
-7,Happy,nuj,pop
 2,df,12,pop
-3,ndnd,dfdf,rock
 5,dfdfddfd,dfdfd,disco
-6,ss,ss,disco
 8,ssds,sdsds,pop
-9,xsdds,xdx,pop
 10,asasasaa,asasas,pop
 11,aa,a,pop
-12,ssss,ssss,folk
+3,ssdssdsd,sdfsd,disco

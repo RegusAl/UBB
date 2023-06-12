@@ -6,6 +6,7 @@
 #include "QTableWidgetItem"
 
 #include "service.h"
+#include "MODEL.h"
 
 class Painter : public QWidget {
 private:
@@ -21,9 +22,12 @@ class GUI : public QWidget {
 private:
     Service &service;
 
+    MyTableModel* model;
+    QTableView* tabel = new QTableView;
+
     QVBoxLayout* mainLayout = new QVBoxLayout;
 
-    QTableWidget* tabel = new QTableWidget;
+//    QTableWidget* tabel = new QTableWidget;
 
     QLineEdit* editTitlu = new QLineEdit;
     QLineEdit* editArtist = new QLineEdit;

@@ -1,19 +1,22 @@
 #include "GUI.h"
 
 void GUI::init_GUI() {
-    tabel->clear();
-    tabel = new QTableWidget(service.getAll().size(), 6);
+//    tabel->clear();
+//    tabel = new QTableWidget(service.getAll().size(), 6);
+//
+//    int i = 0;
+//    for(auto &m : service.getAll()) {
+//        tabel->setItem(i, 0, new QTableWidgetItem(QString::number(m.get_id())));
+//        tabel->setItem(i, 1, new QTableWidgetItem(QString::fromStdString(m.get_titlu())));
+//        tabel->setItem(i, 2, new QTableWidgetItem(QString::fromStdString(m.get_artist())));
+//        tabel->setItem(i, 3, new QTableWidgetItem(QString::fromStdString(m.get_gen())));
+//        tabel->setItem(i, 4, new QTableWidgetItem(QString::number(service.acelasiArtist(m))));
+//        tabel->setItem(i, 5, new QTableWidgetItem(QString::number(service.acelasiGen(m))));
+//        i++;
+//    }
 
-    int i = 0;
-    for(auto &m : service.getAll()) {
-        tabel->setItem(i, 0, new QTableWidgetItem(QString::number(m.get_id())));
-        tabel->setItem(i, 1, new QTableWidgetItem(QString::fromStdString(m.get_titlu())));
-        tabel->setItem(i, 2, new QTableWidgetItem(QString::fromStdString(m.get_artist())));
-        tabel->setItem(i, 3, new QTableWidgetItem(QString::fromStdString(m.get_gen())));
-        tabel->setItem(i, 4, new QTableWidgetItem(QString::number(service.acelasiArtist(m))));
-        tabel->setItem(i, 5, new QTableWidgetItem(QString::number(service.acelasiGen(m))));
-        i++;
-    }
+    model = new MyTableModel{service.getAll()};
+    tabel->setModel(model);
 
 
 
@@ -31,19 +34,21 @@ void GUI::init_GUI() {
 
 void GUI::reload_GUI() {
 
-    tabel->clear();
+//    tabel->clear();
+//
+//    tabel->setRowCount(service.getAll().size());
+//    int i = 0;
+//    for(auto &m : service.getAll()) {
+//        tabel->setItem(i, 0, new QTableWidgetItem(QString::number(m.get_id())));
+//        tabel->setItem(i, 1, new QTableWidgetItem(QString::fromStdString(m.get_titlu())));
+//        tabel->setItem(i, 2, new QTableWidgetItem(QString::fromStdString(m.get_artist())));
+//        tabel->setItem(i, 3, new QTableWidgetItem(QString::fromStdString(m.get_gen())));
+//        tabel->setItem(i, 4, new QTableWidgetItem(QString::number(service.acelasiArtist(m))));
+//        tabel->setItem(i, 5, new QTableWidgetItem(QString::number(service.acelasiGen(m))));
+//        i++;
+//    }
 
-    tabel->setRowCount(service.getAll().size());
-    int i = 0;
-    for(auto &m : service.getAll()) {
-        tabel->setItem(i, 0, new QTableWidgetItem(QString::number(m.get_id())));
-        tabel->setItem(i, 1, new QTableWidgetItem(QString::fromStdString(m.get_titlu())));
-        tabel->setItem(i, 2, new QTableWidgetItem(QString::fromStdString(m.get_artist())));
-        tabel->setItem(i, 3, new QTableWidgetItem(QString::fromStdString(m.get_gen())));
-        tabel->setItem(i, 4, new QTableWidgetItem(QString::number(service.acelasiArtist(m))));
-        tabel->setItem(i, 5, new QTableWidgetItem(QString::number(service.acelasiGen(m))));
-        i++;
-    }
+    model->set_melodii(service.getAll());
 }
 
 void GUI::connectSignalSlots() {

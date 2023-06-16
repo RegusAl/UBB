@@ -1,0 +1,6 @@
+1,nuj,Mihai Vasile ,open
+2,hhhh,Jon ,closed
+3,ggg,Leo Hana Misu ,inprogress
+5,nuj,Mihai ,open
+123,dfdfdfd,Mihai Alexandru Ionel ,open
+1232,nujuj,q w r  ,closed

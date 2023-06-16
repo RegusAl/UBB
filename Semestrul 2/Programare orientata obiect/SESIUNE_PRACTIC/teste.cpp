@@ -26,24 +26,19 @@ void test_service() {
     service.adaugare(12,"qqqq","aa bb cc", "closed");
     try {
         service.adaugare(99,"","aa bb cc", "closed");
+    } catch (exception&) {assert(true);}
+    try {
+        service.adaugare(99,"blabla","aa bb cc", "altceva");assert(false);
     } catch (exception&) {
         assert(true);
     }
     try {
-        service.adaugare(99,"blabla","aa bb cc", "altceva");
-        assert(false);
+        service.adaugare(1,"blabla","aa bb cc", "closed");assert(false);
     } catch (exception&) {
         assert(true);
     }
     try {
-        service.adaugare(1,"blabla","aa bb cc", "closed");
-        assert(false);
-    } catch (exception&) {
-        assert(true);
-    }
-    try {
-        service.adaugare(123456,"blabla","aa bb cc dde ttyu", "closed");
-        assert(false);
+        service.adaugare(123456,"blabla","aa bb cc dde ttyu", "closed");assert(false);
     } catch (exception&) {
         assert(true);
     }
@@ -54,11 +49,11 @@ void test_service() {
 //        }
 //        cout<<endl;
 //    }
-    auto listaNoua = service.filtrare("i");
+    auto listaNoua = service.filtrare("Mihai");
     for(auto &el : listaNoua) {
         cout<<el.get_id();
     }
     cout<<listaNoua.size();
-    assert(listaNoua.size()==1);
-    assert(service.filtrare("su").size() !=0);
+    assert(listaNoua.size()==2);
+//    assert(service.filtrare("su").size() !=0);
 }

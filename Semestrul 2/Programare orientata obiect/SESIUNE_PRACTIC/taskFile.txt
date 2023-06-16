@@ -3,4 +3,6 @@
 3,ggg,Leo Hana Misu ,inprogress
 5,nuj,Mihai ,open
 123,dfdfdfd,Mihai Alexandru Ionel ,open
-1232,nujuj,q w r  ,closed
+1232,nujuj,q w r ,closed
+7,frontend,Alexandru George Alin ,open
+8,backend,Ionel Alex Ion ,inprogress

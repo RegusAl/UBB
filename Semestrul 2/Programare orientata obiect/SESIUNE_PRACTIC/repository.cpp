@@ -4,6 +4,7 @@
 #include "repository.h"
 #include "fstream"
 
+
 void Repository::loadFromFile() {
     ifstream fin(fileName);
     string line;

@@ -47,18 +47,19 @@ vector<Task> Service::filtrare(string s) {
 //            if(strcmp(s.c_str(), prog.c_str()) >= 0) {
 //                ok = 1;
 //            }
-//              if(strstr(s.c_str(), prog.c_str()))
-              int i = 0;
-              for(auto& c : prog) {
-                  if(c == s[i]) {
-                      ok = 1;
-                      i++;
-                  } else {
-                      ok = 0;
-                      i = 0;
-                  }
-              }
-            cout<<prog<<" ";
+              if(strstr(prog.c_str(), s.c_str()))
+                  ok = 1;
+//              int i = 0;
+//              for(auto& c : prog) {
+//                  if(c == s[i]) {
+//                      ok = 1;
+//                      i++;
+//                  } else {
+//                      ok = 0;
+//                      i = 0;
+//                  }
+//              }
+//            cout<<prog<<" ";
         }
 
         if(ok == 1) {
@@ -72,3 +73,4 @@ vector<Task> Service::filtrare(string s) {
     }
     return (listaFiltrata);
 }
+

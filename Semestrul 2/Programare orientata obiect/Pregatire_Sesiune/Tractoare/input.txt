@@ -1,0 +1,7 @@
+4,nuj,haah,7
+1,john der,agricultura,4
+5,ads,adaff,9
+6,gh dg,agricultura,7
+12,sd,sd,4
+23,aaa,aaaa,4
+44,aaaaa,mama,4

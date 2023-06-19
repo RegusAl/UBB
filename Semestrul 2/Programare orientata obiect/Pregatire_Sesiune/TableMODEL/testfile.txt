@@ -1,0 +1,4 @@
+1,entitate1,tip1
+2,entitate2,tip2
+3,entitate3,tip3
+4,entitate4,tip4

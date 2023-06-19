@@ -57,3 +57,4 @@ void Repository::adaugare(Task t) {
     all.push_back(t);
     saveToFile(all);
 }
+

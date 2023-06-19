@@ -6,3 +6,7 @@
 1232,nujuj,q w r ,closed
 7,frontend,Alexandru George Alin ,open
 8,backend,Ionel Alex Ion ,inprogress
+78,aaaa,Rares ,inprogress
+45,proiect vechi,Robert ,closed
+44,proiect nou,Rares ,open
+22,dfd,po  ,inprogress

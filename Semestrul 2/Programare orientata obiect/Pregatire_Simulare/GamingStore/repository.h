@@ -1,8 +1,0 @@
-//
-// Created by albert on 23/05/23.
-//
-
-#ifndef GAMINGSTORE_REPOSITORY_H
-#define GAMINGSTORE_REPOSITORY_H
-
-#endif //GAMINGSTORE_REPOSITORY_H

@@ -74,3 +74,4 @@ vector<Task> Service::filtrare(string s) {
     return (listaFiltrata);
 }
 
+

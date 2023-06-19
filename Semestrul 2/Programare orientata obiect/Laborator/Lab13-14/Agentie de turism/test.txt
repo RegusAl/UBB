@@ -1,0 +1,5 @@
+A,Ankara,Altele,100
+B,Berlin,Altele,700
+C,Cairo,Altele,800
+D,Dubai,Altele,160
+E,Edinburgh,ee,500

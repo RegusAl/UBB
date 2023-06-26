@@ -40,18 +40,21 @@ void testAll() {
     assert(dictOrd.sterge(2, 1) == false);
     assert(dictOrd.vid());
 
+    // teste pentru functionalitatea noua
     MDO mdo1 = MDO(relatie1);
     MDO mdo2 = MDO(relatie1);
     mdo1.adauga(3, 5);
     mdo1.adauga(4, 6);
+    mdo1.adauga(7, 55);
     mdo1.adauga(1, 2);
     mdo2.adauga(5, 7);
     mdo2.adauga(1, 2);
     mdo2.adauga(2, 8);
     mdo2.adauga(3, 56);
+    mdo2.adauga(7, 90);
 //    cout << "Perechi in mdo2: " << mdo2.dim() << endl;
-    assert(mdo1.adaugaInexistente(mdo2) == 3);
-    assert(mdo1.dim() == 6);
+    assert(mdo1.adaugaInexistente(mdo2) == 4);
+    assert(mdo1.dim() == 8);
     cout << "Test functionalitate noua - passed!" << endl;
 }
 

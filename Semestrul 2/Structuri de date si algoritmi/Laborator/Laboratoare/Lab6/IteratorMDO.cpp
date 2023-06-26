@@ -4,8 +4,9 @@
 
 const std::pair<int, int> NIL(-1, -1);
 
+// O(n+m)
+// interclasam doi vectori
 vector<TElem> IteratorMDO::interclasare(vector<TElem> v1, vector<TElem> v2, Relatie r) {
-    //O(n+m)
     auto i = v1.begin();
     auto j = v2.begin();
     vector<TElem> rez;
@@ -30,22 +31,23 @@ vector<TElem> IteratorMDO::interclasare(vector<TElem> v1, vector<TElem> v2, Rela
     return rez;
 }
 
+// O(m^2)
 IteratorMDO::IteratorMDO(const MDO &d) : dict(d) {
-    //O(m^2)
-    bool viz[400];
+    bool viz[300];
     for (int i = 0; i < dict.m; i++) {
         viz[i] = false;
     }
-    vector<vector<TElem>> matr;
+    vector<vector<TElem>> M;
     for (int j = 0; j < dict.m; j++) {
         vector<TElem> v;
         for (int i = 0; i < dict.m; i++) {
             TElem crt = std::pair<int, int>(dict.e[j].first, 0);
-            int k = dict.d(crt.first);
+            int k = dict.dispersie(crt.first);
             if (dict.e[k] != NIL && !viz[k]) {
                 if (!v.empty()) {
                     auto last = v.front();
-                    if ((Relatie) (last.first, dict.e[k].first) && dict.d(last.first) == dict.d(dict.e[k].first)) {
+                    if ((Relatie) (last.first, dict.e[k].first) &&
+                        dict.dispersie(last.first) == dict.dispersie(dict.e[k].first)) {
                         v.push_back(dict.e[k]);
                         viz[k] = true;
                     } else
@@ -61,14 +63,14 @@ IteratorMDO::IteratorMDO(const MDO &d) : dict(d) {
         }
 
         if (!v.empty()) {
-            matr.push_back(v);
+            M.push_back(v);
         }
     }
 
-    vector<TElem> ordonat;
-    //O(m)
-    for (int i = 0; i < matr.size(); i++) {
-        auto v1 = matr[i];
+    vector<TElem> ordonat; // vectorul cu elemente ordonate
+    // O(m)
+    for (int i = 0; i < M.size(); i++) {
+        auto v1 = M[i];
         ordonat = interclasare(v1, ordonat, dict.relatie);
     }
 
@@ -78,12 +80,12 @@ IteratorMDO::IteratorMDO(const MDO &d) : dict(d) {
 
 
 void IteratorMDO::prim() {
-    pozcrt = elems.begin();
+    pozcrt = elems.begin(); // reseteaza pozitia iteratorului la inceput
 }
 
 void IteratorMDO::urmator() {
     if (!this->valid()) {
-        throw exception();
+        throw exception(); // arunca exceptie daca iteratorul nu este valid
     }
     pozcrt++;
 }
@@ -94,9 +96,9 @@ bool IteratorMDO::valid() const {
 
 TElem IteratorMDO::element() const {
     if (!this->valid()) {
-        throw exception();
+        throw exception();  // arunca exceptie daca iteratorul nu este valid
     }
-    return *pozcrt;
+    return *pozcrt; // indica spre un element al dictionarului
 }
 
 

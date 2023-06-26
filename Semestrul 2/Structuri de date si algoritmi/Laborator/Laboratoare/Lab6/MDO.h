@@ -10,8 +10,7 @@ typedef int TValoare;
 typedef std::pair<TCheie, TValoare> TElem;
 
 using namespace std;
-#define INIT -1
-#define MAX 400 //numarul maxim de locatii din TD
+#define INIT (-1)
 
 class IteratorMDO;
 
@@ -21,18 +20,19 @@ class MDO {
     friend class IteratorMDO;
 
 private:
-    //reprezentare folosind o TD - rezolvare coliziuni prin liste intrepatrunse
+    //reprezentare folosind o TD
+    // liste intrepatrunse
     int n;
     int m; //numarul de locatii din tabela de dispersie
-    TElem e[MAX]; //vectorul elementelor - vector static
-    int urm[MAX]; //vectorul legaturilor
+    TElem e[300]; //vectorul elementelor
+    int urm[300]; //vectorul legaturilor
     int primLiber; // locatia primei pozitii libere din tabela
 
     //actualizare primLiber
-    void actPrimLiber();
+    void actualizarePrimLiber();
 
     //functia de dispersie
-    int d(TCheie c) const;
+    int dispersie(TCheie c) const;
 
 public:
     Relatie relatie;
@@ -56,6 +56,7 @@ public:
     //verifica daca MultiDictionarul Ordonat e vid
     bool vid() const;
 
+    // adauga perechile din mdo ce nu exista in dictionarul curent
     int adaugaInexistente(MDO &mdo);
 
     // se returneaza iterator pe MDO

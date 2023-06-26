@@ -14,8 +14,7 @@ Procesul părinte citeşte de la tastatură un caracter c şi un şir s şi le t
 iar procesul copil verifică şi afişează numărul de apariţii ale caracterului c în şirul s.
 
 4. Să se scrie un program C care creează un proces copil cu care comunică prin pipe.
-Procesul părinte citeşte de la tastatură două numere întregi pe care le trimite prin pipe procesului copil,
-iar procesul copil returnează prin pipe suma lor.
+Procesul părinte citeşte de la tastatură două numere întregi pe care le trimite prin pipe procesului copil, iar procesul copil returnează prin pipe suma lor.
 
 5. Să se scrie un program C care creează un proces copil cu care comunică prin pipe.
 Procesul părinte citeşte dintr-un fişier de tip text două numere întregi pe care le trimite prin pipe procesului copil,

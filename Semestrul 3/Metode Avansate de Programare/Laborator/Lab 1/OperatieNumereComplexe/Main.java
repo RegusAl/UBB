@@ -1,3 +1,7 @@
+import Model.ComplexExpression;
+import Model.ExpressionParser;
+import Model.NumarComplex;
+
 public class Main {
 
     public static void main(String[] args) {

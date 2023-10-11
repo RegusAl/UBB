@@ -1,4 +1,8 @@
+package Model;
+
 import java.util.Objects;
+import Factory.ExpressionFactory;
+import Enum.Operation;
 
 public class ExpressionParser {
     private String[] args;

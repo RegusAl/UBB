@@ -1,3 +1,5 @@
+package Model;
+
 public class NumarComplex {
     private double re; // numar real
     private double im; // numar imaginar

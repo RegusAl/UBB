@@ -1,6 +1,10 @@
+package Model;
+
+import static Enum.Operation.MULTIPLY;
+
 public class OperatieInmultire extends ComplexExpression {
     public OperatieInmultire(NumarComplex[] args) {
-        super(Operation.MULTIPLY, args);
+        super(MULTIPLY, args);
     }
 
     public NumarComplex executeOneOperation(NumarComplex nr1, NumarComplex nr2) {

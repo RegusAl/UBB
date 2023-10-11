@@ -1,3 +1,10 @@
+package Factory;
+
+import Model.ComplexExpression;
+import Enum.Operation;
+import Model.NumarComplex;
+import Model.*;
+
 public class ExpressionFactory {
     private static ExpressionFactory instance;
 

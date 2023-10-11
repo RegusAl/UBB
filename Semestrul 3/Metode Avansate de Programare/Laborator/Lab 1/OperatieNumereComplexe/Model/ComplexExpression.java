@@ -1,5 +1,8 @@
+package Model;
+
+import Enum.Operation;
+
 import java.util.Arrays;
-import java.util.Optional;
 
 public abstract class ComplexExpression {
     protected Operation operation;
@@ -22,7 +25,7 @@ public abstract class ComplexExpression {
 
     @Override
     public String toString() {
-        return "ComplexExpression{" +
+        return "Model.ComplexExpression{" +
                 "operation=" + operation +
                 ", args=" + Arrays.toString(args) +
                 '}';

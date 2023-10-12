@@ -1,0 +1,6 @@
+CREATE DATABASE bazaDeDate;
+GO
+
+USE bazaDeDate;
+
+DROP DATABASE bazaDeDate

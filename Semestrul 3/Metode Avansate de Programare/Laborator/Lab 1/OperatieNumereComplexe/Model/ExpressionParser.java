@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.Objects;
+
 import Factory.ExpressionFactory;
 import Enum.Operation;
 
@@ -19,7 +20,7 @@ public class ExpressionParser {
                 int negativ = 0;
                 String[] el = args[i].split("[+]", 2);
                 if (el.length != 2) {
-                    el = args[i].split("[-]", 2);
+                    el = args[i].split("-", 2);
                     negativ = 1;
                 }
                 double re = Double.parseDouble(el[0]);

@@ -10,7 +10,7 @@ public class MessageTask extends Task {
     private String from;
     private String to;
     private LocalDateTime date;
-    public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy hh:mm");
+    public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy hh:mm");
 
     public MessageTask(String taskID, String descriere, String mesaj, String from, String to, LocalDateTime date) {
         super(taskID, descriere);
@@ -32,6 +32,8 @@ public class MessageTask extends Task {
 
     @Override
     public void execute() {
-        System.out.println("Mesajul este: " + this.mesaj + " | trimis la ora: " + this.date);
+        System.out.println("id = " + this.getTaskID()
+                + " | description = " + this.getDescriere() + " | message = " + this.mesaj
+                + " | from = " + this.from + " | to = " + this.to + " | date = " + this.date.format(formatter));
     }
 }

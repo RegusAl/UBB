@@ -1,4 +1,5 @@
 import Model.BubbleSort;
+import Model.MessageTask;
 import Model.QuickSort;
 import Model.SortingTask;
 import Enum.SortStrategy;
@@ -26,6 +27,8 @@ public class Main {
         for (int i = 0; i < numbers.length; i++) {
             System.out.println(numbers[i]);
         }
+
+        MessageTaskTest.testMessageTask();
     }
 
 }

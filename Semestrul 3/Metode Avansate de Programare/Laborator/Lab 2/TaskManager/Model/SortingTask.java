@@ -4,12 +4,12 @@ import Enum.SortStrategy;
 public class SortingTask extends Task {
 
     private AbstractSorter abstractSorter;
-    private int[] numbers;
-    private SortStrategy sortStrategy;
+    private final int[] numbers;
+    private final SortStrategy sortStrategy;
 
-    public AbstractSorter getAbstractSorter() {
-        return abstractSorter;
-    }
+//    public AbstractSorter getAbstractSorter() {
+//        return abstractSorter;
+//    }
 
     public SortingTask(String taskID, String descriere, int[] numbers, SortStrategy sortStrategy) {
         super(taskID, descriere);
@@ -18,7 +18,7 @@ public class SortingTask extends Task {
 
         switch (sortStrategy) {
             case BUBBLESORT -> abstractSorter = new BubbleSort();
-//            case QUICKSORT -> abstractSorter = new QuickSort();
+            case QUICKSORT -> abstractSorter = new QuickSort();
         }
     }
 

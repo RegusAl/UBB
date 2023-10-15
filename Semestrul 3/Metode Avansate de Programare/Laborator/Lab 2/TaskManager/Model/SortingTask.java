@@ -7,7 +7,11 @@ public class SortingTask extends Task {
     private int[] numbers;
     private SortStrategy sortStrategy;
 
-    public SortingTask(String taskID, String descriere, AbstractSorter abstractSorter, int[] numbers, SortStrategy sortStrategy) {
+    public AbstractSorter getAbstractSorter() {
+        return abstractSorter;
+    }
+
+    public SortingTask(String taskID, String descriere, int[] numbers, SortStrategy sortStrategy) {
         super(taskID, descriere);
         this.numbers = numbers;
         this.sortStrategy = sortStrategy;

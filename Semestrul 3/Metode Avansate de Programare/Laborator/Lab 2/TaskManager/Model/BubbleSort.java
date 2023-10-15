@@ -8,8 +8,8 @@ public class BubbleSort extends AbstractSorter {
             for (int j = 0; j < nr - 1; j++) {
                 if (numbers[j] > numbers[j + 1]) {
                     int aux = numbers[j];
-                    numbers[j] = numbers[i];
-                    numbers[i] = aux;
+                    numbers[j] = numbers[j+1];
+                    numbers[j+1] = aux;
                 }
             }
         }

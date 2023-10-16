@@ -11,9 +11,9 @@ public class StackContainer extends AbstractContainer {
 
     @Override
     public Task remove() {
-        if (isEmpty()) {
-            size--;
-            return tasks[size];
+        if (!isEmpty()) {
+            --this.size;
+            return tasks[this.size];
         }
         return null;
     }

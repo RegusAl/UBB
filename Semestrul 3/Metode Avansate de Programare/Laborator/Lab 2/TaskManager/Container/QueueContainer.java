@@ -11,9 +11,9 @@ public class QueueContainer extends AbstractContainer {
 
     @Override
     public Task remove() {
-        if (isEmpty()) {
+        if (!isEmpty()) {
             Task task = tasks[0];
-            for (int i = 0; i < tasks.length; i++) {
+            for (int i = 0; i < tasks.length-1; i++) {
                 tasks[i] = tasks[i + 1];
             }
             size--;

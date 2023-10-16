@@ -1,3 +1,5 @@
+package Tests;
+
 import Model.MessageTask;
 
 import java.time.LocalDateTime;
@@ -6,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MessageTaskTest {
 
-    private static MessageTask[] getMessageTasks() {
+    public static MessageTask[] getMessageTasks() {
         MessageTask task1 =
                 new MessageTask("1", "Feedback", "Ai luat nota 9", "Gigel", "Mihai",
                         LocalDateTime.of(2019, 10, 7, 3, 45));

@@ -4,9 +4,10 @@ import Container.*;
 
 import Enum.ContainerStrategy;
 
-public class TaskContainerFactory implements Factory{
+public class TaskContainerFactory implements Factory {
 
-    private TaskContainerFactory() {}
+    private TaskContainerFactory() {
+    }
 
     private static final TaskContainerFactory instance = new TaskContainerFactory();
 

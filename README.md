@@ -18,3 +18,11 @@ Semestrul 2:
 - [Sisteme dinamice](https://github.com/RegusAl/UBB/tree/main/Semestrul%202/Sisteme%20dinamice)
 - [Algoritmica grafurilor](https://github.com/RegusAl/UBB/tree/main/Semestrul%202/Algoritmica%20grafurilor)
 - Metode avansate de rezolvare a problemelor de matematica si informatica
+
+Semestrul 3:
+
+- [Baze de Date](https://github.com/RegusAl/UBB/tree/main/Semestrul%203/Baze%20de%20Date)
+- [Metode Avansate de Programare](https://github.com/RegusAl/UBB/tree/main/Semestrul%203/Metode%20Avansate%20de%20Programare)
+- [Probabilitati si Statistica](https://github.com/RegusAl/UBB/tree/main/Semestrul%203/Probabilitati%20si%20Statistica)
+- [Programare Logica si Functionala](https://github.com/RegusAl/UBB/tree/main/Semestrul%203/Programare%20Logica%20si%20Functionala)
+- [Retele de calculatoare](https://github.com/RegusAl/UBB/tree/main/Semestrul%203/Retele%20de%20calculatoare)

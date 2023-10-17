@@ -1,7 +1,7 @@
 # Un client trimite unui server un sir de caractere si un caracter. Serverul va returna clientului toate pozitiile pe care caracterul primit se regaseste in sir.
 import socket
 
-TCP_IP = "172.30.111.53"
+TCP_IP = "127.0.0.1"
 TCP_PORT = 8888
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

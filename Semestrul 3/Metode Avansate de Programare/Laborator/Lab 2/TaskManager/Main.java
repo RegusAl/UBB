@@ -12,9 +12,15 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello!");
 
-        SortingTask task = new SortingTask("12", "Hello", new int[]{1, 4, 3}, SortStrategy.BUBBLESORT);
-        System.out.println(task.getTaskID());
-        System.out.println(task.getDescriere());
+        System.out.println("Test task - BUBBLESORT");
+        SortingTask task1 = new SortingTask("1", "Hello", new int[]{1, 4, 3}, SortStrategy.BUBBLESORT);
+//        System.out.println(task.getTaskID());
+//        System.out.println(task.getDescriere());
+        task1.execute();
+
+        System.out.println("Test task - QUICKSORT");
+        SortingTask task2 = new SortingTask("2", "Hello", new int[]{4, 3, 2, 1}, SortStrategy.QUICKSORT);
+        task2.execute();
 
         int[] n1 = {4, 3, 2, 1};
 
@@ -22,8 +28,9 @@ public class Main {
         bubbleSort.sort(n1);
 
         for (int j : n1) {
-            System.out.println(j);
+            System.out.print(j + " ");
         }
+        System.out.println("\n");
 
         int[] n2 = {4, 3, 2, 1};
 
@@ -31,8 +38,9 @@ public class Main {
         quickSort.sort(n2);
 
         for (int j : n2) {
-            System.out.println(j);
+            System.out.print(j + " ");
         }
+        System.out.println("\n");
 
         System.out.println("Test task-uri\n");
         MessageTaskTest.testMessageTask();

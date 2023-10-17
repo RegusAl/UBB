@@ -6,7 +6,7 @@ import Factory.ExpressionFactory;
 import Enum.Operation;
 
 public class ExpressionParser {
-    private String[] args;
+    private final String[] args;
 
     public ExpressionParser(String[] args) {
         this.args = args;

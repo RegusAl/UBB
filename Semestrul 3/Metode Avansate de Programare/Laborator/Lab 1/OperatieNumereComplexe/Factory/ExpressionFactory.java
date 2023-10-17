@@ -8,11 +8,12 @@ import Model.*;
 public class ExpressionFactory {
     private static ExpressionFactory instance;
 
-    private ExpressionFactory() {}
+    private ExpressionFactory() {
+    }
 
     public static ExpressionFactory getInstance() {
-        if(instance == null) {
-            instance=  new ExpressionFactory();
+        if (instance == null) {
+            instance = new ExpressionFactory();
         }
         return instance;
     }

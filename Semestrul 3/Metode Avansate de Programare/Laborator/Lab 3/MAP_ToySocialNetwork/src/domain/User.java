@@ -34,6 +34,10 @@ public class User extends Entity<Long> {
         friends.add(user);
     }
 
+    public void removeFriend(User user) {
+        friends.remove(user);
+    }
+
     public List<User> getFriends() {
         return friends;
     }
@@ -61,4 +65,6 @@ public class User extends Entity<Long> {
     public int hashCode() {
         return Objects.hash(getFirstName(), getLastName(), getFriends());
     }
+
+
 }

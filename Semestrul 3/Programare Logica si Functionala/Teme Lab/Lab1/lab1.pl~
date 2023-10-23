@@ -1,12 +1,12 @@
-
-/* nrAparitiiElement(L: lista, E: element, R: intreg)
+/*
+ * nrAparitiiElement(L: lista, E: element, R: intreg)
  * model flux: (i, i, o)
- * L: lista in care numaram aparitiile elementului E.
- * E: elementul a carui aparitie o numaram.
- * R: numarul de aparitii a elementului E in lista L.
+ * L: lista in care numaram aparitiile elementului E
+ * E: elementul a carui aparitie o numaram
+ * R: numarul de aparitii a elementului E in lista L
  */
 
-nrAparitiiElement([], _, 0).                                           % daca lista este goala
+nrAparitiiElement([], _, 0).
 nrAparitiiElement([H|T], E, R):- H=E,
                                  nrAparitiiElement(T, E, R1),
                                  R is R1 + 1.
@@ -17,7 +17,7 @@ nrAparitiiElement([H|T], E, R):- H\=E,
 
 /* esteMultime(L: lista)
  * model flux: (i)
- * L: lista ce se verifica daca este multime.
+ * L: lista ce se verifica daca este multime
  */
 
 
@@ -34,9 +34,8 @@ esteMultime([H|T]):- nrAparitiiElement(T,H,R),
 /* eliminareNr(L: lista, E: element, R: lista)
  *  model flux: (i,i,o)
  *  L: lista din care se sterg primele 3 aparitii ale elementului E
- *  (daca exista).
- *  E: elementul ce se sterge din lista.
- *  R: lista rezultata.
+ *  (daca exista)
+ *  R: lista rezultata
  */
 
 eliminareNr(L,E,R):- eliminareNr(L,E,R,3). % wrapper

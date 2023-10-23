@@ -16,8 +16,10 @@ public class Main {
 
 
         InMemoryRepository<Long, User> repoUser = new InMemoryRepository<>(new UserValidator());
+        InMemoryRepository<Long, Friendship> repoFriendship = new InMemoryRepository<>(new FriendshipValidator(repoUser));
 
-        SocialNetwork socialNetwork = new SocialNetwork(repoUser);
+
+        SocialNetwork socialNetwork = new SocialNetwork(repoUser, repoFriendship);
         Console ui = new Console(socialNetwork);
 
         User u1 = new User("A", "A");

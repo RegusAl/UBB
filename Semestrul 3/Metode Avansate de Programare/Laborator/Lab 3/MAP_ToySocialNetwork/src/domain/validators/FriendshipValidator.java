@@ -16,5 +16,14 @@ public class FriendshipValidator implements Validator<Friendship> {
     @Override
     public void validate(Friendship entity) throws ValidationException {
 
+        User u1 = repo.findOne(entity.getIdUser1());
+        User u2 = repo.findOne(entity.getIdUser2());
+
+        if (entity.equals(null))
+            throw new ValidationException("Entity can't be null! ");
+        if (entity.getIdUser1() == null || entity.getIdUser2() == null)
+            throw new ValidationException("The id can't be null! ");
+        if (u1 == null || u2 == null)
+            throw new ValidationException("The id doesn't exist! ");
     }
 }

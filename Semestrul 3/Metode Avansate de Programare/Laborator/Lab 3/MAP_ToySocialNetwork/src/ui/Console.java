@@ -3,6 +3,7 @@ package ui;
 import domain.Friendship;
 import domain.User;
 import domain.validators.ValidationException;
+import service.SocialCommunities;
 import service.SocialNetwork;
 
 import java.util.Scanner;
@@ -10,9 +11,11 @@ import java.util.Scanner;
 public class Console {
 
     private SocialNetwork socialNetwork;
+    private SocialCommunities socialCommunities;
 
     public Console(SocialNetwork socialNetwork) {
         this.socialNetwork = socialNetwork;
+        this.socialCommunities = new SocialCommunities(socialNetwork);
     }
 
     void printMenu() {
@@ -23,6 +26,7 @@ public class Console {
         System.out.println("4. Remove friendship");
         System.out.println("5. Print users");
         System.out.println("6. Print friendships");
+        System.out.println("7. Communities");
         System.out.println("0. EXIT");
     }
 
@@ -51,6 +55,12 @@ public class Console {
                 case "6":
                     printFriendships();
                     break;
+                case "7":
+                    printConnectedCommunities();
+                    break;
+//                case "8":
+//                    printMostSocialCommunity();
+//                    break;
                 case "0":
                     System.out.println("exit");
                     ok = false;
@@ -162,5 +172,15 @@ public class Console {
             System.out.println("Invalid arguments! ");
         }
     }
+
+    private void printConnectedCommunities() {
+        System.out.println("Social Communities");
+        int nrOfCommunities = socialCommunities.connectedCommunities();
+        System.out.println("Number of Social Communities: " + nrOfCommunities);
+    }
+
+//    private void printMostSocialCommunity() {
+//        socialCommunities.mostSocialCommunity();
+//    }
 
 }

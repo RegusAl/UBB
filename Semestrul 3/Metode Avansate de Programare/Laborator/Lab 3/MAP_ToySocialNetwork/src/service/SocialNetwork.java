@@ -14,11 +14,9 @@ import java.util.UUID;
 public class SocialNetwork {
 
     private InMemoryRepository<Long, User> repositoryUser;
-    private InMemoryRepository<Long, Friendship> repositoryFriendship;
 
-    public SocialNetwork(InMemoryRepository<Long, User> repositoryUser, InMemoryRepository<Long, Friendship> repositoryFriendship) {
+    public SocialNetwork(InMemoryRepository<Long, User> repositoryUser) {
         this.repositoryUser = repositoryUser;
-        this.repositoryFriendship = repositoryFriendship;
     }
 
     public Iterable<User> getUsers() {
@@ -102,6 +100,7 @@ public class SocialNetwork {
     public void removeFriendship(Long id1, Long id2) {
         User user1 = repositoryUser.findOne(id1);
         User user2 = repositoryUser.findOne(id2);
+
 
         if(user1 == null)
             throw new IllegalArgumentException("The user doesn't exist!");

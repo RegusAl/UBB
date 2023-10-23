@@ -6,7 +6,7 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 
-public class Friendship extends Entity<Long> {
+public class Friendship extends Entity<Tuple<Long, Long>> {
 
     LocalDateTime date;
 

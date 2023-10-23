@@ -17,7 +17,7 @@ public class UserValidator implements Validator<User> {
             errorMessage += "Last name can't be null! ";
         }
         System.out.println(errorMessage);
-        if (errorMessage!="") {
+        if (!errorMessage.equals("")) {
             throw new ValidationException(errorMessage);
         }
     }

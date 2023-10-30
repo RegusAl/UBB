@@ -20,33 +20,30 @@ public class SocialCommunities {
         visited.put(v, true);
         System.out.println(v + " " + socialNetwork.findUser(v).getFirstName() + " " + this.socialNetwork.findUser(v).getLastName());
         if (adjList.containsKey(v)) {
-            for (Long x : adjList.get(v)) {
-                if (!visited.containsKey(x))
-                    DFS(x, visited);
-            }
+            adjList.get(v).stream().filter(x -> !visited.containsKey(x)).forEach(x -> DFS(x, visited));
         }
     }
 
     public int connectedCommunities() {
         // creates an adjency list of user and its friends
         adjList = new HashMap<Long, List<Long>>();
-        for (User user : socialNetwork.getUsers()) {
+        socialNetwork.getUsers().forEach(user -> {
             List<Long> friends = new ArrayList<>();
-            for (Friendship friendship : socialNetwork.getFriendships()) {
+            socialNetwork.getFriendships().forEach(friendship -> {
                 if (friendship.getIdUser1().equals(user.getId()))
                     friends.add(friendship.getIdUser2());
                 if (friendship.getIdUser2().equals(user.getId()))
                     friends.add(friendship.getIdUser1());
-            }
+            });
             if (!friends.isEmpty())
                 this.adjList.put(user.getId(), friends);
-        }
+        });
 
         // list of ids of users
         List<Long> ids = new ArrayList<>();
-        for (User user : socialNetwork.getUsers())
+        socialNetwork.getUsers().forEach(user -> {
             ids.add(user.getId());
-
+        });
         int nrOfCommunities = 0;
         HashMap<Long, Boolean> visited = new HashMap<Long, Boolean>();
         for (Long v : ids) {

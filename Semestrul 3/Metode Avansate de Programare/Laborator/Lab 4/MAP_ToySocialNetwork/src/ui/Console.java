@@ -80,9 +80,12 @@ public class Console {
      */
     void printUsers() {
         System.out.println("\t\t\tUSERS\t\t\t");
-        for (User u : socialNetwork.getUsers()) {
+//        for (User u : socialNetwork.getUsers()) {
+//            System.out.println("ID: " + u.getId() + " " + u.getFirstName() + " " + u.getLastName());
+//        }
+        socialNetwork.getUsers().forEach(u -> {
             System.out.println("ID: " + u.getId() + " " + u.getFirstName() + " " + u.getLastName());
-        }
+        });
     }
 
 
@@ -133,24 +136,15 @@ public class Console {
      * Prints friendships
      */
     void printFriendships() {
-
-//        for (User u : socialNetwork.getUsers()) {
-//            System.out.println("Friends of user: " + u.getFirstName() + " " + u.getLastName());
-//            for (Friendship f : socialNetwork.getFriendships()) {
-//                if (f.getIdUser1().equals(u.getId())) {
-//                    System.out.println(socialNetwork.findUser(f.getIdUser2()).getFirstName());
-//                } else if (f.getIdUser2().equals(u.getId())) {
-//                    System.out.println(socialNetwork.findUser(f.getIdUser1()).getFirstName());
-//                }
-//            }
-//        }
-
         for (User u : socialNetwork.getUsers()) {
             System.out.println("Friends of user: " + u.getFirstName() + " " + u.getLastName() + " ( Number of friends: " + u.getFriends().size() + " )");
             if (u.getFriends() != null) {
-                for (User f : u.getFriends()) {
+//                for (User f : u.getFriends()) {
+//                    System.out.println("( ID: " + f.getId() + " ) " + f.getFirstName() + " " + f.getLastName());
+//                }
+                u.getFriends().forEach(f -> {
                     System.out.println("( ID: " + f.getId() + " ) " + f.getFirstName() + " " + f.getLastName());
-                }
+                });
             }
         }
     }

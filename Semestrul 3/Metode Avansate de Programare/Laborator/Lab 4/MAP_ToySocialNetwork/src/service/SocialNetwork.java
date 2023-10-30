@@ -54,17 +54,14 @@ public class SocialNetwork {
         try {
             User u = repositoryUser.findOne(id).orElseThrow(() -> new ValidationException("User doesn't exist!"));
             Vector<Long> toDelete = new Vector<>();
-            for (Friendship friendship : getFriendships()) {
+            getFriendships().forEach(friendship -> {
                 if (friendship.getIdUser2().equals(id) || friendship.getIdUser1().equals(id)) {
                     toDelete.add(friendship.getId());
                 }
-            }
-            for (Long idToDelete : toDelete) {
-                repositoryFriendship.delete(idToDelete);
-            }
+            });
+            toDelete.forEach(repositoryFriendship::delete);
             User user = repositoryUser.delete(id).orElseThrow();
-            for (User friend : u.getFriends())
-                friend.removeFriend(u);
+            u.getFriends().forEach(friend -> friend.removeFriend(u));
             return user;
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid user! ");
@@ -94,11 +91,11 @@ public class SocialNetwork {
             System.out.println();
         }
         if (getFriendships() != null) {
-            for (Friendship f : getFriendships()) {
+            getFriendships().forEach(f -> {
                 if (f.getIdUser1().equals(friendship.getIdUser1()) && f.getIdUser2().equals(friendship.getIdUser2())) {
                     throw new ValidationException("The friendship already exist! ");
                 }
-            }
+            });
             if (repositoryUser.findOne(friendship.getIdUser1()).isEmpty() || repositoryUser.findOne(friendship.getIdUser2()).isEmpty()) {
                 throw new ValidationException("User doesn't exist! ");
             }

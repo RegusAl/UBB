@@ -60,7 +60,7 @@ public class SocialNetwork {
                 }
             });
             toDelete.forEach(repositoryFriendship::delete);
-            User user = repositoryUser.delete(id).orElseThrow();
+            User user = repositoryUser.delete(id).orElseThrow(() -> new ValidationException("User doesn't exist!"));
             u.getFriends().forEach(friend -> friend.removeFriend(u));
             return user;
         } catch (IllegalArgumentException e) {

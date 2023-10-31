@@ -21,11 +21,7 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements Repository<
     public Optional<E> findOne(ID id) {
         if (id == null)
             throw new IllegalArgumentException("id must be not null");
-        E entity = entities.get(id);
-        if(entity == null) {
-            return Optional.empty();
-        }
-        return Optional.of(entities.get(id));
+        return Optional.ofNullable(entities.get(id));
     }
 
     @Override
@@ -60,7 +56,7 @@ public class InMemoryRepository<ID, E extends Entity<ID>> implements Repository<
 
         if (entities.get(entity.getId()) != null) {
             entities.put(entity.getId(), entity);
-            return null;
+            return Optional.empty();
         }
         return Optional.of(entity);
 

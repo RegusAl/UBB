@@ -6,8 +6,11 @@ import domain.validators.ValidationException;
 import service.SocialCommunities;
 import service.SocialNetwork;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Predicate;
 
 public class Console {
 
@@ -29,6 +32,7 @@ public class Console {
         System.out.println("6. Print friendships");
         System.out.println("7. Communities");
         System.out.println("8. Most social community");
+        System.out.println("9. List of users with at least N friends");
         System.out.println("0. EXIT");
     }
 
@@ -63,6 +67,9 @@ public class Console {
                 case "8":
                     printMostSocialCommunity();
                     break;
+                case "9":
+                    printListOfUsersWithNFriends();
+                    break;
                 case "0":
                     System.out.println("exit");
                     ok = false;
@@ -74,15 +81,26 @@ public class Console {
         }
     }
 
+    private void printListOfUsersWithNFriends() {
+        System.out.println("N: ");
+        Scanner scan = new Scanner(System.in);
+        int N = scan.nextInt();
+        Predicate<User> hasAtLeastNFriends = u -> u.getFriends().size() < N;
+        List<User> users = new ArrayList<>((Collection) socialNetwork.getUsers());
+        users.removeIf(hasAtLeastNFriends);
+        users.forEach(u -> System.out.println(u.getFirstName() + " " + u.getLastName() + " " + u.getFriends().size() + " friend/s"));
+//        users.stream()
+//                .filter(u -> u.getFriends().size() >= N)
+//                .forEach(u -> System.out.println(u.getFirstName() + " " + u.getLastName() + " " + u.getFriends().size() + " friend/s"));
+//
+    }
+
 
     /**
      * Prints the users from the social network
      */
     void printUsers() {
         System.out.println("\t\t\tUSERS\t\t\t");
-//        for (User u : socialNetwork.getUsers()) {
-//            System.out.println("ID: " + u.getId() + " " + u.getFirstName() + " " + u.getLastName());
-//        }
         socialNetwork.getUsers().forEach(u -> {
             System.out.println("ID: " + u.getId() + " " + u.getFirstName() + " " + u.getLastName());
         });

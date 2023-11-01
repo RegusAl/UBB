@@ -78,3 +78,4 @@ Nume VARCHAR(50) NOT NULL,
 Experienta INT,
 CONSTRAINT pkManager PRIMARY KEY(idManager)
 )
+

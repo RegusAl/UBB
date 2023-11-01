@@ -7,7 +7,7 @@ FROM Furnizori f INNER JOIN Produse p ON f.idFurnizor = p.idFurnizor
 WHERE p.idCategorie IN (SELECT c.idCategorie FROM Categorie c WHERE c.Nume = 'Alergare')
 
 
--- 2) Furnizorii si numarul de produselor de alergare 
+-- 2) Furnizorii si numarul produselor de alergare 
 SELECT f.Nume, f.Locatie, COUNT(*) AS Numar_Produse_Alergare
 FROM Furnizori f INNER JOIN Produse p ON f.idFurnizor = p.idFurnizor
 WHERE p.idCategorie IN (SELECT c.idCategorie FROM Categorie c WHERE c.Nume = 'Alergare')
@@ -73,7 +73,7 @@ RIGHT OUTER JOIN Depozite d
 ON a.Depozit = d.idDepozit
 WHERE d.Localitate = 'Suceava'
 
--- 9) Clientii ce au comanda pregatita de angajati cu vechime de peste 1 an
+-- 9) Clientii ce au comanda pregatita de angajati cu vechime de peste 3 ani
 SELECT c.Nume
 FROM Clienti c
 RIGHT OUTER JOIN Comenzi com

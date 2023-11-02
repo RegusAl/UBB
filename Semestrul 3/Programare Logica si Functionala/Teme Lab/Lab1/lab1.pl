@@ -7,7 +7,7 @@
  */
 
 nrAparitiiElement([], _, 0).                                           % daca lista este goala
-nrAparitiiElement([H|T], E, R):- H=E,
+nrAparitiiElement([H|T], E, R):- H == E,
                                  nrAparitiiElement(T, E, R1),
                                  R is R1 + 1.
 
@@ -23,11 +23,11 @@ nrAparitiiElement([H|T], E, R):- H\=E,
 
 esteMultime([]):- true.
 esteMultime([H|T]):- nrAparitiiElement(T,H,R),
-                     R>0,
+                     R > 0,
                      false.
 
 esteMultime([H|T]):- nrAparitiiElement(T,H,R),
-                     R=0,
+                     R = 0,
                      esteMultime(T).
 
 
@@ -39,15 +39,21 @@ esteMultime([H|T]):- nrAparitiiElement(T,H,R),
  *  R: lista rezultata.
  */
 
-eliminareNr(L,E,R):- eliminareNr(L,E,R,3). % wrapper
+eliminareNr(L,E,R):- eliminareNr3(L,E,R,3). % wrapper
 
-eliminareNr([],_,[],_).
-eliminareNr([H|T],E,R,N):- H==E,
-                           N>0,
+/*
+ * eliminareNr3(L: lista, E: element, R: rezultat, N: numar)
+ * model flux(i,i,o,i)
+ */
+
+eliminareNr3([],_,[],_).
+eliminareNr3([H|T],E,R,N):- H == E,
+                           N > 0,
                            N1 is N-1,
-                           eliminareNr(T,E,R,N1).
+                           !,
+                           eliminareNr3(T,E,R,N1).
 
-eliminareNr([H|T],E,R,N):- eliminareNr(T,E,R1,N),
+eliminareNr3([H|T],E,R,N):- eliminareNr3(T,E,R1,N),
                            R = [H|R1].
 
 

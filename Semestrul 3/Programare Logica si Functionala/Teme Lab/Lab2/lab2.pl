@@ -20,8 +20,9 @@ sorteaza([H|T], R):- sorteaza(T, R1),
 % lista(L: list, R: list)
 % model flux: (i, o)
 lista([], []).
-lista([H|T], [R1,R]) :- is_list(H),
+lista([H|T], [R1|R]) :- is_list(H),
                         sorteaza(H, R1),
+                        lista(T, R),
                         !.
 lista([H|T], [H|R]) :- lista(T, R).
 

@@ -19,7 +19,7 @@ public class SocialNetwork {
     }
 
     public Iterable<User> getUsers() {
-      return repositoryUser.findAll();
+        return repositoryUser.findAll();
     }
 
     public User findUser(Long id) {
@@ -52,7 +52,6 @@ public class SocialNetwork {
             user2.addFriend(user1);
         });
     }
-
 
     public User removeUser(Long id) {
         try {
@@ -106,6 +105,7 @@ public class SocialNetwork {
             if (friendship.getIdUser1().equals(friendship.getIdUser2()))
                 throw new ValidationException("IDs can't be the same!!! ");
         }
+
         assert user1 != null;
         user1.addFriend(user2);
         assert user2 != null;

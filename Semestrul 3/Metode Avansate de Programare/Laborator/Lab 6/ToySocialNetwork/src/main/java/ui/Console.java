@@ -39,8 +39,8 @@ public class Console {
     public void run() {
         Scanner scan = new Scanner(System.in);
         boolean ok = true;
-        socialNetwork.refreshFriends();
         while (ok) {
+//            socialNetwork.refreshFriends();
             printMenu();
             String input = scan.nextLine();
             switch (input) {
@@ -152,18 +152,8 @@ public class Console {
      */
     void printFriendships() {
         for (User u : socialNetwork.getUsers()) {
-//            AtomicInteger numberOfFriends = new AtomicInteger();
-//            socialNetwork.getFriendships().forEach(friendship -> {
-//                if(Objects.equals(friendship.getIdUser1(), u.getId()) || Objects.equals(friendship.getIdUser2(), u.getId())) {
-//                    numberOfFriends.addAndGet(1);
-//
-//                }
-//            });
             System.out.println("Friends of user: " + u.getFirstName() + " " + u.getLastName() + " ( Number of friends: " + u.getFriends().size() + " )");
             if (u.getFriends() != null) {
-//                for (User f : u.getFriends()) {
-//                    System.out.println("( ID: " + f.getId() + " ) " + f.getFirstName() + " " + f.getLastName());
-//                }
                 u.getFriends().forEach(f -> {
                     System.out.println("\t\t( ID: " + f.getId() + " ) " + f.getFirstName() + " " + f.getLastName());
                 });

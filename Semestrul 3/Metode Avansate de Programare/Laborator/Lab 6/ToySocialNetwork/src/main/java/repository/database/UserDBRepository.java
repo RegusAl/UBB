@@ -6,9 +6,7 @@ import domain.validators.Validator;
 import repository.Repository;
 
 import java.sql.*;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class UserDBRepository implements Repository<Long, User> {
 
@@ -31,12 +29,30 @@ public class UserDBRepository implements Repository<Long, User> {
 
     @Override
     public Optional<User> findOne(Long aLong) {
-        return Optional.empty();
+        String query = "select * from users WHERE \"id\" = ?";
+        User user = null;
+        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/socialnetwork", "albert", "admin");
+             PreparedStatement statement = connection.prepareStatement(query);)
+             {
+
+            statement.setLong(1,aLong);
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()) {
+                String firstName = resultSet.getString("first_name");
+                String lastName = resultSet.getString("last_name");
+                user = new User(firstName, lastName);
+                user.setId(aLong);
+            }
+
+             } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return Optional.ofNullable(user);
     }
 
     @Override
     public Iterable<User> findAll() {
-        Set<User> userSet = new HashSet<>();
+        Map<Long, User> users = new HashMap<Long, User>();
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/socialnetwork", "albert", "admin");
              PreparedStatement statement = connection.prepareStatement("select * from users");
              ResultSet resultSet = statement.executeQuery()) {
@@ -48,22 +64,55 @@ public class UserDBRepository implements Repository<Long, User> {
                 User user = new User(nume, prenume);
                 user.setId(id);
 
-                userSet.add(user);
+                users.put(user.getId(), user);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return userSet;
+        return users.values();
     }
 
     @Override
     public Optional<User> save(User entity) {
-        return Optional.empty();
+        if (entity == null) {
+            throw new IllegalArgumentException("User can't be null!");
+        }
+        String query = "INSERT INTO users(\"id\", \"first_name\", \"last_name\") VALUES (?,?,?)";
+
+        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/socialnetwork", "albert", "admin");
+             PreparedStatement statement = connection.prepareStatement(query);)
+        {
+            statement.setLong(1,entity.getId());
+            statement.setString(2,entity.getFirstName());
+            statement.setString(3,entity.getLastName());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return Optional.of(entity);
     }
 
     @Override
     public Optional<User> delete(Long aLong) {
-        return Optional.empty();
+
+        String query = "DELETE FROM users WHERE \"id\" = ?";
+
+        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/socialnetwork", "albert", "admin");
+             PreparedStatement statement = connection.prepareStatement(query);)
+        {
+            statement.setLong(1, aLong);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        User userToDelete = null;
+        for (User user : findAll()) {
+            if (Objects.equals(user.getId(), aLong)) {
+                userToDelete = user;
+            }
+        }
+        return Optional.ofNullable(userToDelete);
     }
 
     @Override

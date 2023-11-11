@@ -36,10 +36,12 @@ public class Console {
         System.out.println("0. EXIT");
     }
 
+    /**
+     * Run function
+     */
     public void run() {
         Scanner scan = new Scanner(System.in);
         boolean ok = true;
-        socialNetwork.refreshFriends();
         while (ok) {
             printMenu();
             String input = scan.nextLine();
@@ -69,7 +71,7 @@ public class Console {
                     printMostSocialCommunity();
                     break;
                 case "9":
-                    printListOfUsersWithNFriends();
+//                    printListOfUsersWithNFriends();
                     break;
                 case "0":
                     System.out.println("exit");
@@ -82,15 +84,18 @@ public class Console {
         }
     }
 
-    private void printListOfUsersWithNFriends() {
-        System.out.println("N: ");
-        Scanner scan = new Scanner(System.in);
-        int N = scan.nextInt();
-        Predicate<User> hasAtLeastNFriends = u -> u.getFriends().size() < N;
-        List<User> users = new ArrayList<>((Collection) socialNetwork.getUsers());
-        users.removeIf(hasAtLeastNFriends);
-        users.forEach(u -> System.out.println(u.getFirstName() + " " + u.getLastName() + " " + u.getFriends().size() + " friend/s"));
-    }
+    /**
+     * Prints the list of users that have at least N friends
+     */
+//    private void printListOfUsersWithNFriends() {
+//        System.out.println("N: ");
+//        Scanner scan = new Scanner(System.in);
+//        int N = scan.nextInt();
+//        Predicate<User> hasAtLeastNFriends = u -> u.getFriends().size() < N;
+//        List<User> users = new ArrayList<>((Collection) socialNetwork.getUsers());
+//        users.removeIf(hasAtLeastNFriends);
+//        users.forEach(u -> System.out.println(u.getFirstName() + " " + u.getLastName() + " " + u.getFriends().size() + " friend/s"));
+//    }
 
 
     /**
@@ -100,7 +105,6 @@ public class Console {
         System.out.println("\t\t\tUSERS\t\t\t");
         socialNetwork.getUsers().forEach(u -> {
             System.out.println("ID: " + u.getId() + " " + u.getFirstName() + " " + u.getLastName());
-            System.out.println(u.getFriends());
         });
     }
 
@@ -137,8 +141,9 @@ public class Console {
         String var = scan.nextLine();
         try {
             Long id = Long.parseLong(var);
-            User user = socialNetwork.removeUser(id);
+            User user = socialNetwork.findUser(id);
             if (user == null) throw new ValidationException("User doesn,t exist!");
+            socialNetwork.removeUser(id);
             System.out.println("User: " + user.getId() + " " + user.getFirstName() + " " + user.getLastName() + " was removed.");
         } catch (IllegalArgumentException e) {
             System.out.println("ID must be a number! It can't contain letters or symbols! ");
@@ -153,12 +158,19 @@ public class Console {
      */
     void printFriendships() {
         for (User u : socialNetwork.getUsers()) {
-            System.out.println("Friends of user: " + u.getFirstName() + " " + u.getLastName() + " ( Number of friends: " + u.getFriends().size() + " )");
-            if (u.getFriends() != null) {
-                u.getFriends().forEach(f -> {
-                    System.out.println("\t\t( ID: " + f.getId() + " ) " + f.getFirstName() + " " + f.getLastName());
-                });
-            }
+            System.out.println("Friends of user " + u.getFirstName() + " " + u.getLastName());
+            socialNetwork.getFriendships().forEach(friendship -> {
+                User friend = null;
+                if (u.getId().equals(friendship.getIdUser1())) {
+                    friend = socialNetwork.findUser(friendship.getIdUser2());
+
+                } else if (u.getId().equals(friendship.getIdUser2())) {
+                    friend = socialNetwork.findUser(friendship.getIdUser1());
+                }
+                if (friend != null) {
+                    System.out.println("\t" + friend.getId() + ": " + friend.getFirstName() + " " + friend.getLastName());
+                }
+            });
         }
     }
 
@@ -221,6 +233,10 @@ public class Console {
         System.out.println("Number of Social Communities: " + nrOfCommunities);
     }
 
+
+    /**
+     * Prints the most social community from the social network
+     */
     private void printMostSocialCommunity() {
         System.out.println("Most social community: ");
         List<Long> mostSocialCommunity = socialCommunities.mostSocialCommunity();

@@ -45,6 +45,8 @@ public class SocialCommunities {
             ids.add(user.getId());
         });
         int nrOfCommunities = 0;
+//        if(ids.size() == 1)
+//            return 1;
         HashMap<Long, Boolean> visited = new HashMap<Long, Boolean>();
         for (Long v : ids) {
             if (!visited.containsKey(v)) {

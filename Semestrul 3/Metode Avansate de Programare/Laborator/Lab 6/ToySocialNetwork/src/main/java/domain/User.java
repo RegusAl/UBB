@@ -6,12 +6,12 @@ import java.util.*;
 public class User extends Entity<Long> {
     private String firstName;
     private String lastName;
-    List<User> friends;
+//    List<User> friends;
 
     public User(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        friends = new Vector<User>();
+//        friends = new Vector<User>();
     }
 
     public String getFirstName() {
@@ -30,41 +30,41 @@ public class User extends Entity<Long> {
         this.lastName = lastName;
     }
 
-    public void addFriend(User user) {
-        friends.add(user);
-    }
-
-    public void removeFriend(User user) {
-        friends.remove(user);
-    }
-
-    public List<User> getFriends() {
-        return friends;
-    }
+//    public void addFriend(User user) {
+//        friends.add(user);
+//    }
+//
+//    public void removeFriend(User user) {
+//        friends.remove(user);
+//    }
+//
+//    public List<User> getFriends() {
+//        return friends;
+//    }
 
     @Override
     public String toString() {
         return "Utilizator{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", friends=" + friends +
+                ", friends=" + +
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User that = (User) o;
-        return getFirstName().equals(that.getFirstName()) &&
-                getLastName().equals(that.getLastName()) &&
-                getFriends().equals(that.getFriends());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getFirstName(), getLastName(), getFriends());
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof User)) return false;
+//        User that = (User) o;
+//        return getFirstName().equals(that.getFirstName()) &&
+//                getLastName().equals(that.getLastName()) &&
+//                getFriends().equals(that.getFriends());
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(getFirstName(), getLastName(), getFriends());
+//    }
 
 
 }

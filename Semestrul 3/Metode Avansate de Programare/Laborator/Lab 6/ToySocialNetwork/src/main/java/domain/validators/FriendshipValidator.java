@@ -2,7 +2,6 @@ package domain.validators;
 
 import domain.Friendship;
 import domain.User;
-import repository.InMemoryRepository;
 import repository.database.UserDBRepository;
 
 import java.util.Optional;

@@ -24,12 +24,11 @@ public class FriendshipDBRepository implements Repository<Long, Friendship> {
         String query = "SELECT * FROM friendships WHERE \"id\" = ?";
         Friendship friendship = null;
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/socialnetwork", "albert", "admin");
-             PreparedStatement statement = connection.prepareStatement(query);)
-        {
+             PreparedStatement statement = connection.prepareStatement(query);) {
 
-            statement.setLong(1,aLong);
+            statement.setLong(1, aLong);
             ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 Long idFriend1 = resultSet.getLong("idfriend1");
                 Long idFriend2 = resultSet.getLong("idfriend2");
                 friendship = new Friendship(idFriend1, idFriend2);
@@ -45,9 +44,9 @@ public class FriendshipDBRepository implements Repository<Long, Friendship> {
     @Override
     public Iterable<Friendship> findAll() {
         Map<Long, Friendship> friendships = new HashMap<>();
-        try(Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/socialnetwork", "albert", "admin");
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM friendships");
-            ResultSet resultSet = statement.executeQuery()) {
+        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/socialnetwork", "albert", "admin");
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM friendships");
+             ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
                 Long id = resultSet.getLong("id");
@@ -59,7 +58,7 @@ public class FriendshipDBRepository implements Repository<Long, Friendship> {
                 friendships.put(friendship.getId(), friendship);
             }
 
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return friendships.values();
@@ -73,11 +72,10 @@ public class FriendshipDBRepository implements Repository<Long, Friendship> {
         String query = "INSERT INTO friendships(\"id\", \"idfriend1\", \"idfriend2\") VALUES (?,?,?)";
 
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/socialnetwork", "albert", "admin");
-             PreparedStatement statement = connection.prepareStatement(query);)
-        {
-            statement.setLong(1,entity.getId());
-            statement.setLong(2,entity.getIdUser1());
-            statement.setLong(3,entity.getIdUser2());
+             PreparedStatement statement = connection.prepareStatement(query);) {
+            statement.setLong(1, entity.getId());
+            statement.setLong(2, entity.getIdUser1());
+            statement.setLong(3, entity.getIdUser2());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -91,8 +89,7 @@ public class FriendshipDBRepository implements Repository<Long, Friendship> {
         String query = "DELETE FROM friendships WHERE \"id\" = ?";
 
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/socialnetwork", "albert", "admin");
-             PreparedStatement statement = connection.prepareStatement(query);)
-        {
+             PreparedStatement statement = connection.prepareStatement(query);) {
             statement.setLong(1, aLong);
             statement.executeUpdate();
         } catch (SQLException e) {

@@ -32,19 +32,18 @@ public class UserDBRepository implements Repository<Long, User> {
         String query = "select * from users WHERE \"id\" = ?";
         User user = null;
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/socialnetwork", "albert", "admin");
-             PreparedStatement statement = connection.prepareStatement(query);)
-             {
+             PreparedStatement statement = connection.prepareStatement(query);) {
 
-            statement.setLong(1,aLong);
+            statement.setLong(1, aLong);
             ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 String firstName = resultSet.getString("first_name");
                 String lastName = resultSet.getString("last_name");
                 user = new User(firstName, lastName);
                 user.setId(aLong);
             }
 
-             } catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return Optional.ofNullable(user);
@@ -52,7 +51,7 @@ public class UserDBRepository implements Repository<Long, User> {
 
     @Override
     public Iterable<User> findAll() {
-        Map<Long, User> users = new HashMap<Long, User>();
+        HashMap<Long, User> users = new HashMap<>();
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/socialnetwork", "albert", "admin");
              PreparedStatement statement = connection.prepareStatement("select * from users");
              ResultSet resultSet = statement.executeQuery()) {
@@ -80,11 +79,10 @@ public class UserDBRepository implements Repository<Long, User> {
         String query = "INSERT INTO users(\"id\", \"first_name\", \"last_name\") VALUES (?,?,?)";
 
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/socialnetwork", "albert", "admin");
-             PreparedStatement statement = connection.prepareStatement(query);)
-        {
-            statement.setLong(1,entity.getId());
-            statement.setString(2,entity.getFirstName());
-            statement.setString(3,entity.getLastName());
+             PreparedStatement statement = connection.prepareStatement(query);) {
+            statement.setLong(1, entity.getId());
+            statement.setString(2, entity.getFirstName());
+            statement.setString(3, entity.getLastName());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -99,8 +97,7 @@ public class UserDBRepository implements Repository<Long, User> {
         String query = "DELETE FROM users WHERE \"id\" = ?";
 
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/socialnetwork", "albert", "admin");
-             PreparedStatement statement = connection.prepareStatement(query);)
-        {
+             PreparedStatement statement = connection.prepareStatement(query);) {
             statement.setLong(1, aLong);
             statement.executeUpdate();
         } catch (SQLException e) {

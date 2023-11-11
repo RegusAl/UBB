@@ -71,7 +71,7 @@ public class Console {
                     printMostSocialCommunity();
                     break;
                 case "9":
-//                    printListOfUsersWithNFriends();
+                    printListOfUsersWithNFriends();
                     break;
                 case "0":
                     System.out.println("exit");
@@ -87,15 +87,15 @@ public class Console {
     /**
      * Prints the list of users that have at least N friends
      */
-//    private void printListOfUsersWithNFriends() {
-//        System.out.println("N: ");
-//        Scanner scan = new Scanner(System.in);
-//        int N = scan.nextInt();
-//        Predicate<User> hasAtLeastNFriends = u -> u.getFriends().size() < N;
-//        List<User> users = new ArrayList<>((Collection) socialNetwork.getUsers());
-//        users.removeIf(hasAtLeastNFriends);
-//        users.forEach(u -> System.out.println(u.getFirstName() + " " + u.getLastName() + " " + u.getFriends().size() + " friend/s"));
-//    }
+    private void printListOfUsersWithNFriends() {
+        System.out.println("N: ");
+        Scanner scan = new Scanner(System.in);
+        int N = scan.nextInt();
+        Predicate<User> hasAtLeastNFriends = u -> socialNetwork.getListFriends(u).size() < N;
+        List<User> users = new ArrayList<>((Collection) socialNetwork.getUsers());
+        users.removeIf(hasAtLeastNFriends);
+        users.forEach(u -> System.out.println(u.getFirstName() + " " + u.getLastName() + " " + socialNetwork.getListFriends(u).size() + " friend/s"));
+    }
 
 
     /**
@@ -158,18 +158,9 @@ public class Console {
      */
     void printFriendships() {
         for (User u : socialNetwork.getUsers()) {
-            System.out.println("Friends of user " + u.getFirstName() + " " + u.getLastName());
-            socialNetwork.getFriendships().forEach(friendship -> {
-                User friend = null;
-                if (u.getId().equals(friendship.getIdUser1())) {
-                    friend = socialNetwork.findUser(friendship.getIdUser2());
-
-                } else if (u.getId().equals(friendship.getIdUser2())) {
-                    friend = socialNetwork.findUser(friendship.getIdUser1());
-                }
-                if (friend != null) {
-                    System.out.println("\t" + friend.getId() + ": " + friend.getFirstName() + " " + friend.getLastName());
-                }
+            System.out.println("Friends of user " + u.getFirstName() + " " + u.getLastName() + " -> " + socialNetwork.getListFriends(u).size());
+            socialNetwork.getListFriends(u).forEach(friend -> {
+                System.out.println(friend.getId() + ": " + friend.getFirstName() + " " + friend.getLastName());
             });
         }
     }

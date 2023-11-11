@@ -60,16 +60,19 @@ public class SocialNetwork {
         return repositoryFriendship.findAll();
     }
 
-//    public void refreshFriends() {
-//        repositoryFriendship.findAll().forEach(friendship -> {
-//            User user1 = repositoryUser.findOne(friendship.getIdUser1()).orElseThrow(null);
-//            User user2 = repositoryUser.findOne(friendship.getIdUser2()).orElseThrow(null);
-//            user1.addFriend(user2);
-//            user2.addFriend(user1);
-//
-//        });
-//        repositoryUser.findAll().forEach(System.out::println);
-//    }
+    public List<User> getListFriends(User user) {
+        List<User> friends = new ArrayList<>();
+        getFriendships().forEach(friendship -> {
+            if(friendship.getIdUser1().equals(user.getId())) {
+                friends.add(findUser(friendship.getIdUser2()));
+            } else if(friendship.getIdUser2().equals(user.getId())) {
+                friends.add(findUser(friendship.getIdUser1()));
+            }
+        });
+        return friends;
+    }
+
+
 
     /**
      * @param id - id of the user that needs to be removed

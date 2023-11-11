@@ -39,8 +39,8 @@ public class Console {
     public void run() {
         Scanner scan = new Scanner(System.in);
         boolean ok = true;
+        socialNetwork.refreshFriends();
         while (ok) {
-//            socialNetwork.refreshFriends();
             printMenu();
             String input = scan.nextLine();
             switch (input) {
@@ -100,6 +100,7 @@ public class Console {
         System.out.println("\t\t\tUSERS\t\t\t");
         socialNetwork.getUsers().forEach(u -> {
             System.out.println("ID: " + u.getId() + " " + u.getFirstName() + " " + u.getLastName());
+            System.out.println(u.getFriends());
         });
     }
 

@@ -4,6 +4,7 @@ import domain.Friendship;
 import domain.User;
 import domain.validators.ValidationException;
 import repository.InMemoryRepository;
+import repository.database.FriendshipDBRepository;
 import repository.database.UserDBRepository;
 
 import java.util.*;
@@ -11,9 +12,9 @@ import java.util.*;
 public class SocialNetwork {
 
     private final UserDBRepository repositoryUser;
-    private final InMemoryRepository<Long, Friendship> repositoryFriendship;
+    private final FriendshipDBRepository repositoryFriendship;
 
-    public SocialNetwork(UserDBRepository repositoryUser, InMemoryRepository<Long, Friendship> repositoryFriendship) {
+    public SocialNetwork(UserDBRepository repositoryUser, FriendshipDBRepository repositoryFriendship) {
         this.repositoryUser = repositoryUser;
         this.repositoryFriendship = repositoryFriendship;
     }
@@ -50,7 +51,9 @@ public class SocialNetwork {
             User user2 = repositoryUser.findOne(friendship.getIdUser2()).orElseThrow(null);
             user1.addFriend(user2);
             user2.addFriend(user1);
+
         });
+//        repositoryUser.findAll().forEach(System.out::println);
     }
 
     public User removeUser(Long id) {

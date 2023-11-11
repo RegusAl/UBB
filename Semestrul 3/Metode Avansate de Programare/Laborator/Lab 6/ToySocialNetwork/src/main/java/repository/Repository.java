@@ -25,7 +25,7 @@ public interface Repository<ID, E extends Entity<ID>> {
     /**
      * @return all entities
      */
-    Iterable<E> findAll() throws SQLException;
+    Iterable<E> findAll();
 
     /**
      * @param entity entity must be not null

@@ -11,6 +11,7 @@ import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.StreamSupport;
 
 public class Console {
 
@@ -99,16 +100,32 @@ public class Console {
             Month month = Month.valueOf(scan.nextLine().toUpperCase());
             User user = socialNetwork.findUser(id);
             System.out.println(user.getId() + " " + user.getFirstName() + " " + user.getLastName());
-            socialNetwork.getFriendships().forEach(friendship -> {
-                User friend = null;
-                if (Objects.equals(friendship.getIdUser1(), user.getId()))
-                    friend = socialNetwork.findUser(friendship.getIdUser2());
-                if (Objects.equals(friendship.getIdUser2(), user.getId()))
-                    friend = socialNetwork.findUser(friendship.getIdUser1());
-                if (friendship.getDate().getMonth().equals(month) && friend != null) {
-                    System.out.println(friend.getFirstName() + " | " + friend.getLastName() + " | " + friendship.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-                }
-            });
+//            socialNetwork.getFriendships().forEach(friendship -> {
+//                User friend = null;
+//                if (Objects.equals(friendship.getIdUser1(), user.getId()))
+//                    friend = socialNetwork.findUser(friendship.getIdUser2());
+//                if (Objects.equals(friendship.getIdUser2(), user.getId()))
+//                    friend = socialNetwork.findUser(friendship.getIdUser1());
+//                if (friendship.getDate().getMonth().equals(month) && friend != null) {
+//                    System.out.println(friend.getFirstName() + " | " + friend.getLastName() + " | " + friendship.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+//                }
+//            });
+            // using streams and filters
+            StreamSupport.stream(socialNetwork.getFriendships().spliterator(), false)
+                    .filter(friendship -> Objects.equals(friendship.getIdUser1(), user.getId()) || Objects.equals(friendship.getIdUser2(), user.getId()))
+                    .filter(friendship -> friendship.getDate().getMonth().equals(month))
+                    .map(friendship -> {
+                        User friend = Objects.equals(friendship.getIdUser1(), user.getId()) ?
+                                socialNetwork.findUser(friendship.getIdUser2()) :
+                                socialNetwork.findUser(friendship.getIdUser1());
+                        return new AbstractMap.SimpleEntry<>(friend, friendship.getDate());
+                    })
+                    .filter(entry -> entry.getKey() != null)
+                    .forEach(entry -> {
+                        System.out.println(entry.getKey().getFirstName() + " | " +
+                                entry.getKey().getLastName() + " | " +
+                                entry.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                    });
         } catch (IllegalArgumentException e) {
             System.out.println("Id must be a number and month must be a string!");
         } catch (ValidationException v) {

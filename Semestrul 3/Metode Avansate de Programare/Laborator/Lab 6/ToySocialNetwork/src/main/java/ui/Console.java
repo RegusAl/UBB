@@ -6,10 +6,10 @@ import domain.validators.ValidationException;
 import service.SocialCommunities;
 import service.SocialNetwork;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.function.Predicate;
 
 public class Console {
@@ -33,6 +33,7 @@ public class Console {
         System.out.println("7. Communities");
         System.out.println("8. Most social community");
         System.out.println("9. List of users with at least N friends");
+        System.out.println("10. Friendships of a User made in a certain month");
         System.out.println("0. EXIT");
     }
 
@@ -73,6 +74,9 @@ public class Console {
                 case "9":
                     printListOfUsersWithNFriends();
                     break;
+                case "10":
+                    printFriendshipsMonth();
+                    break;
                 case "0":
                     System.out.println("exit");
                     ok = false;
@@ -81,6 +85,34 @@ public class Console {
                     System.out.println("Invalid input!");
                     break;
             }
+        }
+    }
+
+    private void printFriendshipsMonth() {
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("ID of the user: ");
+        String var1 = scan.nextLine();
+        try {
+            Long id = Long.parseLong(var1);
+            System.out.println("Month: ");
+            Month month = Month.valueOf(scan.nextLine().toUpperCase());
+            User user = socialNetwork.findUser(id);
+            System.out.println(user.getId() + " " + user.getFirstName() + " " + user.getLastName());
+            socialNetwork.getFriendships().forEach(friendship -> {
+                User friend = null;
+                if (Objects.equals(friendship.getIdUser1(), user.getId()))
+                    friend = socialNetwork.findUser(friendship.getIdUser2());
+                if (Objects.equals(friendship.getIdUser2(), user.getId()))
+                    friend = socialNetwork.findUser(friendship.getIdUser1());
+                if (friendship.getDate().getMonth().equals(month) && friend != null) {
+                    System.out.println(friend.getFirstName() + " | " + friend.getLastName() + " | " + friendship.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                }
+            });
+        } catch (IllegalArgumentException e) {
+            System.out.println("Id must be a number and month must be a string!");
+        } catch (ValidationException v) {
+            System.out.println("User doesn't exist!");
         }
     }
 
@@ -182,7 +214,7 @@ public class Console {
             } catch (IllegalArgumentException e) {
                 System.out.println("ID must be a number! It can't contain letters or symbols! ");
             }
-            socialNetwork.addFriendship(new Friendship(id1, id2));
+            socialNetwork.addFriendship(new Friendship(id1, id2, LocalDateTime.now()));
         } catch (ValidationException e) {
             System.out.println("Friendship is invalid! ");
         } catch (IllegalArgumentException e) {

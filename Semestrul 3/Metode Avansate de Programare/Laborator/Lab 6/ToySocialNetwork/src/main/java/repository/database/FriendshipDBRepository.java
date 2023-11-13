@@ -6,6 +6,11 @@ import domain.validators.FriendshipValidator;
 import repository.Repository;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.temporal.TemporalAccessor;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -31,7 +36,9 @@ public class FriendshipDBRepository implements Repository<Long, Friendship> {
             while (resultSet.next()) {
                 Long idFriend1 = resultSet.getLong("idfriend1");
                 Long idFriend2 = resultSet.getLong("idfriend2");
-                friendship = new Friendship(idFriend1, idFriend2);
+                Timestamp date = resultSet.getTimestamp("friendsfrom");
+                LocalDateTime friendsFrom = new java.sql.Timestamp(date.getTime()).toLocalDateTime();
+                friendship = new Friendship(idFriend1, idFriend2, friendsFrom);
                 friendship.setId(aLong);
             }
 
@@ -52,9 +59,10 @@ public class FriendshipDBRepository implements Repository<Long, Friendship> {
                 Long id = resultSet.getLong("id");
                 Long idFriend1 = resultSet.getLong("idfriend1");
                 Long idFriend2 = resultSet.getLong("idfriend2");
-                Friendship friendship = new Friendship(idFriend1, idFriend2);
+                Timestamp date = resultSet.getTimestamp("friendsfrom");
+                LocalDateTime friendsFrom = LocalDateTime.ofInstant(date.toInstant(), ZoneOffset.ofHours(0));
+                Friendship friendship = new Friendship(idFriend1, idFriend2, friendsFrom);
                 friendship.setId(id);
-
                 friendships.put(friendship.getId(), friendship);
             }
 
@@ -69,13 +77,14 @@ public class FriendshipDBRepository implements Repository<Long, Friendship> {
         if (entity == null) {
             throw new IllegalArgumentException("Friendship can't be null!");
         }
-        String query = "INSERT INTO friendships(\"id\", \"idfriend1\", \"idfriend2\") VALUES (?,?,?)";
+        String query = "INSERT INTO friendships(\"id\", \"idfriend1\", \"idfriend2\", \"friendsfrom\") VALUES (?,?,?,?)";
 
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/socialnetwork", "albert", "admin");
              PreparedStatement statement = connection.prepareStatement(query);) {
             statement.setLong(1, entity.getId());
             statement.setLong(2, entity.getIdUser1());
             statement.setLong(3, entity.getIdUser2());
+            statement.setTimestamp(4, java.sql.Timestamp.valueOf(entity.getDate()));
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

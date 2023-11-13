@@ -13,9 +13,11 @@ public class Friendship extends Entity<Long> {
     Long idUser1;
     Long idUser2;
 
-    public Friendship(Long idUser1, Long idUser2) {
+
+    public Friendship(Long idUser1, Long idUser2, LocalDateTime friendsFrom) {
         this.idUser1 = min(idUser1, idUser2);
         this.idUser2 = max(idUser1, idUser2);
+        this.date = friendsFrom;
     }
 
     public Long getIdUser1() {

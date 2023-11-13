@@ -63,15 +63,14 @@ public class SocialNetwork {
     public List<User> getListFriends(User user) {
         List<User> friends = new ArrayList<>();
         getFriendships().forEach(friendship -> {
-            if(friendship.getIdUser1().equals(user.getId())) {
+            if (friendship.getIdUser1().equals(user.getId())) {
                 friends.add(findUser(friendship.getIdUser2()));
-            } else if(friendship.getIdUser2().equals(user.getId())) {
+            } else if (friendship.getIdUser2().equals(user.getId())) {
                 friends.add(findUser(friendship.getIdUser1()));
             }
         });
         return friends;
     }
-
 
 
     /**
@@ -140,10 +139,6 @@ public class SocialNetwork {
         if (id == 0L)
             throw new IllegalArgumentException("The friendship doesn't exist!");
         repositoryFriendship.delete(id);
-
-//        assert user1 != null;
-//        user1.removeFriend(user2);
-//        assert user2 != null;
-//        user2.removeFriend(user1);
     }
+
 }

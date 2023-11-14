@@ -14,12 +14,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-//
-//        System.out.println(LocalDateTime.now().getMonth().toString());
-
-
-
         UserDBRepository userDBRepository = new UserDBRepository(new UserValidator());
         FriendshipDBRepository friendshipDBRepository = new FriendshipDBRepository(new FriendshipValidator(userDBRepository));
 

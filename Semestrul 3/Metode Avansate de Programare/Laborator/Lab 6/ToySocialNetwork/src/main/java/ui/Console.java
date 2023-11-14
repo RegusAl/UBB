@@ -35,6 +35,7 @@ public class Console {
         System.out.println("8. Most social community");
         System.out.println("9. List of users with at least N friends");
         System.out.println("10. Friendships of a User made in a certain month");
+        System.out.println("11. Users with the family name that contains a given string");
         System.out.println("0. EXIT");
     }
 
@@ -78,6 +79,9 @@ public class Console {
                 case "10":
                     printFriendshipsMonth();
                     break;
+                case "11":
+                    printUsersStringFamilyName();
+                    break;
                 case "0":
                     System.out.println("exit");
                     ok = false;
@@ -87,6 +91,23 @@ public class Console {
                     break;
             }
         }
+    }
+
+    private void printUsersStringFamilyName() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("string: ");
+        String string = scan.nextLine();
+
+//        socialNetwork.getUsers().forEach(user -> {
+//            if (user.getLastName().contains(string) || user.getFirstName().contains(string)) {
+//                System.out.println(user.getId() + ": " + user.getFirstName() + " " + user.getLastName());
+//            }
+//        });
+
+        Collection<User> users = (Collection<User>) socialNetwork.getUsers();
+        users.stream()
+                .filter(user -> user.getLastName().contains(string) || user.getFirstName().contains(string)).
+                forEach(user -> System.out.println(user.getId() + ": " + user.getFirstName() + " " + user.getLastName()));
     }
 
     private void printFriendshipsMonth() {
@@ -100,6 +121,7 @@ public class Console {
             Month month = Month.valueOf(scan.nextLine().toUpperCase());
             User user = socialNetwork.findUser(id);
             System.out.println(user.getId() + " " + user.getFirstName() + " " + user.getLastName());
+
 //            socialNetwork.getFriendships().forEach(friendship -> {
 //                User friend = null;
 //                if (Objects.equals(friendship.getIdUser1(), user.getId()))
@@ -110,6 +132,7 @@ public class Console {
 //                    System.out.println(friend.getFirstName() + " | " + friend.getLastName() + " | " + friendship.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 //                }
 //            });
+
             // using streams and filters
             StreamSupport.stream(socialNetwork.getFriendships().spliterator(), false)
                     .filter(friendship -> Objects.equals(friendship.getIdUser1(), user.getId()) || Objects.equals(friendship.getIdUser2(), user.getId()))
@@ -120,7 +143,6 @@ public class Console {
                                 socialNetwork.findUser(friendship.getIdUser1());
                         return new AbstractMap.SimpleEntry<>(friend, friendship.getDate());
                     })
-                    .filter(entry -> entry.getKey() != null)
                     .forEach(entry -> {
                         System.out.println(entry.getKey().getFirstName() + " | " +
                                 entry.getKey().getLastName() + " | " +

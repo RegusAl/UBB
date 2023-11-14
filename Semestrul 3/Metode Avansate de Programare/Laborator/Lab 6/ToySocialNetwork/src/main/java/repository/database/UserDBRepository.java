@@ -10,16 +10,6 @@ import java.util.*;
 
 public class UserDBRepository implements Repository<Long, User> {
 
-//    String url;
-//    String username;
-//    String password;
-//
-//    public UserDBRepository(String url, String username, String password) {
-//        this.url = url;
-//        this.username = username;
-//        this.password = password;
-//    }
-
     UserValidator userValidator;
 
     public UserDBRepository(UserValidator userValidator) {

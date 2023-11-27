@@ -6,12 +6,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import map.toysocialnetwork.controller.MessageUser;
 import map.toysocialnetwork.domain.Tuple;
 import map.toysocialnetwork.domain.User;
 import map.toysocialnetwork.repository.database.UserDBRepository;
@@ -33,13 +35,13 @@ public class UsersController implements Observer<UserEvent> {
     TableView<User> tableView;
 
     @FXML
-    TableColumn<User,Long> tableUserId;
+    TableColumn<User, Long> tableUserId;
 
     @FXML
-    TableColumn<User,String> tableUserFirstName;
+    TableColumn<User, String> tableUserFirstName;
 
     @FXML
-    TableColumn<User,String> tableUserLastName;
+    TableColumn<User, String> tableUserLastName;
 
     @FXML
     public void initialize() {
@@ -57,18 +59,37 @@ public class UsersController implements Observer<UserEvent> {
     @FXML
     public void handleDeleteUser(ActionEvent ev) {
         User selectedUser = tableView.getSelectionModel().getSelectedItem();
-        System.out.println(selectedUser.getId());
-        User userToDelete = socialNetwork.removeUser(selectedUser.getId());
+        if (selectedUser != null) {
+            User userToDelete = socialNetwork.removeUser(selectedUser.getId());
+            if (userToDelete != null) {
+                MessageUser.showMessage(null, Alert.AlertType.INFORMATION,
+                        "Delete", "The user ( " + userToDelete.getId()
+                                + " " + userToDelete.getFirstName() + " " + userToDelete.getLastName()
+                                + " ) was removed!");
+            }
 
+        } else MessageUser.showErrorMessage(null, "Select an User to delete!");
+
+
+    }
+
+    @FXML
+    public void handleUpdateButton(ActionEvent ev) {
+
+        User userToUpdate = tableView.getSelectionModel().getSelectedItem();
+        if (userToUpdate != null) {
+            socialNetwork.removeUser(userToUpdate.getId());
+            showAddUserEditDialog(null);
+        } else MessageUser.showErrorMessage(null, "Select an User to update!");
     }
 
     private void showAddUserEditDialog(User user) {
         try {
             FXMLLoader loader = new FXMLLoader(UsersController.class.getResource("views/add-user.fxml"));
 
-            AnchorPane root = (AnchorPane)  loader.load();
+            AnchorPane root = (AnchorPane) loader.load();
 
-            Stage dialogStage=  new Stage();
+            Stage dialogStage = new Stage();
             dialogStage.setTitle("Add User");
             dialogStage.initModality(Modality.WINDOW_MODAL);
 

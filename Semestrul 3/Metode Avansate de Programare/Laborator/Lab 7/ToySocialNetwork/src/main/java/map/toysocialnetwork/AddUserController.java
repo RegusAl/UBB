@@ -32,7 +32,7 @@ public class AddUserController {
         this.service = socialNetwork;
         this.dialogStage = dialogStage;
         this.user = user;
-        if(user != null) {
+        if (user != null) {
             setFields(user);
         }
     }
@@ -43,16 +43,14 @@ public class AddUserController {
         String firstName = textFieldFirstName.getText();
         String lastName = textFieldLastName.getText();
         User user = new User(Long.parseLong(id), firstName, lastName);
-        if(null == this.user)
+        if (null == this.user)
             saveUser(user);
-        else
-            updateUser(user);
     }
 
     private void saveUser(User user) {
         try {
             User newUser = this.service.addUser(user);
-            if(newUser == null)
+            if (newUser == null)
                 dialogStage.close();
         } catch (ValidationException e) {
 
@@ -60,9 +58,6 @@ public class AddUserController {
         dialogStage.close();
     }
 
-    private void updateUser(User user) {
-
-    }
 
     private void setFields(User user) {
         textFieldId.setText(user.getId().toString());

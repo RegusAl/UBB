@@ -94,13 +94,13 @@ public class SocialNetwork implements Observable<UserEvent> {
             if (u == null) {
                 throw new IllegalArgumentException("User doesn't exist!");
             }
-            Vector<Long> toDelete = new Vector<>();
-            getFriendships().forEach(friendship -> {
-                if (friendship.getIdUser2().equals(id) || friendship.getIdUser1().equals(id)) {
-                    toDelete.add(friendship.getId());
-                }
-            });
-            toDelete.forEach(repositoryFriendship::delete);
+//            Vector<Long> toDelete = new Vector<>();
+//            getFriendships().forEach(friendship -> {
+//                if (friendship.getIdUser2().equals(id) || friendship.getIdUser1().equals(id)) {
+//                    toDelete.add(friendship.getId());
+//                }
+//            });
+//            toDelete.forEach(repositoryFriendship::delete);
             repositoryUser.delete(id);
             //            u.getFriends().forEach(friend -> friend.removeFriend(u));
         } catch (IllegalArgumentException e) {

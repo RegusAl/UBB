@@ -1,8 +1,9 @@
 package map.toysocialnetwork.domain.validators;
 
-import map.domain.Friendship;
-import map.domain.User;
-import map.repository.database.UserDBRepository;
+
+import map.toysocialnetwork.domain.Friendship;
+import map.toysocialnetwork.domain.User;
+import map.toysocialnetwork.repository.database.UserDBRepository;
 
 import java.util.Optional;
 

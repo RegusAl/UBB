@@ -1,8 +1,9 @@
 package map.toysocialnetwork.repository.database;
 
-import map.domain.Friendship;
-import map.domain.validators.FriendshipValidator;
-import map.repository.Repository;
+
+import map.toysocialnetwork.domain.Friendship;
+import map.toysocialnetwork.domain.validators.FriendshipValidator;
+import map.toysocialnetwork.repository.Repository;
 
 import java.sql.*;
 import java.time.LocalDateTime;

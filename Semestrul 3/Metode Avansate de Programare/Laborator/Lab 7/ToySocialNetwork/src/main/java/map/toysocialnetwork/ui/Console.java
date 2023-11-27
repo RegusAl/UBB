@@ -1,10 +1,12 @@
 package map.toysocialnetwork.ui;
 
-import domain.Friendship;
-import domain.User;
-import domain.validators.ValidationException;
-import service.SocialCommunities;
-import service.SocialNetwork;
+
+
+import map.toysocialnetwork.domain.Friendship;
+import map.toysocialnetwork.domain.User;
+import map.toysocialnetwork.domain.validators.ValidationException;
+import map.toysocialnetwork.service.SocialCommunities;
+import map.toysocialnetwork.service.SocialNetwork;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -186,12 +188,15 @@ public class Console {
     void addUser() {
         System.out.println("Add user");
         Scanner scan = new Scanner(System.in);
+        System.out.println("Id: ");
+        String var = scan.nextLine();
         System.out.println("First name: ");
         String firstName = scan.nextLine();
         System.out.println("Last name: ");
         String lastName = scan.nextLine();
         try {
-            socialNetwork.addUser(new User(firstName, lastName));
+            Long id = Long.parseLong(var);
+            socialNetwork.addUser(new User(id, firstName, lastName));
         } catch (ValidationException e) {
             System.out.println("Invalid user!");
         } catch (IllegalArgumentException e) {

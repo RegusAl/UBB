@@ -1,7 +1,7 @@
 package map.toysocialnetwork.service;
 
-import map.domain.Friendship;
-import map.domain.User;
+import map.toysocialnetwork.domain.Friendship;
+import map.toysocialnetwork.domain.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;

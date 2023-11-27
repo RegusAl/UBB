@@ -1,21 +1,29 @@
 package map.toysocialnetwork.service;
 
-import map.domain.Friendship;
-import map.domain.User;
-import map.domain.validators.ValidationException;
-import map.repository.database.FriendshipDBRepository;
-import map.repository.database.UserDBRepository;
+import map.toysocialnetwork.domain.Friendship;
+import map.toysocialnetwork.domain.User;
+import map.toysocialnetwork.domain.validators.ValidationException;
+import map.toysocialnetwork.repository.database.FriendshipDBRepository;
+import map.toysocialnetwork.repository.database.UserDBRepository;
+import map.toysocialnetwork.utils.Observable;
+import map.toysocialnetwork.utils.Observer;
+import map.toysocialnetwork.utils.events.ChangeEventType;
+import map.toysocialnetwork.utils.events.UserEvent;
+
 
 import java.util.*;
 
-public class SocialNetwork {
+public class SocialNetwork implements Observable<UserEvent> {
 
     private final UserDBRepository repositoryUser;
     private final FriendshipDBRepository repositoryFriendship;
 
+    private final List<Observer<UserEvent>> observers;
+
     public SocialNetwork(UserDBRepository repositoryUser, FriendshipDBRepository repositoryFriendship) {
         this.repositoryUser = repositoryUser;
         this.repositoryFriendship = repositoryFriendship;
+        this.observers = new ArrayList<>();
     }
 
     /**
@@ -36,21 +44,23 @@ public class SocialNetwork {
     /**
      * @return id(Long)
      */
-    public Long getNewUserId() {
-        Long id = 0L;
-        for (User u : repositoryUser.findAll()) {
-            id = u.getId();
-        }
-        id++;
-        return id;
-    }
+//    public Long getNewUserId() {
+//        Long id = 0L;
+//        for (User u : repositoryUser.findAll()) {
+//            id = u.getId();
+//        }
+//        id++;
+//        return id;
+//    }
 
     /**
      * @param user Adds the user to the map.repository
      */
-    public void addUser(User user) {
-        user.setId(getNewUserId());
-        repositoryUser.save(user);
+    public User addUser(User user) {
+//        user.setId(getNewUserId());
+        Optional<User> newUser = repositoryUser.save(user);
+        notifyObservers(new UserEvent(ChangeEventType.ADD, user));
+        return user;
     }
 
     /**
@@ -98,6 +108,8 @@ public class SocialNetwork {
         } catch (ValidationException v) {
             System.out.println();
         }
+        if(u!=null)
+            notifyObservers(new UserEvent(ChangeEventType.DELETE, u));
         return u;
     }
 
@@ -141,4 +153,18 @@ public class SocialNetwork {
         repositoryFriendship.delete(id);
     }
 
+    @Override
+    public void addObserver(Observer<UserEvent> e) {
+        observers.add(e);
+    }
+
+    @Override
+    public void removeObserver(Observer<UserEvent> e) {
+        observers.remove(e);
+    }
+
+    @Override
+    public void notifyObservers(UserEvent t) {
+        observers.forEach(x -> x.update(t));
+    }
 }

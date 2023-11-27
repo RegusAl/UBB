@@ -1,23 +1,18 @@
 package map.toysocialnetwork.repository.database;
 
-import map.domain.User;
-import map.domain.validators.UserValidator;
-import map.repository.Repository;
+
+
+import map.toysocialnetwork.domain.User;
+import map.toysocialnetwork.domain.validators.UserValidator;
+import map.toysocialnetwork.repository.Repository;
 
 import java.sql.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Objects;
+import java.util.Optional;
 
 public class UserDBRepository implements Repository<Long, User> {
 
-//    String url;
-//    String username;
-//    String password;
-//
-//    public UserDBRepository(String url, String username, String password) {
-//        this.url = url;
-//        this.username = username;
-//        this.password = password;
-//    }
 
     UserValidator userValidator;
 
@@ -38,8 +33,7 @@ public class UserDBRepository implements Repository<Long, User> {
             while (resultSet.next()) {
                 String firstName = resultSet.getString("first_name");
                 String lastName = resultSet.getString("last_name");
-                user = new User(firstName, lastName);
-                user.setId(aLong);
+                user = new User(aLong, firstName, lastName);
             }
 
         } catch (SQLException e) {
@@ -59,8 +53,7 @@ public class UserDBRepository implements Repository<Long, User> {
                 Long id = resultSet.getLong("id");
                 String nume = resultSet.getString("first_name");
                 String prenume = resultSet.getString("last_name");
-                User user = new User(nume, prenume);
-                user.setId(id);
+                User user = new User(id, nume, prenume);
 
                 users.put(user.getId(), user);
             }

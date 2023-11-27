@@ -1,14 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="map.toysocialnetwork.views.Users"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="map.toysocialnetwork.UsersController">
+    <children>
+      <Text blendMode="DARKEN" layoutX="6.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERS" textAlignment="CENTER" wrappingWidth="588.7294921875">
+         <font>
+            <Font name="DejaVu Sans Bold" size="28.0" />
+         </font>
+      </Text>
+      <SplitPane dividerPositions="0.5" layoutY="47.0" orientation="VERTICAL" prefHeight="193.0" prefWidth="600.0">
+        <items>
+          <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="300.0" minWidth="600.0" prefHeight="300.0" prefWidth="600.0" SplitPane.resizableWithParent="false">
+               <children>
+                    <TableView fx:id="tableView" minHeight="300.0" minWidth="600.0" prefHeight="300.0" prefWidth="600.0">
+                        <columns>
+                        <TableColumn fx:id="tableUserId" minWidth="200.0" prefWidth="200.0" text="ID" />
+                            <TableColumn fx:id="tableUserFirstName" editable="false" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="200.0" resizable="false" sortable="false" text="First Name" />
+                            <TableColumn fx:id="tableUserLastName" editable="false" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="200.0" resizable="false" sortable="false" text="Last Name" />
+                        </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                    </TableView>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="0.0" prefWidth="0.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleAddUser" prefHeight="40.0" prefWidth="100.0" text="Add User" textAlignment="JUSTIFY" textOverrun="CLIP">
+                           <font>
+                              <Font name="Inter Regular" size="13.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor></Button>
+                     </children></HBox>
+                  <HBox alignment="CENTER" layoutX="200.0" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#handleDeleteUser" prefHeight="40.0" prefWidth="100.0" text="Delete User" textAlignment="JUSTIFY" textOverrun="CLIP">
+                           <font>
+                              <Font name="Inter Regular" size="13.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+    </children>
 </AnchorPane>

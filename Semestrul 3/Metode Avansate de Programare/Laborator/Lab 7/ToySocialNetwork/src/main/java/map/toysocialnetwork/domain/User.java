@@ -4,12 +4,12 @@ package map.toysocialnetwork.domain;
 public class User extends Entity<Long> {
     private String firstName;
     private String lastName;
-//    List<User> friends;
+    private Long id;
 
-    public User(String firstName, String lastName) {
+    public User(Long id, String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-//        friends = new Vector<User>();
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -28,41 +28,20 @@ public class User extends Entity<Long> {
         this.lastName = lastName;
     }
 
-//    public void addFriend(User user) {
-//        friends.add(user);
-//    }
-//
-//    public void removeFriend(User user) {
-//        friends.remove(user);
-//    }
-//
-//    public List<User> getFriends() {
-//        return friends;
-//    }
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {
         return "Utilizator{" +
                 "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", friends=" + +
-                '}';
+                ", lastName='" + lastName + '}';
     }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (!(o instanceof User)) return false;
-//        User that = (User) o;
-//        return getFirstName().equals(that.getFirstName()) &&
-//                getLastName().equals(that.getLastName()) &&
-//                getFriends().equals(that.getFriends());
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(getFirstName(), getLastName(), getFriends());
-//    }
-
-
 }

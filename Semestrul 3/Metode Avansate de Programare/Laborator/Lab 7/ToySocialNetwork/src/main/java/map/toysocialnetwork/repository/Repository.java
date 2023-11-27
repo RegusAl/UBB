@@ -1,7 +1,8 @@
 package map.toysocialnetwork.repository;
 
-import map.domain.Entity;
-import map.domain.validators.ValidationException;
+
+import map.toysocialnetwork.domain.Entity;
+import map.toysocialnetwork.domain.validators.ValidationException;
 
 import java.util.Optional;
 

@@ -1,6 +1,7 @@
 package map.toysocialnetwork.domain.validators;
 
-import map.domain.User;
+
+import map.toysocialnetwork.domain.User;
 
 public class UserValidator implements Validator<User> {
 

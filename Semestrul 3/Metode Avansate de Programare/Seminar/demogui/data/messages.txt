@@ -1,0 +1,7 @@
+id=1|description=Feedback lab1|message=Ai obtinut 9.60|from=Gigi|to=Dana|date=2018-11-20 22:03
+id=23|description=wwq|message=qw|from=wq|to=wq|date=2021-12-07 10:45
+id=2|description=Feedback lab10|message=Ai obtinut 5.60|from=Gigidffdf|to=Icsulescu|date=2022-12-09 10:26
+id=3|description=Feedback lab6|message=Ai obtinut 10|from=Gigiiiiiii|to=Ana|date=2022-12-09 08:16
+id=454|description=454|message=Salutari|from=544|to=54|date=2018-11-19 11:12
+id=345|description=nuj|message=ce|from=ce|to=ce|date=2023-11-27 10:15
+id=1234|description=nuj|message=nuj|from=nuj|to=nuj|date=2023-11-17 16:12

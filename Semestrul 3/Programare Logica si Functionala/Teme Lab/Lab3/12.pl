@@ -10,7 +10,7 @@ ex. 10 16 27 18 14 7).
 % candidat(l1...ln) =  1) l1, n > 0
 %                      2) candidat(l2...ln), n > 0
 
-% candidat(L: list, E: int)
+% candidat(L: list, E: int) - genereaza un candidat la solutie
 % model flux: (i, o) - predicat nedeterminist
 candidat([H|_], H).
 candidat([_|T], E):- candidat(T, E).

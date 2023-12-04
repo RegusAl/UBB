@@ -28,5 +28,19 @@
                </children></AnchorPane>
       </content>
     </Tab>
+      <Tab text="Friendships Requests">
+          <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                      <ListView fx:id="listFriendshipsRequests" layoutX="42.0" layoutY="24.0" prefHeight="320.0" prefWidth="300.0" />
+                  <TextField fx:id="idFirstUser" alignment="CENTER" layoutX="384.0" layoutY="24.0" promptText="id first user" />
+                  <TextField fx:id="idSecondUser" alignment="CENTER" layoutX="384.0" layoutY="78.0" promptText="id second user" />
+                  <Button layoutX="393.0" layoutY="127.0" mnemonicParsing="false" onMouseClicked="#sendFriendRequest" text="Send Friend Request" />
+                  <Button layoutX="441.0" layoutY="192.0" mnemonicParsing="false" onMouseClicked="#acceptFriendRequest" text="Accept" />
+                  <Button layoutX="439.0" layoutY="234.0" mnemonicParsing="false" onMouseClicked="#declineFriendRequest" text="Decline" />
+                  <Button layoutX="410.0" layoutY="291.0" mnemonicParsing="false" onMouseClicked="#deleteFriendshipRequest" text="Delete Request" />
+                  </children></AnchorPane>
+          </content>
+      </Tab>
   </tabs>
 </TabPane>

@@ -3,6 +3,7 @@ package map.toysocialnetwork.repository.database;
 
 import map.toysocialnetwork.domain.Friendship;
 import map.toysocialnetwork.domain.validators.FriendshipValidator;
+import map.toysocialnetwork.enums.FriendshipRequest;
 import map.toysocialnetwork.repository.Repository;
 
 import java.sql.*;
@@ -35,14 +36,16 @@ public class FriendshipDBRepository implements Repository<Long, Friendship> {
                 Long idFriend2 = resultSet.getLong("idfriend2");
                 Timestamp date = resultSet.getTimestamp("friendsfrom");
                 LocalDateTime friendsFrom = new Timestamp(date.getTime()).toLocalDateTime();
-                friendship = new Friendship(idFriend1, idFriend2, friendsFrom);
+                FriendshipRequest friendshipRequest = FriendshipRequest.valueOf(resultSet.getString("friend_request_status"));
+                friendship = new Friendship(idFriend1, idFriend2, friendsFrom, friendshipRequest);
                 friendship.setId(aLong);
+                return Optional.of(friendship);
             }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.ofNullable(friendship);
+        return Optional.empty();
     }
 
     @Override
@@ -58,7 +61,8 @@ public class FriendshipDBRepository implements Repository<Long, Friendship> {
                 Long idFriend2 = resultSet.getLong("idfriend2");
                 Timestamp date = resultSet.getTimestamp("friendsfrom");
                 LocalDateTime friendsFrom = LocalDateTime.ofInstant(date.toInstant(), ZoneOffset.ofHours(0));
-                Friendship friendship = new Friendship(idFriend1, idFriend2, friendsFrom);
+                FriendshipRequest friendshipRequest = FriendshipRequest.valueOf(resultSet.getString("friend_request_status"));
+                Friendship friendship = new Friendship(idFriend1, idFriend2, friendsFrom, friendshipRequest);
                 friendship.setId(id);
                 friendships.put(friendship.getId(), friendship);
             }
@@ -74,7 +78,7 @@ public class FriendshipDBRepository implements Repository<Long, Friendship> {
         if (entity == null) {
             throw new IllegalArgumentException("Friendship can't be null!");
         }
-        String query = "INSERT INTO friendships(\"id\", \"idfriend1\", \"idfriend2\", \"friendsfrom\") VALUES (?,?,?,?)";
+        String query = "INSERT INTO friendships(\"id\", \"idfriend1\", \"idfriend2\", \"friendsfrom\", \"friend_request_status\") VALUES (?,?,?,?,?)";
 
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/socialnetwork", "albert", "admin");
              PreparedStatement statement = connection.prepareStatement(query);) {
@@ -82,6 +86,7 @@ public class FriendshipDBRepository implements Repository<Long, Friendship> {
             statement.setLong(2, entity.getIdUser1());
             statement.setLong(3, entity.getIdUser2());
             statement.setTimestamp(4, Timestamp.valueOf(entity.getDate()));
+            statement.setString(5, entity.getFriendshipRequestStatus().toString());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -112,6 +117,18 @@ public class FriendshipDBRepository implements Repository<Long, Friendship> {
 
     @Override
     public Optional<Friendship> update(Friendship entity) {
-        return Optional.empty();
+        String query = "UPDATE friendships SET idfriend1 = ?, idfriend2 = ?, friendsfrom = ?, friend_request_status = ? WHERE id = ?";
+        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/socialnetwork", "albert", "admin");
+             PreparedStatement statement = connection.prepareStatement(query);) {
+            statement.setLong(1, entity.getIdUser1());
+            statement.setLong(2, entity.getIdUser2());
+            statement.setTimestamp(3, Timestamp.valueOf(entity.getDate()));
+            statement.setString(4, entity.getFriendshipRequestStatus().toString());
+            statement.setLong(5,entity.getId());
+            int affectedRows = statement.executeUpdate();
+            return Optional.of(entity);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

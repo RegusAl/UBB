@@ -13,7 +13,6 @@ import map.toysocialnetwork.domain.validators.FriendshipValidator;
 import map.toysocialnetwork.domain.validators.UserValidator;
 import map.toysocialnetwork.repository.database.FriendshipDBRepository;
 import map.toysocialnetwork.repository.database.UserDBRepository;
-import map.toysocialnetwork.repository.paging.PagingRepository;
 import map.toysocialnetwork.service.SocialNetwork;
 
 import java.io.IOException;

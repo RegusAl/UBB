@@ -3,15 +3,17 @@ package map.toysocialnetwork.service;
 import map.toysocialnetwork.domain.Friendship;
 import map.toysocialnetwork.domain.User;
 import map.toysocialnetwork.domain.validators.ValidationException;
+import map.toysocialnetwork.enums.FriendshipRequest;
 import map.toysocialnetwork.repository.database.FriendshipDBRepository;
 import map.toysocialnetwork.repository.database.UserDBRepository;
-import map.toysocialnetwork.utils.Observable;
-import map.toysocialnetwork.utils.Observer;
-import map.toysocialnetwork.utils.events.ChangeEventType;
-import map.toysocialnetwork.utils.events.UserEvent;
 
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
+
+import static map.toysocialnetwork.controller.MessageUser.showErrorMessage;
 
 public class SocialNetwork {
 
@@ -81,22 +83,13 @@ public class SocialNetwork {
             if (u == null) {
                 throw new IllegalArgumentException("User doesn't exist!");
             }
-//            Vector<Long> toDelete = new Vector<>();
-//            getFriendships().forEach(friendship -> {
-//                if (friendship.getIdUser2().equals(id) || friendship.getIdUser1().equals(id)) {
-//                    toDelete.add(friendship.getId());
-//                }
-//            });
-//            toDelete.forEach(repositoryFriendship::delete);
             repositoryUser.delete(id);
-            //            u.getFriends().forEach(friend -> friend.removeFriend(u));
+
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid user! ");
         } catch (ValidationException v) {
             System.out.println();
         }
-//        if(u!=null)
-//            notifyObservers(new UserEvent(ChangeEventType.DELETE, u));
         return u;
     }
 
@@ -140,18 +133,23 @@ public class SocialNetwork {
         repositoryFriendship.delete(id);
     }
 
-//    @Override
-//    public void addObserver(Observer<UserEvent> e) {
-//        observers.add(e);
-//    }
-//
-//    @Override
-//    public void removeObserver(Observer<UserEvent> e) {
-//        observers.remove(e);
-//    }
-//
-//    @Override
-//    public void notifyObservers(UserEvent t) {
-//        observers.forEach(x -> x.update(t));
-//    }
+    public void createFriendshipRequest(Long id1, Long id2) {
+        Friendship friendship = new Friendship(id1, id2, LocalDateTime.now());
+        addFriendship(friendship);
+    }
+
+    public void manageFriendRequest(Friendship friendship, FriendshipRequest friendshipRequest) {
+        try {
+            if(!repositoryFriendship.findOne(friendship.getId()).isPresent()) {
+                throw new Exception("Friendship doesn't exist!");
+            } else if(friendship.getFriendshipRequestStatus() != FriendshipRequest.PENDING) {
+                showErrorMessage(null, "The request must be PENDING in order to APPROVE/DECLINE it");
+                throw new Exception("Friendship is not PENDING!");
+            }
+            friendship.setFriendshipRequestStatus(friendshipRequest);
+            repositoryFriendship.update(friendship);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

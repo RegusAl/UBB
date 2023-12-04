@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="map.toysocialnetwork.UsersController">
+  <tabs>
+    <Tab text="Users">
+      <content>
+        <AnchorPane minHeight="500.0" minWidth="500.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <ListView fx:id="listUsers" layoutX="50.0" layoutY="26.0" minHeight="300.0" minWidth="250.0" prefHeight="300.0" prefWidth="250.0" />
+                  <TextField fx:id="textFieldId" alignment="CENTER" layoutX="346.0" layoutY="26.0" promptText="id" />
+                  <TextField fx:id="textFieldFirstName" alignment="CENTER" layoutX="346.0" layoutY="70.0" promptText="first name" />
+                  <TextField fx:id="textFieldLastName" alignment="CENTER" layoutX="346.0" layoutY="114.0" promptText="last name" />
+                  <Button layoutX="384.0" layoutY="164.0" minHeight="25.0" minWidth="95.0" mnemonicParsing="false" onMouseClicked="#addUser" text="Add User" />
+                  <Button layoutX="384.0" layoutY="213.0" minHeight="25.0" minWidth="95.0" mnemonicParsing="false" onMouseClicked="#deleteUser" text="Delete User" />
+                  <Button layoutX="384.0" layoutY="261.0" minHeight="25.0" minWidth="95.0" mnemonicParsing="false" onMouseClicked="#updateUser" text="Update" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Friendships">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <ListView fx:id="listFriendships" layoutX="42.0" layoutY="24.0" prefHeight="278.0" prefWidth="516.0" />
+                  <Button layoutX="234.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#deleteFriendship" text="Delete Friendship" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>

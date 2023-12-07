@@ -16,9 +16,7 @@
   )
 )
 
-(produs_vectori '(1 2 3) '(4 5))
-(produs_vectori '(4 5) '(1 2 4))
-(produs_vectori '(1 2) '(1 2 5 10))
+(produs_vectori '(1 2 3) '(4 5 6))
 
 
 ; b) Sa se construiasca o functie care intoarce adancimea unei liste.
@@ -35,9 +33,9 @@
 )
 
 
-; adancime(l1...ln) = { 0, n = 0
-;                     { 1 + adancime(l2...ln), daca l1 este max(l1, l2...ln)
-;                     { adancime(l2...ln), altfel
+; adancime(l1...ln, a) = { a = 0, n = 0
+;                        { maxim(adancime(l1, a + 1), adancime(l2...ln, a)), daca l1 este lista
+;                        { adancime(l2...ln), altfel
 
 ; adancime(L: list, a: int)
 (defun adancime (l a)
@@ -53,6 +51,21 @@
 (adancime '(3 2 (1) (4 (5)))  0)
 (adancime '(1 2 ((3) (4)) 5 6) 0)
 
+; adancimew(l1...ln) = { 0, n = 0
+;                      { adancime(l1...ln, 0)
+
+; adancimew(L: list)
+(defun adancimew (l)
+    (cond
+     ((null l) 0)
+     (t (adancime l 0))
+    )
+)
+
+(adancimew '(1 (2) 3 4))
+(adancimew '(1 2 (3 4 5 (6 7) 5) 4))
+(adancimew '(3 2 (1) (4 (5))))
+(adancimew '(1 2 ((3) (4)) 5 6))
 
 
 ; c) Definiti o functie care sorteaza fara pastrarea dublurilor liniara.
@@ -60,9 +73,9 @@
 ; inserare(l1...ln, e) = { [e], n = 0
 ;                        { e U l1...ln, e < l1
 ;                        { l1...ln, e = l1
-;                        { inserare(l2...ln, e), altfel
+;                        { l1 U inserare(l2...ln, e), altfel
 
-; inserare(L: list, e: element)
+; inserare(L: list, e: int)
 (defun inserare (l e)
     (cond
         ((null l) (list e))
@@ -73,6 +86,7 @@
 )
 
 (inserare '(1 2 3 4 5) '3)
+(inserare '() 4)
 
 
 ; sortare(l1...ln) = { nil, n = 0
@@ -86,8 +100,9 @@
     )
 )
 
+(sortare '(1 2 1))
 (sortare '(5 6 89 4 5 3 2 4 2 1))
-
+(sortare '(3 2 1 2 3 4 3 2 1))
 
 ; d) Sa se scrie o functie care intoarce intersectia a doua multimi.
 
@@ -105,7 +120,7 @@
 )
 
 ; intersectie(x1...xn, z1...zm) = { nil, n = 0 sau m = 0
-;                                 { x1 U intersectie(x2...xn, z1...zm), daca apare(x1, z1...zm) = true
+;                                 { x1 U intersectie(x2...xn, z1...zm), daca exista(x1, z1...zm) = true
 ;                                 { intersectie(x2...xn, z1...zm), altfel
 
 ; intersectie(x: list, z: list)
@@ -116,3 +131,7 @@
         (t(intersectie (cdr x) z))
     )
 )
+
+(intersectie '(1 2 3 4) '(2 3 5 6))
+(intersectie '(1 2) '(3 4))
+(intersectie '(1 2 3 4))

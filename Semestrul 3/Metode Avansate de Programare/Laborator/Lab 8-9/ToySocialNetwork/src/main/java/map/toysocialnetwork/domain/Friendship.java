@@ -55,10 +55,9 @@ public class Friendship extends Entity<Long> {
         this.friendshipRequestStatus = friendshipRequestStatus;
     }
 
-
     @Override
     public String toString() {
-        return getIdUser1() + " " + getIdUser2() + " date: " + getDate().format(DateTimeFormatter.ofPattern("dd/MM/yy")) + " | Status: "+ getFriendshipRequestStatus().toString();
+        return getIdUser1() + " " + getIdUser2() + " date: " + getDate().format(DateTimeFormatter.ofPattern("dd/MM/yy")) + " | Status: " + getFriendshipRequestStatus().toString();
     }
 }
 

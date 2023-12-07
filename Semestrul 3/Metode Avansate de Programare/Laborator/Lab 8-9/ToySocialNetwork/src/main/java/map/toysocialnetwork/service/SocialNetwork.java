@@ -1,17 +1,18 @@
 package map.toysocialnetwork.service;
 
 import map.toysocialnetwork.domain.Friendship;
+import map.toysocialnetwork.domain.Message;
 import map.toysocialnetwork.domain.User;
 import map.toysocialnetwork.domain.validators.ValidationException;
 import map.toysocialnetwork.enums.FriendshipRequest;
 import map.toysocialnetwork.repository.database.FriendshipDBRepository;
+import map.toysocialnetwork.repository.database.MessagesDBRepository;
 import map.toysocialnetwork.repository.database.UserDBRepository;
 
 
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static map.toysocialnetwork.controller.MessageUser.showErrorMessage;
 
@@ -20,12 +21,13 @@ public class SocialNetwork {
     private final UserDBRepository repositoryUser;
     private final FriendshipDBRepository repositoryFriendship;
 
-//    private final List<Observer<UserEvent>> observers;
+    private final MessagesDBRepository messagesDBRepository;
 
-    public SocialNetwork(UserDBRepository repositoryUser, FriendshipDBRepository repositoryFriendship) {
+
+    public SocialNetwork(UserDBRepository repositoryUser, FriendshipDBRepository repositoryFriendship, MessagesDBRepository messagesDBRepository) {
         this.repositoryUser = repositoryUser;
         this.repositoryFriendship = repositoryFriendship;
-//        this.observers = new ArrayList<>();
+        this.messagesDBRepository = messagesDBRepository;
     }
 
     /**
@@ -48,7 +50,10 @@ public class SocialNetwork {
      * @param user Adds the user to the map.repository
      */
     public User addUser(User user) {
-        Optional<User> newUser = repositoryUser.save(user);
+        if (user.getFirstName().isEmpty() || user.getLastName().isEmpty()) {
+            throw new ValidationException("User is invalid!");
+        }
+        repositoryUser.save(user);
         return user;
     }
 
@@ -140,9 +145,9 @@ public class SocialNetwork {
 
     public void manageFriendRequest(Friendship friendship, FriendshipRequest friendshipRequest) {
         try {
-            if(!repositoryFriendship.findOne(friendship.getId()).isPresent()) {
+            if (!repositoryFriendship.findOne(friendship.getId()).isPresent()) {
                 throw new Exception("Friendship doesn't exist!");
-            } else if(friendship.getFriendshipRequestStatus() != FriendshipRequest.PENDING) {
+            } else if (friendship.getFriendshipRequestStatus() != FriendshipRequest.PENDING) {
                 showErrorMessage(null, "The request must be PENDING in order to APPROVE/DECLINE it");
                 throw new Exception("Friendship is not PENDING!");
             }
@@ -152,4 +157,48 @@ public class SocialNetwork {
             throw new RuntimeException(e);
         }
     }
+
+    // Messages
+
+    public boolean addMessage(Long id_from, Long id_to, String message) {
+        try {
+            User from = findUser(id_from);
+            User to = findUser(id_to);
+
+            Message msg = new Message(from, Collections.singletonList(to), message);
+            messagesDBRepository.save(msg);
+
+            List<Message> messagesBetweenUsers = getMessages(id_to, id_from);
+            if (messagesBetweenUsers.size() > 1) {
+                Message oldReplyMessage = messagesBetweenUsers.get(messagesBetweenUsers.size() - 2);
+                Message newReplyMessage = messagesBetweenUsers.get(messagesBetweenUsers.size() - 1);
+                oldReplyMessage.setReply(newReplyMessage);
+                messagesDBRepository.update(oldReplyMessage);
+            }
+
+            return true;
+        } catch (ValidationException ve) {
+            System.out.println("eroare user");
+        } catch (Exception ex) {
+            System.out.println("eroare creare mesaj!");
+        }
+        return false;
+    }
+
+    public ArrayList<Message> getMessages(Long id1, Long id2) {
+        User user1 = findUser(id1);
+        User user2 = findUser(id2);
+
+        Collection<Message> messages = (Collection<Message>) messagesDBRepository.findAll();
+        System.out.println(messages);
+        return messages.stream()
+                .filter(msg -> ((msg.getFrom().getId().equals(id1)) && msg.getTo().get(0).getId().equals(id2)) ||
+                        (msg.getFrom().getId().equals(id2) && msg.getTo().get(0).getId().equals(id1)))
+                .sorted(Comparator.comparing(Message::getData))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+
+    }
+
+
 }

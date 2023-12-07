@@ -6,21 +6,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import map.toysocialnetwork.controller.MessageUser;
 import map.toysocialnetwork.domain.Friendship;
+import map.toysocialnetwork.domain.Message;
 import map.toysocialnetwork.domain.User;
 import map.toysocialnetwork.domain.validators.UserValidator;
 import map.toysocialnetwork.domain.validators.ValidationException;
 import map.toysocialnetwork.enums.FriendshipRequest;
 import map.toysocialnetwork.service.SocialNetwork;
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import static map.toysocialnetwork.controller.MessageUser.showErrorMessage;
 
-public class UsersController implements Initializable {
+public class Controller implements Initializable {
+
 
 
     SocialNetwork socialNetwork;
@@ -30,6 +31,8 @@ public class UsersController implements Initializable {
     ObservableList<Friendship> friendshipModel = FXCollections.observableArrayList();
 
     ObservableList<Friendship> friendshipsRequestsModel = FXCollections.observableArrayList();
+
+    ObservableList<Message> messagesModel = FXCollections.observableArrayList();
 
     // User Window
 
@@ -61,6 +64,25 @@ public class UsersController implements Initializable {
     @FXML
     private TextField idSecondUser;
 
+    // Messages TAB
+
+    @FXML
+    private ListView<Message> listMessages;
+
+
+    @FXML
+    private TextField sendMessageId1;
+
+    @FXML
+    private TextField sendMessageId2;
+
+    @FXML
+    private TextArea message;
+
+    public ChoiceBox<User> choiceboxId1;
+
+    public ChoiceBox<User> choiceboxId2;
+
 
     public void setSocialNetwork(SocialNetwork sn) {
         socialNetwork = sn;
@@ -69,6 +91,9 @@ public class UsersController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        choiceboxId1.setItems(userObs);
+        choiceboxId2.setItems(userObs);
         listUsers.setItems(userObs);
         listFriendships.setItems(friendshipModel);
         listFriendshipsRequests.setItems(friendshipsRequestsModel);
@@ -102,9 +127,9 @@ public class UsersController implements Initializable {
             User user = new User(idUser, firstName, lastName);
             socialNetwork.addUser(user);
         } catch (ValidationException ve) {
-            showErrorMessage(null, "no");
+            showErrorMessage(null, "User can't be added!");
         } catch (Exception e) {
-            System.out.println("id is not number");
+//            System.out.println("id is not number");
             showErrorMessage(null, "User can't be added!");
             textFieldId.clear();
             textFieldFirstName.clear();
@@ -144,9 +169,9 @@ public class UsersController implements Initializable {
             socialNetwork.addUser(user);
             socialNetwork.removeUser(idToUpdate);
         } catch (ValidationException ve) {
-            showErrorMessage(null, "no");
+            showErrorMessage(null, "Can't update because User is invalid!");
         } catch (Exception e) {
-            System.out.println("id is not number");
+            System.out.println("Id is not number");
             showErrorMessage(null, "User can't be updated!");
             textFieldId.clear();
             textFieldFirstName.clear();
@@ -161,10 +186,14 @@ public class UsersController implements Initializable {
     }
 
     public void deleteFriendship(MouseEvent mouseEvent) {
-        if (listFriendships.getSelectionModel().getSelectedItems() != null) {
-            Friendship friendship = listFriendships.getSelectionModel().getSelectedItem();
-            socialNetwork.removeFriendship(friendship.getIdUser1(), friendship.getIdUser2());
-            initApp(socialNetwork.getUsers());
+        try {
+            if (listFriendships.getSelectionModel().getSelectedItems() != null) {
+                Friendship friendship = listFriendships.getSelectionModel().getSelectedItem();
+                socialNetwork.removeFriendship(friendship.getIdUser1(), friendship.getIdUser2());
+                initApp(socialNetwork.getUsers());
+            }
+        } catch (Exception ex) {
+            showErrorMessage(null, "Select a friend request from table!");
         }
     }
 
@@ -192,7 +221,7 @@ public class UsersController implements Initializable {
             Friendship friendship = listFriendshipsRequests.getSelectionModel().getSelectedItem();
             socialNetwork.manageFriendRequest(friendship, FriendshipRequest.APPROVED);
             initApp(socialNetwork.getUsers());
-        }
+        } else showErrorMessage(null, "The request must be PENDING in order to APPROVE/DECLINE it");
         initApp(socialNetwork.getUsers());
     }
 
@@ -212,7 +241,41 @@ public class UsersController implements Initializable {
                 socialNetwork.removeFriendship(friendship.getIdUser1(), friendship.getIdUser2());
                 initApp(socialNetwork.getUsers());
             } else showErrorMessage(null, "The request must be REJECTED in order to delete it!");
-        }
+        } else showErrorMessage(null, "Select a friend request from table!");
         initApp(socialNetwork.getUsers());
+    }
+
+    public void loadListMessages(Long id1, Long id2) {
+        listMessages.getItems().clear();
+        messagesModel.clear();
+        for(Message msg : socialNetwork.getMessages(id1, id2)) {
+            messagesModel.add(msg);
+        }
+        if (messagesModel.isEmpty()) {
+            showErrorMessage(null, "There are no messages!");
+        }
+
+        listMessages.setItems(messagesModel);
+    }
+
+    public void searchMessages(MouseEvent mouseEvent) {
+
+        Long id1 = choiceboxId1.getSelectionModel().getSelectedItem().getId();
+        Long id2 = choiceboxId2.getSelectionModel().getSelectedItem().getId();
+
+        loadListMessages(id1, id2);
+    }
+
+    public void sendMessage(MouseEvent mouseEvent) {
+
+        Long idFrom = choiceboxId1.getSelectionModel().getSelectedItem().getId();
+        Long idTo = choiceboxId2.getSelectionModel().getSelectedItem().getId();
+
+        String msg = message.getText();
+
+        socialNetwork.addMessage(idFrom, idTo, msg);
+        loadListMessages(idFrom, idTo);
+
+        message.clear();
     }
 }

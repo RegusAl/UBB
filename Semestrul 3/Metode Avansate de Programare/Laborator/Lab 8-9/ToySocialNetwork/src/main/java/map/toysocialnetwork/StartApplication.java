@@ -2,25 +2,25 @@ package map.toysocialnetwork;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import map.toysocialnetwork.domain.Entity;
-import map.toysocialnetwork.domain.User;
+import map.toysocialnetwork.domain.Message;
 import map.toysocialnetwork.domain.validators.FriendshipValidator;
 import map.toysocialnetwork.domain.validators.UserValidator;
 import map.toysocialnetwork.repository.database.FriendshipDBRepository;
+import map.toysocialnetwork.repository.database.MessagesDBRepository;
 import map.toysocialnetwork.repository.database.UserDBRepository;
 import map.toysocialnetwork.service.SocialNetwork;
 
 import java.io.IOException;
+import java.util.Collections;
 
 public class StartApplication extends Application {
 
     UserDBRepository userDBRepository;
     FriendshipDBRepository friendshipDBRepository;
+
+    MessagesDBRepository messagesDBRepository;
     SocialNetwork socialNetwork;
 
     public static void main(String[] args) {
@@ -31,7 +31,11 @@ public class StartApplication extends Application {
     public void start(Stage primaryStage) throws IOException {
         userDBRepository = new UserDBRepository(new UserValidator());
         friendshipDBRepository = new FriendshipDBRepository(new FriendshipValidator(userDBRepository));
-        socialNetwork = new SocialNetwork(userDBRepository, friendshipDBRepository);
+        messagesDBRepository = new MessagesDBRepository(userDBRepository);
+
+
+        socialNetwork = new SocialNetwork(userDBRepository, friendshipDBRepository, messagesDBRepository);
+
         initView(primaryStage);
         primaryStage.setWidth(600);
         primaryStage.setTitle("SocialNetwork");
@@ -44,9 +48,9 @@ public class StartApplication extends Application {
         Scene scene = new Scene(fmxlLoader.load());
         primaryStage.setScene(scene);
 
-        UsersController usersController = fmxlLoader.getController();
-        usersController.setSocialNetwork(socialNetwork);
-        usersController.initApp(socialNetwork.getUsers());
+        Controller controller = fmxlLoader.getController();
+        controller.setSocialNetwork(socialNetwork);
+        controller.initApp(socialNetwork.getUsers());
     }
 
 

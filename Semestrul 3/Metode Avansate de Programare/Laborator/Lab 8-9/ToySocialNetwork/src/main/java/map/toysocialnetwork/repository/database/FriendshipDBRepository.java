@@ -106,13 +106,7 @@ public class FriendshipDBRepository implements Repository<Long, Friendship> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        Friendship friendshipToDelete = null;
-        for (Friendship friendship : findAll()) {
-            if (Objects.equals(friendship.getId(), aLong)) {
-                friendshipToDelete = friendship;
-            }
-        }
-        return Optional.ofNullable(friendshipToDelete);
+        return Optional.empty();
     }
 
     @Override
@@ -124,7 +118,7 @@ public class FriendshipDBRepository implements Repository<Long, Friendship> {
             statement.setLong(2, entity.getIdUser2());
             statement.setTimestamp(3, Timestamp.valueOf(entity.getDate()));
             statement.setString(4, entity.getFriendshipRequestStatus().toString());
-            statement.setLong(5,entity.getId());
+            statement.setLong(5, entity.getId());
             int affectedRows = statement.executeUpdate();
             return Optional.of(entity);
         } catch (SQLException e) {

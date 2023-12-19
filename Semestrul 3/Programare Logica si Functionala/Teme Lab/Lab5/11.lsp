@@ -11,6 +11,8 @@
     (cond
         ((null l) NIL)
         ((= k 0) (list (car l)))
+        ; cadr l = (car (cdr l))
+        ; caddr l = (car (cdr (cdr l)))
         (t (append (nivel_k (cadr l) (- k 1)) (nivel_k (caddr l) (- k 1)) ) )
     )
 )
@@ -35,13 +37,15 @@
 ; nivelNrNoduriMaxim(L: lista, i: int)
 (defun nivelNrNoduriMaxim (l i)
     (cond
+        ; daca numarul nodurilor de pe nivelul i este 0 => 0
         ((= (lungime (nivel_k l i)) 0) 0)
-
+        ; daca nr nodurilor de pe nivelul i > nr nodurilor de pe i+1 (recursiv) => i
         ((> (lungime (nivel_k l i)) (lungime (nivel_k l (nivelNrNoduriMaxim l (+ i 1))))) i)
 
         (t (nivelNrNoduriMaxim l (+ i 1)))
     )
 )
+
 
 ; main(l1...ln) = { nivelNrNoduriMaxim(l1...ln, 0) U nivel_k(l1...ln, nivelNrNoduriMaxim(l1...ln, 0))
 
@@ -51,6 +55,17 @@
 )
 
 
+; nivel 0: A
+(main '(A))
 
+; nivel 2: D E F
+(main '(A (B (D)) (C (E (G)) (F)))) 
 
-(main '(A (B (D)) (C (E (G)) (F))))
+; nivel 3: F G H I  
+(main '(A (B (D (F) (G))) (C (E (H) (I)))))  
+
+; nivel 1: B C
+(main '(A (B) (C)))
+
+; nivel 4: F G H
+(main '(A (B (C (D (F)) (E (G) (H))))))

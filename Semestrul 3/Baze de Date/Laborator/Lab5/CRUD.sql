@@ -281,9 +281,6 @@ BEGIN
 			-- SELECT
 			SELECT * FROM ProduseDepozite;
 
-			-- UPDATE
-			UPDATE ProduseDepozite SET idProdus = 20 WHERE idProdus = 1;
-
 			-- DELETE
 			DELETE ProduseDepozite WHERE @idP = idProdus AND @idD = idDepozit;
 		END
@@ -297,10 +294,13 @@ BEGIN
 	exec CRUD_Clienti 'Mihai', 1;
 	exec CRUD_Produse 'minge', 99, 2, 1, 2, 1;
 	exec CRUD_Depozite 'Buzau', 'qwerty', 1;
-	exec CRUD_PD 1, 2
+	exec CRUD_PD 25, 2
 END
 GO
 
 exec CRUD_MAIN
 
-exec CRUD_Depozite 'Bucuresti', 'qwerty', 3;
+SELECT * FROM Clienti
+SELECT * FROM Produse
+SELECT * FROM Depozite
+SELECT * FROM ProduseDepozite

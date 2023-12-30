@@ -39,7 +39,7 @@
     (cond
         ; daca numarul nodurilor de pe nivelul i este 0 => 0
         ((= (lungime (nivel_k l i)) 0) 0)
-        ; daca nr nodurilor de pe nivelul i > nr nodurilor de pe i+1 (recursiv) => i
+        ; daca nr nodurilor de pe nivelul i > nr nodurilor de pe i+1  => i
         ((> (lungime (nivel_k l i)) (lungime (nivel_k l (nivelNrNoduriMaxim l (+ i 1))))) i)
 
         (t (nivelNrNoduriMaxim l (+ i 1)))
@@ -58,6 +58,9 @@
 ; nivel 0: A
 (main '(A))
 
+; nivel 0: A
+(main '(A (B)))
+
 ; nivel 2: D E F
 (main '(A (B (D)) (C (E (G)) (F)))) 
 
@@ -69,3 +72,6 @@
 
 ; nivel 4: F G H
 (main '(A (B (C (D (F)) (E (G) (H))))))
+
+; nivel 5: G H S T
+(main '(A (B (D (E (F (G) (H (J) (K)))))) (C (L (N (V (S) (T))) (Q (P) (R))))))

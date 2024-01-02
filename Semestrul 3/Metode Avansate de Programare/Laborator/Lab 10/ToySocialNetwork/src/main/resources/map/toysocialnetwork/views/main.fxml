@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" rotateGraphic="true" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="map.toysocialnetwork.Controller">
+  <tabs>
+    <Tab closable="false" text="Users">
+      <content>
+        <AnchorPane minHeight="500.0" minWidth="500.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <ListView fx:id="listUsers" layoutX="50.0" layoutY="26.0" minHeight="300.0" minWidth="250.0" prefHeight="300.0" prefWidth="250.0" />
+                  <TextField fx:id="textFieldId" alignment="CENTER" layoutX="346.0" layoutY="26.0" promptText="id" />
+                  <TextField fx:id="textFieldFirstName" alignment="CENTER" layoutX="346.0" layoutY="70.0" promptText="first name" />
+                  <TextField fx:id="textFieldLastName" alignment="CENTER" layoutX="346.0" layoutY="114.0" promptText="last name" />
+                  <Button layoutX="384.0" layoutY="164.0" minHeight="25.0" minWidth="95.0" mnemonicParsing="false" onMouseClicked="#addUser" text="Add User" />
+                  <Button layoutX="384.0" layoutY="213.0" minHeight="25.0" minWidth="95.0" mnemonicParsing="false" onMouseClicked="#deleteUser" text="Delete User" />
+                  <Button layoutX="384.0" layoutY="261.0" minHeight="25.0" minWidth="95.0" mnemonicParsing="false" onMouseClicked="#updateUser" text="Update" />
+                  <Button fx:id="previousBtnUsers" layoutX="66.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#onPreviousPageUsers" text="&lt;" />
+                  <Button fx:id="firstPageBtnUsers" layoutX="26.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#onFirstPageUsers" text="&lt;&lt;" />
+                  <Button fx:id="nextBtnUsers" layoutX="229.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#onNextPageUsers" text="&gt;" />
+                  <Button fx:id="lastPageBtnUsers" layoutX="258.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#onLastPageUsers" text="&gt;&gt;" />
+               </children>
+            </AnchorPane>
+      </content>
+    </Tab>
+    <Tab closable="false" text="Friendships">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <ListView fx:id="listFriendships" layoutX="42.0" layoutY="24.0" prefHeight="278.0" prefWidth="516.0" />
+                  <Button layoutX="234.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#deleteFriendship" text="Delete Friendship" />
+               </children>
+            </AnchorPane>
+      </content>
+    </Tab>
+      <Tab closable="false" text="Friendships Requests">
+          <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                      <ListView fx:id="listFriendshipsRequests" layoutX="42.0" layoutY="24.0" prefHeight="320.0" prefWidth="300.0" />
+                  <TextField fx:id="idFirstUser" alignment="CENTER" layoutX="384.0" layoutY="24.0" promptText="id first user" />
+                  <TextField fx:id="idSecondUser" alignment="CENTER" layoutX="384.0" layoutY="78.0" promptText="id second user" />
+                  <Button layoutX="393.0" layoutY="127.0" mnemonicParsing="false" onMouseClicked="#sendFriendRequest" text="Send Friend Request" />
+                  <Button layoutX="441.0" layoutY="192.0" mnemonicParsing="false" onMouseClicked="#acceptFriendRequest" text="Accept" />
+                  <Button layoutX="439.0" layoutY="234.0" mnemonicParsing="false" onMouseClicked="#declineFriendRequest" text="Decline" />
+                  <Button layoutX="410.0" layoutY="291.0" mnemonicParsing="false" onMouseClicked="#deleteFriendshipRequest" text="Delete Request" />
+                  </children>
+            </AnchorPane>
+          </content>
+      </Tab>
+      <Tab closable="false" text="Messages">
+          <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <ListView fx:id="listMessages" layoutX="32.0" layoutY="59.0" prefHeight="203.0" prefWidth="537.0" />
+                  <Button layoutX="438.0" layoutY="20.0" mnemonicParsing="false" onMouseClicked="#searchMessages" text="Search Messages" />
+                  <TextArea fx:id="message" layoutX="32.0" layoutY="272.0" prefHeight="71.0" prefWidth="367.0" />
+                  <Button layoutX="432.0" layoutY="273.0" mnemonicParsing="false" onMouseClicked="#sendMessage" prefHeight="69.0" prefWidth="137.0" text="Send" />
+                  <ChoiceBox fx:id="choiceboxId1" layoutX="39.0" layoutY="20.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="choiceboxId2" layoutX="238.0" layoutY="20.0" prefWidth="150.0" />
+
+               </children></AnchorPane>
+          </content>
+      </Tab>
+  </tabs>
+</TabPane>

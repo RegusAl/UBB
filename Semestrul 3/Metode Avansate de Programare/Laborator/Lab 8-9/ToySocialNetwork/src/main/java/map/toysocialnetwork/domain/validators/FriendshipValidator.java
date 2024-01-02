@@ -4,14 +4,15 @@ package map.toysocialnetwork.domain.validators;
 import map.toysocialnetwork.domain.Friendship;
 import map.toysocialnetwork.domain.User;
 import map.toysocialnetwork.repository.database.UserDBRepository;
+import map.toysocialnetwork.repository.pagination.PagingRepository;
 
 import java.util.Optional;
 
 public class FriendshipValidator implements Validator<Friendship> {
 
-    private UserDBRepository repo;
+    private PagingRepository<Long, User> repo;
 
-    public FriendshipValidator(UserDBRepository repo) {
+    public FriendshipValidator(PagingRepository<Long, User> repo) {
         this.repo = repo;
     }
 

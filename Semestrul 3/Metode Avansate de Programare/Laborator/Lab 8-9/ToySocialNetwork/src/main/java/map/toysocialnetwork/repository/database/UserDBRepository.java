@@ -1,17 +1,17 @@
 package map.toysocialnetwork.repository.database;
 
 
-
 import map.toysocialnetwork.domain.User;
 import map.toysocialnetwork.domain.validators.UserValidator;
 import map.toysocialnetwork.repository.Repository;
+import map.toysocialnetwork.repository.pagination.Page;
+import map.toysocialnetwork.repository.pagination.Pageable;
+import map.toysocialnetwork.repository.pagination.PagingRepository;
 
 import java.sql.*;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
-public class UserDBRepository implements Repository<Long, User> {
+public class UserDBRepository implements PagingRepository<Long, User> {
 
 
     UserValidator userValidator;
@@ -107,5 +107,43 @@ public class UserDBRepository implements Repository<Long, User> {
     @Override
     public Optional<User> update(User entity) {
         return Optional.empty();
+    }
+
+    // for pagination
+    @Override
+    public Page<User> findall(Pageable pageable) {
+        List<User> userList = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/socialnetwork", "albert", "admin");
+             PreparedStatement pagePreparedStatement = connection.prepareStatement("SELECT * FROM users " +
+                     "LIMIT ? OFFSET ?");
+
+             PreparedStatement countPreparedStatement = connection.prepareStatement
+                     ("SELECT COUNT(*) AS count FROM users ");
+
+        ) {
+            pagePreparedStatement.setInt(1, pageable.getPageSize());
+            pagePreparedStatement.setInt(2, pageable.getPageSize() * pageable.getPageNumber());
+            try (ResultSet pageResultSet = pagePreparedStatement.executeQuery();
+                 ResultSet countResultSet = countPreparedStatement.executeQuery();) {
+                while (pageResultSet.next()) {
+                    Long id = pageResultSet.getLong("id");
+                    String firstName = pageResultSet.getString("first_name");
+                    String lastName = pageResultSet.getString("last_name");
+
+                    User user = new User(id, firstName, lastName);
+                    user.setId(id);
+                    userList.add(user);
+                }
+                int totalCount = 0;
+                if (countResultSet.next()) {
+                    totalCount = countResultSet.getInt("count");
+                }
+
+                return new Page<>(userList, totalCount);
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

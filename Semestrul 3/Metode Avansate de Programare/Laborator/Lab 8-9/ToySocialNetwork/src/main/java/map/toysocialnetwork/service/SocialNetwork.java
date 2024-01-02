@@ -8,6 +8,9 @@ import map.toysocialnetwork.enums.FriendshipRequest;
 import map.toysocialnetwork.repository.database.FriendshipDBRepository;
 import map.toysocialnetwork.repository.database.MessagesDBRepository;
 import map.toysocialnetwork.repository.database.UserDBRepository;
+import map.toysocialnetwork.repository.pagination.Page;
+import map.toysocialnetwork.repository.pagination.Pageable;
+import map.toysocialnetwork.repository.pagination.PagingRepository;
 
 
 import java.time.LocalDateTime;
@@ -18,13 +21,13 @@ import static map.toysocialnetwork.controller.MessageUser.showErrorMessage;
 
 public class SocialNetwork {
 
-    private final UserDBRepository repositoryUser;
+    private final PagingRepository<Long, User> repositoryUser;
     private final FriendshipDBRepository repositoryFriendship;
 
     private final MessagesDBRepository messagesDBRepository;
 
 
-    public SocialNetwork(UserDBRepository repositoryUser, FriendshipDBRepository repositoryFriendship, MessagesDBRepository messagesDBRepository) {
+    public SocialNetwork(PagingRepository<Long, User> repositoryUser, FriendshipDBRepository repositoryFriendship, MessagesDBRepository messagesDBRepository) {
         this.repositoryUser = repositoryUser;
         this.repositoryFriendship = repositoryFriendship;
         this.messagesDBRepository = messagesDBRepository;
@@ -190,7 +193,7 @@ public class SocialNetwork {
         User user2 = findUser(id2);
 
         Collection<Message> messages = (Collection<Message>) messagesDBRepository.findAll();
-        System.out.println(messages);
+//        System.out.println(messages);
         return messages.stream()
                 .filter(msg -> ((msg.getFrom().getId().equals(id1)) && msg.getTo().get(0).getId().equals(id2)) ||
                         (msg.getFrom().getId().equals(id2) && msg.getTo().get(0).getId().equals(id1)))
@@ -198,6 +201,10 @@ public class SocialNetwork {
                 .collect(Collectors.toCollection(ArrayList::new));
 
 
+    }
+
+    public Page<User> findAllUsers(Pageable pageable) {
+        return repositoryUser.findall(pageable);
     }
 
 

@@ -13,16 +13,16 @@ import map.toysocialnetwork.ui.Console;
 public class Main {
 
     public static void main(String[] args) {
+//
+//        UserDBRepository userDBRepository = new UserDBRepository(new UserValidator());
+//        FriendshipDBRepository friendshipDBRepository = new FriendshipDBRepository(new FriendshipValidator(userDBRepository));
+//        MessagesDBRepository messagesDBRepository = new MessagesDBRepository(userDBRepository);
+//        SocialNetwork socialNetwork = new SocialNetwork(userDBRepository, friendshipDBRepository, messagesDBRepository);
+//
+//        Console ui = new Console(socialNetwork);
 
-        UserDBRepository userDBRepository = new UserDBRepository(new UserValidator());
-        FriendshipDBRepository friendshipDBRepository = new FriendshipDBRepository(new FriendshipValidator(userDBRepository));
-        MessagesDBRepository messagesDBRepository = new MessagesDBRepository(userDBRepository);
-        SocialNetwork socialNetwork = new SocialNetwork(userDBRepository, friendshipDBRepository, messagesDBRepository);
-
-        Console ui = new Console(socialNetwork);
-
-
-        ui.run();
+//
+//        ui.run();
     }
 }
 

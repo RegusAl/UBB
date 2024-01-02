@@ -12,6 +12,8 @@ import map.toysocialnetwork.domain.User;
 import map.toysocialnetwork.domain.validators.UserValidator;
 import map.toysocialnetwork.domain.validators.ValidationException;
 import map.toysocialnetwork.enums.FriendshipRequest;
+import map.toysocialnetwork.repository.pagination.Page;
+import map.toysocialnetwork.repository.pagination.Pageable;
 import map.toysocialnetwork.service.SocialNetwork;
 
 import java.lang.reflect.InvocationTargetException;
@@ -23,10 +25,12 @@ import static map.toysocialnetwork.controller.MessageUser.showErrorMessage;
 public class Controller implements Initializable {
 
 
-
     SocialNetwork socialNetwork;
 
     UserValidator userValidator;
+
+    // Observable Lists
+
     ObservableList<User> userObs = FXCollections.observableArrayList();
     ObservableList<Friendship> friendshipModel = FXCollections.observableArrayList();
 
@@ -34,7 +38,17 @@ public class Controller implements Initializable {
 
     ObservableList<Message> messagesModel = FXCollections.observableArrayList();
 
+    // Pagination vars
+
+    private int currentPageUsers = 0;
+    private int pageSizeUsers = 5;
+
     // User Window
+
+    public Button previousBtnUsers;
+    public Button firstPageBtnUsers;
+    public Button nextBtnUsers;
+    public Button lastPageBtnUsers;
 
     @FXML
     private ListView<User> listUsers;
@@ -99,13 +113,33 @@ public class Controller implements Initializable {
         listFriendshipsRequests.setItems(friendshipsRequestsModel);
     }
 
-    public void initApp(Iterable<User> users) {
+    public void initApp() {
         listUsers.getItems().clear();
         listFriendships.getItems().clear();
         listFriendshipsRequests.getItems().clear();
-        for (User user : users) {
+
+        Page<User> pageUsers = socialNetwork.findAllUsers(new Pageable(currentPageUsers, pageSizeUsers));
+
+        int maxPageUsers = (int) Math.ceil((double) pageUsers.getTotalElementsCount() / pageSizeUsers) - 1;
+        if(currentPageUsers > maxPageUsers) {
+            currentPageUsers = maxPageUsers;
+            pageUsers = socialNetwork.findAllUsers(new Pageable(currentPageUsers, pageSizeUsers));
+        }
+
+        int totalNumberOfElementsUsers = pageUsers.getTotalElementsCount();
+
+        previousBtnUsers.setDisable(currentPageUsers == 0);
+        firstPageBtnUsers.setDisable(currentPageUsers == 0);
+        nextBtnUsers.setDisable((currentPageUsers + 1) * pageSizeUsers >= totalNumberOfElementsUsers);
+        lastPageBtnUsers.setDisable((currentPageUsers + 1) * pageSizeUsers >= totalNumberOfElementsUsers);
+
+        for (User user : pageUsers.getElementsOnPage()) {
             userObs.add(user);
         }
+
+        listUsers.setItems(userObs);
+
+//        pageNumberUsers.setText((currentPageUsers + 1) + "/" + (maxPageUsers + 1));
 
         for (Friendship friendship : socialNetwork.getFriendships()) {
             if (friendship.getFriendshipRequestStatus() == FriendshipRequest.APPROVED)
@@ -140,14 +174,15 @@ public class Controller implements Initializable {
         textFieldFirstName.clear();
         textFieldLastName.clear();
 
-        initApp(socialNetwork.getUsers());
+        initApp();
     }
 
     public void deleteUser(MouseEvent mouseEvent) {
         if (listUsers.getSelectionModel().getSelectedItems() != null) {
             User user = listUsers.getSelectionModel().getSelectedItem();
             socialNetwork.removeUser(user.getId());
-            initApp(socialNetwork.getUsers());
+
+            initApp();
         }
     }
 
@@ -182,7 +217,7 @@ public class Controller implements Initializable {
         textFieldFirstName.clear();
         textFieldLastName.clear();
 
-        initApp(socialNetwork.getUsers());
+        initApp();
     }
 
     public void deleteFriendship(MouseEvent mouseEvent) {
@@ -190,7 +225,7 @@ public class Controller implements Initializable {
             if (listFriendships.getSelectionModel().getSelectedItems() != null) {
                 Friendship friendship = listFriendships.getSelectionModel().getSelectedItem();
                 socialNetwork.removeFriendship(friendship.getIdUser1(), friendship.getIdUser2());
-                initApp(socialNetwork.getUsers());
+                initApp();
             }
         } catch (Exception ex) {
             showErrorMessage(null, "Select a friend request from table!");
@@ -212,7 +247,7 @@ public class Controller implements Initializable {
         idFirstUser.clear();
         idSecondUser.clear();
 
-        initApp(socialNetwork.getUsers());
+        initApp();
     }
 
 
@@ -220,18 +255,18 @@ public class Controller implements Initializable {
         if (listFriendshipsRequests.getSelectionModel().getSelectedItems() != null) {
             Friendship friendship = listFriendshipsRequests.getSelectionModel().getSelectedItem();
             socialNetwork.manageFriendRequest(friendship, FriendshipRequest.APPROVED);
-            initApp(socialNetwork.getUsers());
+            initApp();
         } else showErrorMessage(null, "The request must be PENDING in order to APPROVE/DECLINE it");
-        initApp(socialNetwork.getUsers());
+        initApp();
     }
 
     public void declineFriendRequest(MouseEvent mouseEvent) {
         if (listFriendshipsRequests.getSelectionModel().getSelectedItems() != null) {
             Friendship friendship = listFriendshipsRequests.getSelectionModel().getSelectedItem();
             socialNetwork.manageFriendRequest(friendship, FriendshipRequest.REJECTED);
-            initApp(socialNetwork.getUsers());
+            initApp();
         }
-        initApp(socialNetwork.getUsers());
+        initApp();
     }
 
     public void deleteFriendshipRequest(MouseEvent mouseEvent) {
@@ -239,10 +274,10 @@ public class Controller implements Initializable {
             Friendship friendship = listFriendshipsRequests.getSelectionModel().getSelectedItem();
             if (friendship.getFriendshipRequestStatus() == FriendshipRequest.REJECTED) {
                 socialNetwork.removeFriendship(friendship.getIdUser1(), friendship.getIdUser2());
-                initApp(socialNetwork.getUsers());
+                initApp();
             } else showErrorMessage(null, "The request must be REJECTED in order to delete it!");
         } else showErrorMessage(null, "Select a friend request from table!");
-        initApp(socialNetwork.getUsers());
+        initApp();
     }
 
     public void loadListMessages(Long id1, Long id2) {
@@ -254,7 +289,7 @@ public class Controller implements Initializable {
         if (messagesModel.isEmpty()) {
             showErrorMessage(null, "There are no messages!");
         }
-
+//        System.out.println(listMessages.getItems());
         listMessages.setItems(messagesModel);
     }
 
@@ -277,5 +312,26 @@ public class Controller implements Initializable {
         loadListMessages(idFrom, idTo);
 
         message.clear();
+    }
+
+    public void onPreviousPageUsers(MouseEvent mouseEvent) {
+        currentPageUsers--;
+        initApp();
+    }
+
+    public void onFirstPageUsers(MouseEvent mouseEvent) {
+        currentPageUsers = 0;
+        initApp();
+    }
+
+    public void onNextPageUsers(MouseEvent mouseEvent) {
+        currentPageUsers++;
+        initApp();
+    }
+
+    public void onLastPageUsers(MouseEvent mouseEvent) {
+        Page<User> userPage = socialNetwork.findAllUsers(new Pageable(currentPageUsers, pageSizeUsers));
+        currentPageUsers = (int) Math.ceil((double) userPage.getTotalElementsCount() / pageSizeUsers) - 1;
+        initApp();
     }
 }

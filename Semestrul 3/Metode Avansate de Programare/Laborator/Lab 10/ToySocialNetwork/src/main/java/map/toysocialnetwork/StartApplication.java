@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import map.toysocialnetwork.domain.Friendship;
 import map.toysocialnetwork.domain.Message;
 import map.toysocialnetwork.domain.User;
 import map.toysocialnetwork.domain.validators.FriendshipValidator;
@@ -28,7 +29,7 @@ public class StartApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         PagingRepository<Long, User> userRepo = new UserDBRepository(new UserValidator());
-        FriendshipDBRepository friendshipDBRepository = new FriendshipDBRepository(new FriendshipValidator( userRepo));
+        PagingRepository<Long, Friendship> friendshipDBRepository = new FriendshipDBRepository(new FriendshipValidator( userRepo));
         MessagesDBRepository messagesDBRepository = new MessagesDBRepository(userRepo);
 
 

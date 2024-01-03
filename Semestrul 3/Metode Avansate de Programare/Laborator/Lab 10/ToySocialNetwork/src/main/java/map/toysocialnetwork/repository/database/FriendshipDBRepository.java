@@ -5,16 +5,16 @@ import map.toysocialnetwork.domain.Friendship;
 import map.toysocialnetwork.domain.validators.FriendshipValidator;
 import map.toysocialnetwork.enums.FriendshipRequest;
 import map.toysocialnetwork.repository.Repository;
+import map.toysocialnetwork.repository.pagination.Page;
+import map.toysocialnetwork.repository.pagination.Pageable;
+import map.toysocialnetwork.repository.pagination.PagingRepository;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
-public class FriendshipDBRepository implements Repository<Long, Friendship> {
+public class FriendshipDBRepository implements PagingRepository<Long, Friendship> {
 
     FriendshipValidator friendshipValidator;
 
@@ -121,6 +121,44 @@ public class FriendshipDBRepository implements Repository<Long, Friendship> {
             statement.setLong(5, entity.getId());
             int affectedRows = statement.executeUpdate();
             return Optional.of(entity);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Page<Friendship> findall(Pageable pageable) {
+        List<Friendship> friendshipList = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/socialnetwork", "albert", "admin");
+             PreparedStatement pagePreparedStatement = connection.prepareStatement("SELECT * FROM friendships WHERE friend_request_status LIKE 'APPROVED' " +
+                     "LIMIT ? OFFSET ?");
+
+             PreparedStatement countPreparedStatement = connection.prepareStatement
+                     ("SELECT COUNT(*) AS count FROM friendships WHERE friend_request_status LIKE 'APPROVED' ");
+
+        ) {
+            pagePreparedStatement.setInt(1, pageable.getPageSize());
+            pagePreparedStatement.setInt(2, pageable.getPageSize() * pageable.getPageNumber());
+            try (ResultSet pageResultSet = pagePreparedStatement.executeQuery();
+                 ResultSet countResultSet = countPreparedStatement.executeQuery();) {
+                while (pageResultSet.next()) {
+                    Long id = pageResultSet.getLong("id");
+                    Long user1_id = pageResultSet.getLong("idfriend1");
+                    Long user2_id = pageResultSet.getLong("idfriend2");
+                    LocalDateTime friends_from = pageResultSet.getTimestamp("friendsfrom").toLocalDateTime();
+                    FriendshipRequest friendshipRequest = FriendshipRequest.valueOf(pageResultSet.getString("friend_request_status"));
+                    Friendship friendship = new Friendship(user1_id, user2_id, friends_from, friendshipRequest);
+                    friendship.setId(id);
+                    friendshipList.add(friendship);
+                }
+                int totalCount = 0;
+                if (countResultSet.next()) {
+                    totalCount = countResultSet.getInt("count");
+                }
+
+                return new Page<>(friendshipList, totalCount);
+
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

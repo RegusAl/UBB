@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import map.toysocialnetwork.domain.Friendship;
 import map.toysocialnetwork.domain.Message;
@@ -25,6 +27,7 @@ import static map.toysocialnetwork.controller.MessageUser.showErrorMessage;
 public class Controller implements Initializable {
 
 
+
     SocialNetwork socialNetwork;
 
     UserValidator userValidator;
@@ -32,16 +35,19 @@ public class Controller implements Initializable {
     // Observable Lists
 
     ObservableList<User> userObs = FXCollections.observableArrayList();
-    ObservableList<Friendship> friendshipModel = FXCollections.observableArrayList();
+    ObservableList<Friendship> friendshipObs = FXCollections.observableArrayList();
 
-    ObservableList<Friendship> friendshipsRequestsModel = FXCollections.observableArrayList();
+    ObservableList<Friendship> friendshipsRequestsObs = FXCollections.observableArrayList();
 
-    ObservableList<Message> messagesModel = FXCollections.observableArrayList();
+    ObservableList<Message> messagesObs = FXCollections.observableArrayList();
 
     // Pagination vars
 
     private int currentPageUsers = 0;
     private int pageSizeUsers = 5;
+
+    private int currentPageFriendships = 0;
+    private int pageSizeFriendships = 5;
 
     // User Window
 
@@ -49,6 +55,8 @@ public class Controller implements Initializable {
     public Button firstPageBtnUsers;
     public Button nextBtnUsers;
     public Button lastPageBtnUsers;
+
+    public TextField numberUsersOnPage;
 
     @FXML
     private ListView<User> listUsers;
@@ -63,6 +71,12 @@ public class Controller implements Initializable {
     public TextField textFieldLastName;
 
     // Friendship Window
+
+    public Button firstPageBtnFriendships;
+    public Button previousBtnPageFriendships;
+    public Button nextBtnPageFriendships;
+    public Button lastBtnPageFriendships;
+    public TextField numberFriendshipsOnPage;
 
     @FXML
     private ListView<Friendship> listFriendships;
@@ -109,8 +123,8 @@ public class Controller implements Initializable {
         choiceboxId1.setItems(userObs);
         choiceboxId2.setItems(userObs);
         listUsers.setItems(userObs);
-        listFriendships.setItems(friendshipModel);
-        listFriendshipsRequests.setItems(friendshipsRequestsModel);
+        listFriendships.setItems(friendshipObs);
+        listFriendshipsRequests.setItems(friendshipsRequestsObs);
     }
 
     public void initApp() {
@@ -118,10 +132,12 @@ public class Controller implements Initializable {
         listFriendships.getItems().clear();
         listFriendshipsRequests.getItems().clear();
 
+        // Users
+
         Page<User> pageUsers = socialNetwork.findAllUsers(new Pageable(currentPageUsers, pageSizeUsers));
 
         int maxPageUsers = (int) Math.ceil((double) pageUsers.getTotalElementsCount() / pageSizeUsers) - 1;
-        if(currentPageUsers > maxPageUsers) {
+        if (currentPageUsers > maxPageUsers) {
             currentPageUsers = maxPageUsers;
             pageUsers = socialNetwork.findAllUsers(new Pageable(currentPageUsers, pageSizeUsers));
         }
@@ -139,14 +155,37 @@ public class Controller implements Initializable {
 
         listUsers.setItems(userObs);
 
-//        pageNumberUsers.setText((currentPageUsers + 1) + "/" + (maxPageUsers + 1));
+        // Friendships
 
-        for (Friendship friendship : socialNetwork.getFriendships()) {
-            if (friendship.getFriendshipRequestStatus() == FriendshipRequest.APPROVED)
-                friendshipModel.add(friendship);
-            System.out.println(friendship.getFriendshipRequestStatus());
-            friendshipsRequestsModel.add(friendship);
+        Page<Friendship> pageFriendships = socialNetwork.findAllFriendships(new Pageable(currentPageFriendships, pageSizeFriendships));
+
+        int maxPageFriendships = (int) Math.ceil((double) pageFriendships.getTotalElementsCount() / pageSizeFriendships) - 1;
+        if (currentPageFriendships > maxPageFriendships) {
+            currentPageFriendships = maxPageFriendships;
+            pageFriendships = socialNetwork.findAllFriendships(new Pageable(currentPageFriendships, pageSizeFriendships));
         }
+
+        int totalNumberOfElementsFriendships = pageFriendships.getTotalElementsCount();
+
+        previousBtnPageFriendships.setDisable(currentPageFriendships == 0);
+        firstPageBtnFriendships.setDisable(currentPageFriendships == 0);
+        nextBtnPageFriendships.setDisable((currentPageFriendships + 1) * pageSizeFriendships >= totalNumberOfElementsFriendships);
+        lastBtnPageFriendships.setDisable((currentPageFriendships + 1) * pageSizeFriendships >= totalNumberOfElementsFriendships);
+
+
+        for (Friendship friendship : pageFriendships.getElementsOnPage()) {
+                friendshipObs.add(friendship);
+        }
+
+        listFriendships.setItems(friendshipObs);
+
+        // Friendships requests
+
+        for(Friendship friendshipRequest : socialNetwork.getFriendships()) {
+            friendshipsRequestsObs.add(friendshipRequest);
+        }
+
+        listFriendshipsRequests.setItems(friendshipsRequestsObs);
 
     }
 
@@ -282,15 +321,15 @@ public class Controller implements Initializable {
 
     public void loadListMessages(Long id1, Long id2) {
         listMessages.getItems().clear();
-        messagesModel.clear();
-        for(Message msg : socialNetwork.getMessages(id1, id2)) {
-            messagesModel.add(msg);
+        messagesObs.clear();
+        for (Message msg : socialNetwork.getMessages(id1, id2)) {
+            messagesObs.add(msg);
         }
-        if (messagesModel.isEmpty()) {
+        if (messagesObs.isEmpty()) {
             showErrorMessage(null, "There are no messages!");
         }
 //        System.out.println(listMessages.getItems());
-        listMessages.setItems(messagesModel);
+        listMessages.setItems(messagesObs);
     }
 
     public void searchMessages(MouseEvent mouseEvent) {
@@ -314,6 +353,8 @@ public class Controller implements Initializable {
         message.clear();
     }
 
+    // Pagination Users
+
     public void onPreviousPageUsers(MouseEvent mouseEvent) {
         currentPageUsers--;
         initApp();
@@ -333,5 +374,48 @@ public class Controller implements Initializable {
         Page<User> userPage = socialNetwork.findAllUsers(new Pageable(currentPageUsers, pageSizeUsers));
         currentPageUsers = (int) Math.ceil((double) userPage.getTotalElementsCount() / pageSizeUsers) - 1;
         initApp();
+    }
+
+    public void setNumberOfUsersOnPage(KeyEvent keyEvent) {
+        if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+            try {
+                pageSizeUsers = Integer.parseInt(numberUsersOnPage.getText());
+            } catch (Exception e) {
+                showErrorMessage(null, "Wrong input!");
+            }
+            initApp();
+        }
+    }
+
+    public void onFirstPageFriendships(MouseEvent mouseEvent) {
+        currentPageFriendships = 0;
+        initApp();
+    }
+
+    public void onPreviousPageFriendships(MouseEvent mouseEvent) {
+        currentPageFriendships--;
+        initApp();
+    }
+
+    public void onNextPageFriendships(MouseEvent mouseEvent) {
+        currentPageFriendships++;
+        initApp();
+    }
+
+    public void onLastPageFriendships(MouseEvent mouseEvent) {
+        Page<Friendship> friendshipPage = socialNetwork.findAllFriendships(new Pageable(currentPageFriendships, pageSizeFriendships));
+        currentPageFriendships = (int) Math.ceil((double) friendshipPage.getTotalElementsCount() / pageSizeFriendships) - 1;
+        initApp();
+    }
+
+    public void setNumberOfFriendshipsOnPage(KeyEvent keyEvent) {
+        if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+            try {
+                pageSizeFriendships = Integer.parseInt(numberFriendshipsOnPage.getText());
+            } catch (Exception e) {
+                showErrorMessage(null, "Wrong input!");
+            }
+            initApp();
+        }
     }
 }

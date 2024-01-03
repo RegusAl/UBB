@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" rotateGraphic="true" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="map.toysocialnetwork.Controller">
   <tabs>
@@ -16,10 +17,12 @@
                   <Button layoutX="384.0" layoutY="164.0" minHeight="25.0" minWidth="95.0" mnemonicParsing="false" onMouseClicked="#addUser" text="Add User" />
                   <Button layoutX="384.0" layoutY="213.0" minHeight="25.0" minWidth="95.0" mnemonicParsing="false" onMouseClicked="#deleteUser" text="Delete User" />
                   <Button layoutX="384.0" layoutY="261.0" minHeight="25.0" minWidth="95.0" mnemonicParsing="false" onMouseClicked="#updateUser" text="Update" />
-                  <Button fx:id="previousBtnUsers" layoutX="66.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#onPreviousPageUsers" text="&lt;" />
-                  <Button fx:id="firstPageBtnUsers" layoutX="26.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#onFirstPageUsers" text="&lt;&lt;" />
-                  <Button fx:id="nextBtnUsers" layoutX="229.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#onNextPageUsers" text="&gt;" />
-                  <Button fx:id="lastPageBtnUsers" layoutX="258.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#onLastPageUsers" text="&gt;&gt;" />
+                  <Button fx:id="previousBtnUsers" layoutX="90.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#onPreviousPageUsers" text="&lt;" />
+                  <Button fx:id="firstPageBtnUsers" layoutX="50.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#onFirstPageUsers" text="&lt;&lt;" />
+                  <Button fx:id="nextBtnUsers" layoutX="231.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#onNextPageUsers" text="&gt;" />
+                  <Button fx:id="lastPageBtnUsers" layoutX="260.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#onLastPageUsers" text="&gt;&gt;" />
+                  <TextField fx:id="numberUsersOnPage" layoutX="414.0" layoutY="334.0" onKeyPressed="#setNumberOfUsersOnPage" prefHeight="24.0" prefWidth="35.0" />
+                  <Label layoutX="349.0" layoutY="310.0" text="Number of users on page" />
                </children>
             </AnchorPane>
       </content>
@@ -29,7 +32,16 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <ListView fx:id="listFriendships" layoutX="42.0" layoutY="24.0" prefHeight="278.0" prefWidth="516.0" />
-                  <Button layoutX="234.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#deleteFriendship" text="Delete Friendship" />
+                  <Button layoutX="425.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#deleteFriendship" text="Delete Friendship" />
+                  <Button fx:id="firstPageBtnFriendships" layoutX="42.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#onFirstPageFriendships" text="&lt;&lt;" />
+                  <Button fx:id="previousBtnPageFriendships" layoutX="82.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#onPreviousPageFriendships" text="&lt;" />
+                  <Button fx:id="nextBtnPageFriendships" layoutX="271.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#onNextPageFriendships" text="&gt;" />
+                  <Button fx:id="lastBtnPageFriendships" layoutX="300.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#onLastPageFriendships" text="&gt;&gt;" />
+                  <Label layoutX="133.0" layoutY="308.0" prefHeight="16.0" prefWidth="104.0" text="Friendships on page" textAlignment="CENTER">
+                     <font>
+                        <Font size="10.0" />
+                     </font></Label>
+                  <TextField fx:id="numberFriendshipsOnPage" layoutX="172.0" layoutY="324.0" onKeyPressed="#setNumberOfFriendshipsOnPage" prefHeight="24.0" prefWidth="26.0" />
                </children>
             </AnchorPane>
       </content>

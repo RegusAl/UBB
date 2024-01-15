@@ -67,7 +67,7 @@ candidat2(N, R):- N > 1,
 permutari(N, R):- candidat2(N, E),
                   permAux(N, 1, [E], R).
 
-
+ 
 % permAux(n, len, l1...ln) = { l1...ln, n = len
 %                            { permAux(n, len + 1, e U l1...ln), daca
 %                            !apare(l1...ln, e) si abs(l1-e) >= 2

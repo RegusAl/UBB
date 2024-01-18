@@ -9,7 +9,7 @@
   (cond
     ((and (not (equal L E)) (atom L))  L)
     ((and (equal L E) (atom L)) L1)
-    (t (mapcar #' (lambda (X) (substituire X E L1)) L))
+    (t (mapcar #' (lambda(x) (substituire X E L1)) L))
   )
 )
 

@@ -1,11 +1,10 @@
-package domain;
+package ro.ubbcluj.cs.map.socialnetwork.domain;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 public class Entity<ID> implements Serializable {
 
-   // private static final long serialVersionUID = 7331115341259248461L;
     protected ID id;
 
     public ID getId() {
@@ -18,7 +17,8 @@ public class Entity<ID> implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Entity<?> entity)) return false;
+        if (!(o instanceof Entity)) return false;
+        Entity<?> entity = (Entity<?>) o;
         return getId().equals(entity.getId());
     }
 
@@ -34,4 +34,3 @@ public class Entity<ID> implements Serializable {
                 '}';
     }
 }
-

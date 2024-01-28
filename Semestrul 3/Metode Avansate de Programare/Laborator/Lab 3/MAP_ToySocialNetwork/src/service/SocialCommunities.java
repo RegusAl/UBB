@@ -18,7 +18,7 @@ public class SocialCommunities {
 
     void DFS(Long v, HashMap<Long, Boolean> visited) {
         visited.put(v, true);
-        System.out.println(v + " ");
+        System.out.println(v + " " + this.socialNetwork.findUser(v).getFirstName() + " " + this.socialNetwork.findUser(v).getLastName());
         if (adjList.containsKey(v)) {
             for (Long x : adjList.get(v)) {
                 if (!visited.containsKey(x))
@@ -26,7 +26,6 @@ public class SocialCommunities {
             }
         }
     }
-
 
     public int connectedCommunities() {
         // creates an adjency list of user and its friends
@@ -60,30 +59,28 @@ public class SocialCommunities {
         return nrOfCommunities;
     }
 
-//    public void mostSocialCommunity() {
-//        // creates an adjency list of user and its friends
-//        adjList = new HashMap<Long, List<Long>>();
-//        List<Long> max = new ArrayList<>();
-//        for (User user : socialNetwork.getUsers()) {
-//            List<Long> friends = new ArrayList<>();
-//            for (Friendship friendship : socialNetwork.getFriendships()) {
-//                if (friendship.getIdUser1().equals(user.getId()))
-//                    friends.add(friendship.getIdUser2());
-//                if (friendship.getIdUser2().equals(user.getId()))
-//                    friends.add(friendship.getIdUser1());
-//            }
-//            if (!friends.isEmpty()) {
-//                this.adjList.put(user.getId(), friends);
-//                if(max.size()<friends.size()+1) {
-//                    max = friends;
-//                    max.add(user.getId());
-//                }
-//            }
-//        }
+    public List<Long> mostSocialCommunity() {
+        // creates an adjency list of user and its friends
+        adjList = new HashMap<Long, List<Long>>();
+        List<Long> max = new ArrayList<>();
+        for (User user : socialNetwork.getUsers()) {
+            List<Long> friends = new ArrayList<>();
+            for (Friendship friendship : socialNetwork.getFriendships()) {
+                if (friendship.getIdUser1().equals(user.getId()))
+                    friends.add(friendship.getIdUser2());
+                if (friendship.getIdUser2().equals(user.getId()))
+                    friends.add(friendship.getIdUser1());
+            }
+            if (!friends.isEmpty()) {
+                this.adjList.put(user.getId(), friends);
+                if (max.size() < friends.size() + 1) {
+                    max = friends;
+                    max.add(user.getId());
+                }
+            }
+        }
 //        System.out.println(adjList.values());
 //        System.out.println(max);
-//
-//    }
-
-
+        return max;
+    }
 }

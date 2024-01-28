@@ -27,7 +27,6 @@ public class AddUserController {
 
     }
 
-
     public void setService(SocialNetwork socialNetwork, Stage dialogStage, User user) {
         this.service = socialNetwork;
         this.dialogStage = dialogStage;

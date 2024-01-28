@@ -32,7 +32,6 @@ public class StartApplication extends Application {
         PagingRepository<Long, Friendship> friendshipDBRepository = new FriendshipDBRepository(new FriendshipValidator( userRepo));
         MessagesDBRepository messagesDBRepository = new MessagesDBRepository(userRepo);
 
-
         socialNetwork = new SocialNetwork(userRepo, friendshipDBRepository, messagesDBRepository);
 
         initView(primaryStage);

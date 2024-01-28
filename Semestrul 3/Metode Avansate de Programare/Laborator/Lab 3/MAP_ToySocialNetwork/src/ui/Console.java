@@ -6,6 +6,7 @@ import domain.validators.ValidationException;
 import service.SocialCommunities;
 import service.SocialNetwork;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Console {
@@ -58,9 +59,9 @@ public class Console {
                 case "7":
                     printConnectedCommunities();
                     break;
-//                case "8":
-//                    printMostSocialCommunity();
-//                    break;
+                case "8":
+                    printMostSocialCommunity();
+                    break;
                 case "0":
                     System.out.println("exit");
                     ok = false;
@@ -72,6 +73,10 @@ public class Console {
         }
     }
 
+
+    /**
+     * Prints the users from the social network
+     */
     void printUsers() {
         System.out.println("\t\t\tUSERS\t\t\t");
         for (User u : socialNetwork.getUsers()) {
@@ -79,7 +84,12 @@ public class Console {
         }
     }
 
+
+    /**
+     * Adds user to the social network
+     */
     void addUser() {
+        System.out.println("Add user");
         Scanner scan = new Scanner(System.in);
         System.out.println("First name: ");
         String firstName = scan.nextLine();
@@ -92,21 +102,32 @@ public class Console {
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid argument");
         }
+
     }
 
+
+    /**
+     * Removes user from social network
+     */
     void removeUser() {
         printUsers();
+        System.out.println("Remove user");
         Scanner scan = new Scanner(System.in);
         System.out.println("Id: ");
         String var = scan.nextLine();
         try {
             Long id = Long.parseLong(var);
-            socialNetwork.removeUser(id);
+            User user = socialNetwork.removeUser(id);
+            System.out.println("User: " + user.getId() + " " + user.getFirstName() + " " + user.getLastName() + " was removed.");
         } catch (IllegalArgumentException e) {
             System.out.println("ID must be a number! It can't contain letters or symbols! ");
         }
     }
 
+
+    /**
+     * Prints friendships
+     */
     void printFriendships() {
 
 //        for (User u : socialNetwork.getUsers()) {
@@ -121,15 +142,18 @@ public class Console {
 //        }
 
         for (User u : socialNetwork.getUsers()) {
-            System.out.println("Friends of user: " + u.getFirstName() + " " + u.getLastName() + " ( " + u.getFriends().size() + " )");
+            System.out.println("Friends of user: " + u.getFirstName() + " " + u.getLastName() + " ( Number of friends: " + u.getFriends().size() + " )");
             if (u.getFriends() != null) {
                 for (User f : u.getFriends()) {
-                    System.out.println("( ID" + f.getId() + " ) " + f.getFirstName() + " " + f.getLastName());
+                    System.out.println("( ID: " + f.getId() + " ) " + f.getFirstName() + " " + f.getLastName());
                 }
             }
         }
     }
 
+    /**
+     * Adds a new friendship between two users
+     */
     void addFriendship() {
         Scanner scan = new Scanner(System.in);
         System.out.println("ID of the first user: ");
@@ -153,6 +177,9 @@ public class Console {
     }
 
 
+    /**
+     * Removes a friendship between two friends
+     */
     private void removeFriendship() {
         Scanner scan = new Scanner(System.in);
         System.out.println("ID of the first user: ");
@@ -173,14 +200,20 @@ public class Console {
         }
     }
 
+
+    /**
+     * Prints connected communities
+     */
     private void printConnectedCommunities() {
-        System.out.println("Social Communities");
+        System.out.println("Social Communities\n");
         int nrOfCommunities = socialCommunities.connectedCommunities();
         System.out.println("Number of Social Communities: " + nrOfCommunities);
     }
 
-//    private void printMostSocialCommunity() {
-//        socialCommunities.mostSocialCommunity();
-//    }
+    private void printMostSocialCommunity() {
+        System.out.println("Most social community: ");
+        List<Long> mostSocialCommunity = socialCommunities.mostSocialCommunity();
+        mostSocialCommunity.forEach(System.out::println);
+    }
 
 }

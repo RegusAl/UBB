@@ -1,0 +1,6 @@
+1,11.01.2023,Utilities
+2,12.04.2024,Electronics
+3,05.01.2024,Fashion
+4,01.23.2024,Groceries
+5,01.22.2024,Groceries
+

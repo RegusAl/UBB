@@ -1,0 +1,4 @@
+1,calculator,3,1000,2
+2,tastatura,10,55,2
+3,aspirator,3000,89,1
+4,telefon,3,500,2

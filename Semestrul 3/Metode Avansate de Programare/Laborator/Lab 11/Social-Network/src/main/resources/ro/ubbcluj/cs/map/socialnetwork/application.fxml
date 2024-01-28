@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ro.ubbcluj.cs.map.socialnetwork.controller.ApplicationController">
+    <tabs>
+        <Tab text="Profile">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="userProfile" layoutX="63.0" layoutY="106.0" prefHeight="146.0" prefWidth="296.0" text="qwerty" textFill="#1d2b53">
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
+                  <Label layoutX="63.0" layoutY="47.0" prefHeight="59.0" prefWidth="459.0" text="Hello" textFill="#1d2b53">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="Friends">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <ListView fx:id="listOfFriendships" layoutX="33.0" layoutY="29.0" prefHeight="270.0" prefWidth="280.0" />
+                        <Button layoutX="412.0" layoutY="172.0" mnemonicParsing="false" onMouseClicked="#deleteFriendship" text="Delete friendship" />
+                        <Button fx:id="previousBtnFriendships" layoutX="73.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#onPreviousFriendships" text="&lt;" />
+                        <Button fx:id="nextBtnFriendships" layoutX="252.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#onNextFriendships" text="&gt;" />
+                        <Button fx:id="firstPageBtnFriendships" layoutX="33.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#onFirstFriendships" text="&lt;&lt;" />
+                        <Button fx:id="lastPageBtnFriendships" layoutX="283.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#onLastFriendships" text="&gt;&gt;" />
+                        <Label layoutX="32.0" layoutY="342.0" text="Number of elements on page:" />
+                        <TextField fx:id="noElementsOnPageFriendships" layoutX="201.0" layoutY="338.0" onKeyPressed="#setNoElementsOnPageFriendships" prefHeight="1.0" prefWidth="33.0" />
+                        <Label fx:id="pageNumberFriendships" layoutX="163.0" layoutY="310.0" prefHeight="21.0" prefWidth="59.0" text="?/?" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab fx:id="friendRequestsWindow" text="Friend Requests">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <ListView fx:id="listOfFriendRequests" layoutX="33.0" layoutY="29.0" prefHeight="268.0" prefWidth="283.0" />
+                        <TextField fx:id="friendRequestEmail" layoutX="379.0" layoutY="69.0" promptText="email" />
+                        <Button layoutX="398.0" layoutY="106.0" mnemonicParsing="false" onMouseClicked="#createFriendRequest" text="Create friend request" />
+                        <Button layoutX="372.0" layoutY="219.0" mnemonicParsing="false" onMouseClicked="#acceptFriendRequest" text="Accept" />
+                        <Button layoutX="479.0" layoutY="219.0" mnemonicParsing="false" onMouseClicked="#rejectFriendRequest" text="Reject" />
+                        <Label layoutX="428.0" layoutY="194.0" text="Response" />
+                        <Button layoutX="379.0" layoutY="314.0" mnemonicParsing="false" onMouseClicked="#deleteFriendRequest" text="Delete friendship request" />
+                        <Button fx:id="previousBtnFriendRequests" layoutX="72.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#onPreviousFriendRequests" text="&lt;" />
+                        <Button fx:id="nextBtnFriendRequests" layoutX="252.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#onNextFriendRequests" text="&gt;" />
+                        <Button fx:id="firstPageBtnFriendRequests" layoutX="33.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#onFirstFriendRequests" text="&lt;&lt;" />
+                        <Button fx:id="lastPageBtnFriendRequests" layoutX="283.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#onLastFriendRequests" text="&gt;&gt;" />
+                        <Label layoutX="33.0" layoutY="333.0" text="Number of elements on page:" />
+                        <TextField fx:id="noElementsOnPageFriendRequests" layoutX="195.0" layoutY="329.0" onKeyPressed="#setNoElementsOnPageFriendRequests" prefHeight="1.0" prefWidth="33.0" />
+                        <Label fx:id="pageNumberFriendRequests" layoutX="166.0" layoutY="305.0" prefHeight="21.0" prefWidth="57.0" text="?/?" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab fx:id="messageWindow" text="Messages">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <ListView fx:id="listOfMessages" layoutX="33.0" layoutY="29.0" prefHeight="270.0" prefWidth="283.0" />
+                        <TextField fx:id="showMessagesEmail" layoutX="378.0" layoutY="38.0" promptText="email" />
+                        <Button layoutX="400.0" layoutY="79.0" mnemonicParsing="false" onMouseClicked="#searchMessages" text="Search messages" />
+                        <Button layoutX="470.0" layoutY="263.0" mnemonicParsing="false" onMouseClicked="#sendMessage" text="Send" />
+                        <TextField fx:id="message" layoutX="379.0" layoutY="183.0" prefHeight="72.0" prefWidth="149.0" promptText="message" />
+                        <TextField fx:id="sendEmailTo" layoutX="379.0" layoutY="152.0" promptText="email_to" />
+                        <Label layoutX="415.0" layoutY="127.0" text="Send message" />
+                        <Button layoutX="392.0" layoutY="263.0" mnemonicParsing="false" onMouseClicked="#replyMessage" text="Reply" />
+                        <Button fx:id="previousBtnMessages" layoutX="72.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#onPreviousMessages" text="&lt;" />
+                        <Button fx:id="nextBtnMessages" layoutX="252.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#onNextMessages" text="&gt;" />
+                        <Button fx:id="firstPageBtnMessages" layoutX="33.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#onFirstMessages" text="&lt;&lt;" />
+                        <Button fx:id="lastPageBtnMessages" layoutX="283.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#onLastMessages" text="&gt;&gt;" />
+                        <Label layoutX="28.0" layoutY="330.0" text="Number of elements on page:" />
+                        <TextField fx:id="noElementsOnPageMessages" layoutX="189.0" layoutY="326.0" onKeyPressed="#setNoElementsOnPageMessages" prefHeight="1.0" prefWidth="33.0" />
+                        <Label fx:id="pageNumberMessages" layoutX="160.0" layoutY="303.0" prefHeight="21.0" prefWidth="51.0" text="?/?" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+    </tabs>
+</TabPane>

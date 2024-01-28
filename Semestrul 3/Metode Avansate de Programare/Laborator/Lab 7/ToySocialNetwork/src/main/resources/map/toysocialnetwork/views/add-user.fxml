@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="map.toysocialnetwork.AddUserController">
+<AnchorPane prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: ghostwhite;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="map.toysocialnetwork.AddUserController">
     <children>
         <GridPane hgap="5.0" layoutX="50.0" prefHeight="207.0" prefWidth="373.0" vgap="5.0" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="10.0">
             <columnConstraints>
@@ -34,12 +34,12 @@
         </GridPane>
         <ButtonBar layoutX="250.0" layoutY="262.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0">
             <buttons>
-                <Button mnemonicParsing="false" onAction="#handleSave" text="Save">
+                <Button mnemonicParsing="false" onAction="#handleSave" style="-fx-background-color: gainsboro; -fx-border-color: black;" text="Save">
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+                <Button mnemonicParsing="false" onAction="#handleCancel" style="-fx-background-color: gainsboro; -fx-border-color: black;" text="Cancel" />
             </buttons>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ro.ubbcluj.cs.map.socialnetwork.controller.LogInController">
+   <left>
+      <AnchorPane prefHeight="335.0" prefWidth="300.0" style="-fx-background-color: #1D2B53;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="51.0" layoutY="186.0" text="Social Network" textFill="WHITE">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="400.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="emailTxtField" layoutX="85.0" layoutY="175.0" promptText="email" style="-fx-background-color: transparent; -fx-border-color: #1D2B53; -fx-border-width: 0 0 2 0;" />
+            <PasswordField fx:id="passwordTxtField" layoutX="85.0" layoutY="210.0" promptText="password" style="-fx-background-color: transparent; -fx-border-color: #1D2B53; -fx-border-width: 0 0 2 0;" />
+            <Button fx:id="logInBtn" layoutX="110.0" layoutY="253.0" mnemonicParsing="false" onMouseClicked="#logIn" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #1D2B53;" text="Login" textAlignment="CENTER" textFill="WHITE" />
+            <Label layoutX="127.0" layoutY="118.0" text="Login" textFill="#1d2b53">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Hyperlink fx:id="signUpHLink" layoutX="129.0" layoutY="343.0" onAction="#signUpWindow" text="Signup" textAlignment="CENTER" />
+            <Button fx:id="closeAppBtn" layoutX="262.0" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#closeApp" prefHeight="18.0" prefWidth="22.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <FontAwesomeIconView fill="#166678" glyphName="CLOSE" size="20" text="" />
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>

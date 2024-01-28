@@ -26,7 +26,7 @@ public class SocialNetwork {
     private final MessagesDBRepository messagesDBRepository;
 
 
-    public SocialNetwork(PagingRepository<Long, User> repositoryUser, PagingRepository<Long, Friendship> repositoryFriendship, MessagesDBRepository messagesDBRepository) {
+    public SocialNetwork(PagingRepository<Long, User> repositoryUser, PagingRepository<Long, Friendship> repositoryFriendship,  MessagesDBRepository messagesDBRepository) {
         this.repositoryUser = repositoryUser;
         this.repositoryFriendship = repositoryFriendship;
         this.messagesDBRepository = messagesDBRepository;
@@ -210,4 +210,5 @@ public class SocialNetwork {
     public Page<Friendship> findAllFriendships(Pageable pageable) {
         return repositoryFriendship.findall(pageable);
     }
+
 }

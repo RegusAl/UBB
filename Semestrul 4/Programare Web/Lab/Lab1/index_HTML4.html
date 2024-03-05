@@ -1,0 +1,182 @@
+<html>
+  <head>
+    <title>Inscriere Concurs Alergare</title>
+  </head>
+  <body bgcolor="#7CB85E">
+    <h1><b>nscriere Concurs Alergare </b></h1>
+
+    <form action="#">
+      <h2>
+        <u>Detalii concurent</u>
+      </h2>
+
+      <table border="2px" width="70%">
+        <tr align="center">
+          <td>
+            <label> Nume</label>
+            <input type="text" name="Nume" maxlength="10">
+          </td>
+          <td>
+            <label>Prenume</label>
+            <input type="text" name="Prenume" maxlength="10">
+          </td>
+        </tr>
+        <tr align="center">
+          <td>
+            <label>Email</label>
+            <input type="text">
+          </td>
+          <td>
+            <label>Ora</label>
+            <input type="text">
+          </td>
+        </tr>
+        <tr>
+          <td align="center">
+            <table width="90%" border="5px">
+              <tr>
+                <td colspan="2" align="center">
+                  <label>Gender</label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="radio" name="gender" value="Male" id="male">
+                  <label for="male">Male</label>
+                </td>
+                <td>
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="Female"
+                    id="female"
+                  >
+                  <label for="female">Female</label>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td>
+            <table border="1px" align="center">
+              <tr>
+                <td valign="middle">
+                  <h4>Experienta</h4>
+                </td>
+                <td>
+                  <input type="checkbox" id="e" name="e" value="Experimentat" >
+                  <label for="e">Experimentat</label>
+                  <br >
+                  <input type="checkbox" id="m" name="m" value="Nivel mediu" >
+                  <label for="m">Nivel mediu</label>
+                  <br >
+                  <input type="checkbox" id="i" name="i" value="Incepator" >
+                  <label for="i">Incepator</label>
+                  <br >
+                  <input type="checkbox" id="p" name="p" value="Prima data" >
+                  <label for="p">Prima data</label>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center">
+            <label> Club Sportiv</label>
+            <br >
+            <input type="text" name="Club" maxlength="50" >
+          </td>
+        </tr>
+      </table>
+      <br >
+
+      <h3>
+        <u> Detalii Prob </u>
+      </h3>
+      <label>Categoria</label>
+      <select name="categorie">
+        <option>14-17 ani</option>
+        <option>18-25 ani</option>
+        <option>26-35 ani</option>
+        <option>36-45 ani</option>
+        <option>46+ ani</option>
+      </select>
+      <br>
+      <br>
+      <label> Prob Concurs </label>
+      <br>
+      <select name="probe" multiple>
+        <option value="cros" selected>Cros (10km)</option>
+        <option value="semimaraton">Semimaraton (21km)</option>
+        <option value="maraton">Maraton (42km)</option>
+        <option value="ultramaraton">Ultramaraton (100km)</option>
+      </select>
+      <br>
+      <label for="numarAlergator">
+        numarul alergatorului (completat de admin)
+      </label>
+      <input type="text" id="numarAlergator" name="numarAlergator" readonly>
+
+      <br>
+      <h3>
+        <u> Lista obligatorie de echipament</u>
+      </h3>
+      <ol type="I">
+        <li>
+          <b>Echipament sportiv </b>
+          <ul>
+            <li>Papuci de alergat</li>
+            <li>Tricou / pantaloni</li>
+            <li>Sapca (daca este soare)</li>
+            <li>Pelerina (daca este vreme instabila)</li>
+          </ul>
+        </li>
+        <li>
+          <b>Nutritie </b>
+          <ul>
+            <li>Apa</li>
+            <li>Batoane sau geluri</li>
+          </ul>
+        </li>
+        <li><b>Telefon si baterie in caz de nevoie </b></li>
+      </ol>
+      <br>
+      <fieldset>
+        <legend>termeni</legend>
+        <ol type="1">
+          <li>
+            Toate campurile sunt obligatorii!
+            <ul>
+              <li>Completarea presupune acceptarea preluarii datelor</li>
+            </ul>
+          </li>
+          <li>Plata concursului se va efectua dupa ce veti da submit!</li>
+        </ol>
+        <input type="checkbox" id="a" name="a">
+        <label for="a">
+          Accept
+          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank"
+            >termenii si conditiile</a
+          >
+        </label>
+        <br>
+        <input type="radio" id="b" name="b" checked disabled>
+        <label for="b"> Vreau sa fiu contactat pe mail </label>
+        <br>
+        <textarea name="message" rows="5" cols="50">nelamuriri</textarea>
+      </fieldset>
+      <br>
+      <br>
+      <input type="submit" value="Register!" >
+      <br>
+      <br>
+      <input type="reset">
+      <br>
+      <img
+        src="https://runningmagazine.ca/wp-content/uploads/2013/11/78457836-1024x682.jpg"
+        height="140"
+        title="nuj"
+        alt="alergare"
+      >
+    </form>
+  </body>
+</html>

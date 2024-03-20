@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+}
+
+header {
+    background-color: red;
+    height:15vh;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.main-view {
+    display: flex;
+}
+
+.menu {
+    background-color: yellow;
+}
+
+p.menu-item {
+    text-align: center;
+    width: 15vw;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+
+}
+
+.main {
+    background-color: green;
+    height: 70vh;
+    width: 85vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    background-color: pink;
+    height: 13vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

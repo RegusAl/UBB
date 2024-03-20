@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+}
+
+header {
+    background-color: red;
+    height:100px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.menu {
+    background-color: yellow;
+    height: 25px;
+}
+
+
+.main {
+    background-color: green;
+    min-height: calc(100vh - 185px);
+    width: 100vw;
+}
+
+footer {
+    background-color: pink;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,39 @@
+div.parinte {
+    border: 1;
+    border-color: black;
+    border-style: dashed;
+    display: flex;
+
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+div.copil-stanga {
+    width: 200px;
+    background-color: aliceblue;
+    align-items: center;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+p {
+    text-align: center;
+}
+
+div.copil-dreapta {
+    display: flex;
+    width: 200px;
+    background-color: aquamarine;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    max-width: 200px;
+}

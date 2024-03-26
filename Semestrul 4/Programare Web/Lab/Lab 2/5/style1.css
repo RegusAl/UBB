@@ -1,0 +1,39 @@
+html {
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    display: flex;
+}
+
+#main {
+    display: flex;
+    flex-wrap: wrap;
+    border: 5px;
+    border-color: black;
+    border-style: ridge;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    height: 200px;
+    width: 250px;
+    padding: 10px;
+    background-color: aqua;
+}
+
+p {
+    font-size: 40px;
+}
+
+#main > div {
+    height: 50%;
+    width: 50%;
+    box-sizing: border-box;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

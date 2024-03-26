@@ -1,0 +1,131 @@
+html {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+
+#menu {
+    display: table;
+}
+
+li {
+    list-style: none;
+    display: table-cell;
+    height: 84px;
+}
+
+#image1 {
+    left: 0px;
+    width: 84px;
+    background: url('icons.png') 0 -84px;
+}
+
+#image1:hover {
+    background: url('icons.png') 0 0px;
+}
+
+#image2 {
+    left: 84px;
+    width: 84px;
+    background: url('icons.png') -84px -84px;
+}
+
+#image2:hover {
+    background: url('icons.png') -84px 0px;
+}
+
+
+#image3 {
+    left: 168px;
+    width: 84px;
+    background: url('icons.png') -168px -84px;
+}
+
+#image3:hover {
+    background: url('icons.png') -168px 0px;
+}
+
+
+#image4 {
+    left: 252px;
+    width: 84px;
+    background: url('icons.png') -252px -84px;
+}
+
+#image4:hover {
+    background: url('icons.png') -252px 0px;
+}
+
+#image5 {
+    left: 336px;
+    width: 83px;
+    background: url('icons.png') -336px -84px;
+}
+
+#image5:hover {
+    background: url('icons.png') -336px 0px;
+}
+
+#image6 {
+    left: 420px;
+    width: 83px;
+    background: url('icons.png') -420px -84px;
+}
+
+#image6:hover {
+    background: url('icons.png') -420px 0px;
+}
+
+#image7 {
+    left: 504px;
+    width: 83px;
+    background: url('icons.png') -504px -84px;
+}
+
+#image7:hover {
+    background: url('icons.png') -504px 0px;
+}
+
+#image8 {
+    left: 588px;
+    width: 83px;
+    background: url('icons.png') -588px -84px;
+}
+
+#image8:hover {
+    background: url('icons.png') -588px 0px;
+}
+
+#image9 {
+    left: 672px;
+    width: 83px;
+    background: url('icons.png') -672px -84px;
+}
+
+#image9:hover {
+    background: url('icons.png') -672px 0px;
+}
+
+#image10 {
+    left: 756px;
+    width: 83px;
+    background: url('icons.png') -756px -84px;
+}
+
+#image10:hover {
+    background: url('icons.png') -756px 0px;
+}
+
+#image11 {
+    left: 840px;
+    width: 83px;
+    background: url('icons.png') -840px -84px;
+}
+
+#image11:hover {
+    background: url('icons.png') -840px 0px;
+}
+

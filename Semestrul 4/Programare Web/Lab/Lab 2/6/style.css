@@ -1,0 +1,34 @@
+html {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+
+}
+
+#nume, #prenume {
+	background-image: url('square.gif');
+	width: 415px;
+    height: 18px;
+    background-size: 21px;
+	background-repeat: repeat-x;
+    font-family: monospace;
+    font-size: 13px;
+    letter-spacing: 13.8px;
+}
+
+#cnp {
+	background-image: url('square.gif');
+	width: 269px;
+    height: 18px;
+    background-size: 21px;
+	background-repeat: repeat-x;
+    font-family: monospace;
+    font-size: 13px;
+    letter-spacing: 13.6px;
+}
+
+label {
+    padding-right: 10px;
+    padding-bottom: 30px;
+}

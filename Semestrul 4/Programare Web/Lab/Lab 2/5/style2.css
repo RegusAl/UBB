@@ -1,0 +1,42 @@
+html {
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    display: flex;
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    border: 5px;
+    border-color: black;
+    border-style: ridge;
+    background-color:azure;
+    /* justify-content: center;
+    align-items: center; */
+}
+
+#main > div {
+    box-sizing: border-box;
+    padding: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    height: 200px;
+    width: 250px;
+    padding: 10px;
+    background-color: aqua;
+    flex: 1;
+}
+
+p {
+    font-size: 20px;
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+}

@@ -3,8 +3,6 @@ div.parinte {
     border-color: black;
     border-style: dashed;
     display: flex;
-
-
     position: fixed;
     top: 50%;
     left: 50%;

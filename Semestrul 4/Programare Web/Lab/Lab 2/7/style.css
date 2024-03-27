@@ -25,7 +25,7 @@ ul {
 .alice {
     width: 30%;
     position: relative;
-    border-radius: .4em;
+    border-radius: 20px;
     background-color: #29773e;
 }
 
@@ -49,7 +49,7 @@ ul {
     border-right-color: #369457;
     border-left: 0;
     border-top: 0;
-    margin-top: -4.5px;
+    margin-top: -5px;
     margin-left: -9px;
 }
 
@@ -58,7 +58,7 @@ ul {
     width: 30%;
     position: relative;
     background-color: #29773e;
-    border-radius: .4em;
+    border-radius: 20px;
 }
 
 .bob::before {
@@ -80,9 +80,9 @@ ul {
     top: 50%;
     border: 9px solid transparent;
     border-right-color: #369457;
-    border-left: 0;
     border-top: 0;
-    margin-top: -4.5px;
+    border-left: 0;
+    margin-top: -5px;
     margin-left: -9px;
 }
 

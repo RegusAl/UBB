@@ -1,0 +1,11 @@
+label_name,bbox_x,bbox_y,bbox_width,bbox_height,image_name,image_width,image_height
+bike,9,33,399,375,bike01.jpg,416,416
+bike,17,89,362,234,bike02.jpg,416,416
+bike,157,144,193,265,bike03.jpg,416,416
+bike,3,1,412,412,bike04.jpg,416,416
+bike,61,52,294,296,bike05.jpg,416,416
+bike,157,147,188,260,bike06.jpg,416,416
+bike,56,184,246,231,bike07.jpg,416,416
+bike,53,1,337,355,bike08.jpg,416,416
+bike,4,8,363,380,bike09.jpg,416,416
+bike,141,123,229,286,bike10.jpg,416,416

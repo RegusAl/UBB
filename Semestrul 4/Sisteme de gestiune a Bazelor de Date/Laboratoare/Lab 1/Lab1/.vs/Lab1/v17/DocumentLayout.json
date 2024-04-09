@@ -1,0 +1,87 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Albert\\Documents\\UBB\\Semestrul 4\\Sisteme de gestiune a Bazelor de Date\\Laboratoare\\Lab 1\\Lab1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5444ED13-6155-49F6-989B-D2988D0138F4}|Lab1.csproj|C:\\Users\\Albert\\Documents\\UBB\\Semestrul 4\\Sisteme de gestiune a Bazelor de Date\\Laboratoare\\Lab 1\\Lab1\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5444ED13-6155-49F6-989B-D2988D0138F4}|Lab1.csproj|solutionrelative:form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5444ED13-6155-49F6-989B-D2988D0138F4}|Lab1.csproj|C:\\Users\\Albert\\Documents\\UBB\\Semestrul 4\\Sisteme de gestiune a Bazelor de Date\\Laboratoare\\Lab 1\\Lab1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5444ED13-6155-49F6-989B-D2988D0138F4}|Lab1.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5444ED13-6155-49F6-989B-D2988D0138F4}|Lab1.csproj|c:\\users\\albert\\documents\\ubb\\semestrul 4\\sisteme de gestiune a bazelor de date\\laboratoare\\lab 1\\lab1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5444ED13-6155-49F6-989B-D2988D0138F4}|Lab1.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5444ED13-6155-49F6-989B-D2988D0138F4}|Lab1.csproj|C:\\Users\\Albert\\Documents\\UBB\\Semestrul 4\\Sisteme de gestiune a Bazelor de Date\\Laboratoare\\Lab 1\\Lab1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5444ED13-6155-49F6-989B-D2988D0138F4}|Lab1.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\Albert\\Documents\\UBB\\Semestrul 4\\Sisteme de gestiune a Bazelor de Date\\Laboratoare\\Lab 1\\Lab1\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\Albert\\Documents\\UBB\\Semestrul 4\\Sisteme de gestiune a Bazelor de Date\\Laboratoare\\Lab 1\\Lab1\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AQIAAEQAAAAAAAAAAAAgwFoAAABDAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-12T06:35:16.516Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Albert\\Documents\\UBB\\Semestrul 4\\Sisteme de gestiune a Bazelor de Date\\Laboratoare\\Lab 1\\Lab1\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\Albert\\Documents\\UBB\\Semestrul 4\\Sisteme de gestiune a Bazelor de Date\\Laboratoare\\Lab 1\\Lab1\\Form1.cs [Design]",
+              "RelativeToolTip": "Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-12T06:33:33.891Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Albert\\Documents\\UBB\\Semestrul 4\\Sisteme de gestiune a Bazelor de Date\\Laboratoare\\Lab 1\\Lab1\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "Form1.Designer.cs",
+              "ToolTip": "C:\\Users\\Albert\\Documents\\UBB\\Semestrul 4\\Sisteme de gestiune a Bazelor de Date\\Laboratoare\\Lab 1\\Lab1\\Form1.Designer.cs",
+              "RelativeToolTip": "Form1.Designer.cs",
+              "ViewState": "AQIAANwAAAAAAAAAAAAiwOgAAAAqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-12T06:43:37.822Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Albert\\Documents\\UBB\\Semestrul 4\\Sisteme de gestiune a Bazelor de Date\\Laboratoare\\Lab 1\\Lab1\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Albert\\Documents\\UBB\\Semestrul 4\\Sisteme de gestiune a Bazelor de Date\\Laboratoare\\Lab 1\\Lab1\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-12T06:36:29.393Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

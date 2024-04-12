@@ -1,7 +1,7 @@
 # matricea de confuzie
 class Clasificator:
 
-    def metrici(computedValues, groundTruth, good, bad):
+    def metrici(computedValues, groundTruth, good):
         TP = 0
         TN = 0
         FP = 0
@@ -12,7 +12,7 @@ class Clasificator:
                     TP += 1
                 else:
                     FP += 1
-            elif computed_value == bad:
+            elif computed_value != good:
                 if groundTruth_value == good:
                     FN += 1
                 else:

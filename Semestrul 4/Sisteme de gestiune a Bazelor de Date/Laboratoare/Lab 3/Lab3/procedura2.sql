@@ -32,6 +32,28 @@ BEGIN
 
 END
 
+GO
+CREATE OR ALTER FUNCTION validareDepozit
+(@numeDepozit VARCHAR(50), 
+ @localitateDepozit VARCHAR(50)
+)
+RETURNS VARCHAR(100)
+AS
+BEGIN
+
+	DECLARE @mesajEroare VARCHAR(100)
+	SET @mesajEroare = ''
+
+	IF(@numeDepozit = '')
+	SET @mesajEroare += 'Numele depozitului este incorect! '
+
+	IF(@localitateDepozit = '')
+	SET @mesajEroare += 'Localitatea depozitului este incorect! '
+
+	RETURN @mesajEroare
+
+END
+
 
 GO
 CREATE OR ALTER PROCEDURE AddProduseDepozitCorecte @numeProdus varchar(50), @pretProdus float, @stocProdus int, @numeDepozit varchar(50), @localitateDepozit varchar(50)
@@ -77,6 +99,12 @@ BEGIN
 
 	BEGIN TRAN
 	BEGIN TRY
+
+		DECLARE @mesajEroareDepozit VARCHAR(100) = dbo.validareDepozit(@numeDepozit, @localitateDepozit);
+		IF (@mesajEroareDepozit <> '')
+		BEGIN
+			RAISERROR(@mesajEroareDepozit, 14, 1)
+		END
 
 		DECLARE @idDepozit INT
 
@@ -134,6 +162,10 @@ SELECT * FROM ProduseDepozite
 
 SELECT * FROM Logare
 
+
 EXEC AddProduseDepozitCorecte 'proc2_produs', 45, 45, 'depo', 'Jucu'
 
+-- rollback partial
 EXEC AddProduseDepozitCorecte 'produs_gresit', -56, 5, 'depo_bun', 'Ploiesti'
+EXEC AddProduseDepozitCorecte 'produs_bun', 56, 5, '', 'Ploiesti'
+EXEC AddProduseDepozitCorecte 'produs_bun', 56, 5, 'depo', ''

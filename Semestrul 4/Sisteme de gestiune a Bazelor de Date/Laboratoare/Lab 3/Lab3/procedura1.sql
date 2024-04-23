@@ -34,6 +34,28 @@ BEGIN
 
 END
 
+GO
+CREATE OR ALTER FUNCTION validareDepozit
+(@numeDepozit VARCHAR(50), 
+ @localitateDepozit VARCHAR(50)
+)
+RETURNS VARCHAR(100)
+AS
+BEGIN
+
+	DECLARE @mesajEroare VARCHAR(100)
+	SET @mesajEroare = ''
+
+	IF(@numeDepozit = '')
+	SET @mesajEroare += 'Numele depozitului este incorect! '
+
+	IF(@localitateDepozit = '')
+	SET @mesajEroare += 'Localitatea depozitului este incorect! '
+
+	RETURN @mesajEroare
+
+END
+
 
 -- procedura1
 GO
@@ -50,7 +72,11 @@ BEGIN
 
 			DECLARE @mesajEroareProdus VARCHAR(100) = dbo.validareProdus(@numeProdus, @pretProdus, @stocProdus)
 			IF (@mesajEroareProdus <> '')
-				SET @mesajEroare += @mesajEroareProdus + CHAR(13) + CHAR(10);
+				SET @mesajEroare += @mesajEroareProdus + ' ';
+
+			DECLARE @mesajEroareDepozit VARCHAR(100) = dbo.validareDepozit(@numeDepozit, @localitateDepozit);
+			IF (@mesajEroareDepozit <> '')
+				SET @mesajEroare += @mesajEroareDepozit;
 
 			--print @mesajEroare
 			--print @mesajEroareProdus
@@ -120,3 +146,6 @@ EXEC AddProduseDepozit 'test2', 90, 12, 'test_depozit2', 'Bucuresti'
 EXEC AddProduseDepozit 'test_fail', -9, 50, 'test_proc_depozit', 'Cluj'
 EXEC AddProduseDepozit 'test_fail', 12, -9, 'test_proc_depozit', 'Cluj'
 EXEC AddProduseDepozit 'test_fail3', -12, -9, 'test_proc_depozit', 'Cluj'
+EXEC AddProduseDepozit 'test_fail', 9, 50, 'test_proc_depozit', ''
+EXEC AddProduseDepozit 'test_fail', 9, 50, '', 'ffff'
+

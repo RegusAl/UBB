@@ -1,0 +1,21 @@
+html {
+    background-color:azure;
+}
+
+* {
+    margin: 10px;
+}
+
+div {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input {
+    padding: 10px;
+    background-color:whitesmoke;
+
+}

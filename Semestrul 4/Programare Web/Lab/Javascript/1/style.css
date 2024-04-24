@@ -1,0 +1,22 @@
+div {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+select {
+    width: 100px;
+    height: 150px;
+    background-color: azure;
+    border-radius: 10px;
+    border-color: black;
+    border-width: 1px;
+    padding: 10px;
+}
+
+select option:checked {
+    background-color: aqua;
+    color: black;
+}

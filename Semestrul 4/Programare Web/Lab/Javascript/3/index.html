@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel = "stylesheet" href = "style2.css" type = "text/css">
+		<script src = "script2.js" type = "text/javascript"></script>
+		<title> Memory Game </title>
+	</head>
+	<body>
+		<h1>Memory GAME!</h1>
+
+		<div class="center">
+			<span id="hidden">WINNER</span>
+			<p>Select the number of tiles</p>
+			<select size="2" name="list1" id="list1">
+				<option id="2" value="2" onclick="startNewGame(2)">2</option>
+				<option id="4" value="4"  onclick="startNewGame(4)">4</option>
+				<option id="8" value="8"  onclick="startNewGame(8)">8</option>
+			</select>
+			<div id = "board"></div>
+		</div>
+	</body>
+</html>

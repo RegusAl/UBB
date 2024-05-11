@@ -162,7 +162,6 @@ SELECT * FROM ProduseDepozite
 
 SELECT * FROM Logare
 
-
 EXEC AddProduseDepozitCorecte 'proc2_produs', 45, 45, 'depo', 'Jucu'
 
 -- rollback partial

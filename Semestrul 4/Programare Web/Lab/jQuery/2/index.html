@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div>
+      <form action="" method="get" id="form">
+        <label for="name">Name</label>
+
+        <br />
+        <input type="text" id="name" />
+
+        <br />
+
+        <label for="birth">Birth</label>
+        <br />
+        <input type="date" id="birth" onchange="updateAge()" />
+
+        <br />
+
+        <label for="age">Age</label>
+        <br />
+        <input type="number" id="age" />
+
+        <br />
+
+        <label for="email">Email</label>
+        <br />
+        <input type="text" id="email" />
+
+        <br />
+
+        <input type="button" value="Submit" onclick="validation()" />
+      </form>
+    </div>
+  </body>
+</html>

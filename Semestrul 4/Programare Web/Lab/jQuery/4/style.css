@@ -1,0 +1,29 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+table {
+    margin: 50px;
+    border-color: black;
+    border: solid;
+}
+
+th {
+    background-color: aliceblue;
+    border: solid;
+    width: 100px;
+    cursor: pointer;
+}
+
+th:hover {
+    background-color: aquamarine;
+}
+
+td {
+    width: 100px;
+}

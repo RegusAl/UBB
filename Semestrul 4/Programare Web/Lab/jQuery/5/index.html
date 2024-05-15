@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carusel</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div id="center">
+      <input
+        type="button"
+        name="Previous"
+        value="Previous"
+        id="Previous"
+        onclick="nextImage(-1)"
+      />
+      <div id="imgCurenta"></div>
+      <input type="button" id="Next" value="Next" onclick="nextImage(1)" />
+    </div>
+
+    <ol id="lista">
+      <li>
+        <a
+          href="https://www.imdb.com/title/tt0075148/?ref_=fn_al_tt_1"
+          target="_blank"
+          ><img src="images/rocky-1976-poster.avif" />
+        </a>
+      </li>
+      <li>
+        <a href="https://www.imdb.com/title/tt0110912/" target="_blank"
+          ><img src="images/pulp-fiction-1994-poster.avif"
+        /></a>
+      </li>
+      <li>
+        <a
+          href="https://www.imdb.com/title/tt0086250/?ref_=fn_al_tt_1"
+          target="_blank"
+          ><img src="images/scarface-1983-poster.avif"
+        /></a>
+      </li>
+      <li>
+        <a
+          href="https://www.imdb.com/title/tt0073195/?ref_=nv_sr_srsg_0_tt_7_nm_1_q_jaws"
+          target="_blank"
+          ><img src="images/jaws-poster.avif"
+        /></a>
+      </li>
+      <li>
+        <a
+          href="https://www.imdb.com/title/tt0107290/?ref_=nv_sr_srsg_0_tt_7_nm_1_q_jura"
+          target="_blank"
+          ><img src="images/Jurassic-Park.webp"
+        /></a>
+      </li>
+    </ol>
+    <script>
+      loadContent();
+    </script>
+  </body>
+</html>

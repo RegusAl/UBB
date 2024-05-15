@@ -1,0 +1,74 @@
+html {
+	background-color: #222;
+	color: #fff;
+}
+
+body {
+	margin: 30px;
+}
+
+span {
+	display: none;
+	color: greenyellow;
+	font-size: 100px;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+h1 {
+	text-align: center;
+}
+
+div#board 
+{
+	padding: 24px;
+	margin: auto;
+}
+div#board > div
+{
+	border: solid;
+	width: 70px;
+	height: 70px;
+	float:left;
+	margin: 10px;
+	padding: 20px;
+	font-size: 64px;
+	cursor: pointer;
+	text-align: center;
+}
+
+.row {
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+select {
+	margin-top: 50px;
+	appearance: none;
+	padding: 10px 20px;
+	border: 2px solid #333;
+	border-radius: 5px;
+	background-color: #222;
+	color: #fff;
+	font-size: 16px;
+	cursor: pointer;
+  }
+
+  option {
+	background-color: #222;
+	color: #fff;
+  }
+  
+  option:hover {
+	background-color: #444;
+  }
+  
+  option:checked {
+	background-color: #555;
+  }
